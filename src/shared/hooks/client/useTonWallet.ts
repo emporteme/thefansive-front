@@ -1,7 +1,7 @@
 'use client'
 
 import { useTonConnectUI, useTonWallet as useTonWalletBase } from '@tonconnect/ui-react'
-import { useState, useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 export function useTonWallet() {
   const [tonConnectUI] = useTonConnectUI()

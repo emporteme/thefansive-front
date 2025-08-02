@@ -1,8 +1,8 @@
 'use client'
 
-import { useWallet } from '@/shared/hooks/client/useWallet'
 import { Button } from '@/shared/components/ui/button'
 import { ClientOnly } from '@/shared/components/ui/ClientOnly'
+import { useWallet } from '@/shared/hooks/client/useWallet'
 
 function WalletConnectInner() {
   const { address, isConnected, isConnecting, connect, connectors, disconnect, error, isPending } = useWallet()

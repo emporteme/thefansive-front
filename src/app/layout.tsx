@@ -1,5 +1,5 @@
 import "@/styles/tailwind.css"
-import { Web3Provider, TonProvider } from "@/shared/components/web3"
+import { TonProvider, Web3Provider } from "@/shared/components/web3"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

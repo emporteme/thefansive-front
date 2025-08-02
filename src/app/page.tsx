@@ -1,4 +1,4 @@
-import { WalletConnect, TonConnect } from "@/shared/components/web3"
+import { TonConnect, WalletConnect } from "@/shared/components/web3"
 
 export default function Main() {
   return (

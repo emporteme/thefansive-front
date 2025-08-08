@@ -32,23 +32,23 @@ export function TonConnect() {
   return (
     <div className="flex flex-col items-center space-y-4 p-4">
       <TonConnectButton />
-      
+
       {wallet && (
         <div className="space-y-2 text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-gray-600 text-sm">
             Connected: {wallet.account.address.slice(0, 6)}...{wallet.account.address.slice(-4)}
           </p>
           <p className="text-sm">Balance: {balance} TON</p>
           <div className="space-x-2">
             <button
               onClick={getBalance}
-              className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+              className="bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded text-white text-sm"
             >
               Get Balance
             </button>
             <button
               onClick={handleDisconnect}
-              className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+              className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-white text-sm"
             >
               Disconnect
             </button>

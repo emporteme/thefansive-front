@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import { Button } from '@/shared/components/ui/button'
-import { ClientOnly } from '@/shared/components/ui/client-only'
-import { useWallet } from '@/shared/hooks/client/use-wallet'
+import { Button } from "@/shared/components/ui/button"
+import { ClientOnly } from "@/shared/components/ui/client-only"
+import { useWallet } from "@/shared/hooks/client/use-wallet"
 
 function WalletConnectInner() {
   const { address, isConnected, isConnecting, connect, connectors, disconnect, error, isPending } = useWallet()
@@ -10,7 +10,7 @@ function WalletConnectInner() {
   if (isConnected && address) {
     return (
       <div className="flex items-center gap-4">
-        <span className="text-gray-600 text-sm">
+        <span className="text-sm text-gray-600">
           {address.slice(0, 6)}...{address.slice(-4)}
         </span>
         <Button onClick={() => disconnect()} variant="outline" size="sm">
@@ -30,21 +30,17 @@ function WalletConnectInner() {
           variant="outline"
           className="w-full"
         >
-          {isConnecting ? 'Connecting...' : `Connect ${connector.name}`}
+          {isConnecting ? "Connecting..." : `Connect ${connector.name}`}
         </Button>
       ))}
-      {error && (
-        <p className="text-red-600 text-sm">
-          Error: {error.message}
-        </p>
-      )}
+      {error && <p className="text-sm text-red-600">Error: {error.message}</p>}
     </div>
   )
 }
 
 export function WalletConnect() {
   return (
-    <ClientOnly fallback={<div className="bg-gray-200 rounded-md h-10 animate-pulse" />}>
+    <ClientOnly fallback={<div className="h-10 animate-pulse rounded-md bg-gray-200" />}>
       <WalletConnectInner />
     </ClientOnly>
   )

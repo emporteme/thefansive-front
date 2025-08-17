@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC, ReactNode } from "react"
 
 interface ContentCardProps {
   title: string
@@ -6,13 +6,11 @@ interface ContentCardProps {
   className?: string
 }
 
-const ContentCard: FC<ContentCardProps> = ({ title, children, className = '' }) => {
+const ContentCard: FC<ContentCardProps> = ({ title, children, className = "" }) => {
   return (
-    <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
-      <h2 className="mb-4 font-semibold text-gray-900 text-xl">{title}</h2>
-      <div className="text-gray-700">
-        {children}
-      </div>
+    <div className={`rounded-lg bg-white p-6 shadow-md ${className}`}>
+      <h2 className="mb-4 text-xl font-semibold text-gray-900">{title}</h2>
+      <div className="text-gray-700">{children}</div>
     </div>
   )
 }

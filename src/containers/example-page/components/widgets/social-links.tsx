@@ -1,15 +1,15 @@
-import React, { FC } from 'react'
+import React, { FC } from "react"
 
 const SocialLinks: FC = () => {
   const socialLinks = [
-    { label: 'Telegram', href: 'https://t.me/example' },
-    { label: 'VK', href: 'https://vk.com/example' },
-    { label: 'YouTube', href: 'https://youtube.com/example' }
+    { label: "Telegram", href: "https://t.me/example" },
+    { label: "VK", href: "https://vk.com/example" },
+    { label: "YouTube", href: "https://youtube.com/example" },
   ]
 
   return (
     <div>
-      <h3 className="mb-4 font-semibold text-lg">Социальные сети</h3>
+      <h3 className="mb-4 text-lg font-semibold">Социальные сети</h3>
       <ul className="space-y-2">
         {socialLinks.map((link) => (
           <li key={link.href}>
@@ -17,7 +17,7 @@ const SocialLinks: FC = () => {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-300 hover:text-white transition-colors"
+              className="text-gray-300 transition-colors hover:text-white"
             >
               {link.label}
             </a>

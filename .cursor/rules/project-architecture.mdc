@@ -1,0 +1,69 @@
+# Project Architecture & Coding Standards
+
+## Project Structure
+- `app/` - ONLY Next.js routing, no components
+- `containers/` - ALL pages and features
+- `shared/` - reusable components across app
+- `src/` - utilities, configs, types
+
+## Container Pattern
+Each feature follows:
+```
+containers/feature-name/
+├── components/
+│   ├── ui/           # Reusable (promote when used 2+ times)
+│   ├── widgets/      # Business logic (keep if page-specific)
+│   └── sections/     # Page blocks (promote if reused)
+├── models/           # TypeScript interfaces
+├── hooks/            # Custom hooks
+├── utils/            # Utilities
+└── feature-name.tsx  # Main component
+```
+
+## Component Rules
+- **UI**: Pure components, no business logic, promote when reused
+- **Widgets**: Business logic, page-specific, keep local unless needed elsewhere
+- **Sections**: Large blocks, promote to shared if used on multiple pages
+
+## Next.js Rules
+- Add `"use client"` for: event handlers, hooks, browser APIs, interactive elements
+- Keep server components as default
+- Use named exports: `export { ComponentName }`
+
+## Code Style
+- **Files**: kebab-case (`user-profile.tsx`)
+- **Components**: PascalCase (`UserProfile`)
+- **Folders**: kebab-case (`user-profile/`)
+- **Imports**: relative paths, organized by type
+
+## Promotion Hierarchy
+1. Page level: `containers/feature/components/`
+2. Shared level: `shared/components/`
+3. Global level: `src/components/`
+
+## When to Refactor
+- **Promote**: Component used in 2+ places
+- **Split**: Component becomes too complex
+- **Keep**: Component is page-specific
+
+## Examples
+```tsx
+// UI component (reusable)
+export { Button } from '../ui/button'
+
+// Widget (page-specific)
+export { UserProfile } from '../widgets/user-profile'
+
+// Section (page block)
+export { HeaderSection } from '../sections/header-section'
+```
+
+## Key Principles
+- Start components at lowest appropriate level
+- Promote only when there's actual reuse
+- Keep components focused and single-purpose
+- Follow consistent patterns across project
+description:
+globs:
+alwaysApply: true
+---

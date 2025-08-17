@@ -1,6 +1,6 @@
-import React from 'react'
+import { FC } from 'react'
 
-const Loading = () => {
+const Loading: FC = () => {
   return (
     <div>Loading...</div>
   )

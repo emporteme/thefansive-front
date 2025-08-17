@@ -1,4 +1,4 @@
-export { Web3Provider } from './Web3Provider'
-export { WalletConnect } from './WalletConnect'
-export { TonProvider } from './TonProvider'
-export { TonConnect } from './TonConnect'
+export { Web3Provider } from './web3-provider'
+export { WalletConnect } from './wallet-connect'
+export { TonProvider } from './ton-provider'
+export { TonConnect } from './ton-connect'

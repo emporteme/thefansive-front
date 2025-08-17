@@ -1,11 +1,12 @@
-import * as fs from "fs"
 
 // https://github.com/francoismassart/eslint-plugin-tailwindcss/pull/381
 // import eslintPluginTailwindcss from "eslint-plugin-tailwindcss"
-import eslintPluginImport from "eslint-plugin-import"
 import eslintPluginNext from "@next/eslint-plugin-next"
+import eslintPluginImport from "eslint-plugin-import"
 import eslintPluginStorybook from "eslint-plugin-storybook"
+import eslintPluginUnicorn from "eslint-plugin-unicorn"
 import typescriptEslint from "typescript-eslint"
+import * as fs from "fs"
 
 const eslintIgnore = [
   ".git/",
@@ -31,6 +32,7 @@ const config = typescriptEslint.config(
   {
     plugins: {
       "@next/next": eslintPluginNext,
+      unicorn: eslintPluginUnicorn,
     },
     rules: {
       ...eslintPluginNext.configs.recommended.rules,
@@ -55,6 +57,12 @@ const config = typescriptEslint.config(
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
         },
+      ],
+      "unicorn/filename-case": [
+        "error",
+        {
+          "case": "kebabCase"
+        }
       ],
       "sort-imports": [
         "error",

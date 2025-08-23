@@ -1,8 +1,7 @@
 import { FC } from "react"
-import ExamplePage from "@/containers/example-page/example-page"
 
 const Page: FC = () => {
-  return <ExamplePage />
+  return <div>Hello</div>
 }
 
 export default Page

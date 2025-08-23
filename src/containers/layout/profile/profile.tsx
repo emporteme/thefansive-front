@@ -14,9 +14,7 @@ const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
       </div>
       <div className="flex gap-6 ml-9 mr-15">
         <SidebarSection />
-        <div className="flex flex-col w-full bg-gray-200">
-          {children}
-        </div>
+        {children}
       </div>
     </div>
   )

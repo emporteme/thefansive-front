@@ -1,13 +1,16 @@
 "use client"
 
-import React, { FC } from "react"
+import { useRoutes } from "@/shared/hooks/client/useRoutes"
+import { FC } from "react"
 
 const NavigationWidget: FC = () => {
+  const routes = useRoutes()
+
   const navItems = [
-    { label: "Главная", href: "/" },
-    { label: "О нас", href: "/about" },
-    { label: "Услуги", href: "/services" },
-    { label: "Контакты", href: "/contact" },
+    { label: "Главная", href: routes.home() },
+    { label: "О нас", href: routes.about() },
+    { label: "Услуги", href: routes.services() },
+    { label: "Контакты", href: routes.contact() },
   ]
 
   return (

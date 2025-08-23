@@ -1,9 +1,9 @@
-import "@/styles/tailwind.css"
-import { Manrope } from "next/font/google"
-import { ReactElement } from "react"
 import { Footer, Header } from "@/containers/layout"
 import { I18nProviderClient } from "@/locale/client"
 import { TonProvider, Web3Provider } from "@/shared/components/elements/web3"
+import "@/styles/tailwind.css"
+import { Manrope } from "next/font/google"
+import { ReactElement } from "react"
 
 const manrope = Manrope({
   subsets: ["latin"],

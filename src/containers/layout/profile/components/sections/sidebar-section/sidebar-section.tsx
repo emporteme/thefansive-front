@@ -1,6 +1,8 @@
+
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Routes } from "@/shared/types/routes"
-import Link from "next/link"
+import clsx from "clsx"
+import { usePathname, useRouter } from "next/navigation"
 
 const sidebarItems = (routes: Routes) => [
   {
@@ -41,7 +43,11 @@ const sidebarItems = (routes: Routes) => [
 ]
 
 const SidebarSection: React.FC = () => {
+  const router = useRouter()
   const routes = useRoutes()
+  const pathname = usePathname()
+
+  const isActiveLink = (link: string) => pathname === link
 
   return (
     <div className="flex flex-col bg-gray-200 w-[310px] rounded-xl p-4" >
@@ -54,8 +60,12 @@ const SidebarSection: React.FC = () => {
 
       <div className="flex flex-col">
         {sidebarItems(routes).map((item) => (
-          <div key={item.id} className="flex cursor-pointer p-4 text-sidebar-foreground hover:bg-#000000">
-            <Link href={item.link}>{item.title}</Link>
+          <div key={item.id} className={clsx('flex cursor-pointer p-4 rounded-lg p-2.5 font-bold transition-all duration-200 hover:bg-gray-100', {
+            'bg-gray-100': isActiveLink(item.link),
+            'text-black': isActiveLink(item.link),
+            'text-gray-400': !isActiveLink(item.link),
+          })} onClick={() => router.push(item.link)}>
+            {item.title}
           </div>
         ))}
       </div>

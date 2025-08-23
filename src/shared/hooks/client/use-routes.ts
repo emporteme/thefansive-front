@@ -1,5 +1,5 @@
-import { useParams } from "next/navigation"
 import { getRoutes } from "@/shared/utils/get-routes"
+import { useParams } from "next/navigation"
 
 export const useRoutes = () => {
   const params = useParams()

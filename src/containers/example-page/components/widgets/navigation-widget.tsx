@@ -1,7 +1,7 @@
 "use client"
 
-import { FC } from "react"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
+import { FC } from "react"
 
 const NavigationWidget: FC = () => {
   const routes = useRoutes()

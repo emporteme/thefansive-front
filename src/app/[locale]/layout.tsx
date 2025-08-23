@@ -14,6 +14,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex, nofollow" />
+        <meta name="bingbot" content="noindex, nofollow" />
+      </head>
       <body>
         <I18nProviderClient locale={locale}>
           <Web3Provider>

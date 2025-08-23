@@ -1,11 +1,20 @@
 // Утилиты для форматирования данных
+import type { Currency } from "@/shared/store/currency-store"
 
 export const formatNumber = (num: number): string => {
   return new Intl.NumberFormat("ru-RU").format(num)
 }
 
-export const formatCurrency = (amount: number, currency = "RUB"): string => {
-  return new Intl.NumberFormat("ru-RU", {
+export const formatCurrency = (amount: number, currency: Currency = "USD"): string => {
+  const locales: Record<Currency, string> = {
+    USD: "en-US",
+    EUR: "de-DE",
+    GBP: "en-GB",
+    RUB: "ru-RU",
+    CNY: "zh-CN",
+  }
+
+  return new Intl.NumberFormat(locales[currency], {
     style: "currency",
     currency,
   }).format(amount)

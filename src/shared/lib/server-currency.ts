@@ -3,8 +3,8 @@ import type { Currency } from "@/shared/store/currency-store"
 
 const CURRENCY_COOKIE_NAME = "currency"
 
-export const getServerCurrency = (): Currency => {
-  const cookieStore = cookies()
+export const getServerCurrency = async (): Promise<Currency> => {
+  const cookieStore = await cookies()
   const currencyCookie = cookieStore.get(CURRENCY_COOKIE_NAME)
 
   if (currencyCookie?.value && isValidCurrency(currencyCookie.value)) {

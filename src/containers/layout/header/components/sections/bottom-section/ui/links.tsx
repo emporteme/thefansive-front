@@ -3,7 +3,10 @@ import React from "react"
 
 const LinkComponent: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => {
   return (
-    <Link href={href} className="p-2.5 font-medium text-black">
+    <Link
+      href={href}
+      className="cursor-pointer rounded-lg p-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100"
+    >
       {children}
     </Link>
   )

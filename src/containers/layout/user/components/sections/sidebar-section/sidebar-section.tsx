@@ -1,3 +1,5 @@
+"use client"
+
 import { Links, User } from "./ui"
 
 const SidebarSection: React.FC = () => {

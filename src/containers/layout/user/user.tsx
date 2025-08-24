@@ -1,11 +1,11 @@
 import React from "react"
 import { SidebarSection } from "./components/sections"
 
-interface ProfileLayoutProps {
+interface UserLayoutProps {
   children: React.ReactNode
 }
 
-const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
+const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col">
       <div className="mt-7 mb-16 flex h-[160px] w-full items-center justify-center bg-gray-200">Image</div>
@@ -17,4 +17,4 @@ const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
   )
 }
 
-export default ProfileLayout
+export default UserLayout

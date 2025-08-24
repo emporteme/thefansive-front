@@ -1,7 +1,7 @@
-import ProfilePage from "@/containers/pages/profile-page/profile-page"
+import MyInformationPage from "@/containers/pages/user/my-information-page/my-information-page"
 
 const Page: React.FC = () => {
-  return <ProfilePage />
+  return <MyInformationPage />
 }
 
 export default Page

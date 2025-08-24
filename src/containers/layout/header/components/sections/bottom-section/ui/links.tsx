@@ -5,7 +5,7 @@ const LinkComponent: React.FC<{ href: string; children: React.ReactNode }> = ({ 
   return (
     <Link
       href={href}
-      className="cursor-pointer rounded-lg p-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100"
+      className="cursor-pointer rounded-lg p-2.5 font-semibold whitespace-nowrap text-gray-700 transition-all duration-200 hover:bg-gray-100"
     >
       {children}
     </Link>
@@ -21,7 +21,7 @@ const Links: React.FC = () => {
     { id: 6, href: "/", children: "News" },
   ]
   return (
-    <div className="flex items-center">
+    <div className="hidden items-center lg:flex">
       {links.map((link) => (
         <LinkComponent key={link.id} href={link.href}>
           {link.children}

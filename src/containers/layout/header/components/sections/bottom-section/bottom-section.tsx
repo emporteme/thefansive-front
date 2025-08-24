@@ -1,5 +1,5 @@
 import React from "react"
-import { Auth, Cart, Links, Logo, Search } from "./ui"
+import { Auth, Burger, Cart, Links, Logo, Search } from "./ui"
 
 const BottomSection: React.FC = () => {
   return (
@@ -12,6 +12,7 @@ const BottomSection: React.FC = () => {
         <Search />
         <Cart />
         <Auth />
+        <Burger />
       </div>
     </div>
   )

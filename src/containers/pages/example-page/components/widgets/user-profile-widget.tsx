@@ -1,6 +1,6 @@
-import { useRoutes } from "@/shared/hooks/client/use-routes"
 import Link from "next/link"
 import { FC } from "react"
+import { useRoutes } from "@/shared/hooks/client/use-routes"
 
 const UserProfileWidget: FC = () => {
   const routes = useRoutes()

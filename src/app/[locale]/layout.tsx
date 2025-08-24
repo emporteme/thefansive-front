@@ -4,6 +4,7 @@ import { TonProvider, Web3Provider } from "@/shared/components/elements/web3"
 import "@/styles/tailwind.css"
 import { Manrope } from "next/font/google"
 import { ReactElement } from "react"
+import { ToastContainer } from "react-toastify"
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default async function RootLayout({
             </TonProvider>
           </Web3Provider>
         </I18nProviderClient>
+        <ToastContainer />
       </body>
     </html>
   )

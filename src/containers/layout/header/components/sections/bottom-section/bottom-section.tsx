@@ -14,9 +14,11 @@ const BottomSection: React.FC<BottomSectionProps> = ({ isMobileMenuOpen, onToggl
         <Links />
       </div>
       <div className="flex items-center gap-2">
-        <Search />
-        <Cart />
-        <Auth />
+        <div className="hidden items-center gap-2 md:flex">
+          <Search />
+          <Cart />
+          <Auth />
+        </div>
         <Burger isOpen={isMobileMenuOpen} onClick={onToggleMobileMenu} />
       </div>
     </div>

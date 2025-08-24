@@ -1,7 +1,12 @@
 import React from "react"
-import { Auth, Cart, Links, Logo, Search } from "./ui"
+import { Auth, Burger, Cart, Links, Logo, Search } from "./ui"
 
-const BottomSection: React.FC = () => {
+type BottomSectionProps = {
+  isMobileMenuOpen: boolean
+  onToggleMobileMenu: () => void
+}
+
+const BottomSection: React.FC<BottomSectionProps> = ({ isMobileMenuOpen, onToggleMobileMenu }) => {
   return (
     <div className="flex items-center justify-between gap-5 bg-white px-[5vw] py-4">
       <div className="flex items-center gap-10">
@@ -9,9 +14,12 @@ const BottomSection: React.FC = () => {
         <Links />
       </div>
       <div className="flex items-center gap-2">
-        <Search />
-        <Cart />
-        <Auth />
+        <div className="hidden items-center gap-2 md:flex">
+          <Search />
+          <Cart />
+          <Auth />
+        </div>
+        <Burger isOpen={isMobileMenuOpen} onClick={onToggleMobileMenu} />
       </div>
     </div>
   )

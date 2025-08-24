@@ -10,7 +10,7 @@ const Search: React.FC = () => {
       <input
         type="text"
         placeholder="Search..."
-        className="w-full max-w-45 rounded-lg border border-gray-100 bg-gray-50 py-2.5 pr-4 pl-10 font-semibold placeholder-gray-400 transition-all duration-200 hover:border-gray-300 focus:border-transparent focus:ring-2 focus:ring-rose-500 focus:outline-none"
+        className="w-full max-w-60 rounded-lg border border-gray-100 bg-gray-50 py-2.5 pr-4 pl-10 font-semibold placeholder-gray-400 transition-all duration-200 hover:border-gray-300 focus:border-transparent focus:ring-2 focus:ring-rose-500 focus:outline-none"
       />
     </div>
   )

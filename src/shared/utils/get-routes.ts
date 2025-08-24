@@ -12,6 +12,6 @@ export const getRoutes = (locale?: string) => {
       tasks: () => (locale ? `/${locale}/user/tasks` : "/user/tasks"),
       myInformation: () => (locale ? `/${locale}/user/my-information` : "/user/my-information"),
       support: () => (locale ? `/${locale}/user/support` : "/user/support"),
-    }
+    },
   }
 }

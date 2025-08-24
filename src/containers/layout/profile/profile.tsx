@@ -1,4 +1,3 @@
-
 import React from "react"
 import { SidebarSection } from "./components/sections"
 
@@ -9,10 +8,8 @@ interface ProfileLayoutProps {
 const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col">
-      <div className="flex justify-center items-center mb-16 mt-7 w-full bg-gray-200 h-[160px]">
-        Image
-      </div>
-      <div className="flex gap-6 ml-9 mr-15">
+      <div className="mt-7 mb-16 flex h-[160px] w-full items-center justify-center bg-gray-200">Image</div>
+      <div className="mr-15 ml-9 flex gap-6">
         <SidebarSection />
         {children}
       </div>

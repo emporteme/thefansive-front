@@ -1,7 +1,7 @@
-import { useRoutes } from "@/shared/hooks/client/use-routes"
-import { Routes } from "@/shared/types/routes"
 import clsx from "clsx"
 import { usePathname, useRouter } from "next/navigation"
+import { useRoutes } from "@/shared/hooks/client/use-routes"
+import { Routes } from "@/shared/types/routes"
 
 const sidebarItems = (routes: Routes) => [
   {
@@ -41,7 +41,6 @@ const sidebarItems = (routes: Routes) => [
   },
 ]
 
-
 const Links: React.FC = () => {
   const router = useRouter()
   const routes = useRoutes()
@@ -49,17 +48,26 @@ const Links: React.FC = () => {
 
   const isActiveLink = (link: string) => pathname === link
 
-  return <div className="flex flex-col">
-    {sidebarItems(routes).map((item) => (
-      <div key={item.id} className={clsx('flex cursor-pointer p-4 rounded-lg p-2.5 font-bold transition-all duration-200 hover:bg-gray-100', {
-        'bg-gray-100': isActiveLink(item.link),
-        'text-black': isActiveLink(item.link),
-        'text-gray-400': !isActiveLink(item.link),
-      })} onClick={() => router.push(item.link)}>
-        {item.title}
-      </div>
-    ))}
-  </div>
+  return (
+    <div className="flex flex-col">
+      {sidebarItems(routes).map((item) => (
+        <div
+          key={item.id}
+          className={clsx(
+            "flex cursor-pointer rounded-lg p-2.5 p-4 font-bold transition-all duration-200 hover:bg-gray-100",
+            {
+              "bg-gray-100": isActiveLink(item.link),
+              "text-black": isActiveLink(item.link),
+              "text-gray-400": !isActiveLink(item.link),
+            }
+          )}
+          onClick={() => router.push(item.link)}
+        >
+          {item.title}
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default Links

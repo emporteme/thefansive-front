@@ -1,4 +1,3 @@
-import { useRouter } from "@bprogress/next/app"
 import clsx from "clsx"
 import { usePathname } from "next/navigation"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"

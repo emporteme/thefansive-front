@@ -35,7 +35,7 @@ const Header: React.FC = () => {
   }, [isMobileMenuOpen])
 
   return (
-    <header className="flex flex-col">
+    <header className="flex flex-col bg-white">
       <TopSection />
       <BottomSection isMobileMenuOpen={isMobileMenuOpen} onToggleMobileMenu={toggleMobileMenu} />
       <MobileMenu isOpen={isMobileMenuOpen} onClose={closeMobileMenu} />

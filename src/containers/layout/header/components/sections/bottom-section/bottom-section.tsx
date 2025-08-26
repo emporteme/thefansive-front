@@ -1,5 +1,6 @@
 import React from "react"
-import { Auth, Burger, Cart, Links, Logo, Search } from "./ui"
+import Logo from "@/shared/components/elements/logo"
+import { Auth, Burger, Cart, Links, Search } from "./ui"
 
 type BottomSectionProps = {
   isMobileMenuOpen: boolean

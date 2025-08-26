@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { Copy as CopyIcon } from "@/shared/icons"
-import { alert } from "@/shared/lib"
+import { alert } from "@/shared/lib/alert"
 
 const User: React.FC = () => {
   const handleCopy = (text: string) => {

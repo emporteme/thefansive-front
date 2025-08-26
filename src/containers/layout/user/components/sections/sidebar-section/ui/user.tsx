@@ -1,11 +1,11 @@
 import Image from "next/image"
-import { toast } from "react-toastify"
 import { Copy as CopyIcon } from "@/shared/icons"
+import { alert } from "@/shared/lib"
 
 const User: React.FC = () => {
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
-    toast.success("Copied to clipboard")
+    alert.success("Copied to clipboard")
   }
 
   return (

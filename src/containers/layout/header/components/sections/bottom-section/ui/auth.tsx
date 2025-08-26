@@ -1,14 +1,14 @@
-import { useRouter } from "next/navigation"
 import React from "react"
+import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Auth as AuthIcon } from "@/shared/icons"
 
 const Auth: React.FC = () => {
   const routes = useRoutes()
-  const router = useRouter()
+  const navigate = useNavigate()
 
   const handleAuth = () => {
-    router.push(routes.user.profile())
+    navigate(routes.user.profile())
   }
 
   return (

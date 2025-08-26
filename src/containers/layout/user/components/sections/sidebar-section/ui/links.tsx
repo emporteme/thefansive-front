@@ -1,5 +1,7 @@
+import { useRouter } from "@bprogress/next/app"
 import clsx from "clsx"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
+import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Routes } from "@/shared/types/routes"
 
@@ -42,8 +44,8 @@ const sidebarItems = (routes: Routes) => [
 ]
 
 const Links: React.FC = () => {
-  const router = useRouter()
   const routes = useRoutes()
+  const navigate = useNavigate()
   const pathname = usePathname()
 
   const isActiveLink = (link: string) => pathname === link
@@ -61,7 +63,7 @@ const Links: React.FC = () => {
               "text-gray-400": !isActiveLink(item.link),
             }
           )}
-          onClick={() => router.push(item.link)}
+          onClick={() => navigate(item.link)}
         >
           {item.title}
         </div>

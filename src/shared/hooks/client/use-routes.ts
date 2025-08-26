@@ -3,5 +3,7 @@ import { getRoutes } from "@/shared/utils/get-routes"
 
 export const useRoutes = () => {
   const params = useParams()
-  return getRoutes(params.locale as string)
+  const locale = params.locale as string
+
+  return getRoutes(locale === "en" ? undefined : locale)
 }

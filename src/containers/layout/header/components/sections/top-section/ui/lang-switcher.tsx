@@ -4,7 +4,7 @@ import * as Select from "@radix-ui/react-select"
 import { ChevronDownIcon } from "lucide-react"
 import React from "react"
 import { useChangeLocale, useCurrentLocale } from "@/locale/client"
-import { getLanguageFlag, getLanguageName, LANGUAGES } from "@/shared/constants/languages"
+import { getLanguageName, LANGUAGES } from "@/shared/constants/languages"
 import type { Language } from "@/shared/constants/languages"
 import { cn } from "@/shared/lib/utils"
 

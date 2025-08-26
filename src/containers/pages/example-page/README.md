@@ -1,6 +1,7 @@
 # Example Page - Пример правильной структуры
 
 ## Описание
+
 Это пример правильной организации страницы согласно архитектуре контейнеров. Демонстрирует, как правильно структурировать компоненты и когда их поднимать выше.
 
 ## Структура папок
@@ -35,15 +36,18 @@ example-page/
 ## Логика размещения компонентов
 
 ### В `ui/` (поднимаем выше):
+
 - **ContentCard** - может использоваться на других страницах
 - **ActionButton** - универсальная кнопка для любых действий
 
 ### В `widgets/` (оставляем на месте):
+
 - **LogoWidget** - специфичен для этой страницы
 - **NavigationWidget** - навигация конкретной страницы
 - **StatsWidget** - отображает данные только этой страницы
 
 ### В `sections/` (оставляем на месте):
+
 - Все секции специфичны для этой страницы
 - Если секция понадобится на других страницах - поднимаем в `shared/sections/`
 
@@ -58,17 +62,18 @@ example-page/
 
 ```tsx
 // Импорт из ui (переиспользуемые)
-import { ContentCard } from '../ui/content-card'
-import { ActionButton } from '../ui/action-button'
+import { ContentCard } from "../ui/content-card"
+import { ActionButton } from "../ui/action-button"
 
 // Импорт из widgets (специфичные)
-import { StatsWidget } from '../widgets/stats-widget'
+import { StatsWidget } from "../widgets/stats-widget"
 
 // Импорт из sections (блоки страницы)
-import { HeaderSection } from '../sections/header-section'
+import { HeaderSection } from "../sections/header-section"
 ```
 
 Эта структура обеспечивает:
+
 - ✅ Четкое разделение ответственности
 - ✅ Легкость навигации по коду
 - ✅ Простоту рефакторинга

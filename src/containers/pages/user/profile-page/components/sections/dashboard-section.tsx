@@ -2,8 +2,8 @@
 
 import React, { FC } from "react"
 import { cn } from "@/shared/lib/utils"
-import { ConnectWallet } from "../ui/connect-wallet"
-import { MyCertificates } from "../ui/my-certificates"
+import { ConnectWallet } from "../widgets/connect-wallet"
+import { MyCertificates } from "../widgets/my-certificates"
 
 type UserInfo = {
   points: number

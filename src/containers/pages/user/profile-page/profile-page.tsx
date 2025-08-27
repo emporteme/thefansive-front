@@ -1,9 +1,11 @@
 "use client"
 
+import { DashboardSection } from "./components/sections/dashboard-section"
+
 const ProfilePage: React.FC = () => {
   return (
-    <div className="flex w-full flex-col rounded-xl bg-gray-200 p-4">
-      <div className="flex flex-col">Profile page</div>
+    <div className="flex w-full flex-col gap-6">
+      <DashboardSection />
     </div>
   )
 }

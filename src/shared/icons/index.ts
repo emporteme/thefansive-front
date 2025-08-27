@@ -1,9 +1,11 @@
 export { default as Auth } from "./auth"
 export { default as Cart } from "./cart"
 export { default as Copy } from "./copy"
+export { default as Certificate } from "./certificate"
 export { default as Mobile } from "./mobile"
 export { default as Search } from "./search"
 export { default as Support } from "./support"
+export { default as Wallet } from "./wallet"
 
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"

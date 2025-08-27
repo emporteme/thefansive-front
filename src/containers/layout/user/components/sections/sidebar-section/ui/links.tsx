@@ -6,37 +6,37 @@ import { Routes } from "@/shared/types/routes"
 
 const sidebarItems = (routes: Routes) => [
   {
-    id: 1,
+    id: "profile",
     title: "Profile",
     link: routes.user.profile(),
   },
   {
-    id: 2,
+    id: "order",
     title: "Order",
     link: routes.user.order(),
   },
   {
-    id: 3,
+    id: "fan-support",
     title: "Fan Support",
     link: routes.user.fanSupport(),
   },
   {
-    id: 4,
+    id: "donate",
     title: "Donate",
     link: routes.user.donate(),
   },
   {
-    id: 5,
+    id: "tasks",
     title: "Tasks",
     link: routes.user.tasks(),
   },
   {
-    id: 6,
+    id: "my-information",
     title: "My Information",
     link: routes.user.myInformation(),
   },
   {
-    id: 7,
+    id: "support",
     title: "Support",
     link: routes.user.support(),
   },

@@ -58,7 +58,9 @@ const Links: React.FC = () => {
             "flex cursor-pointer rounded-xl p-4 text-xl leading-none font-bold transition-all duration-200 hover:text-black",
             {
               "text-black": isActiveLink(item.link),
+              "font-bold": isActiveLink(item.link),
               "text-gray-400": !isActiveLink(item.link),
+              "font-semibold": !isActiveLink(item.link),
             }
           )}
           onClick={() => navigate(item.link)}

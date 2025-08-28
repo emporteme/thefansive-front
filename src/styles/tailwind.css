@@ -21,6 +21,17 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+
+  body {
+    @apply leading-[1] tracking-[0.5px];
+  }
+
+  p,
+  span,
+  li,
+  div {
+    @apply leading-[1] tracking-[0.5px];
+  }
 }
 /*
   ---break---

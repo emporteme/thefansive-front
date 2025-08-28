@@ -6,37 +6,37 @@ import { Routes } from "@/shared/types/routes"
 
 const sidebarItems = (routes: Routes) => [
   {
-    id: 1,
+    id: "profile",
     title: "Profile",
     link: routes.user.profile(),
   },
   {
-    id: 2,
+    id: "order",
     title: "Order",
     link: routes.user.order(),
   },
   {
-    id: 3,
+    id: "fan-support",
     title: "Fan Support",
     link: routes.user.fanSupport(),
   },
   {
-    id: 4,
+    id: "donate",
     title: "Donate",
     link: routes.user.donate(),
   },
   {
-    id: 5,
+    id: "tasks",
     title: "Tasks",
     link: routes.user.tasks(),
   },
   {
-    id: 6,
+    id: "my-information",
     title: "My Information",
     link: routes.user.myInformation(),
   },
   {
-    id: 7,
+    id: "support",
     title: "Support",
     link: routes.user.support(),
   },
@@ -50,15 +50,17 @@ const Links: React.FC = () => {
   const isActiveLink = (link: string) => pathname === link
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-1">
       {sidebarItems(routes).map((item) => (
         <div
           key={item.id}
           className={clsx(
-            "flex cursor-pointer rounded-xl p-4 text-xl leading-none font-bold transition-all duration-200 hover:text-black",
+            "flex cursor-pointer rounded-xl p-4 text-xl font-bold transition-all duration-200 hover:text-black",
             {
               "text-black": isActiveLink(item.link),
+              "font-bold": isActiveLink(item.link),
               "text-gray-400": !isActiveLink(item.link),
+              "font-semibold": !isActiveLink(item.link),
             }
           )}
           onClick={() => navigate(item.link)}

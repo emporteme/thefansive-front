@@ -2,8 +2,8 @@
 
 import React, { FC } from "react"
 import { cn } from "@/shared/lib/utils"
-import { ConnectWallet } from "../ui/connect-wallet"
-import { MyCertificates } from "../ui/my-certificates"
+import { ConnectWallet } from "../widgets/connect-wallet"
+import { MyCertificates } from "../widgets/my-certificates"
 
 type UserInfo = {
   points: number
@@ -44,7 +44,7 @@ const DashboardSection: FC = () => {
   }
 
   return (
-    <div className="flex w-full justify-between rounded-xl bg-slate-100 p-6">
+    <div className="flex w-full justify-between rounded-xl bg-slate-100 p-6 pb-15.5">
       <div className="mx-4 mt-2.5 flex flex-col gap-3">
         {dashboardItems(user).map((item) => (
           <div
@@ -53,8 +53,8 @@ const DashboardSection: FC = () => {
               "border-b-transparent": item.id === "completed-tasks",
             })}
           >
-            <span className="text-xl leading-none text-slate-500">{item.title}:</span>
-            <span className="text-xl leading-none font-semibold">{item.value}</span>
+            <span className="text-xl text-slate-500">{item.title}:</span>
+            <span className="text-xl font-semibold">{item.value}</span>
           </div>
         ))}
       </div>

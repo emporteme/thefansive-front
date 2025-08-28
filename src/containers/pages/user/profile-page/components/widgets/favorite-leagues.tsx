@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { AddFavoriteCard } from "../ui/add-favorite-card"
 import { FavoriteCard } from "../ui/favorite-card"
 
 const leagues = [
@@ -17,7 +18,7 @@ const FavoriteLeagues: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex min-w-[280px] flex-col gap-6">
       <h3 className="text-center text-2xl font-semibold text-slate-600">Favorite Leagues</h3>
       <div className="flex flex-col gap-2">
         {favoriteLeagues.map((league) => (
@@ -28,6 +29,7 @@ const FavoriteLeagues: React.FC = () => {
             onCancel={() => handleCancel(league.id)}
           />
         ))}
+        <AddFavoriteCard title="Add League" onAdd={() => {}} />
       </div>
     </div>
   )

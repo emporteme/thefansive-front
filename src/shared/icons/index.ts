@@ -1,4 +1,5 @@
 export { default as Auth } from "./auth"
+export { default as Add } from "./add"
 export { default as Cart } from "./cart"
 export { default as Copy } from "./copy"
 export { default as Certificate } from "./certificate"

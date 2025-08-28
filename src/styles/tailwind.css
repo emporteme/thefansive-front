@@ -26,10 +26,12 @@
     @apply leading-[1] tracking-[0.5px];
   }
 
+  a,
   p,
   span,
   li,
-  div {
+  div,
+  button {
     @apply leading-[1] tracking-[0.5px];
   }
 }

@@ -55,7 +55,7 @@ const Links: React.FC = () => {
         <div
           key={item.id}
           className={clsx(
-            "flex cursor-pointer rounded-xl p-4 text-xl leading-none font-bold transition-all duration-200 hover:text-black",
+            "flex cursor-pointer rounded-xl p-4 text-xl font-bold transition-all duration-200 hover:text-black",
             {
               "text-black": isActiveLink(item.link),
               "font-bold": isActiveLink(item.link),

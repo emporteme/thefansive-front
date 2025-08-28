@@ -53,8 +53,8 @@ const DashboardSection: FC = () => {
               "border-b-transparent": item.id === "completed-tasks",
             })}
           >
-            <span className="text-xl leading-none text-slate-500">{item.title}:</span>
-            <span className="text-xl leading-none font-semibold">{item.value}</span>
+            <span className="text-xl text-slate-500">{item.title}:</span>
+            <span className="text-xl font-semibold">{item.value}</span>
           </div>
         ))}
       </div>

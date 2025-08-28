@@ -32,7 +32,7 @@ const ConnectWallet = () => {
       onClick={isConnected ? handleDisconnect : handleConnect}
     >
       <WalletIcon />
-      <span className="text-base leading-none font-semibold text-slate-900">
+      <span className="text-base font-semibold text-slate-900">
         {isConnected && address ? address.slice(0, 6) + "..." + address.slice(-4) : "Connect Wallet"}
       </span>
     </div>

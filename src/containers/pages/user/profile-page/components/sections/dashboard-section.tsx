@@ -44,7 +44,7 @@ const DashboardSection: FC = () => {
   }
 
   return (
-    <div className="flex w-full justify-between rounded-xl bg-slate-100 p-6">
+    <div className="flex w-full justify-between rounded-xl bg-slate-100 p-6 pb-15.5">
       <div className="mx-4 mt-2.5 flex flex-col gap-3">
         {dashboardItems(user).map((item) => (
           <div

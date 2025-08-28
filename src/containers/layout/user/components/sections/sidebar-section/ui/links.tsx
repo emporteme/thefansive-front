@@ -50,7 +50,7 @@ const Links: React.FC = () => {
   const isActiveLink = (link: string) => pathname === link
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-1">
       {sidebarItems(routes).map((item) => (
         <div
           key={item.id}

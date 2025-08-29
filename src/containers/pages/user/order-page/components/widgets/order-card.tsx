@@ -1,4 +1,7 @@
 import Image from "next/image"
+import { PaymentStatus } from "../models"
+import { InvoiceInfoButton } from "../ui/invoice-info-button"
+import { PaymentStatusBox } from "../ui/payment-status-box"
 
 interface OrderCardProps {
   order: {
@@ -6,7 +9,7 @@ interface OrderCardProps {
     type: string
     title: string
     date: string
-    status: string
+    paymentStatus: PaymentStatus
   }
 }
 
@@ -41,12 +44,11 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
         <div className="absolute top-0 left-0 block h-full w-1 bg-slate-200" />
 
         <div className="flex justify-between gap-10">
-          <div className="flex flex-col gap-3">
+          <div className="flex shrink-0 grow-0 flex-col gap-3">
             <h4 className="text-2xl font-semibold text-black">Payment Status</h4>
-            <p>Paid</p>
+            <PaymentStatusBox status={order.paymentStatus} />
           </div>
-
-          <div>Invoice Info</div>
+          <InvoiceInfoButton />
         </div>
 
         <div>

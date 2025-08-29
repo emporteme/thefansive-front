@@ -1,18 +1,26 @@
+import { PaymentStatus } from "../models"
 import { OrderCard } from "../widgets/order-card"
 
 const orders = [
   {
     id: "123456789",
-    status: "pending",
     date: "10.08.2025",
     type: "Special collection",
     title: "Lionel Messi Signed T-Shirt",
+    paymentStatus: "paid" as PaymentStatus,
+  },
+  {
+    id: "123456789",
+    date: "10.08.2025",
+    type: "Special collection",
+    title: "Michael Schumacher Signed T-Shirt",
+    paymentStatus: "paid" as PaymentStatus,
   },
 ]
 
 const AllTabSection: React.FC = () => {
   return (
-    <div className="mt-6 w-full">
+    <div className="mt-6 flex w-full flex-col gap-6">
       {orders.map((order) => (
         <OrderCard key={order.id} order={order} />
       ))}

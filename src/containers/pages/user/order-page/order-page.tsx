@@ -14,7 +14,7 @@ const OrderPage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full flex-col">
       <Tabs
         tabs={[
           { label: "All", value: "all", content: <AllTabSection /> },

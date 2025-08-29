@@ -2,16 +2,17 @@ import { OrderCard } from "../widgets/order-card"
 
 const orders = [
   {
-    id: 1,
+    id: "123456789",
     status: "pending",
-    date: "2021-01-01",
-    total: 100,
+    date: "10.08.2025",
+    type: "Special collection",
+    title: "Lionel Messi Signed T-Shirt",
   },
 ]
 
 const AllTabSection: React.FC = () => {
   return (
-    <div>
+    <div className="mt-6 w-full">
       {orders.map((order) => (
         <OrderCard key={order.id} order={order} />
       ))}

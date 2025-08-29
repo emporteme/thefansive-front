@@ -1,5 +1,5 @@
 const CompletedTabSection: React.FC = () => {
-  return <div>CompletedTabSection</div>
+  return <div className="mt-6">CompletedTabSection</div>
 }
 
 export { CompletedTabSection }

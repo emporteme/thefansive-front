@@ -1,8 +1,10 @@
 import Image from "next/image"
+import { Copy as CopyIcon, DeliveryTruck as DeliveryTruckIcon } from "@/shared/icons"
+import { copyText } from "@/shared/utils"
 import { PaymentStatus } from "../models"
+import { DeliveryStatusText } from "../ui/delivery-status-text"
 import { InvoiceInfoButton } from "../ui/invoice-info-button"
 import { PaymentStatusBox } from "../ui/payment-status-box"
-
 interface OrderCardProps {
   order: {
     id: string
@@ -51,13 +53,27 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
           <InvoiceInfoButton />
         </div>
 
-        <div>
-          <h4>Cargo Tracking</h4>
-          <p>Estimated Delivery: Tue, 24, Jun - Thu, 26, Jun</p>
-          <p>
-            Code: 1234567890
-            <p>Status: Pending</p>
-          </p>
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-1.5">
+            <h4 className="text-2xl font-semibold text-black">Cargo Tracking</h4>
+            <DeliveryTruckIcon className="text-dark" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p className="flex items-center gap-1 text-base font-semibold">
+              <span className="text-slate-600">Estimated Delivery:</span>
+              <span className="text-slate-900">Tue, 24, Jun - Thu, 26, Jun</span>
+            </p>
+            <p className="flex items-center gap-1 text-base font-semibold">
+              <span className="text-slate-600">Code:</span>
+              <span className="text-slate-900">1234567890</span>
+              <CopyIcon className="size-3.5" onClick={() => copyText("1234567890")} />
+            </p>
+            <p className="flex items-center gap-1 text-base font-semibold">
+              <span className="text-slate-600">Status:</span>
+              <DeliveryStatusText status="delivered" />
+            </p>
+          </div>
         </div>
       </div>
     </div>

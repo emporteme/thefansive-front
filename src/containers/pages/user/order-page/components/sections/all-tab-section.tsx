@@ -3,14 +3,14 @@ import { OrderCard } from "../widgets/order-card"
 
 const orders = [
   {
-    id: "123456789",
+    id: "1234567899",
     date: "10.08.2025",
     type: "Special collection",
     title: "Lionel Messi Signed T-Shirt",
     paymentStatus: "paid" as PaymentStatus,
   },
   {
-    id: "123456789",
+    id: "1234567890",
     date: "10.08.2025",
     type: "Special collection",
     title: "Michael Schumacher Signed T-Shirt",

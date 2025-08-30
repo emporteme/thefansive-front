@@ -9,6 +9,8 @@ export { default as Search } from "./search"
 export { default as Support } from "./support"
 export { default as Wallet } from "./wallet"
 export { default as Invoice } from "./invoice"
+export { default as Tick } from "./tick"
+export { default as DeliveryTruck } from "./delivery-truck"
 
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"

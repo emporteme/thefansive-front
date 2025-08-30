@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Copy as CopyIcon, DeliveryTruck as DeliveryTruckIcon } from "@/shared/icons"
 import { copyText } from "@/shared/utils"
-import { PaymentStatus } from "../models"
+import { DeliveryStatus, PaymentStatus } from "../models"
 import { DeliveryStatusText } from "../ui/delivery-status-text"
 import { InvoiceInfoButton } from "../ui/invoice-info-button"
 import { PaymentStatusBox } from "../ui/payment-status-box"
@@ -12,6 +12,7 @@ interface OrderCardProps {
     title: string
     date: string
     paymentStatus: PaymentStatus
+    deliveryStatus: DeliveryStatus
   }
 }
 
@@ -71,7 +72,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
             </p>
             <p className="flex items-center gap-1 text-base font-semibold">
               <span className="text-slate-600">Status:</span>
-              <DeliveryStatusText status="delivered" />
+              <DeliveryStatusText status={order.deliveryStatus} />
             </p>
           </div>
         </div>

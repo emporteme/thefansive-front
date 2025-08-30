@@ -1,4 +1,4 @@
-import { PaymentStatus } from "../models"
+import { DeliveryStatus, PaymentStatus } from "../models"
 import { OrderCard } from "../widgets/order-card"
 
 const orders = [
@@ -8,6 +8,7 @@ const orders = [
     type: "Special collection",
     title: "Lionel Messi Signed T-Shirt",
     paymentStatus: "paid" as PaymentStatus,
+    deliveryStatus: "delivered" as DeliveryStatus,
   },
   {
     id: "1234567890",
@@ -15,6 +16,7 @@ const orders = [
     type: "Special collection",
     title: "Michael Schumacher Signed T-Shirt",
     paymentStatus: "paid" as PaymentStatus,
+    deliveryStatus: "pending" as DeliveryStatus,
   },
 ]
 

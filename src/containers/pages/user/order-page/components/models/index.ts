@@ -12,5 +12,6 @@ export type DeliveryStatus = "delivered" | "pending"
 
 export interface DeliveryStatusData {
   label: string
+  labelClassName: string
   icon: React.ReactNode
 }

@@ -1,0 +1,44 @@
+import * as ReactTabs from "@radix-ui/react-tabs"
+import { cn } from "@/shared/lib/utils"
+
+interface TabsProps {
+  tabs: {
+    label: string
+    value: string
+    content: React.ReactNode
+  }[]
+  activeTab: string
+  onTabChange: (tab: string) => void
+}
+
+const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onTabChange }) => {
+  const isActiveTab = (tab: string) => tab === activeTab
+
+  return (
+    <ReactTabs.Root defaultValue={activeTab}>
+      <ReactTabs.List className="flex gap-3">
+        {tabs.map((tab) => (
+          <ReactTabs.Trigger
+            key={tab.value}
+            value={tab.value}
+            className={cn(
+              "min-w-[120px] cursor-pointer rounded-lg border-[1.5px] border-transparent bg-slate-100 p-3 text-center text-base font-semibold text-[#778CAC] transition-all duration-300 hover:border-[#B2BCC9]",
+              isActiveTab(tab.value) && "border-[#B2BCC9]",
+              isActiveTab(tab.value) && "text-slate-900"
+            )}
+            onClick={() => onTabChange(tab.value)}
+          >
+            {tab.label}
+          </ReactTabs.Trigger>
+        ))}
+      </ReactTabs.List>
+      {tabs.map((tab) => (
+        <ReactTabs.Content key={tab.value} value={tab.value}>
+          {tab.content}
+        </ReactTabs.Content>
+      ))}
+    </ReactTabs.Root>
+  )
+}
+
+export { Tabs }

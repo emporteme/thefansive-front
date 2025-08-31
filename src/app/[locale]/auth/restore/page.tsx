@@ -1,7 +1,8 @@
 import { FC } from "react"
+import RestorePage from "@/containers/pages/auth/restore-page/restore-page"
 
 const Page: FC = () => {
-  return <div>Page</div>
+  return <RestorePage />
 }
 
 export default Page

@@ -5,7 +5,7 @@ import { Email, Google, Password } from "@/shared/icons"
 
 const AuthPage = () => {
   return (
-    <div className="flex flex-col rounded-xl bg-white px-6 py-8 shadow-2xl shadow-slate-400/50">
+    <div className="flex min-w-120 flex-col rounded-xl bg-white px-6 py-8 shadow-2xl shadow-slate-400/50">
       <Logo className="mb-[5vh] w-32" />
       <h1 className="mt-3 text-3xl leading-[150%] text-black">
         Welcome to <br /> <span className="text-4xl font-bold">Thefansive platform</span>

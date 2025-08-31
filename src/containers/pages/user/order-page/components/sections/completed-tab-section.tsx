@@ -1,4 +1,4 @@
-import { DeliveryStatus, PaymentStatus } from "../models"
+import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { OrderCard } from "../widgets/order-card"
 
 const orders = [

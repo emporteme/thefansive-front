@@ -1,10 +1,8 @@
 import Image from "next/image"
+import { DeliveryStatusText, InvoiceInfoButton, PaymentStatusBox } from "@/shared/components/widgets"
 import { Copy as CopyIcon, DeliveryTruck as DeliveryTruckIcon } from "@/shared/icons"
+import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { copyText } from "@/shared/utils"
-import { DeliveryStatus, PaymentStatus } from "../models"
-import { DeliveryStatusText } from "../ui/delivery-status-text"
-import { InvoiceInfoButton } from "../ui/invoice-info-button"
-import { PaymentStatusBox } from "../ui/payment-status-box"
 interface OrderCardProps {
   order: {
     id: string

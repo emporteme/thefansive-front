@@ -1,6 +1,12 @@
 import { Tick as TickIcon } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
-import { PaymentStatus, PaymentStatusData } from "../models"
+import { PaymentStatus } from "@/shared/types/order"
+
+interface PaymentStatusData {
+  label: string
+  className: string
+  icon: React.ReactNode
+}
 
 interface PaymentStatusProps {
   status: PaymentStatus

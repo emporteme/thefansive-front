@@ -1,6 +1,12 @@
 import { Clock as ClockIcon, Tick as TickIcon } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
-import { DeliveryStatus, DeliveryStatusData } from "../models"
+import { DeliveryStatus } from "@/shared/types/order"
+
+interface DeliveryStatusData {
+  label: string
+  labelClassName: string
+  icon: React.ReactNode
+}
 
 interface DeliveryStatusProps {
   status: DeliveryStatus

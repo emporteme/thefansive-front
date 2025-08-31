@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { DeliveryStatusText, InvoiceInfoButton, PaymentStatusBox } from "@/shared/components/widgets"
+import { CertificateButton, DeliveryStatusText, InvoiceInfoButton, PaymentStatusBox } from "@/shared/components/widgets"
 import { Copy as CopyIcon, DeliveryTruck as DeliveryTruckIcon } from "@/shared/icons"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { copyText } from "@/shared/utils"
@@ -30,13 +30,16 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
             <h4 className="text-2xl font-semibold text-black">{order.type}</h4>
             <h3 className="max-w-[250px] text-base font-normal text-black">{order.title}</h3>
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="text-base font-semibold text-black">
-              <span className="font-normal text-slate-600">Date:</span> {order.date}
-            </p>
-            <p className="text-base font-semibold text-black">
-              <span className="font-normal text-slate-600">Order №</span> {order.id}
-            </p>
+          <div className="flex flex-col gap-6">
+            <CertificateButton type="fan" />
+            <div className="flex flex-col gap-2">
+              <p className="text-base font-semibold text-black">
+                <span className="font-normal text-slate-600">Date:</span> {order.date}
+              </p>
+              <p className="text-base font-semibold text-black">
+                <span className="font-normal text-slate-600">Order №</span> {order.id}
+              </p>
+            </div>
           </div>
         </div>
       </div>

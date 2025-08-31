@@ -5,14 +5,22 @@ const orders = [
   {
     id: "1234567899",
     date: "10.08.2025",
-    type: "Special collection",
-    title: "Lionel Messi Signed T-Shirt",
+    type: "Liverpool Fan SP",
+    title: "Special Souvenir Jersey",
     paymentStatus: "paid" as PaymentStatus,
     deliveryStatus: "delivered" as DeliveryStatus,
   },
+  {
+    id: "1234567890",
+    date: "10.08.2025",
+    type: "Barcelona Fan SP",
+    title: "Special souvenir T-shirt. The maximum number of lines allowed is no more than three.",
+    paymentStatus: "paid" as PaymentStatus,
+    deliveryStatus: "pending" as DeliveryStatus,
+  },
 ]
 
-const CompletedTabSection: React.FC = () => {
+const AllTabSection: React.FC = () => {
   return (
     <div className="mt-6 flex w-full flex-col gap-6">
       {orders.map((order) => (
@@ -22,4 +30,4 @@ const CompletedTabSection: React.FC = () => {
   )
 }
 
-export { CompletedTabSection }
+export { AllTabSection }

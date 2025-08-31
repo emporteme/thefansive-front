@@ -5,8 +5,8 @@ const orders = [
   {
     id: "1234567899",
     date: "10.08.2025",
-    type: "Special collection",
-    title: "Lionel Messi Signed T-Shirt",
+    type: "Liverpool Fan SP",
+    title: "Special Souvenir Jersey",
     paymentStatus: "paid" as PaymentStatus,
     deliveryStatus: "delivered" as DeliveryStatus,
   },

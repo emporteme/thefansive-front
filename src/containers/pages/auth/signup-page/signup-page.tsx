@@ -2,8 +2,11 @@ import Link from "next/link"
 import React from "react"
 import Logo from "@/shared/components/elements/logo"
 import { Email, EmailCode, Password, User } from "@/shared/icons"
+import { getRoutes } from "@/shared/utils/get-routes"
 
 const SignupPage = () => {
+  const routes = getRoutes()
+
   return (
     <div className="flex min-w-120 flex-col rounded-xl bg-white px-6 py-8 shadow-2xl shadow-slate-400/50">
       <Logo className="mb-[5vh] w-32" />
@@ -74,7 +77,7 @@ const SignupPage = () => {
         {/* Login Link */}
         <div className="text-center text-sm">
           <span className="text-slate-500">Have an account? </span>
-          <Link href="/auth" className="font-semibold text-slate-800 hover:text-slate-600">
+          <Link href={routes.auth.login()} className="font-semibold text-slate-800 hover:text-slate-600">
             Login
           </Link>
         </div>

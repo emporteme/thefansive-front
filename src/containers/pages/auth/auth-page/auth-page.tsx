@@ -2,8 +2,11 @@ import Link from "next/link"
 import React from "react"
 import Logo from "@/shared/components/elements/logo"
 import { Email, Google, Password } from "@/shared/icons"
+import { getRoutes } from "@/shared/utils/get-routes"
 
 const AuthPage = () => {
+  const routes = getRoutes()
+
   return (
     <div className="flex min-w-120 flex-col rounded-xl bg-white px-6 py-8 shadow-2xl shadow-slate-400/50">
       <Logo className="mb-[5vh] w-32" />
@@ -60,7 +63,7 @@ const AuthPage = () => {
             <input type="checkbox" className="h-4 w-4 rounded border-slate-300 text-slate-600 focus:ring-slate-500" />
             <span className="ml-2 text-sm text-slate-700">Remember me</span>
           </label>
-          <Link href="/auth/forgot" className="text-sm font-semibold text-slate-600 hover:text-slate-800">
+          <Link href={routes.auth.forgot()} className="text-sm font-semibold text-slate-600 hover:text-slate-800">
             Forgot Password?
           </Link>
         </div>
@@ -73,7 +76,7 @@ const AuthPage = () => {
         {/* Sign Up Link */}
         <div className="text-center text-sm">
           <span className="text-slate-500">Don't have an account? </span>
-          <Link href="/auth/sign-up" className="font-semibold text-slate-800 hover:text-slate-600">
+          <Link href={routes.auth.signup()} className="font-semibold text-slate-800 hover:text-slate-600">
             Sign Up
           </Link>
         </div>

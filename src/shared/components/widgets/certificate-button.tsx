@@ -17,11 +17,14 @@ const dataByType = {
   fan: {
     label: "Fan Certificate",
   },
+  donation: {
+    label: "Donation Certificate",
+  },
 } as Record<CertificateType, CertificateData>
 
 const CertificateButton: React.FC<CertificateButtonProps> = ({ type, className, onClick, ...props }) => {
   return (
-    <div
+    <button
       className={cn(
         "flex w-full flex-1 cursor-pointer items-center justify-center gap-1 rounded-xl bg-slate-200 p-2 text-sm font-normal text-black",
         className
@@ -31,7 +34,7 @@ const CertificateButton: React.FC<CertificateButtonProps> = ({ type, className, 
     >
       <CertificateIcon />
       <span>{dataByType?.[type]?.label}</span>
-    </div>
+    </button>
   )
 }
 

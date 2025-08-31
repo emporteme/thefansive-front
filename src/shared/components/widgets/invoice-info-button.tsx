@@ -8,7 +8,7 @@ interface InvoiceInfoButtonProps {
 
 const InvoiceInfoButton: React.FC<InvoiceInfoButtonProps> = ({ className, onClick, ...props }) => {
   return (
-    <div
+    <button
       className={cn(
         "flex cursor-pointer flex-col items-center justify-center gap-1 self-start rounded-xl bg-slate-200 p-3 text-sm text-black",
         className
@@ -18,7 +18,7 @@ const InvoiceInfoButton: React.FC<InvoiceInfoButtonProps> = ({ className, onClic
     >
       <InvoiceIcon />
       <span>Invoice Info</span>
-    </div>
+    </button>
   )
 }
 

@@ -12,7 +12,7 @@ const SignupPage = () => {
       </h1>
       <p className="mt-2 text-slate-600">Go Beyond Being a Fan</p>
 
-      <div className="mt-12 flex flex-col gap-6">
+      <div className="mt-12 flex flex-col gap-4">
         {/* Full Name Input */}
         <div className="relative text-slate-400">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -38,7 +38,7 @@ const SignupPage = () => {
         </div>
 
         {/* Email Code Input with Send Code Button */}
-        <div className="flex gap-3">
+        <div className="flex gap-2">
           <div className="relative flex-1 text-slate-400">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
               <EmailCode />
@@ -67,7 +67,7 @@ const SignupPage = () => {
         </div>
 
         {/* Sign Up Button */}
-        <button className="w-full cursor-pointer rounded-lg border border-slate-300 bg-white px-4 py-3 font-medium text-black transition-all duration-200 hover:bg-slate-50">
+        <button className="my-4 w-full cursor-pointer rounded-lg border border-slate-300 bg-white px-4 py-3 font-medium text-black transition-all duration-200 hover:bg-slate-50">
           Sign Up
         </button>
 

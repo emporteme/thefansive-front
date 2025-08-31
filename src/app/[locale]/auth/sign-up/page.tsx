@@ -1,7 +1,8 @@
 import { FC } from "react"
+import SignupPage from "@/containers/pages/auth/signup-page/signup-page"
 
 const Page: FC = () => {
-  return <div>Page</div>
+  return <SignupPage />
 }
 
 export default Page

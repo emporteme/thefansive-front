@@ -60,10 +60,12 @@
     "pino-pretty": "^13.1.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.62.0",
     "react-toastify": "^11.0.5",
     "tailwind-merge": "^2.6.0",
     "viem": "^2.33.2",
     "wagmi": "^2.16.1",
+    "yup": "^1.7.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

@@ -1,6 +1,5 @@
 import Image from "next/image"
-import { DeliveryStatusText, InvoiceInfoButton, PaymentStatusBox } from "@/shared/components/widgets"
-import { CertificateButton } from "@/shared/components/widgets/certificate-button copy"
+import { CertificateButton, DeliveryStatusText, InvoiceInfoButton, PaymentStatusBox } from "@/shared/components/widgets"
 import { Copy as CopyIcon, DeliveryTruck as DeliveryTruckIcon } from "@/shared/icons"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { copyText } from "@/shared/utils"

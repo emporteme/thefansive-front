@@ -22,7 +22,6 @@ export const getRoutes = (locale?: string) => {
       myInformation: () => (locale ? `/${locale}/user/my-information` : "/user/my-information"),
       support: () => (locale ? `/${locale}/user/support` : "/user/support"),
     },
-    news: () => (locale ? `/${locale}/news` : `/news`),
     newsArticle: (id: number) => (locale ? `/${locale}/news/${id}` : `/news/${id}`),
   }
 }

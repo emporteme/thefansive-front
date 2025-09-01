@@ -1,11 +1,19 @@
+"use client"
+
 import Link from "next/link"
 import React from "react"
 import Logo from "@/shared/components/elements/logo"
+import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { Email, Google, Password } from "@/shared/icons"
 import { getRoutes } from "@/shared/utils/get-routes"
 
 const AuthPage = () => {
   const routes = getRoutes()
+  const navigate = useNavigate()
+
+  const handleLogin = () => {
+    navigate(routes.user.profile())
+  }
 
   return (
     <div className="flex min-w-120 flex-col rounded-xl bg-white px-6 py-8 shadow-2xl shadow-slate-400/50">
@@ -69,7 +77,10 @@ const AuthPage = () => {
         </div>
 
         {/* Login Button */}
-        <button className="w-full cursor-pointer rounded-lg border border-slate-300 bg-white px-4 py-3 font-medium text-black transition-all duration-200 hover:bg-slate-50">
+        <button
+          className="w-full cursor-pointer rounded-lg border border-slate-300 bg-white px-4 py-3 font-medium text-black transition-all duration-200 hover:bg-slate-50"
+          onClick={handleLogin}
+        >
           Log in
         </button>
 

@@ -18,6 +18,7 @@ export { default as Password } from "./password"
 export { default as EmailCode } from "./email-code"
 export { default as User } from "./user"
 export { default as ArrowRightRound } from "./arrow-right-round"
+export { default as ArrowRightSmallRound } from "./arrow-right-small-round"
 
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"

@@ -52,6 +52,7 @@ const Links: React.FC = () => {
     <div className="flex flex-col gap-1">
       {sidebarItems(routes).map((item) => (
         <Link
+          prefetch
           key={item.id}
           href={item.link}
           className={clsx(

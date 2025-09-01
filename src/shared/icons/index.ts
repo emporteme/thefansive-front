@@ -1,3 +1,4 @@
+// Not sorted Icons
 export { default as Auth } from "./auth"
 export { default as Add } from "./add"
 export { default as Cart } from "./cart"
@@ -8,12 +9,23 @@ export { default as Mobile } from "./mobile"
 export { default as Search } from "./search"
 export { default as Support } from "./support"
 export { default as Wallet } from "./wallet"
+export { default as Invoice } from "./invoice"
+export { default as Tick } from "./tick"
+export { default as DeliveryTruck } from "./delivery-truck"
+export { default as Clock } from "./clock"
+export { default as Email } from "./email"
+export { default as Password } from "./password"
+export { default as EmailCode } from "./email-code"
+export { default as User } from "./user"
+export { default as ArrowRightRound } from "./arrow-right-round"
+export { default as ArrowRightSmallRound } from "./arrow-right-small-round"
 
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"
 export { default as Instagram } from "./(social-links)/instagram"
 export { default as Telegram } from "./(social-links)/telegram"
 export { default as X } from "./(social-links)/x"
+export { default as Google } from "./(social-links)/google"
 
 // Mobile Store Icons
 export { default as GooglePlay } from "./(mobile-store)/google-play"

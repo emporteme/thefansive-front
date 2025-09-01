@@ -6,12 +6,7 @@ import { useRoutes } from "@/shared/hooks/client/use-routes"
 const NavigationWidget: FC = () => {
   const routes = useRoutes()
 
-  const navItems = [
-    { label: "Главная", href: routes.home() },
-    { label: "О нас", href: routes.about() },
-    { label: "Услуги", href: routes.services() },
-    { label: "Контакты", href: routes.contact() },
-  ]
+  const navItems = [{ label: "Главная", href: routes.home() }]
 
   return (
     <nav className="hidden space-x-8 md:flex">

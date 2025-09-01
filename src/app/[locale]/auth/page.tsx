@@ -1,7 +1,8 @@
 import { FC } from "react"
+import AuthPage from "@/containers/pages/auth/auth-page/auth-page"
 
 const Page: FC = () => {
-  return <div>Page</div>
+  return <AuthPage />
 }
 
 export default Page

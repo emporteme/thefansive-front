@@ -9,13 +9,14 @@ interface TabsProps {
   }[]
   activeTab: string
   onTabChange: (tab: string) => void
+  className?: string
 }
 
-const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onTabChange }) => {
+const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onTabChange, className }) => {
   const isActiveTab = (tab: string) => tab === activeTab
 
   return (
-    <ReactTabs.Root defaultValue={activeTab}>
+    <ReactTabs.Root defaultValue={activeTab} className={className}>
       <ReactTabs.List className="flex gap-3">
         {tabs.map((tab) => (
           <ReactTabs.Trigger

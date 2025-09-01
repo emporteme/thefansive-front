@@ -1,6 +1,6 @@
 import clsx from "clsx"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Routes } from "@/shared/types/routes"
 
@@ -44,7 +44,6 @@ const sidebarItems = (routes: Routes) => [
 
 const Links: React.FC = () => {
   const routes = useRoutes()
-  const navigate = useNavigate()
   const pathname = usePathname()
 
   const isActiveLink = (link: string) => pathname === link
@@ -52,8 +51,9 @@ const Links: React.FC = () => {
   return (
     <div className="flex flex-col gap-1">
       {sidebarItems(routes).map((item) => (
-        <div
+        <Link
           key={item.id}
+          href={item.link}
           className={clsx(
             "flex cursor-pointer rounded-xl p-4 text-xl font-bold transition-all duration-200 hover:text-black",
             {
@@ -63,10 +63,9 @@ const Links: React.FC = () => {
               "font-semibold": !isActiveLink(item.link),
             }
           )}
-          onClick={() => navigate(item.link)}
         >
           {item.title}
-        </div>
+        </Link>
       ))}
     </div>
   )

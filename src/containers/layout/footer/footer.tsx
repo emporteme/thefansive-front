@@ -2,8 +2,11 @@ import Link from "next/link"
 import React from "react"
 import Logo from "@/shared/components/elements/logo"
 import { AppStore, Facebook, GooglePlay, Instagram, Telegram, X } from "@/shared/icons"
+import { getRoutes } from "@/shared/utils/get-routes"
 
 const Footer: React.FC = () => {
+  const routes = getRoutes()
+
   return (
     <footer className="flex flex-col gap-6 bg-white px-[5vw] py-9">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -15,16 +18,16 @@ const Footer: React.FC = () => {
           <span className="text-2xl font-semibold text-slate-900">Explore</span>
           <ul className="flex flex-col gap-1.5">
             <li className="text-sm font-medium text-black">
-              <Link href="/">Home</Link>
+              <Link href={routes.home()}>Home</Link>
             </li>
             <li className="text-sm font-medium text-black">
-              <Link href="/">Ecosystem</Link>
+              <Link href={routes.ecosystem()}>Ecosystem</Link>
             </li>
             <li className="text-sm font-medium text-black">
-              <Link href="/">Game</Link>
+              <Link href={routes.game()}>Game</Link>
             </li>
             <li className="text-sm font-medium text-black">
-              <Link href="/">Partners</Link>
+              <Link href={routes.partners()}>Partners</Link>
             </li>
           </ul>
         </div>

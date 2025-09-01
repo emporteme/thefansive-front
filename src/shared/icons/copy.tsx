@@ -1,4 +1,5 @@
 import React from "react"
+import { cn } from "../lib/utils"
 
 const Copy: React.FC<{ className?: string; onClick?: () => void }> = ({ className, onClick }) => {
   return (
@@ -8,7 +9,7 @@ const Copy: React.FC<{ className?: string; onClick?: () => void }> = ({ classNam
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={cn(className, "cursor-pointer")}
       onClick={onClick}
     >
       <g clipPath="url(#clip0_963_22056)">

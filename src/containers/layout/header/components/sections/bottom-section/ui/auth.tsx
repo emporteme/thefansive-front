@@ -8,7 +8,7 @@ const Auth: React.FC = () => {
   const navigate = useNavigate()
 
   const handleAuth = () => {
-    navigate(routes.user.profile())
+    navigate(routes.auth.login())
   }
 
   return (

@@ -14,13 +14,13 @@ const User: React.FC = () => {
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <div className="text-xl font-semibold text-black">Name</div>
-          <CopyIcon className="h-4 w-4 cursor-pointer" onClick={() => handleCopy("Name")} />
+          <CopyIcon className="h-4 w-4" onClick={() => handleCopy("Name")} />
         </div>
         <div className="flex items-center gap-1.5">
           <div className="font-semibold text-black">
             <span className="font-normal text-slate-500">ID:</span> 1234567890
           </div>
-          <CopyIcon className="h-4 w-4 cursor-pointer" onClick={() => handleCopy("1234567890")} />
+          <CopyIcon className="h-4 w-4" onClick={() => handleCopy("1234567890")} />
         </div>
       </div>
     </div>

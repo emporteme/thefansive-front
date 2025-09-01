@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "prettier": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
-    "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "prettier:check": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
     "analyze": "cross-env ANALYZE=true pnpm run build",
     "storybook": "cross-env FORCE_COLOR=1 storybook dev -p 6006",
     "test-storybook": "cross-env FORCE_COLOR=1 test-storybook",
@@ -60,10 +60,12 @@
     "pino-pretty": "^13.1.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.62.0",
     "react-toastify": "^11.0.5",
     "tailwind-merge": "^2.6.0",
     "viem": "^2.33.2",
     "wagmi": "^2.16.1",
+    "yup": "^1.7.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

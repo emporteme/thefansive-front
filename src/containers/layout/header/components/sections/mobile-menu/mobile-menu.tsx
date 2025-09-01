@@ -1,7 +1,7 @@
 import Link from "next/link"
 import React from "react"
 import { Auth, Cart, Search } from "../bottom-section/ui"
-import { type HeaderLink, headerLinks } from "../bottom-section/ui/links"
+import { getHeaderLinks, type HeaderLink } from "../bottom-section/ui/links"
 
 type MobileMenuProps = {
   isOpen: boolean
@@ -54,7 +54,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
           {/* Links */}
           <nav className="flex flex-col divide-y divide-gray-100">
-            {headerLinks.map((link: HeaderLink) => (
+            {getHeaderLinks().map((link: HeaderLink) => (
               <Link
                 key={link.id}
                 href={link.href}

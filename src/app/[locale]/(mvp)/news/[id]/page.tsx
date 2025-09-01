@@ -1,10 +1,10 @@
 import Image from "next/image"
 
 interface ArticleProps {
-  params: {
+  params: Promise<{
     id: string
     locale: string
-  }
+  }>
 }
 
 const fetchArticle = async (id: string) => {

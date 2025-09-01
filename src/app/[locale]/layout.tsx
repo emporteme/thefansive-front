@@ -34,7 +34,7 @@ export default async function RootLayout({
         <meta name="googlebot" content="noindex, nofollow" />
         <meta name="bingbot" content="noindex, nofollow" />
       </head>
-      <body>
+      <body className="bg-[#F1F5F9]">
         <I18nProviderClient locale={locale}>
           <Web3Provider>
             <TonProvider>

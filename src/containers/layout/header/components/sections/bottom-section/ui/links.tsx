@@ -9,7 +9,7 @@ export const headerLinks: HeaderLink[] = [
   { id: 3, href: "/", children: "Game" },
   { id: 4, href: "/", children: "Partners" },
   { id: 5, href: "/", children: "How it works?" },
-  { id: 6, href: "/", children: "News" },
+  { id: 6, href: "/news", children: "News" },
 ]
 
 const LinkComponent: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => {

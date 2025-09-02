@@ -1,26 +1,30 @@
 export const getRoutes = (locale?: string) => {
+  const getRoute = (path: string) => {
+    return locale ? `/${locale}${path}` : path
+  }
+
   return {
-    home: () => (locale ? `/${locale}` : "/"),
-    cart: () => (locale ? `/${locale}/cart` : "/cart"),
-    ecosystem: () => (locale ? `/${locale}/ecosystem` : "/eco-system"),
-    game: () => (locale ? `/${locale}/game` : "/game"),
-    howItWorks: () => (locale ? `/${locale}/how-it-works` : "/how-it-works"),
-    news: () => (locale ? `/${locale}/news` : "/news"),
-    partners: () => (locale ? `/${locale}/partners` : "/partners"),
+    home: () => getRoute("/"),
+    cart: () => getRoute("/cart"),
+    ecosystem: () => getRoute("/ecosystem"),
+    game: () => getRoute("/game"),
+    howItWorks: () => getRoute("/how-it-works"),
+    news: () => getRoute("/news"),
+    partners: () => getRoute("/partners"),
     auth: {
-      login: () => (locale ? `/${locale}/auth` : "/auth"),
-      signup: () => (locale ? `/${locale}/auth/sign-up` : "/auth/sign-up"),
-      forgot: () => (locale ? `/${locale}/auth/forgot` : "/auth/forgot"),
-      restore: () => (locale ? `/${locale}/auth/restore` : "/auth/restore"),
+      login: () => getRoute("/auth"),
+      signup: () => getRoute("/auth/sign-up"),
+      forgot: () => getRoute("/auth/forgot"),
+      restore: () => getRoute("/auth/restore"),
     },
     user: {
-      profile: () => (locale ? `/${locale}/user/profile` : "/user/profile"),
-      order: () => (locale ? `/${locale}/user/order` : "/user/order"),
-      fanSupport: () => (locale ? `/${locale}/user/fan-support` : "/user/fan-support"),
-      donate: () => (locale ? `/${locale}/user/donate` : "/user/donate"),
-      tasks: () => (locale ? `/${locale}/user/tasks` : "/user/tasks"),
-      myInformation: () => (locale ? `/${locale}/user/my-information` : "/user/my-information"),
-      support: () => (locale ? `/${locale}/user/support` : "/user/support"),
+      profile: () => getRoute("/user/profile"),
+      order: () => getRoute("/user/order"),
+      fanSupport: () => getRoute("/user/fan-support"),
+      donate: () => getRoute("/user/donate"),
+      tasks: () => getRoute("/user/tasks"),
+      myInformation: () => getRoute("/user/my-information"),
+      support: () => getRoute("/user/support"),
     },
   }
 }

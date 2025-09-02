@@ -13,7 +13,7 @@ export const getHeaderLinks = (): HeaderLink[] => {
     { id: 3, href: routes.game(), children: "Game" },
     { id: 4, href: routes.partners(), children: "Partners" },
     { id: 5, href: routes.howItWorks(), children: "How it works?" },
-    { id: 6, href: routes.news(), children: "News" },
+    { id: 6, href: routes.news.all(), children: "News" },
   ]
 }
 

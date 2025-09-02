@@ -9,7 +9,6 @@ export const getRoutes = (locale?: string) => {
     ecosystem: () => getRoute("/ecosystem"),
     game: () => getRoute("/game"),
     howItWorks: () => getRoute("/how-it-works"),
-    news: () => getRoute("/news"),
     partners: () => getRoute("/partners"),
     auth: {
       login: () => getRoute("/auth"),
@@ -25,6 +24,10 @@ export const getRoutes = (locale?: string) => {
       tasks: () => getRoute("/user/tasks"),
       myInformation: () => getRoute("/user/my-information"),
       support: () => getRoute("/user/support"),
+    },
+    news: {
+      all: () => getRoute("/news"),
+      single: (id: string) => getRoute(`/news/${id}`),
     },
   }
 }

@@ -1,4 +1,3 @@
-
 // https://github.com/francoismassart/eslint-plugin-tailwindcss/pull/381
 // import eslintPluginTailwindcss from "eslint-plugin-tailwindcss"
 import eslintPluginNext from "@next/eslint-plugin-next"
@@ -61,8 +60,8 @@ const config = typescriptEslint.config(
       "unicorn/filename-case": [
         "error",
         {
-          "case": "kebabCase"
-        }
+          case: "kebabCase",
+        },
       ],
       "sort-imports": [
         "error",

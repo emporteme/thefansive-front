@@ -33,7 +33,7 @@ export default async function RootLayout({
         <meta name="googlebot" content="noindex, nofollow" />
         <meta name="bingbot" content="noindex, nofollow" />
       </head>
-      <body className="flex min-h-screen flex-col bg-[#F1F5F9]">
+      <body className="flex min-h-screen flex-col">
         <I18nProviderClient locale={locale}>
           <Web3Provider>
             <TonProvider>

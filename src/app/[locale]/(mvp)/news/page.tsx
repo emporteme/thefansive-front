@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 import { FC, useEffect, useState } from "react"
 import { Card, type CardProps } from "@/shared/components/ui/card"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
@@ -34,20 +35,22 @@ const Page: FC = () => {
   }, [])
 
   return (
-    <div className="width-full my-[40px]">
-      <div></div>
+    <div className="width-full my-[40px] flex flex-col">
+      <div className="relative h-full min-h-[362px] w-full border-t-1 border-b-1">
+        <Image src={"/images/dev/news-placeholder.png"} alt={"news placeholder"} fill className="object-cover" />
+      </div>
       <div className="align-center mx-[60px] my-[40px] flex flex-wrap justify-center gap-[24px]">
         {loading &&
-          Array.from(Array(10).keys()).map((el) => (
+          Array.from(Array(8).keys()).map((el) => (
             <div
               key={el}
-              className="align-center flex animate-pulse flex-col justify-center gap-[24px] rounded-[16px] bg-white p-[24px]"
+              className="align-center flex animate-pulse flex-col justify-center gap-[24px] rounded-[16px] border bg-white p-[24px]"
             >
-              <div className="h-[220px] w-[264px] rounded-[8px] bg-gray-200"></div>
-              <div className="flex h-[152px] w-[264px] flex-col gap-[12px]">
-                <div className="h-[16px] w-[264px] rounded-[8px] bg-gray-200"></div>
-                <div className="h-[48px] w-[264px] rounded-[8px] bg-gray-200"></div>
-                <div className="h-[64px] w-[264px] rounded-[8px] bg-gray-200"></div>
+              <div className="h-[220px] w-[233px] rounded-[8px] bg-gray-200"></div>
+              <div className="flex h-[152px] w-[233px] flex-col gap-[12px]">
+                <div className="h-[16px] w-[233px] rounded-[8px] bg-gray-200"></div>
+                <div className="h-[48px] w-[233px] rounded-[8px] bg-gray-200"></div>
+                <div className="h-[64px] w-[233px] rounded-[8px] bg-gray-200"></div>
               </div>
             </div>
           ))}

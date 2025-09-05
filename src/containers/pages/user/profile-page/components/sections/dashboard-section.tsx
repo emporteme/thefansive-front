@@ -1,8 +1,6 @@
 "use client"
 
 import React, { FC } from "react"
-import { Button } from "@/shared/components/ui"
-import { cn } from "@/shared/lib/utils"
 import { ConnectWallet } from "../widgets/connect-wallet"
 import { MyCertificates } from "../widgets/my-certificates"
 

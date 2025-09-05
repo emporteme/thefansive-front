@@ -1,6 +1,6 @@
 // Not sorted Icons
 export { default as Auth } from "./auth"
-export { default as Add } from "./add"
+export { Add, AddCircleFilled } from "./add"
 export { default as Cart } from "./cart"
 export { default as Copy } from "./copy"
 export { CertificateOutlined, CertificateFilled } from "./certificate"
@@ -19,7 +19,6 @@ export { default as EmailCode } from "./email-code"
 export { default as User } from "./user"
 export { default as ArrowRightRound } from "./arrow-right-round"
 export { default as ArrowRightSmallRound } from "./arrow-right-small-round"
-export { default as Subtract } from "./subtract"
 
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"

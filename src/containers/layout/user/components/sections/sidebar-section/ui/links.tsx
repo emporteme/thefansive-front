@@ -31,9 +31,9 @@ const sidebarItems = (routes: Routes) => [
     link: routes.user.tasks(),
   },
   {
-    id: "my-information",
-    title: "My Information",
-    link: routes.user.myInformation(),
+    id: "personal-information",
+    title: "Personal Information",
+    link: routes.user.personalInformation(),
   },
   {
     id: "support",

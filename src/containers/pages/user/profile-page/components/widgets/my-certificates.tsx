@@ -1,12 +1,13 @@
-import { Certificate as CertificateIcon } from "@/shared/icons"
+import { Button } from "@/shared/components/ui"
+import { CertificateFilled } from "@/shared/icons"
 
 const MyCertificates = () => {
   return (
     // TODO: refactor to reusable button component
-    <button className="flex cursor-pointer items-center gap-2.5 rounded-lg bg-slate-200 px-5 py-2">
-      <CertificateIcon />
-      <span className="font-regular text-base text-black">My Certificates</span>
-    </button>
+    <Button className="px-3 py-2">
+      <span className="text-sm leading-[1.7] font-semibold">My Certificates</span>
+      <CertificateFilled />
+    </Button>
   )
 }
 

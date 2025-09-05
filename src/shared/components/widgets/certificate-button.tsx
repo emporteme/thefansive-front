@@ -1,4 +1,4 @@
-import { Certificate as CertificateIcon } from "@/shared/icons"
+import { CertificateFilled } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
 
 type CertificateType = "fan" | "donation"
@@ -32,7 +32,7 @@ const CertificateButton: React.FC<CertificateButtonProps> = ({ type, className, 
       onClick={onClick}
       {...props}
     >
-      <CertificateIcon />
+      <CertificateFilled />
       <span>{dataByType?.[type]?.label}</span>
     </button>
   )

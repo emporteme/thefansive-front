@@ -1,6 +1,7 @@
 "use client"
 
 import React, { FC } from "react"
+import { Button } from "@/shared/components/ui"
 import { cn } from "@/shared/lib/utils"
 import { ConnectWallet } from "../widgets/connect-wallet"
 import { MyCertificates } from "../widgets/my-certificates"
@@ -38,28 +39,26 @@ const dashboardItems = (user: UserInfo) => [
 const DashboardSection: FC = () => {
   const user = {
     points: 250,
-    fanSupport: 100,
-    donation: 50,
-    completedTasks: 10,
+    fanSupport: 3,
+    donation: 2,
+    completedTasks: 4,
   }
 
   return (
-    <div className="flex w-full justify-between rounded-xl bg-slate-100 p-6 pb-15.5">
-      <div className="mx-4 mt-2.5 flex flex-col gap-3">
+    <div className="flex w-full justify-between rounded-xl bg-slate-100 p-6">
+      <div className="flex flex-wrap gap-x-5 gap-y-3">
         {dashboardItems(user).map((item) => (
           <div
             key={item.title}
-            className={cn("flex min-w-[490px] justify-between border-b border-slate-200 pb-3", {
-              "border-b-transparent": item.id === "completed-tasks",
-            })}
+            className="flex min-w-[230px] flex-col justify-between gap-6 rounded-xl border-b border-slate-200 bg-white p-5"
           >
-            <span className="text-xl text-slate-500">{item.title}:</span>
-            <span className="text-xl font-semibold">{item.value}</span>
+            <span className="text-base font-medium text-slate-600">{item.title}</span>
+            <span className="flex justify-end text-3xl font-semibold text-slate-900">{item.value}</span>
           </div>
         ))}
       </div>
 
-      <div className="flex flex-col gap-5.5">
+      <div className="flex flex-col gap-4">
         <ConnectWallet />
         <MyCertificates />
       </div>

@@ -49,14 +49,14 @@ const Links: React.FC = () => {
   const isActiveLink = (link: string) => pathname === link
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1.5">
       {sidebarItems(routes).map((item) => (
         <Link
           prefetch
           key={item.id}
           href={item.link}
           className={clsx(
-            "flex cursor-pointer rounded-xl p-4 text-xl leading-[1.2] font-bold transition-all duration-200 hover:font-bold hover:text-slate-900",
+            "flex cursor-pointer rounded-xl p-4 text-lg leading-[1.2] font-bold transition-all duration-200 hover:font-bold hover:text-slate-900",
             {
               "text-slate-900": isActiveLink(item.link),
               "font-bold": isActiveLink(item.link),

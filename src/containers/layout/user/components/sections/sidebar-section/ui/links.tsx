@@ -56,12 +56,12 @@ const Links: React.FC = () => {
           key={item.id}
           href={item.link}
           className={clsx(
-            "flex cursor-pointer rounded-xl p-4 text-xl font-bold transition-all duration-200 hover:text-black",
+            "flex cursor-pointer rounded-xl p-4 text-xl leading-[1.2] font-bold transition-all duration-200 hover:font-bold hover:text-slate-900",
             {
-              "text-black": isActiveLink(item.link),
+              "text-slate-900": isActiveLink(item.link),
               "font-bold": isActiveLink(item.link),
-              "text-gray-400": !isActiveLink(item.link),
-              "font-semibold": !isActiveLink(item.link),
+              "text-slate-500": !isActiveLink(item.link),
+              "font-normal": !isActiveLink(item.link),
             }
           )}
         >

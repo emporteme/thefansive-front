@@ -22,7 +22,7 @@ export const getRoutes = (locale?: string) => {
       fanSupport: () => getRoute("/user/fan-support"),
       donate: () => getRoute("/user/donate"),
       tasks: () => getRoute("/user/tasks"),
-      myInformation: () => getRoute("/user/my-information"),
+      personalInformation: () => getRoute("/user/personal-information"),
       support: () => getRoute("/user/support"),
     },
     news: {

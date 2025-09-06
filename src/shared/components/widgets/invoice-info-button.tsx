@@ -1,4 +1,4 @@
-import { Invoice as InvoiceIcon } from "@/shared/icons"
+import { InvoiceFilled } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
 
 interface InvoiceInfoButtonProps {
@@ -10,14 +10,14 @@ const InvoiceInfoButton: React.FC<InvoiceInfoButtonProps> = ({ className, onClic
   return (
     <button
       className={cn(
-        "flex cursor-pointer flex-col items-center justify-center gap-1 self-start rounded-xl bg-slate-200 p-3 text-sm text-black",
+        "flex items-center justify-center gap-2 self-start rounded-md bg-slate-100 px-3 py-2 text-sm",
         className
       )}
       onClick={onClick}
       {...props}
     >
-      <InvoiceIcon />
-      <span>Invoice Info</span>
+      <InvoiceFilled className="h-4.5 w-4.5 text-slate-700" />
+      <span className="text-sm leading-[1.7] font-semibold text-slate-700">Invoice Info</span>
     </button>
   )
 }

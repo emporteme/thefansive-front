@@ -31,9 +31,9 @@ const sidebarItems = (routes: Routes) => [
     link: routes.user.tasks(),
   },
   {
-    id: "my-information",
-    title: "My Information",
-    link: routes.user.myInformation(),
+    id: "personal-information",
+    title: "Personal Information",
+    link: routes.user.personalInformation(),
   },
   {
     id: "support",
@@ -49,19 +49,19 @@ const Links: React.FC = () => {
   const isActiveLink = (link: string) => pathname === link
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1.5">
       {sidebarItems(routes).map((item) => (
         <Link
           prefetch
           key={item.id}
           href={item.link}
           className={clsx(
-            "flex cursor-pointer rounded-xl p-4 text-xl font-bold transition-all duration-200 hover:text-black",
+            "flex cursor-pointer rounded-xl p-4 text-lg leading-[1.2] font-bold transition-all duration-200 hover:font-bold hover:text-slate-900",
             {
-              "text-black": isActiveLink(item.link),
+              "text-slate-900": isActiveLink(item.link),
               "font-bold": isActiveLink(item.link),
-              "text-gray-400": !isActiveLink(item.link),
-              "font-semibold": !isActiveLink(item.link),
+              "text-slate-500": !isActiveLink(item.link),
+              "font-normal": !isActiveLink(item.link),
             }
           )}
         >

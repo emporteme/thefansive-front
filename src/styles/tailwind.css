@@ -40,6 +40,11 @@
   h6 {
     @apply leading-[1] tracking-[0.5px];
   }
+
+  button,
+  a {
+    @apply cursor-pointer;
+  }
 }
 /*
   ---break---
@@ -84,6 +89,7 @@
   --color-primary-600: var(--color-primary-600);
   --color-primary-800: var(--color-primary-800);
   --color-dark: var(--color-dark);
+  --color-card-bg: var(--color-card-bg);
 }
 /*
   ---break---
@@ -125,6 +131,7 @@
   --color-primary-600: oklch(0.5759 0.1353 156.71);
   --color-primary-800: oklch(0.4174 0.0912 159.36);
   --color-dark: oklch(0.2298 0.0495 270.33);
+  --color-card-bg: oklch(0.252 0 0);
 }
 /*
   ---break---
@@ -161,10 +168,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  /* fix dark theme */
   --color-primary-100: oklch(0.9465 0.0491 158.04);
   --color-primary-600: oklch(0.5759 0.1353 156.71);
   --color-primary-800: oklch(0.4174 0.0912 159.36);
   --color-dark: oklch(0.2298 0.0495 270.33);
+  --color-card-bg: oklch(0.252 0 0);
 }
 /*
   ---break---

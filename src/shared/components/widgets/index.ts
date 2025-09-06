@@ -1,4 +1,4 @@
-export { DeliveryStatusText } from "./delivery-status-text"
+export { DeliveryStatusTag } from "./delivery-status-tag"
 export { InvoiceInfoButton } from "./invoice-info-button"
-export { PaymentStatusBox } from "./payment-status-box"
+export { PaymentStatusTag } from "./payment-status-tag"
 export { CertificateButton } from "./certificate-button"

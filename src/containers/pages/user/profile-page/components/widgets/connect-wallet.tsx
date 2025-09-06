@@ -1,5 +1,6 @@
+import { Button } from "@/shared/components/ui"
 import { useWallet } from "@/shared/hooks/client/use-wallet"
-import { Wallet as WalletIcon } from "@/shared/icons"
+import { WalletFilled } from "@/shared/icons"
 import { alert } from "@/shared/lib/alert"
 
 const ConnectWallet = () => {
@@ -27,15 +28,12 @@ const ConnectWallet = () => {
 
   return (
     // TODO: refactor to reusable button component
-    <button
-      className="flex cursor-pointer items-center gap-2.5 rounded-lg border-2 border-[#cad5e2] bg-slate-100 px-4.5 py-2"
-      onClick={isConnected ? handleDisconnect : handleConnect}
-    >
-      <WalletIcon />
-      <span className="text-base font-semibold text-slate-900">
-        {isConnected && address ? address.slice(0, 6) + "..." + address.slice(-4) : "Connect Wallet"}
+    <Button className="self-end px-3 py-2" onClick={isConnected ? handleDisconnect : handleConnect}>
+      <span className="text-sm leading-[1.7] font-semibold">
+        {isConnected && address ? address.slice(0, 7) + "..." + address.slice(-4) : "Connect Wallet"}
       </span>
-    </button>
+      <WalletFilled />
+    </Button>
   )
 }
 

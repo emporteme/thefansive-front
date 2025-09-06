@@ -4,25 +4,35 @@ import { OrderCard } from "../widgets/order-card"
 const orders = [
   {
     id: "1234567899",
-    date: "10.08.2025",
-    type: "Liverpool Fan SP",
-    title: "Special Souvenir Jersey",
+    date: "10/08/2025",
+    collection: "Liverpool Fan Support",
+    title: "LFC Signed 25/26 Wirtz Boxed Shirt",
     paymentStatus: "paid" as PaymentStatus,
     deliveryStatus: "delivered" as DeliveryStatus,
+    estimatedDelivery: "24/06 - 26/06",
+    carrier: "DHL",
+    carrierImage: "/images/dev/dhl.png",
+    code: "1234567890",
+    image: "/images/dev/liverpool-fan-support.png",
   },
   {
     id: "1234567890",
-    date: "10.08.2025",
-    type: "Barcelona Fan SP",
-    title: "Special souvenir T-shirt. The maximum number of lines allowed is no more than three.",
+    date: "10/08/2025",
+    collection: "Liverpool Fan Support",
+    title: "LFC Signed Gerrard Ball In Case",
     paymentStatus: "paid" as PaymentStatus,
-    deliveryStatus: "pending" as DeliveryStatus,
+    deliveryStatus: "preparing" as DeliveryStatus,
+    estimatedDelivery: "24/06 - 26/06",
+    carrier: "DHL",
+    carrierImage: "/images/dev/dhl.png",
+    code: "1234567890",
+    image: "/images/dev/liverpool-fan-ball.png",
   },
 ]
 
 const AllTabSection: React.FC = () => {
   return (
-    <div className="mt-6 flex w-full flex-col gap-6">
+    <div className="mt-6 flex w-full flex-col gap-6 rounded-3xl bg-slate-100 px-5 py-7.5">
       {orders.map((order) => (
         <OrderCard key={order.id} order={order} />
       ))}

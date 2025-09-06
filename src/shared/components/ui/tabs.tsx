@@ -23,9 +23,9 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onTabChange, className }) 
             key={tab.value}
             value={tab.value}
             className={cn(
-              "min-w-[120px] cursor-pointer rounded-lg border-[1.5px] border-transparent bg-slate-100 p-3 text-center text-base font-semibold text-[#778CAC] transition-all duration-300 hover:border-[#B2BCC9]",
-              isActiveTab(tab.value) && "border-[#B2BCC9]",
-              isActiveTab(tab.value) && "text-slate-900"
+              "min-w-[160px] cursor-pointer rounded-lg border-[1.5px] border-transparent bg-slate-100 px-4 py-3 text-center text-base leading-[24px] font-semibold text-slate-600 transition-all duration-300 hover:border-slate-900",
+              isActiveTab(tab.value) && "bg-slate-900",
+              isActiveTab(tab.value) && "text-slate-50"
             )}
             onClick={() => onTabChange(tab.value)}
           >

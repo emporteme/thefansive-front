@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Tabs } from "@/shared/components/ui/tabs"
 import { AllTabSection } from "./components/sections/all-tab-section"
 import { CompletedTabSection } from "./components/sections/completed-tab-section"
-import { PreparingTabSection } from "./components/sections/preparing-tab-section"
+import { OngoingTabSection } from "./components/sections/ongoing-tab-section"
 
 const FanSupportPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("all")
@@ -18,7 +18,7 @@ const FanSupportPage: React.FC = () => {
       <Tabs
         tabs={[
           { label: "All", value: "all", content: <AllTabSection /> },
-          { label: "Preparing", value: "preparing", content: <PreparingTabSection /> },
+          { label: "Ongoing", value: "ongoing", content: <OngoingTabSection /> },
           { label: "Completed", value: "completed", content: <CompletedTabSection /> },
         ]}
         activeTab={activeTab}

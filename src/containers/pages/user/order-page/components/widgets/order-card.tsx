@@ -1,10 +1,10 @@
 import Image from "next/image"
+import { Tag } from "@/shared/components/ui"
 import { InvoiceInfoButton, PaymentStatusTag } from "@/shared/components/widgets"
 import { DeliveryStatusTag } from "@/shared/components/widgets/delivery-status-tag"
 import { Calendar, ContainerTruckFilled, CopyFilled } from "@/shared/icons"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { copyText } from "@/shared/utils"
-import { Tag } from "../ui/tag"
 interface OrderCardProps {
   order: {
     id: string

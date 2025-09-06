@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { Tag } from "@/shared/components/ui"
-import { InvoiceInfoButton, PaymentStatusTag } from "@/shared/components/widgets"
+import { CertificateButton, InvoiceInfoButton, PaymentStatusTag } from "@/shared/components/widgets"
 import { DeliveryStatusTag } from "@/shared/components/widgets/delivery-status-tag"
 import { Calendar, ContainerTruckFilled, CopyFilled } from "@/shared/icons"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
@@ -36,7 +36,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
           <div className="flex max-w-[300px] flex-col gap-2">
             <h4 className="text-xl leading-[1.2] font-semibold text-slate-900">{order.collection}</h4>
             <h3 className="text-sm leading-[1.2] font-semibold text-slate-900">{order.title}</h3>
-            <Tag label="Special Collections" />
+            <Tag label="Fan Support" />
           </div>
           <div className="flex flex-col gap-2">
             <p className="flex items-center justify-between gap-1">
@@ -92,7 +92,10 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
           </div>
         </div>
 
-        <InvoiceInfoButton />
+        <div className="flex gap-5">
+          <CertificateButton type="fan" />
+          <InvoiceInfoButton />
+        </div>
       </div>
     </div>
   )

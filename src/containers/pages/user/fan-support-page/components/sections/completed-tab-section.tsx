@@ -5,15 +5,15 @@ const orders = [
   {
     id: "1234567899",
     date: "10/08/2025",
-    collection: "Inter Miami CF Collection",
-    title: "Lionel Messi Pro T-Shirt",
+    collection: "Liverpool Fan Support",
+    title: "LFC Signed 25/26 Wirtz Boxed Shirt",
     paymentStatus: "paid" as PaymentStatus,
     deliveryStatus: "delivered" as DeliveryStatus,
     estimatedDelivery: "24/06 - 26/06",
     carrier: "DHL",
     carrierImage: "/images/dev/dhl.png",
     code: "1234567890",
-    image: "/images/dev/lionel-messi-pro-t-shirt.png",
+    image: "/images/dev/liverpool-fan-support.png",
   },
 ]
 

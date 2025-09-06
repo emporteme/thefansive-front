@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { CertificateButton, DeliveryStatusText, InvoiceInfoButton, PaymentStatusTag } from "@/shared/components/widgets"
+import { CertificateButton, DeliveryStatusTag, InvoiceInfoButton, PaymentStatusTag } from "@/shared/components/widgets"
 import { CopyOutlined, DeliveryTruck as DeliveryTruckIcon } from "@/shared/icons"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { copyText } from "@/shared/utils"
@@ -73,7 +73,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
             </p>
             <p className="flex items-center gap-1 text-base font-semibold">
               <span className="text-slate-600">Status:</span>
-              <DeliveryStatusText status={order.deliveryStatus} />
+              <DeliveryStatusTag status={order.deliveryStatus} />
             </p>
           </div>
         </div>

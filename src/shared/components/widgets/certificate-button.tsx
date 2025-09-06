@@ -1,4 +1,4 @@
-import { CertificateFilled, CertificateOutlined } from "@/shared/icons"
+import { CertificateOutlined } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
 
 type CertificateType = "fan" | "donation"

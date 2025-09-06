@@ -2,7 +2,7 @@
 export { default as Auth } from "./auth"
 export { Add, AddCircleFilled } from "./add"
 export { default as Cart } from "./cart"
-export { default as Copy } from "./copy"
+export { CopyOutlined, CopyFilled } from "./copy"
 export { CertificateOutlined, CertificateFilled } from "./certificate"
 export { default as Cancel } from "./cancel"
 export { default as Mobile } from "./mobile"

@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { CertificateButton, DeliveryStatusText, InvoiceInfoButton, PaymentStatusBox } from "@/shared/components/widgets"
-import { Copy as CopyIcon, DeliveryTruck as DeliveryTruckIcon } from "@/shared/icons"
+import { CopyOutlined, DeliveryTruck as DeliveryTruckIcon } from "@/shared/icons"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { copyText } from "@/shared/utils"
 interface OrderCardProps {
@@ -69,7 +69,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
             <p className="flex items-center gap-1 text-base font-semibold">
               <span className="text-slate-600">Code:</span>
               <span className="text-slate-900">1234567890</span>
-              <CopyIcon className="size-3.5" onClick={() => copyText("1234567890")} />
+              <CopyOutlined className="size-3.5" onClick={() => copyText("1234567890")} />
             </p>
             <p className="flex items-center gap-1 text-base font-semibold">
               <span className="text-slate-600">Status:</span>

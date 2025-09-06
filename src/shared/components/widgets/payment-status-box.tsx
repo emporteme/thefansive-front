@@ -15,8 +15,8 @@ interface PaymentStatusProps {
 const dataByStatus = {
   paid: {
     label: "Paid",
-    className: "bg-primary-100 text-primary-800",
-    icon: <TickIcon className="text-primary-600" />,
+    className: "bg-emerald-50 text-emerald-700",
+    icon: <TickIcon className="text-emerald-600" />,
   },
   pending: {
     label: "Pending",
@@ -34,7 +34,7 @@ const PaymentStatusBox: React.FC<PaymentStatusProps> = ({ status }) => {
   return (
     <p
       className={cn(
-        "font-base flex items-center gap-1.5 self-start rounded-full px-2.5 py-1.5 font-semibold",
+        "flex items-center gap-1 self-start rounded-md px-2 py-1 text-xs leading-[16px] font-semibold",
         dataByStatus?.[status]?.className
       )}
     >

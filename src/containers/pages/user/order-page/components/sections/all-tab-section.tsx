@@ -9,6 +9,10 @@ const orders = [
     title: "Lionel Messi Pro T-Shirt",
     paymentStatus: "paid" as PaymentStatus,
     deliveryStatus: "delivered" as DeliveryStatus,
+    estimatedDelivery: "24/06 - 26/06",
+    carrier: "DHL",
+    carrierImage: "/images/dev/dhl.png",
+    code: "1234567890",
     image: "/images/dev/lionel-messi-pro-t-shirt.png",
   },
   {
@@ -17,7 +21,11 @@ const orders = [
     collection: "F1 Premium Collection",
     title: "Lewis Hamilton Red Cap",
     paymentStatus: "paid" as PaymentStatus,
-    deliveryStatus: "pending" as DeliveryStatus,
+    deliveryStatus: "preparing" as DeliveryStatus,
+    estimatedDelivery: "24/06 - 26/06",
+    carrier: "DHL",
+    carrierImage: "/images/dev/dhl.png",
+    code: "1234567890",
     image: "/images/dev/lewis-hamilton-cap.png",
   },
 ]

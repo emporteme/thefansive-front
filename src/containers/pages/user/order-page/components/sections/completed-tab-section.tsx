@@ -4,17 +4,22 @@ import { OrderCard } from "../widgets/order-card"
 const orders = [
   {
     id: "1234567899",
-    date: "10.08.2025",
-    type: "Special collection",
-    title: "Lionel Messi Signed T-Shirt",
+    date: "10/08/2025",
+    collection: "Inter Miami CF Collection",
+    title: "Lionel Messi Pro T-Shirt",
     paymentStatus: "paid" as PaymentStatus,
     deliveryStatus: "delivered" as DeliveryStatus,
+    estimatedDelivery: "24/06 - 26/06",
+    carrier: "DHL",
+    carrierImage: "/images/dev/dhl.png",
+    code: "1234567890",
+    image: "/images/dev/lionel-messi-pro-t-shirt.png",
   },
 ]
 
 const CompletedTabSection: React.FC = () => {
   return (
-    <div className="mt-6 flex w-full flex-col gap-6">
+    <div className="mt-6 flex w-full flex-col gap-6 rounded-3xl bg-slate-100 px-5 py-7.5">
       {orders.map((order) => (
         <OrderCard key={order.id} order={order} />
       ))}

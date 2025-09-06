@@ -32,7 +32,7 @@ const dataByStatus = {
 
 const PaymentStatusTag: React.FC<PaymentStatusProps> = ({ status }) => {
   return (
-    <p
+    <span
       className={cn(
         "flex items-center gap-1 self-start rounded-md px-2 py-1 text-xs leading-[16px] font-semibold",
         dataByStatus?.[status]?.className
@@ -40,7 +40,7 @@ const PaymentStatusTag: React.FC<PaymentStatusProps> = ({ status }) => {
     >
       {dataByStatus?.[status]?.label}
       {dataByStatus?.[status]?.icon}
-    </p>
+    </span>
   )
 }
 

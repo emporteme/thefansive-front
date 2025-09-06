@@ -40,6 +40,11 @@
   h6 {
     @apply leading-[1] tracking-[0.5px];
   }
+
+  button,
+  a {
+    @apply cursor-pointer;
+  }
 }
 /*
   ---break---

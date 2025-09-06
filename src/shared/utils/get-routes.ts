@@ -29,5 +29,6 @@ export const getRoutes = (locale?: string) => {
       all: () => getRoute("/news"),
       single: (id: string) => getRoute(`/news/${id}`),
     },
+    newsArticle: (id: number) => (locale ? `/${locale}/news/${id}` : `/news/${id}`),
   }
 }

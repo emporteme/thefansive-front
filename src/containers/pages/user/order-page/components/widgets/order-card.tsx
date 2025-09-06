@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { DeliveryStatusText, InvoiceInfoButton, PaymentStatusBox } from "@/shared/components/widgets"
+import { DeliveryStatusText, InvoiceInfoButton, PaymentStatusTag } from "@/shared/components/widgets"
 import { CopyFilled, CopyOutlined, DeliveryTruck as DeliveryTruckIcon } from "@/shared/icons"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { copyText } from "@/shared/utils"
@@ -48,7 +48,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
             </p>
             <p className="flex items-center justify-between gap-1">
               <span className="text-sm font-normal text-slate-600">Payment Status:</span>
-              <PaymentStatusBox status={order.paymentStatus} />
+              <PaymentStatusTag status={order.paymentStatus} />
             </p>
           </div>
         </div>
@@ -60,7 +60,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
         <div className="flex justify-between gap-10">
           <div className="flex shrink-0 grow-0 flex-col gap-3">
             <h4 className="text-2xl font-semibold text-black">Payment Status</h4>
-            <PaymentStatusBox status={order.paymentStatus} />
+            <PaymentStatusTag status={order.paymentStatus} />
           </div>
           <InvoiceInfoButton />
         </div>

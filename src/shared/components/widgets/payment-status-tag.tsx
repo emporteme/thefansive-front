@@ -30,7 +30,7 @@ const dataByStatus = {
   },
 } as Record<PaymentStatus, PaymentStatusData>
 
-const PaymentStatusBox: React.FC<PaymentStatusProps> = ({ status }) => {
+const PaymentStatusTag: React.FC<PaymentStatusProps> = ({ status }) => {
   return (
     <p
       className={cn(
@@ -44,4 +44,4 @@ const PaymentStatusBox: React.FC<PaymentStatusProps> = ({ status }) => {
   )
 }
 
-export { PaymentStatusBox }
+export { PaymentStatusTag }

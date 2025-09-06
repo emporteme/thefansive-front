@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { CertificateButton, InvoiceInfoButton, PaymentStatusBox } from "@/shared/components/widgets"
+import { CertificateButton, InvoiceInfoButton, PaymentStatusTag } from "@/shared/components/widgets"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { GoToClubPageButton } from "./go-to-club-page-button"
 
@@ -51,7 +51,7 @@ const DonateCard: React.FC<DonateCardProps> = ({ donate }) => {
         <div className="flex justify-between gap-10">
           <div className="flex shrink-0 grow-0 flex-col gap-3">
             <h4 className="text-2xl font-semibold text-black">Payment Status</h4>
-            <PaymentStatusBox status={donate.paymentStatus} />
+            <PaymentStatusTag status={donate.paymentStatus} />
           </div>
           <InvoiceInfoButton />
         </div>

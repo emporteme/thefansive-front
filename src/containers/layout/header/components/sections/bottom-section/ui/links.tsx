@@ -28,14 +28,24 @@ const LinkComponent: React.FC<{ href: string; children: React.ReactNode }> = ({ 
   )
 }
 const Links: React.FC = () => {
+  const links = getHeaderLinks()
+  const firstLink = links[0]
+
+  if (!firstLink) {
+    return null
+  }
+
   return (
     <div className="hidden items-center lg:flex">
-      {getHeaderLinks().map((link: HeaderLink) => (
+      <LinkComponent key={firstLink.id} href={firstLink.href}>
+        {firstLink.children}
+      </LinkComponent>
+      <EcosystemDropdown />
+      {links.slice(1).map((link: HeaderLink) => (
         <LinkComponent key={link.id} href={link.href}>
           {link.children}
         </LinkComponent>
       ))}
-      <EcosystemDropdown />
     </div>
   )
 }

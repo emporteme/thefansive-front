@@ -7,6 +7,7 @@ export const getRoutes = (locale?: string) => {
     home: () => getRoute("/"),
     cart: () => getRoute("/cart"),
     ecosystem: () => getRoute("/ecosystem"),
+    clubs: () => getRoute("/clubs"),
     game: () => getRoute("/game"),
     howItWorks: () => getRoute("/how-it-works"),
     partners: () => getRoute("/partners"),

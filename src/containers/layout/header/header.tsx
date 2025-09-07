@@ -1,19 +1,19 @@
 "use client"
-import React from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { BottomSection, MobileMenu, TopSection } from "./components/sections"
 
 const Header: React.FC = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const toggleMobileMenu = React.useCallback(() => {
+  const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpen((prev) => !prev)
   }, [])
 
-  const closeMobileMenu = React.useCallback(() => {
+  const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false)
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Lock body scroll when menu is open
     if (typeof document !== "undefined") {
       document.body.style.overflow = isMobileMenuOpen ? "hidden" : ""

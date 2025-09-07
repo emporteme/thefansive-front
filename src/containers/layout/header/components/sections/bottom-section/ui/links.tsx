@@ -1,6 +1,7 @@
 import Link from "next/link"
 import React from "react"
 import { getRoutes } from "@/shared/utils/get-routes"
+import EcosystemDropdown from "./ecosystem-dropdown"
 
 export type HeaderLink = { id: number; href: string; children: string }
 
@@ -9,7 +10,6 @@ export const getHeaderLinks = (): HeaderLink[] => {
 
   return [
     { id: 1, href: routes.home(), children: "Home" },
-    { id: 2, href: routes.ecosystem(), children: "Ecosystem" },
     { id: 3, href: routes.game(), children: "Game" },
     { id: 4, href: routes.partners(), children: "Partners" },
     { id: 5, href: routes.howItWorks(), children: "How it works?" },
@@ -35,6 +35,7 @@ const Links: React.FC = () => {
           {link.children}
         </LinkComponent>
       ))}
+      <EcosystemDropdown />
     </div>
   )
 }

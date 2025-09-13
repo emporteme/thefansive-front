@@ -32,3 +32,7 @@ export { default as Google } from "./(social-links)/google"
 // Mobile Store Icons
 export { default as GooglePlay } from "./(mobile-store)/google-play"
 export { default as AppStore } from "./(mobile-store)/app-store"
+
+// Nagivation Icons
+export { default as ArrowRight } from "./(navigation)/arrow-right"
+export { default as ArrowLeft } from "./(navigation)/arrow-left"

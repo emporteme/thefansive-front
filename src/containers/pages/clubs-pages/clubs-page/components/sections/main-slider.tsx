@@ -8,6 +8,8 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/navigation"
 
+import { ArrowLeft, ArrowRight } from "@/shared/icons"
+
 type SlideImage = {
   src: string
   alt?: string
@@ -21,9 +23,6 @@ type MainSliderProps = {
   leftButton?: React.ReactNode
   rightButton?: React.ReactNode
 }
-
-const DefaultChevronLeft = () => <span className="block rotate-180 text-white/90 select-none">›</span>
-const DefaultChevronRight = () => <span className="block text-white/90 select-none">›</span>
 
 const MainSlider: React.FC<MainSliderProps> = ({
   images = [],
@@ -76,11 +75,11 @@ const MainSlider: React.FC<MainSliderProps> = ({
         className={classNames(
           "group absolute top-1/2 left-3 z-20 -translate-y-1/2",
           "h-12 w-12 rounded-full bg-white/10 backdrop-blur",
-          "ring-1 ring-white/20 transition hover:bg-white/20",
-          "flex items-center justify-center"
+          "transition hover:bg-white/20",
+          "flex items-center justify-center text-white"
         )}
       >
-        <div className="text-3xl leading-none">{leftButton ?? <DefaultChevronLeft />}</div>
+        <div className="text-3xl leading-none">{leftButton ?? <ArrowLeft />}</div>
       </button>
 
       <button
@@ -89,11 +88,11 @@ const MainSlider: React.FC<MainSliderProps> = ({
         className={classNames(
           "group absolute top-1/2 right-3 z-20 -translate-y-1/2",
           "h-12 w-12 rounded-full bg-white/10 backdrop-blur",
-          "ring-1 ring-white/20 transition hover:bg-white/20",
-          "flex items-center justify-center"
+          "transition hover:bg-white/20",
+          "flex items-center justify-center text-white"
         )}
       >
-        <div className="text-3xl leading-none">{rightButton ?? <DefaultChevronRight />}</div>
+        <div className="text-3xl leading-none">{rightButton ?? <ArrowRight />}</div>
       </button>
 
       {/* Slider */}

@@ -1,7 +1,8 @@
 import { FC } from "react"
+import ClubsPage from "@/containers/pages/clubs-pages/clubs-page/clubs-page"
 
 const Page: FC = () => {
-  return <div>Page (mvp)</div>
+  return <ClubsPage />
 }
 
 export default Page

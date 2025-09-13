@@ -28,13 +28,13 @@ const EcosystemDropdownItem: React.FC<{
 }> = ({ item, onItemClick }) => {
   const content = (
     <div
-      className={`cursor-pointer rounded-md px-3 py-2.5 text-sm font-semibold whitespace-nowrap text-gray-700 transition-all duration-200 hover:bg-gray-100 ${
+      className={`cursor-pointer rounded-md px-3 py-2.5 text-sm font-semibold whitespace-nowrap text-slate-900 transition-all duration-200 hover:bg-slate-100 ${
         item.isComing ? "opacity-60" : ""
       }`}
       onClick={item.isComing ? undefined : onItemClick}
     >
       {item.children}
-      {item.isComing && <span className="ml-1 text-sm text-gray-500">(Coming)</span>}
+      {item.isComing && <span className="ml-1 text-sm text-slate-500">(Coming)</span>}
     </div>
   )
 

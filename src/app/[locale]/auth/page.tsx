@@ -1,5 +1,5 @@
 import { FC } from "react"
-import AuthPage from "@/containers/pages/auth/auth-page/auth-page"
+import AuthPage from "@/containers/pages/auth-pages/auth-page/auth-page"
 
 const Page: FC = () => {
   return <AuthPage />

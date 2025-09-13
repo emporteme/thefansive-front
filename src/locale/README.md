@@ -12,17 +12,17 @@
 // "use client"
 
 // import { useScopedI18n } from '@/app/locales/client'
-import { getScopedI18n } from "@/app/locales/server";
+import { getScopedI18n } from "@/app/locales/server"
 
 export default async function Home() {
   // const t = useScopedI18n('home');
-  const t = await getScopedI18n("home");
+  const t = await getScopedI18n("home")
 
   return (
     <main className="bla bla">
       <p className="bla bla bla">{t("title")}</p>
     </main>
-  );
+  )
 }
 ```
 
@@ -35,14 +35,14 @@ export default async function Home() {
 ### Снизу код по которой можно легко понять отличие:
 
 ```tsx
-"use client";
+"use client"
 
-import { useScopedI18n, useCurrentLocale } from "@/app/locales/client";
+import { useScopedI18n, useCurrentLocale } from "@/app/locales/client"
 // import { getScopedI18n } from '@/app/locales/server'
 
 export default function Home() {
-  const t = useScopedI18n("home");
-  const locale = useCurrentLocale();
+  const t = useScopedI18n("home")
+  const locale = useCurrentLocale()
 
   // const t = await getScopedI18n('home')
 
@@ -50,11 +50,10 @@ export default function Home() {
     <main className="bla bla">
       <p className="bla bla bla">
         {t("title")}
-        {locale}{" "}
-        {/* Это будет `locale` в данный момент | Оно моментально обновляется поэтому больше кода не надо писать */}
+        {locale} {/* Это будет `locale` в данный момент | Оно моментально обновляется поэтому больше кода не надо писать */}
       </p>
     </main>
-  );
+  )
 }
 ```
 

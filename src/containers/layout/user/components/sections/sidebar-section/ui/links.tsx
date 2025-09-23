@@ -10,11 +10,11 @@ const sidebarItems = (routes: Routes) => [
     title: "Profile",
     link: routes.user.profile(),
   },
-  {
-    id: "order",
-    title: "Order",
-    link: routes.user.order(),
-  },
+  // {
+  //   id: "order",
+  //   title: "Order",
+  //   link: routes.user.order(),
+  // },
   {
     id: "fan-support",
     title: "Fan Support",
@@ -31,9 +31,9 @@ const sidebarItems = (routes: Routes) => [
     link: routes.user.tasks(),
   },
   {
-    id: "personal-information",
-    title: "Personal Information",
-    link: routes.user.personalInformation(),
+    id: "my-information",
+    title: "My Information",
+    link: routes.user.myInformation(),
   },
   {
     id: "support",

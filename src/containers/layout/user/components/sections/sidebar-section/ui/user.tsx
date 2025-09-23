@@ -19,7 +19,7 @@ const User: React.FC = () => {
           <div className="font-semibold text-slate-900">
             <span className="font-normal text-slate-500">ID:</span> 1234567890
           </div>
-          <CopyOutlined className="h-4 w-4 text-slate-500" onClick={() => handleCopy("1234567890")} />
+          <CopyOutlined className="h-5 w-5 text-slate-500" onClick={() => handleCopy("1234567890")} />
         </div>
       </div>
     </div>

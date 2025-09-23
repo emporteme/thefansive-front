@@ -29,7 +29,7 @@ const dashboardItems = (user: UserInfo) => [
   },
   {
     id: "completed-tasks",
-    title: "Completed Tasks",
+    title: "Completed\nTasks",
     value: user.completedTasks,
   },
 ]
@@ -43,15 +43,15 @@ const DashboardSection: FC = () => {
   }
 
   return (
-    <div className="flex w-full justify-between rounded-xl bg-slate-100 p-6">
-      <div className="flex flex-wrap gap-x-5 gap-y-3">
+    <div className="flex w-full items-start justify-between gap-8">
+      <div className="flex flex-1 flex-wrap gap-x-3.5 gap-y-3 rounded-xl bg-slate-100 p-5">
         {dashboardItems(user).map((item) => (
           <div
             key={item.title}
-            className="flex min-w-[230px] flex-col justify-between gap-6 rounded-xl border-b border-slate-200 bg-white p-5"
+            className="flex min-h-[120px] max-w-[160px] flex-1 flex-col justify-between gap-5 rounded-xl bg-white p-5"
           >
-            <span className="text-base font-medium text-slate-600">{item.title}</span>
-            <span className="flex justify-end text-3xl font-semibold text-slate-900">{item.value}</span>
+            <span className="text-sm leading-[1.2] font-medium whitespace-pre-line text-slate-600">{item.title}</span>
+            <span className="flex justify-start text-2xl font-semibold text-slate-900">{item.value}</span>
           </div>
         ))}
       </div>

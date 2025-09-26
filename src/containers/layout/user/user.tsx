@@ -20,7 +20,7 @@ const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
           className="h-full w-full object-cover"
         />
       </div>
-      <div className="mr-[100px] mb-[100px] ml-[100px] flex gap-8">
+      <div className="mx-auto flex max-w-[1440px] gap-8 pr-[100px] pb-[100px] pl-[100px]">
         <SidebarSection />
         {children}
       </div>

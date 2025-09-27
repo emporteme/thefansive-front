@@ -2,7 +2,7 @@
 
 import { ChevronDownIcon } from "lucide-react"
 import { useState } from "react"
-import { SportCard } from "../ui/sport-card"
+import { SportCard } from "./sport-card"
 
 interface Sport {
   id: number

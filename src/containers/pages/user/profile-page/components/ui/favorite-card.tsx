@@ -9,13 +9,20 @@ interface FavoriteCardProps {
 
 const FavoriteCard: React.FC<FavoriteCardProps> = ({ name, logo, onCancel }) => {
   return (
-    <button className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl bg-white px-4 py-2">
-      <div className="flex items-center gap-3">
-        <Image src={logo} alt={name} width={32} height={32} quality={90} />
-        <span className="text-base font-medium text-slate-900">{name}</span>
+    <div className="relative flex h-48 w-[140px] flex-shrink-0 flex-col rounded-2xl bg-white">
+      <button
+        onClick={onCancel}
+        className="absolute top-0 right-0 z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-white"
+      >
+        <CancelIcon className="h-3.5 w-3.5 text-slate-600" />
+      </button>
+      <div className="mx-auto mt-2.5 h-[130px] w-[130px] overflow-hidden rounded-lg">
+        <Image src={logo} alt={name} width={130} height={130} className="h-full w-full object-cover" quality={90} />
       </div>
-      <CancelIcon onClick={onCancel} className="cursor-pointer" />
-    </button>
+      <div className="mt-2.5 px-2.5 pb-2.5">
+        <p className="text-center text-sm leading-4 font-medium text-slate-900">{name}</p>
+      </div>
+    </div>
   )
 }
 

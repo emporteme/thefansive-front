@@ -1,5 +1,5 @@
 import React from "react"
-import { MainSlider } from "./components/sections"
+import { CardsSlider, ClubsCard, FanSupportCard, MainSlider } from "./components/sections"
 
 const ClubsPage = () => {
   const images = [
@@ -26,8 +26,43 @@ const ClubsPage = () => {
   ]
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-15">
       <MainSlider images={images} autoDelay={4500} loop />
+
+      {/* Populer clubs  */}
+      <CardsSlider
+        title="Popular Clubs"
+        navCount={5}
+        rowCount={1}
+        elements={[
+          <ClubsCard key="1" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="2" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="3" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="4" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="5" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="6" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="7" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="8" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="9" title="Juventus" image="/images/dev/club-card-1.svg" />,
+        ]}
+      />
+
+      {/* Popular Fan support  */}
+      <CardsSlider
+        title="Popular Clubs"
+        navCount={2}
+        rowCount={2}
+        elements={[
+          <FanSupportCard key="1" />,
+          <FanSupportCard key="2" />,
+          <FanSupportCard key="3" />,
+          <FanSupportCard key="4" />,
+          <FanSupportCard key="5" />,
+          <FanSupportCard key="6" />,
+          <FanSupportCard key="7" />,
+          <FanSupportCard key="8" />,
+        ]}
+      />
     </div>
   )
 }

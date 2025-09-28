@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
-import { AddFavoriteClubs } from "../ui/add-favorite-clubs"
-import { FavoriteCard } from "../ui/favorite-card"
+import { Club } from "@/shared/components/widgets/choose-your-club-modal/chosen-clubs"
+import { AddFavoriteClubs, FavoriteCard } from "../ui"
 
 export const favoriteClubsData = [
   {
@@ -40,7 +40,7 @@ const FavoriteClubs: React.FC = () => {
   const [favoriteClubs, setFavoriteClubs] = useState(favoriteClubsData)
   const [isSportFilterOpen, setIsSportFilterOpen] = useState(false)
 
-  const handleCancel = (id: number) => {
+  const handleRemoveClub = (id: number) => {
     setFavoriteClubs(favoriteClubs.filter((club) => club.id !== id))
   }
 
@@ -48,12 +48,9 @@ const FavoriteClubs: React.FC = () => {
     setIsSportFilterOpen(true)
   }
 
-  const handleSportSelected = (sportId: number) => {
-    // Here you could navigate to a clubs list filtered by the selected sport
-    // For now, we'll just close the modal and show a message
-    console.log(`Selected sport ID: ${sportId}`)
+  const handleClubSelected = (club: Club) => {
+    setFavoriteClubs((favoriteClubs) => [...favoriteClubs, club])
     setIsSportFilterOpen(false)
-    // TODO: Navigate to clubs selection for the chosen sport
   }
 
   const handleCloseModal = () => {
@@ -61,22 +58,18 @@ const FavoriteClubs: React.FC = () => {
   }
 
   return (
-    <div className="w-full">
-      <div className="mb-8 flex items-center justify-between">
+    <div className="flex flex-1 flex-col rounded-3xl bg-slate-100 p-5 pb-7.5">
+      <div className="mb-4.5 flex items-center justify-between">
         <h3 className="text-2xl font-semibold text-slate-900">Favorite Clubs</h3>
         <AddFavoriteClubs onAdd={handleAddClub} />
       </div>
-      <div className="flex gap-5 overflow-x-auto">
+      <div className="flex flex-wrap gap-2">
         {favoriteClubs.map((club) => (
-          <FavoriteCard key={club.id} logo={club.logo} name={club.name} onCancel={() => handleCancel(club.id)} />
+          <FavoriteCard key={club.id} logo={club.logo} name={club.name} onCancel={() => handleRemoveClub(club.id)} />
         ))}
       </div>
 
-      <ChooseYourClubModal
-        isOpen={isSportFilterOpen}
-        onClose={handleCloseModal}
-        onSportSelected={handleSportSelected}
-      />
+      <ChooseYourClubModal isOpen={isSportFilterOpen} onClose={handleCloseModal} onClubSelected={handleClubSelected} />
     </div>
   )
 }

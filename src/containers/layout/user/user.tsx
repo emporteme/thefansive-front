@@ -11,7 +11,7 @@ interface UserLayoutProps {
 const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col">
-      <div className="h-9vw mt-7.5 mb-18 w-full border-t border-b border-[#cad5e2]">
+      <div className="h-9vw mt-7.5 mb-18 max-w-[1240px] border-t border-b border-[#cad5e2]">
         <Image
           src="/images/fallbacks/user-empty-banner.webp"
           alt="user banner"

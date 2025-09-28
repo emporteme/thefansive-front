@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
 import { Club } from "@/shared/components/widgets/choose-your-club-modal/chosen-clubs"
-import { AddFavoriteClubs, FavoriteCard } from "../ui"
+import { AddFavoriteClubs, FavoriteClubCard } from "../ui"
 
 export const favoriteClubsData = [
   {
@@ -58,14 +58,19 @@ const FavoriteClubs: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-1 flex-col rounded-3xl bg-slate-100 p-5 pb-7.5">
+    <div className="w-full rounded-3xl bg-slate-100 p-5 pb-7.5">
       <div className="mb-4.5 flex items-center justify-between">
         <h3 className="text-2xl font-semibold text-slate-900">Favorite Clubs</h3>
         <AddFavoriteClubs onAdd={handleAddClub} />
       </div>
       <div className="flex flex-wrap gap-2">
         {favoriteClubs.map((club) => (
-          <FavoriteCard key={club.id} logo={club.logo} name={club.name} onCancel={() => handleRemoveClub(club.id)} />
+          <FavoriteClubCard
+            key={club.id}
+            logo={club.logo}
+            name={club.name}
+            onCancel={() => handleRemoveClub(club.id)}
+          />
         ))}
       </div>
 

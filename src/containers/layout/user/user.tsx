@@ -11,7 +11,7 @@ interface UserLayoutProps {
 const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col">
-      <div className="h-9vw mt-7.5 mb-18 max-w-[1240px] border-t border-b border-[#cad5e2]">
+      <div className="h-9vw mt-7.5 mb-18 w-full border-t border-b border-[#cad5e2]">
         <Image
           src="/images/fallbacks/user-empty-banner.webp"
           alt="user banner"
@@ -20,7 +20,7 @@ const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
           className="h-full w-full object-cover"
         />
       </div>
-      <div className="mx-auto flex max-w-[1440px] gap-8 pr-[100px] pb-[100px] pl-[100px]">
+      <div className="mx-auto flex w-[1440px] gap-8 pr-[100px] pb-[100px] pl-[100px]">
         <SidebarSection />
         {children}
       </div>

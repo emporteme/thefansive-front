@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
-import { AddFavoriteCard } from "../ui/add-favorite-card"
+import { AddFavoriteClubs } from "../ui/add-favorite-clubs"
 import { FavoriteCard } from "../ui/favorite-card"
 
-const clubs = [
+export const favoriteClubsData = [
   {
     id: 1,
     logo: "/images/dev/liverpool-logo.png",
@@ -37,7 +37,7 @@ const clubs = [
 ]
 
 const FavoriteClubs: React.FC = () => {
-  const [favoriteClubs, setFavoriteClubs] = useState(clubs)
+  const [favoriteClubs, setFavoriteClubs] = useState(favoriteClubsData)
   const [isSportFilterOpen, setIsSportFilterOpen] = useState(false)
 
   const handleCancel = (id: number) => {
@@ -64,7 +64,7 @@ const FavoriteClubs: React.FC = () => {
     <div className="w-full">
       <div className="mb-8 flex items-center justify-between">
         <h3 className="text-2xl font-semibold text-slate-900">Favorite Clubs</h3>
-        <AddFavoriteCard title="Add Club" onAdd={handleAddClub} />
+        <AddFavoriteClubs onAdd={handleAddClub} />
       </div>
       <div className="flex gap-5 overflow-x-auto">
         {favoriteClubs.map((club) => (

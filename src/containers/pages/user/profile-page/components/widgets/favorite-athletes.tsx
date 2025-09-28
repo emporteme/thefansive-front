@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { AddFavoriteCard } from "../ui/add-favorite-card"
+import { AddFavoriteCard } from "../ui/add-favorite-clubs"
 import { FavoriteCard } from "../ui/favorite-card"
 
 const athletes = [

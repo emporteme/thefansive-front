@@ -33,6 +33,25 @@ const ClubsPage = () => {
       <CardsSlider
         title="Popular Clubs"
         navCount={5}
+        rowCount={1}
+        elements={[
+          <ClubsCard key="1" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="2" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="3" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="4" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="5" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="6" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="7" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="8" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <ClubsCard key="9" title="Juventus" image="/images/dev/club-card-1.svg" />,
+        ]}
+      />
+
+      {/* Popular Fan support  */}
+      <CardsSlider
+        title="Popular Clubs"
+        navCount={2}
+        rowCount={2}
         elements={[
           <ClubsCard key="1" title="Juventus" image="/images/dev/club-card-1.svg" />,
           <ClubsCard key="2" title="Juventus" image="/images/dev/club-card-1.svg" />,

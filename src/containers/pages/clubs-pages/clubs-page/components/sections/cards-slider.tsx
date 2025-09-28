@@ -11,7 +11,9 @@ import { ArrowLeft, ArrowRight } from "@/shared/icons"
 
 interface ICardsSliderProps {
   title: string
+  subtitle?: string
   navCount: number
+  rowCount: number
   elements: React.ReactNode[]
   autoDelay?: number
   loop?: boolean
@@ -20,7 +22,9 @@ interface ICardsSliderProps {
 
 const CardsSlider: React.FC<ICardsSliderProps> = ({
   title,
+  subtitle,
   navCount,
+  rowCount = 1,
   elements = [],
   autoDelay = 4000,
   loop = true,
@@ -35,15 +39,20 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
 
-  // Show navigation only if we have more elements than navCount
-  const showNavigation = elements.length > navCount
+  // Calculate total items that can be shown in the grid
+  const totalItemsInView = navCount * rowCount
+
+  // Show navigation only if we have more elements than can fit in the grid
+  const showNavigation = elements.length > totalItemsInView
 
   return (
     <div className={classNames("w-full px-[5vw]", className)}>
       {/* Header with title and navigation */}
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-3xl font-semibold text-slate-900">{title}</h2>
-
+        <div className="flex flex-col gap-2">
+          <h2 className="text-3xl font-semibold text-slate-900">{title}</h2>
+          <p className="font-medium text-slate-900">{subtitle}</p>
+        </div>
         {showNavigation && (
           <div className="flex gap-2">
             <button
@@ -73,7 +82,7 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
         )}
       </div>
 
-      {/* Slider */}
+      {/* Grid-based Slider */}
       <Swiper
         modules={[Autoplay, Navigation, Keyboard, A11y]}
         navigation={{
@@ -87,29 +96,30 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
         }}
         loop={loop && showNavigation}
         speed={600}
-        slidesPerView={navCount}
-        spaceBetween={16}
-        breakpoints={{
-          640: {
-            slidesPerView: Math.min(navCount, 2),
-            spaceBetween: 16,
-          },
-          768: {
-            slidesPerView: Math.min(navCount, 3),
-            spaceBetween: 20,
-          },
-          1024: {
-            slidesPerView: navCount,
-            spaceBetween: 24,
-          },
-        }}
+        slidesPerView={1}
+        spaceBetween={0}
         keyboard={{ enabled: true }}
         a11y={{ enabled: true }}
         className="w-full"
       >
-        {elements.map((element, index) => (
-          <SwiperSlide key={`card-${index}`}>
-            <div className="h-full">{element}</div>
+        {/* Group elements into grid pages */}
+        {Array.from({ length: Math.ceil(elements.length / totalItemsInView) }, (_, pageIndex) => (
+          <SwiperSlide key={`page-${pageIndex}`}>
+            <div
+              className="grid h-full gap-4"
+              style={{
+                gridTemplateColumns: `repeat(${navCount}, 1fr)`,
+                gridTemplateRows: `repeat(${rowCount}, 1fr)`,
+              }}
+            >
+              {elements
+                .slice(pageIndex * totalItemsInView, (pageIndex + 1) * totalItemsInView)
+                .map((element, cardIndex) => (
+                  <div key={`card-${pageIndex}-${cardIndex}`} className="h-full">
+                    {element}
+                  </div>
+                ))}
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

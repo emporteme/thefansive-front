@@ -9,7 +9,7 @@ interface FavoriteClubCardProps {
 
 const FavoriteClubCard: React.FC<FavoriteClubCardProps> = ({ name, logo, onCancel }) => {
   return (
-    <div className="relative flex flex-shrink-0 flex-col rounded-2xl bg-white px-1.5 py-2.5">
+    <div className="relative flex flex-shrink-0 flex-col rounded-2xl bg-white px-[5px] py-2.5">
       <button
         onClick={onCancel}
         className="absolute top-0 right-0 z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-white"

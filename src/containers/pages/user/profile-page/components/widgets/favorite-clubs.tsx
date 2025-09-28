@@ -34,6 +34,11 @@ export const favoriteClubsData = [
     logo: "/images/dev/madrid-logo.png",
     name: "Real Madrid",
   },
+  {
+    id: 7,
+    logo: "/images/dev/madrid-logo.png",
+    name: "Real Madrid",
+  },
 ]
 
 const FavoriteClubs: React.FC = () => {
@@ -63,7 +68,7 @@ const FavoriteClubs: React.FC = () => {
         <h3 className="text-2xl font-semibold text-slate-900">Favorite Clubs</h3>
         <AddFavoriteClubs onAdd={handleAddClub} />
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-6 gap-2">
         {favoriteClubs.map((club) => (
           <FavoriteClubCard
             key={club.id}

@@ -1,21 +1,23 @@
 "use client"
 
 import React from "react"
-import { BaseModal } from "@/shared/components/widgets"
+import { ChosenClubs } from "./chosen-clubs"
 import { SportFilter } from "./sport-filter"
+import { BaseModal } from "../base-modal"
 
-interface SportFilterModalProps {
+interface ChooseYourClubModalProps {
   isOpen: boolean
   onClose: () => void
   onSportSelected: (sportId: number) => void
 }
 
-const SportFilterModal: React.FC<SportFilterModalProps> = ({ isOpen, onClose, onSportSelected }) => {
+const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({ isOpen, onClose, onSportSelected }) => {
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} className="p-6" showCloseButton={true} closeOnOverlayClick={true}>
-      <SportFilter onSportSelected={onSportSelected} />
+      <ChosenClubs clubs={[]} />
+      <SportFilter />
     </BaseModal>
   )
 }
 
-export { SportFilterModal }
+export { ChooseYourClubModal }

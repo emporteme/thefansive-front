@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { SportFilterModal } from "@/shared/components/elements/choose-your-club-modal"
+import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
 import { AddFavoriteCard } from "../ui/add-favorite-card"
 import { FavoriteCard } from "../ui/favorite-card"
 
@@ -72,7 +72,11 @@ const FavoriteClubs: React.FC = () => {
         ))}
       </div>
 
-      <SportFilterModal isOpen={isSportFilterOpen} onClose={handleCloseModal} onSportSelected={handleSportSelected} />
+      <ChooseYourClubModal
+        isOpen={isSportFilterOpen}
+        onClose={handleCloseModal}
+        onSportSelected={handleSportSelected}
+      />
     </div>
   )
 }

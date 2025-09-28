@@ -1,5 +1,5 @@
 import React from "react"
-import { CardsSlider, ClubsCard, FanSupportCard, MainSlider } from "./components/sections"
+import { CardsSlider, ClubsCard, FanSupportCard, GoBeyond, MainSlider, News } from "./components/sections"
 
 const ClubsPage = () => {
   const images = [
@@ -63,6 +63,9 @@ const ClubsPage = () => {
           <FanSupportCard key="8" />,
         ]}
       />
+
+      <News />
+      <GoBeyond />
     </div>
   )
 }

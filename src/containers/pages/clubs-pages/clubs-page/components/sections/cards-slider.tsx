@@ -106,7 +106,7 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
         {Array.from({ length: Math.ceil(elements.length / totalItemsInView) }, (_, pageIndex) => (
           <SwiperSlide key={`page-${pageIndex}`}>
             <div
-              className="grid h-full gap-4"
+              className="grid h-full gap-5"
               style={{
                 gridTemplateColumns: `repeat(${navCount}, 1fr)`,
                 gridTemplateRows: `repeat(${rowCount}, 1fr)`,

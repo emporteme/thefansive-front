@@ -1,5 +1,5 @@
 import React from "react"
-import { CardsSlider, ClubsCard, MainSlider } from "./components/sections"
+import { CardsSlider, ClubsCard, FanSupportCard, MainSlider } from "./components/sections"
 
 const ClubsPage = () => {
   const images = [
@@ -53,15 +53,14 @@ const ClubsPage = () => {
         navCount={2}
         rowCount={2}
         elements={[
-          <ClubsCard key="1" title="Juventus" image="/images/dev/club-card-1.svg" />,
-          <ClubsCard key="2" title="Juventus" image="/images/dev/club-card-1.svg" />,
-          <ClubsCard key="3" title="Juventus" image="/images/dev/club-card-1.svg" />,
-          <ClubsCard key="4" title="Juventus" image="/images/dev/club-card-1.svg" />,
-          <ClubsCard key="5" title="Juventus" image="/images/dev/club-card-1.svg" />,
-          <ClubsCard key="6" title="Juventus" image="/images/dev/club-card-1.svg" />,
-          <ClubsCard key="7" title="Juventus" image="/images/dev/club-card-1.svg" />,
-          <ClubsCard key="8" title="Juventus" image="/images/dev/club-card-1.svg" />,
-          <ClubsCard key="9" title="Juventus" image="/images/dev/club-card-1.svg" />,
+          <FanSupportCard key="1" />,
+          <FanSupportCard key="2" />,
+          <FanSupportCard key="3" />,
+          <FanSupportCard key="4" />,
+          <FanSupportCard key="5" />,
+          <FanSupportCard key="6" />,
+          <FanSupportCard key="7" />,
+          <FanSupportCard key="8" />,
         ]}
       />
     </div>

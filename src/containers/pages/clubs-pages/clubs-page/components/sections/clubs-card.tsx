@@ -2,6 +2,7 @@ import Image from "next/image"
 import React from "react"
 
 interface IClubsCardProps {
+  id?: string | number
   title: string
   image: string
 }

@@ -4,6 +4,7 @@ import React from "react"
 import { favoriteClubsData } from "@/containers/pages/user/profile-page/components/widgets/favorite-clubs"
 import { Cancel } from "@/shared/icons"
 import { ChosenClubs, Club } from "./chosen-clubs"
+import { SearchFavoriteClub } from "./search-favorite-club"
 import { BaseModal } from "../base-modal"
 
 interface ChooseYourClubModalProps {
@@ -31,6 +32,7 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({ isOpen, onClo
         </button>
       </div>
       <ChosenClubs clubs={favoriteClubsData} />
+      <SearchFavoriteClub className="mt-6" />
     </BaseModal>
   )
 }

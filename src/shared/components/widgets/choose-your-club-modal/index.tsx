@@ -1,10 +1,11 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { favoriteClubsData } from "@/containers/pages/user/profile-page/components/widgets/favorite-clubs"
 import { ModalLayout } from "@/shared/components/ui"
 import { Cancel } from "@/shared/icons"
 import { ChosenClubs, Club } from "./chosen-clubs"
+import { LeagueFilterSelect } from "./league-filter-select"
 import { SearchFavoriteClub } from "./search-favorite-club"
 import { ClubFilterSelect } from "./sport-filter-select"
 
@@ -13,6 +14,7 @@ interface ChooseYourClubModalProps {
   onClose: () => void
   onClubSelected: (club: Club) => void
   onSportChange?: (sportId: string) => void
+  onLeagueChange?: (leagueId: string) => void
 }
 
 const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
@@ -20,14 +22,25 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
   onClose,
   onClubSelected,
   onSportChange,
+  onLeagueChange,
 }) => {
+  const [selectedSport, setSelectedSport] = useState<string>("")
+  const [selectedLeague, setSelectedLeague] = useState<string>("")
+
   const handleClubSelect = (club: Club) => {
     onClubSelected(club)
     onClose()
   }
 
   const handleSportChange = (sportId: string) => {
+    setSelectedSport(sportId)
+    setSelectedLeague("")
     onSportChange?.(sportId)
+  }
+
+  const handleLeagueChange = (leagueId: string) => {
+    setSelectedLeague(leagueId)
+    onLeagueChange?.(leagueId)
   }
 
   return (
@@ -50,8 +63,14 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
       <ChosenClubs clubs={favoriteClubsData} />
       <SearchFavoriteClub className="mt-6" clubs={favoriteClubsData} onClubSelect={handleClubSelect} />
       <div className="mt-6 flex items-center gap-2">
-        <ClubFilterSelect placeholder="Sports" className="mb-6" onChange={handleSportChange} />
-        <ClubFilterSelect placeholder="League" className="mb-6" onChange={handleSportChange} />
+        <ClubFilterSelect placeholder="Sports" className="mb-6" onChange={handleSportChange} value={selectedSport} />
+        <LeagueFilterSelect
+          placeholder="League"
+          className="mb-6"
+          onChange={handleLeagueChange}
+          value={selectedLeague}
+          selectedSport={selectedSport}
+        />
       </div>
     </ModalLayout>
   )

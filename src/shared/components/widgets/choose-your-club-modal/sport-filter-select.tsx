@@ -88,6 +88,8 @@ const ClubFilterSelect: React.FC<SportFilterProps> = ({
       >
         <IconComponent className="h-5 w-5 flex-shrink-0 text-slate-700" />
 
+        <div className="h-5 w-px bg-slate-200" />
+
         <span
           className={cn("flex-1 text-left text-base", {
             "text-slate-900": selectedOption,

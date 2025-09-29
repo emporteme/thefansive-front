@@ -1,19 +1,20 @@
 import React from "react"
 
-const ArrowLeft: React.FC<{ className?: string }> = ({ className }) => {
+const Check: React.FC<{ className?: string; onClick?: () => void }> = ({ className, onClick }) => {
   return (
     <svg
-      width="14"
-      height="24"
-      viewBox="0 0 14 24"
+      width="10"
+      height="8"
+      viewBox="0 0 10 8"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      onClick={onClick}
     >
       <path
-        d="M11.9999 2C11.9999 2 2.00002 9.36489 2 12.0001C1.99998 14.6353 12 22 12 22"
+        d="M1 4.65035L3.35294 7L9 1"
         stroke="currentColor"
-        strokeWidth="3"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -21,4 +22,4 @@ const ArrowLeft: React.FC<{ className?: string }> = ({ className }) => {
   )
 }
 
-export default ArrowLeft
+export default Check

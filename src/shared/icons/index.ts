@@ -22,6 +22,7 @@ export { default as ArrowRightSmallRound } from "./arrow-right-small-round"
 export { ContainerTruckFilled } from "./container-truck"
 export { default as Calendar } from "./calendar"
 export { default as Timer } from "./timer"
+export { Football } from "./football"
 
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"

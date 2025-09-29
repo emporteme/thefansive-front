@@ -10,11 +10,11 @@ const sidebarItems = (routes: Routes) => [
     title: "Profile",
     link: routes.user.profile(),
   },
-  {
-    id: "order",
-    title: "Order",
-    link: routes.user.order(),
-  },
+  // {
+  //   id: "order",
+  //   title: "Order",
+  //   link: routes.user.order(),
+  // },
   {
     id: "fan-support",
     title: "Fan Support",
@@ -31,9 +31,9 @@ const sidebarItems = (routes: Routes) => [
     link: routes.user.tasks(),
   },
   {
-    id: "personal-information",
-    title: "Personal Information",
-    link: routes.user.personalInformation(),
+    id: "my-information",
+    title: "My Information",
+    link: routes.user.myInformation(),
   },
   {
     id: "support",
@@ -56,10 +56,10 @@ const Links: React.FC = () => {
           key={item.id}
           href={item.link}
           className={clsx(
-            "flex cursor-pointer rounded-xl p-4 text-lg leading-[1.2] font-bold transition-all duration-200 hover:font-bold hover:text-slate-900",
+            "flex cursor-pointer rounded-xl px-4 py-3 text-base leading-[1.5] font-bold transition-all duration-200 hover:font-extrabold hover:text-slate-900",
             {
               "text-slate-900": isActiveLink(item.link),
-              "font-bold": isActiveLink(item.link),
+              "font-extrabold": isActiveLink(item.link),
               "text-slate-500": !isActiveLink(item.link),
               "font-normal": !isActiveLink(item.link),
             }

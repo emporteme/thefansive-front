@@ -27,12 +27,11 @@ const ConnectWallet = () => {
   }
 
   return (
-    // TODO: refactor to reusable button component
-    <Button className="self-end px-3 py-2" onClick={isConnected ? handleDisconnect : handleConnect}>
-      <span className="text-sm leading-[1.7] font-semibold">
+    <Button className="gap-2.5 self-end !px-4 py-3" onClick={isConnected ? handleDisconnect : handleConnect}>
+      <WalletFilled className="!h-5 !w-5" />
+      <span className="text-base leading-[1.5] font-semibold tracking-[0]">
         {isConnected && address ? address.slice(0, 7) + "..." + address.slice(-4) : "Connect Wallet"}
       </span>
-      <WalletFilled />
     </Button>
   )
 }

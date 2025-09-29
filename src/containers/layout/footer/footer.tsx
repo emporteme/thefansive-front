@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
   const routes = getRoutes()
 
   return (
-    <footer className="flex flex-col gap-6 bg-white px-[5vw] py-9">
+    <footer className="flex flex-col gap-6 bg-white px-[5vw] py-9 shadow-[0px_-6px_16px_-6px_#110C221A]">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <div className="flex flex-col gap-2.5">
           <Logo />

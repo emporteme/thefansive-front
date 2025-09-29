@@ -19,3 +19,15 @@ export const useCurrencyStore = create<CurrencyState>()(
     }
   )
 )
+
+const currencySymbols: Record<Currency, string> = {
+  USD: "$",
+  EUR: "€",
+  GBP: "£",
+  RUB: "₽",
+  CNY: "¥",
+}
+
+export function getCurrencySymbol(currency: Currency): string {
+  return currencySymbols[currency]
+}

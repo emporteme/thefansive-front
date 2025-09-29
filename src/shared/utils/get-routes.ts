@@ -5,7 +5,11 @@ export const getRoutes = (locale?: string) => {
 
   return {
     home: () => getRoute("/"),
-    cart: () => getRoute("/cart"),
+    cart: {
+      home: () => getRoute("/cart"),
+      payment: () => getRoute("/cart/payment"),
+      confirmation: () => getRoute("/cart/confirmation"),
+    },
     ecosystem: () => getRoute("/ecosystem"),
     clubs: () => getRoute("/clubs"),
     game: () => getRoute("/game"),

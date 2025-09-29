@@ -5,18 +5,29 @@ import { favoriteClubsData } from "@/containers/pages/user/profile-page/componen
 import { Cancel } from "@/shared/icons"
 import { ChosenClubs, Club } from "./chosen-clubs"
 import { SearchFavoriteClub } from "./search-favorite-club"
+import { ClubFilterSelect } from "./sport-filter-select"
 import { BaseModal } from "../base-modal"
 
 interface ChooseYourClubModalProps {
   isOpen: boolean
   onClose: () => void
   onClubSelected: (club: Club) => void
+  onSportChange?: (sportId: string) => void
 }
 
-const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({ isOpen, onClose, onClubSelected }) => {
+const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
+  isOpen,
+  onClose,
+  onClubSelected,
+  onSportChange,
+}) => {
   const handleClubSelect = (club: Club) => {
     onClubSelected(club)
     onClose()
+  }
+
+  const handleSportChange = (sportId: string) => {
+    onSportChange?.(sportId)
   }
 
   return (
@@ -38,6 +49,10 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({ isOpen, onClo
       </div>
       <ChosenClubs clubs={favoriteClubsData} />
       <SearchFavoriteClub className="mt-6" clubs={favoriteClubsData} onClubSelect={handleClubSelect} />
+      <div className="mt-6 flex items-center gap-2">
+        <ClubFilterSelect placeholder="Sports" className="mb-6" onChange={handleSportChange} />
+        <ClubFilterSelect placeholder="League" className="mb-6" onChange={handleSportChange} />
+      </div>
     </BaseModal>
   )
 }

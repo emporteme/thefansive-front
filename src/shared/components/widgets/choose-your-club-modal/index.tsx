@@ -14,11 +14,16 @@ interface ChooseYourClubModalProps {
 }
 
 const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({ isOpen, onClose, onClubSelected }) => {
+  const handleClubSelect = (club: Club) => {
+    onClubSelected(club)
+    onClose()
+  }
+
   return (
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      className="!bg-slate-100 px-16 py-9"
+      className="h-[1000px] !bg-slate-100 px-16 py-9"
       showCloseButton={true}
       closeOnOverlayClick={true}
     >
@@ -32,7 +37,7 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({ isOpen, onClo
         </button>
       </div>
       <ChosenClubs clubs={favoriteClubsData} />
-      <SearchFavoriteClub className="mt-6" />
+      <SearchFavoriteClub className="mt-6" clubs={favoriteClubsData} onClubSelect={handleClubSelect} />
     </BaseModal>
   )
 }

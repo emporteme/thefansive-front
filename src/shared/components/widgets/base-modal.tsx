@@ -64,16 +64,6 @@ const BaseModal: React.FC<BaseModalProps> = ({
         className={`relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white shadow-xl ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {showCloseButton && (
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-slate-200"
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          </button>
-        )}
         {children}
       </div>
     </div>

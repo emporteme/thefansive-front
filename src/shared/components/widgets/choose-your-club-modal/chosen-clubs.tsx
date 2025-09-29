@@ -1,5 +1,5 @@
 import React from "react"
-import { ClubAvatar } from "./club-avatar"
+import { ChosenClubCard } from "./chosen-club-card"
 
 interface Club {
   id: number
@@ -18,15 +18,9 @@ const ChosenClubs: React.FC<ChosenClubsProps> = ({ clubs, className = "" }) => {
   }
 
   return (
-    <div
-      className={`flex gap-2.5 overflow-x-auto rounded-2xl bg-slate-200 p-3 ${className}`}
-      style={{
-        // Точные цвета из Figma
-        backgroundColor: "#E2E8F0", // rgb(226, 232, 240)
-      }}
-    >
+    <div className={`flex gap-2.5 overflow-x-auto rounded-2xl bg-slate-200 p-3 ${className}`}>
       {clubs.map((club) => (
-        <ClubAvatar key={club.id} logo={club.logo} name={club.name} size="md" />
+        <ChosenClubCard key={club.id} logo={club.logo} name={club.name} />
       ))}
     </div>
   )

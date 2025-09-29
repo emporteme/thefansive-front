@@ -1,5 +1,6 @@
 export * from "./button"
 export * from "./client-only"
 export * from "./container-layout"
+export * from "./modal-layout"
 export * from "./tabs"
 export * from "./tag"

@@ -2,11 +2,11 @@
 
 import React from "react"
 import { favoriteClubsData } from "@/containers/pages/user/profile-page/components/widgets/favorite-clubs"
+import { ModalLayout } from "@/shared/components/ui"
 import { Cancel } from "@/shared/icons"
 import { ChosenClubs, Club } from "./chosen-clubs"
 import { SearchFavoriteClub } from "./search-favorite-club"
 import { ClubFilterSelect } from "./sport-filter-select"
-import { BaseModal } from "../base-modal"
 
 interface ChooseYourClubModalProps {
   isOpen: boolean
@@ -31,7 +31,7 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
   }
 
   return (
-    <BaseModal
+    <ModalLayout
       isOpen={isOpen}
       onClose={onClose}
       className="h-[1000px] !bg-slate-100 px-16 py-9"
@@ -53,7 +53,7 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
         <ClubFilterSelect placeholder="Sports" className="mb-6" onChange={handleSportChange} />
         <ClubFilterSelect placeholder="League" className="mb-6" onChange={handleSportChange} />
       </div>
-    </BaseModal>
+    </ModalLayout>
   )
 }
 

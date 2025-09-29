@@ -11,12 +11,11 @@ interface BaseModalProps {
   closeOnOverlayClick?: boolean
 }
 
-const BaseModal: React.FC<BaseModalProps> = ({
+const ModalLayout: React.FC<BaseModalProps> = ({
   isOpen,
   onClose,
   children,
   className = "",
-  showCloseButton = true,
   closeOnOverlayClick = true,
 }) => {
   useEffect(() => {
@@ -70,4 +69,4 @@ const BaseModal: React.FC<BaseModalProps> = ({
   )
 }
 
-export { BaseModal }
+export { ModalLayout }

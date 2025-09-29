@@ -48,7 +48,7 @@ const DashboardSection: FC = () => {
         {dashboardItems(user).map((item) => (
           <div
             key={item.title}
-            className="flex min-h-[120px] max-w-[160px] flex-1 flex-col justify-between gap-5 rounded-xl bg-white p-5"
+            className="flex min-h-[120px] min-w-[155px] flex-1 flex-col justify-between gap-5 rounded-xl bg-white p-5"
           >
             <span className="text-sm leading-[1.2] font-medium whitespace-pre-line text-slate-600">{item.title}</span>
             <span className="flex justify-start text-2xl font-semibold text-slate-900">{item.value}</span>

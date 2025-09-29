@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import React from "react"
+import ContainerLayout from "@/shared/components/ui/container-layout"
 import { SidebarSection } from "./components/sections"
 
 interface UserLayoutProps {
@@ -20,10 +21,12 @@ const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
           className="h-full w-full object-cover"
         />
       </div>
-      <div className="mx-auto flex w-[1440px] gap-8 pr-[100px] pb-[100px] pl-[100px]">
-        <SidebarSection />
-        {children}
-      </div>
+      <ContainerLayout>
+        <div className="flex gap-8 pb-25">
+          <SidebarSection />
+          {children}
+        </div>
+      </ContainerLayout>
     </div>
   )
 }

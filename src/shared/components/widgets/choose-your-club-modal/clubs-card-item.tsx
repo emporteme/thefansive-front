@@ -1,6 +1,7 @@
 import Image from "next/image"
 import React from "react"
-import { Favourite } from "@/shared/icons"
+import { Favorite as FavoriteIcon } from "@/shared/icons"
+import { cn } from "@/shared/lib/utils"
 
 interface ClubsCardItemProps {
   id: number
@@ -32,7 +33,7 @@ const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
 
   return (
     <div
-      className={`h-[232px] w-40 cursor-pointer rounded-2xl bg-white transition-all hover:shadow-md ${className}`}
+      className={`h-[232px] w-40 cursor-pointer rounded-2xl bg-white transition-all ${className}`}
       onClick={handleClubClick}
     >
       <div className="p-1.5 pb-2.5">
@@ -46,10 +47,25 @@ const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
           <div className="flex justify-end">
             <button
               onClick={handleToggleFavorite}
-              className="flex items-center gap-1.5 rounded-md bg-slate-100 px-2 py-1.5 transition-colors hover:bg-slate-200"
+              className={cn(
+                "flex h-6 items-center gap-1.5 rounded-sm border border-transparent px-2 py-1 transition-colors hover:border-slate-900",
+                {
+                  "bg-slate-900": isFavorite,
+                  "bg-slate-100": !isFavorite,
+                }
+              )}
             >
-              <span className="text-3lg font-medium text-slate-700">{isFavorite ? "Following" : "Follow"}</span>
-              <Favourite className={`h-3 w-3 ${isFavorite ? "fill-red-500 text-red-500" : "text-slate-700"}`} />
+              <span
+                className={cn("text-2xs font-semibold tracking-normal", {
+                  "text-white": isFavorite,
+                  "text-slate-700": !isFavorite,
+                })}
+              >
+                {isFavorite ? "Following" : "Follow"}
+              </span>
+              <FavoriteIcon
+                className={`h-3 w-3 ${isFavorite ? "fill-white text-white" : "fill-slate-100 text-slate-900"}`}
+              />
             </button>
           </div>
         </div>

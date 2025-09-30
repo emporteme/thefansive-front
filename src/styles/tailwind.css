@@ -191,3 +191,10 @@
     @apply bg-background text-foreground text-base;
   }
 }
+
+@layer utilities {
+  .text-2xs {
+    font-size: 0.625rem; /* 10px */
+    line-height: 0.75rem; /* 12px */
+  }
+}

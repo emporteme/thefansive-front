@@ -1,15 +1,12 @@
-import { SVGProps } from "react"
-
-const Favourite = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+const Favorite = ({ className }: { className?: string }) => (
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
     <path
-      d="M6 10.25L5.175 9.5C2.6 7.2 1 5.775 1 4C1 2.625 2.125 1.5 3.5 1.5C4.26 1.5 5.01 1.89 5.39 2.47C5.4 2.48 5.41 2.49 5.42 2.5H6.58C6.59 2.49 6.6 2.48 6.61 2.47C6.99 1.89 7.74 1.5 8.5 1.5C9.875 1.5 11 2.625 11 4C11 5.775 9.4 7.2 6.825 9.5L6 10.25Z"
+      d="M5.20535 9.98385C3.79471 8.929 1 6.5174 1 4.34722C1 2.91281 2.05263 1.75 3.5 1.75C4.25 1.75 5 2 6 3C7 2 7.75 1.75 8.5 1.75C9.94735 1.75 11 2.91281 11 4.34722C11 6.5174 8.2053 8.929 6.79465 9.98385C6.31995 10.3388 5.68005 10.3388 5.20535 9.98385Z"
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
-      fill="none"
     />
   </svg>
 )
 
-export { Favourite }
+export { Favorite }

@@ -53,6 +53,8 @@
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
+  --radius-2lg: calc(var(--radius) + 2px);
+  --radius-3lg: calc(var(--radius) + 4px);
   --radius-xl: calc(var(--radius) + 6px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -132,7 +134,7 @@
   --color-primary-800: oklch(0.4174 0.0912 159.36);
   --color-dark: oklch(0.2298 0.0495 270.33);
   --color-card-bg: oklch(0.252 0 0);
-  --text-4xl: 2rem;
+  --text-4xl: 2rem; /* 32px */
   --text-4xl--line-height: calc(2.25 / 2);
 }
 /*
@@ -186,5 +188,12 @@
   }
   body {
     @apply bg-background text-foreground text-base;
+  }
+}
+
+@layer utilities {
+  .text-2xs {
+    font-size: 0.625rem; /* 10px */
+    line-height: 0.75rem; /* 12px */
   }
 }

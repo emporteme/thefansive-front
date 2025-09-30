@@ -1,0 +1,54 @@
+import React from "react"
+import { ClubsCardItem } from "./clubs-card-item"
+
+interface Club {
+  id: number
+  name: string
+  logo: string
+}
+
+interface ClubsCardListProps {
+  clubs: Club[]
+  favoriteClubIds?: number[]
+  onToggleFavorite?: (id: number) => void
+  onClubSelect?: (club: Club) => void
+  className?: string
+}
+
+const ClubsCardList: React.FC<ClubsCardListProps> = ({
+  clubs,
+  favoriteClubIds = [],
+  onToggleFavorite,
+  onClubSelect,
+  className = "",
+}) => {
+  if (clubs.length === 0) {
+    return (
+      <div className={`py-8 text-center ${className}`}>
+        <p className="text-slate-500">Clubs not found</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`flex flex-col gap-4 ${className}`}>
+      <h3 className="text-2xl font-semibold text-slate-900">Trending</h3>
+      <div className={`grid grid-cols-[repeat(5,minmax(160px,1fr))] gap-2.5 px-4`}>
+        {clubs.map((club) => (
+          <ClubsCardItem
+            key={club.id}
+            id={club.id}
+            name={club.name}
+            logo={club.logo}
+            isFavorite={favoriteClubIds.includes(club.id)}
+            onToggleFavorite={onToggleFavorite}
+            onClubSelect={onClubSelect}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export { ClubsCardList }
+export type { Club, ClubsCardListProps }

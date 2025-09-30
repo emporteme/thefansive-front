@@ -22,7 +22,7 @@ export { default as ArrowRightSmallRound } from "./arrow-right-small-round"
 export { ContainerTruckFilled } from "./container-truck"
 export { default as Calendar } from "./calendar"
 export { default as Timer } from "./timer"
-export { Football } from "./football"
+export { Favorite } from "./favorite"
 
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"
@@ -38,9 +38,13 @@ export { default as AppStore } from "./(mobile-store)/app-store"
 // Nagivation Icons
 export { default as ArrowRight } from "./(navigation)/arrow-right"
 export { default as ArrowLeft } from "./(navigation)/arrow-left"
+export { default as ArrowSelect } from "./(navigation)/arrow-select"
 
 // Tags Icons
 export { default as Signature } from "./(tags)/signature"
 export { default as NFT } from "./(tags)/nft"
 export { default as Quality } from "./(tags)/quality"
 export { default as Soccer } from "./(tags)/soccer"
+
+// Sport Icons
+export { Football } from "./(sport)/football"

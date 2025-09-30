@@ -5,6 +5,7 @@ import { favoriteClubsData } from "@/containers/pages/user/profile-page/componen
 import { ModalLayout } from "@/shared/components/ui"
 import { Cancel } from "@/shared/icons"
 import { ChosenClubs, Club } from "./chosen-clubs"
+import { ClubsCardList } from "./clubs-card-list"
 import { LeagueFilterSelect } from "./league-filter-select"
 import { SearchFavoriteClub } from "./search-favorite-club"
 import { ClubFilterSelect } from "./sport-filter-select"
@@ -26,6 +27,7 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
 }) => {
   const [selectedSport, setSelectedSport] = useState<string>("")
   const [selectedLeague, setSelectedLeague] = useState<string>("")
+  const [favoriteClubIds, setFavoriteClubIds] = useState<number[]>([1, 2])
 
   const handleClubSelect = (club: Club) => {
     onClubSelected(club)
@@ -43,11 +45,21 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
     onLeagueChange?.(leagueId)
   }
 
+  const handleToggleFavorite = (clubId: number) => {
+    setFavoriteClubIds((prev) => (prev.includes(clubId) ? prev.filter((id) => id !== clubId) : [...prev, clubId]))
+  }
+
+  const handleCloseModal = () => {
+    setSelectedSport("")
+    setSelectedLeague("")
+    onClose()
+  }
+
   return (
     <ModalLayout
       isOpen={isOpen}
-      onClose={onClose}
-      className="h-[1000px] !bg-slate-100 px-16 py-9"
+      onClose={handleCloseModal}
+      className="!bg-slate-100 px-16 py-9"
       showCloseButton={true}
       closeOnOverlayClick={true}
     >
@@ -63,15 +75,22 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
       <ChosenClubs clubs={favoriteClubsData} />
       <SearchFavoriteClub className="mt-6" clubs={favoriteClubsData} onClubSelect={handleClubSelect} />
       <div className="mt-6 flex items-center gap-2">
-        <ClubFilterSelect placeholder="Sports" className="mb-6" onChange={handleSportChange} value={selectedSport} />
+        <ClubFilterSelect placeholder="Sports" onChange={handleSportChange} value={selectedSport} />
         <LeagueFilterSelect
           placeholder="League"
-          className="mb-6"
           onChange={handleLeagueChange}
           value={selectedLeague}
           selectedSport={selectedSport}
         />
       </div>
+
+      <ClubsCardList
+        className="mt-6"
+        clubs={favoriteClubsData}
+        favoriteClubIds={favoriteClubIds}
+        onToggleFavorite={handleToggleFavorite}
+        onClubSelect={handleClubSelect}
+      />
     </ModalLayout>
   )
 }

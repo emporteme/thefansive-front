@@ -76,7 +76,16 @@ const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
   }
 
   return (
-    <div className={`relative w-full ${className}`} ref={dropdownRef}>
+    <div
+      className={cn(
+        `relative w-full rounded-xl`,
+        {
+          "shadow-lg": isDropdownOpen,
+        },
+        className
+      )}
+      ref={dropdownRef}
+    >
       <div className="flex h-12 w-full items-center gap-2.5 rounded-xl border border-slate-100 bg-white px-4">
         <Search
           className={cn("h-5 w-5 flex-shrink-0 text-slate-400", {
@@ -105,7 +114,7 @@ const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
       </div>
 
       {isDropdownOpen && filteredClubs.length > 0 && (
-        <div className="absolute top-full left-0 z-50 mt-1 w-full rounded-2xl border border-slate-100 bg-white shadow-lg">
+        <div className="absolute top-full left-0 z-50 mt-1.5 w-full rounded-2xl border border-slate-100 bg-white shadow-lg">
           {filteredClubs.slice(0, 8).map((club) => (
             <div
               key={club.id}

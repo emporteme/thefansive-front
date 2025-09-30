@@ -17,7 +17,6 @@ interface FilterSelectProps {
   onChange?: (value: string) => void
   className?: string
   disabled?: boolean
-  width?: number
 }
 
 const FilterSelect: React.FC<FilterSelectProps> = ({
@@ -27,7 +26,6 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   onChange,
   className,
   disabled = false,
-  width = 210,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState<FilterOption | null>(null)

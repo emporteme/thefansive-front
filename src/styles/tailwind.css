@@ -134,7 +134,6 @@
   --color-primary-800: oklch(0.4174 0.0912 159.36);
   --color-dark: oklch(0.2298 0.0495 270.33);
   --color-card-bg: oklch(0.252 0 0);
-  --text-xxs: 0.625rem; /* 10px */
   --text-4xl: 2rem; /* 32px */
   --text-4xl--line-height: calc(2.25 / 2);
 }

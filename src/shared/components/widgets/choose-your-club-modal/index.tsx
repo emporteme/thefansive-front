@@ -43,10 +43,16 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
     onLeagueChange?.(leagueId)
   }
 
+  const handleCloseModal = () => {
+    setSelectedSport("")
+    setSelectedLeague("")
+    onClose()
+  }
+
   return (
     <ModalLayout
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleCloseModal}
       className="h-[1000px] !bg-slate-100 px-16 py-9"
       showCloseButton={true}
       closeOnOverlayClick={true}

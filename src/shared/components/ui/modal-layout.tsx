@@ -60,7 +60,7 @@ const ModalLayout: React.FC<BaseModalProps> = ({
       onClick={handleOverlayClick}
     >
       <div
-        className={`relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white shadow-xl ${className}`}
+        className={`relative max-h-[90vh] w-auto overflow-y-auto rounded-3xl bg-white shadow-xl ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         {children}

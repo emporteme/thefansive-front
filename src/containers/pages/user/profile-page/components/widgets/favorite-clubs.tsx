@@ -41,9 +41,22 @@ export const clubsData = [
   },
 ]
 
+export const favoriteClubsData = [
+  {
+    id: 1,
+    logo: "/images/dev/liverpool-logo.png",
+    name: "F.C. Liverpool",
+  },
+  {
+    id: 2,
+    logo: "/images/dev/arsenal-logo.png",
+    name: "F.C. Arsenal",
+  },
+]
+
 const FavoriteClubs: React.FC = () => {
   const [clubs, setClubs] = useState(clubsData)
-  const [favoriteClubs, setFavoriteClubs] = useState(clubsData.slice(0, 2))
+  const [favoriteClubs, setFavoriteClubs] = useState(favoriteClubsData)
   const [isChooseYourClubModalOpen, setIsChooseYourClubModalOpen] = useState(false)
 
   const handleRemoveClub = (id: number) => {
@@ -55,11 +68,19 @@ const FavoriteClubs: React.FC = () => {
   }
 
   const handleClubFavoriteToggle = (club: Club) => {
-    setFavoriteClubs((favoriteClubs) => [...favoriteClubs, club])
+    if (favoriteClubs.some((c) => c.id === club.id)) {
+      setFavoriteClubs(favoriteClubs.filter((c) => c.id !== club.id))
+    } else {
+      setFavoriteClubs((favoriteClubs) => [...favoriteClubs, club])
+    }
   }
 
   const handleCloseModal = () => {
     setIsChooseYourClubModalOpen(false)
+  }
+
+  const handleSearchClubSelect = (club: Club) => {
+    setClubs([club])
   }
 
   return (
@@ -85,10 +106,10 @@ const FavoriteClubs: React.FC = () => {
       <ChooseYourClubModal
         clubs={clubs}
         favoriteClubs={favoriteClubs}
-        setClubs={setClubs}
         isOpen={isChooseYourClubModalOpen}
         onClose={handleCloseModal}
         onClubFavoriteToggle={handleClubFavoriteToggle}
+        onSearchClubSelect={handleSearchClubSelect}
       />
     </div>
   )

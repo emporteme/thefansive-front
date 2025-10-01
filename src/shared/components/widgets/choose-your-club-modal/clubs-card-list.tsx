@@ -9,7 +9,7 @@ interface Club {
 
 interface ClubsCardListProps {
   clubs: Club[]
-  favoriteClubIds?: number[]
+  favoriteClubs?: Club[]
   onToggleFavorite?: (id: number) => void
   onClubClick?: (club: Club) => void
   className?: string
@@ -17,7 +17,7 @@ interface ClubsCardListProps {
 
 const ClubsCardList: React.FC<ClubsCardListProps> = ({
   clubs,
-  favoriteClubIds = [],
+  favoriteClubs,
   onToggleFavorite,
   onClubClick,
   className = "",
@@ -30,6 +30,8 @@ const ClubsCardList: React.FC<ClubsCardListProps> = ({
     )
   }
 
+  const isFavorite = (club: Club) => favoriteClubs?.some((c) => c.id === club.id)
+
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
       <h3 className="text-2xl font-semibold text-slate-900">Trending</h3>
@@ -40,7 +42,7 @@ const ClubsCardList: React.FC<ClubsCardListProps> = ({
             id={club.id}
             name={club.name}
             logo={club.logo}
-            isFavorite={favoriteClubIds.includes(club.id)}
+            isFavorite={isFavorite(club)}
             onToggleFavorite={onToggleFavorite}
             onClubClick={onClubClick}
           />

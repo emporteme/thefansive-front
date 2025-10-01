@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-import { favoriteClubsData } from "@/containers/pages/user/profile-page/components/widgets/favorite-clubs"
 import { ModalLayout } from "@/shared/components/ui"
 import { Cancel } from "@/shared/icons"
 import { ChosenClubs, Club } from "./chosen-clubs"
@@ -12,27 +11,28 @@ import { ClubFilterSelect } from "./sport-filter-select"
 
 interface ChooseYourClubModalProps {
   isOpen: boolean
+  clubs: Club[]
+  favoriteClubs: Club[]
+  setClubs: (clubs: Club[]) => void
   onClose: () => void
-  onClubSelected: (club: Club) => void
+  onClubFavoriteToggle: (club: Club) => void
   onSportChange?: (sportId: string) => void
   onLeagueChange?: (leagueId: string) => void
 }
 
 const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
   isOpen,
+  clubs,
+  favoriteClubs,
+  setClubs,
   onClose,
-  onClubSelected,
+  onClubFavoriteToggle,
   onSportChange,
   onLeagueChange,
 }) => {
   const [selectedSport, setSelectedSport] = useState<string>("")
   const [selectedLeague, setSelectedLeague] = useState<string>("")
   const [favoriteClubIds, setFavoriteClubIds] = useState<number[]>([1, 2])
-
-  const handleClubSelect = (club: Club) => {
-    onClubSelected(club)
-    onClose()
-  }
 
   const handleSportChange = (sportId: string) => {
     setSelectedSport(sportId)
@@ -46,13 +46,25 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
   }
 
   const handleToggleFavorite = (clubId: number) => {
-    setFavoriteClubIds((prev) => (prev.includes(clubId) ? prev.filter((id) => id !== clubId) : [...prev, clubId]))
+    const isFavorite = favoriteClubIds.includes(clubId)
+
+    if (isFavorite) {
+      setFavoriteClubIds((prev) => prev.filter((id) => id !== clubId))
+    } else {
+      setFavoriteClubIds((prev) => [...prev, clubId])
+      const club = clubs.find((club) => club.id === clubId)
+      onClubFavoriteToggle(club as Club)
+    }
   }
 
   const handleCloseModal = () => {
     setSelectedSport("")
     setSelectedLeague("")
     onClose()
+  }
+
+  const handleSearchClubSelect = (club: Club) => {
+    setClubs([club])
   }
 
   return (
@@ -72,8 +84,8 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
           <Cancel className="h-6 w-6 text-black" />
         </button>
       </div>
-      <ChosenClubs clubs={favoriteClubsData} />
-      <SearchFavoriteClub className="mt-6" clubs={favoriteClubsData} onClubSelect={handleClubSelect} />
+      <ChosenClubs clubs={favoriteClubs} />
+      <SearchFavoriteClub className="mt-6" clubs={clubs} onClubSelect={handleSearchClubSelect} />
       <div className="mt-6 flex items-center gap-2">
         <ClubFilterSelect placeholder="Sports" onChange={handleSportChange} value={selectedSport} />
         <LeagueFilterSelect
@@ -86,10 +98,9 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
 
       <ClubsCardList
         className="mt-6"
-        clubs={favoriteClubsData}
+        clubs={clubs}
         favoriteClubIds={favoriteClubIds}
         onToggleFavorite={handleToggleFavorite}
-        onClubSelect={handleClubSelect}
       />
     </ModalLayout>
   )

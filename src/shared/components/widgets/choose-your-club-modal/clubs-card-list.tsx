@@ -11,7 +11,7 @@ interface ClubsCardListProps {
   clubs: Club[]
   favoriteClubIds?: number[]
   onToggleFavorite?: (id: number) => void
-  onClubSelect?: (club: Club) => void
+  onClubClick?: (club: Club) => void
   className?: string
 }
 
@@ -19,7 +19,7 @@ const ClubsCardList: React.FC<ClubsCardListProps> = ({
   clubs,
   favoriteClubIds = [],
   onToggleFavorite,
-  onClubSelect,
+  onClubClick,
   className = "",
 }) => {
   if (clubs.length === 0) {
@@ -42,7 +42,7 @@ const ClubsCardList: React.FC<ClubsCardListProps> = ({
             logo={club.logo}
             isFavorite={favoriteClubIds.includes(club.id)}
             onToggleFavorite={onToggleFavorite}
-            onClubSelect={onClubSelect}
+            onClubClick={onClubClick}
           />
         ))}
       </div>

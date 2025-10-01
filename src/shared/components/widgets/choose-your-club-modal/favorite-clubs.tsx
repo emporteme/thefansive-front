@@ -28,9 +28,9 @@ const FavoriteClubs: React.FC<ChosenClubsProps> = ({ clubs, className = "" }) =>
     navigate(routes.clubs.single(club.id.toString()))
   }
 
-  const fullClubs = useMemo(() => {
-    if (clubs.length >= maxShowedClubs) {
-      return clubs
+  const { displayClubs, hasScroll } = useMemo(() => {
+    if (clubs.length > maxShowedClubs) {
+      return { displayClubs: clubs, hasScroll: true }
     }
 
     const emptyClubs = Array.from(
@@ -43,12 +43,16 @@ const FavoriteClubs: React.FC<ChosenClubsProps> = ({ clubs, className = "" }) =>
         }) as Club
     )
 
-    return [...clubs, ...emptyClubs]
+    return { displayClubs: [...clubs, ...emptyClubs], hasScroll: false }
   }, [clubs])
 
   return (
-    <div className={`mx-auto flex w-fit gap-2.5 overflow-x-auto rounded-2xl bg-slate-200 px-6 py-3 ${className}`}>
-      {fullClubs.map((club) => (
+    <div
+      className={`mx-auto flex gap-2.5 rounded-2xl bg-slate-200 px-6 py-3 ${
+        hasScroll ? "w-[calc(9*80px+8*10px+48px)] overflow-x-auto" : "w-fit"
+      } ${className}`}
+    >
+      {displayClubs.map((club) => (
         <FavoriteClubCard key={club.id} club={club} onClick={() => handleClubClick(club)} />
       ))}
     </div>

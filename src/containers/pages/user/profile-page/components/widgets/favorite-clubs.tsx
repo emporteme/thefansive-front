@@ -39,7 +39,22 @@ export const clubsData = [
   {
     id: 7,
     logo: "/images/dev/madrid-logo.png",
-    name: "Real Madrid",
+    name: "Chelsea",
+  },
+  {
+    id: 8,
+    logo: "/images/dev/madrid-logo.png",
+    name: "Nottingham Forest",
+  },
+  {
+    id: 9,
+    logo: "/images/dev/madrid-logo.png",
+    name: "Sunderland",
+  },
+  {
+    id: 10,
+    logo: "/images/dev/madrid-logo.png",
+    name: "Manchester United",
   },
 ]
 

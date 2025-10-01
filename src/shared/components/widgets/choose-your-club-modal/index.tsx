@@ -20,6 +20,7 @@ interface ChooseYourClubModalProps {
   onSportChange?: (sportId: string) => void
   onLeagueChange?: (leagueId: string) => void
   onSearchClubSelect?: (club: Club) => void
+  onClearSearch?: () => void
 }
 
 const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
@@ -31,19 +32,27 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
   onSportChange,
   onLeagueChange,
   onSearchClubSelect,
+  onClearSearch,
 }) => {
   const routes = useRoutes()
   const navigate = useNavigate()
   const [selectedSport, setSelectedSport] = useState<string>("")
   const [selectedLeague, setSelectedLeague] = useState<string>("")
+  const [searchValue, setSearchValue] = useState("")
+
+  const clearSearch = () => {
+    setSearchValue("")
+  }
 
   const handleSportChange = (sportId: string) => {
+    clearSearch()
     setSelectedSport(sportId)
     setSelectedLeague("")
     onSportChange?.(sportId)
   }
 
   const handleLeagueChange = (leagueId: string) => {
+    clearSearch()
     setSelectedLeague(leagueId)
     onLeagueChange?.(leagueId)
   }
@@ -56,11 +65,18 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
   const handleCloseModal = () => {
     setSelectedSport("")
     setSelectedLeague("")
+    clearSearch()
     onClose()
   }
 
   const handleSearchClubSelect = (club: Club) => {
     onSearchClubSelect?.(club)
+    setSelectedSport("")
+    setSelectedLeague("")
+  }
+
+  const handleClearSearch = () => {
+    onClearSearch?.()
   }
 
   const handleClubClick = (club: Club) => {
@@ -85,7 +101,14 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
         </button>
       </div>
       <FavoriteClubs clubs={favoriteClubs} />
-      <SearchFavoriteClub className="mt-6" clubs={clubs} onClubSelect={handleSearchClubSelect} />
+      <SearchFavoriteClub
+        className="mt-6"
+        searchValue={searchValue}
+        onChange={setSearchValue}
+        clubs={clubs}
+        onClubSelect={handleSearchClubSelect}
+        onClear={handleClearSearch}
+      />
       <div className="mt-6 flex items-center gap-2">
         <ClubFilterSelect placeholder="Sports" onChange={handleSportChange} value={selectedSport} />
         <LeagueFilterSelect

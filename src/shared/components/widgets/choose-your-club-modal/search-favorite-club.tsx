@@ -13,8 +13,8 @@ interface Club {
 }
 
 interface SearchFavoriteClubProps {
+  searchValue: string
   placeholder?: string
-  value?: string
   onChange?: (value: string) => void
   onClear?: () => void
   className?: string
@@ -23,14 +23,13 @@ interface SearchFavoriteClubProps {
 }
 
 const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
-  value = "",
+  searchValue,
   onChange,
   onClear,
   className,
   clubs = [],
   onClubSelect,
 }) => {
-  const [searchValue, setSearchValue] = useState(value)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -51,20 +50,18 @@ const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
-    setSearchValue(newValue)
     onChange?.(newValue)
     setIsDropdownOpen(newValue.length > 0 && filteredClubs.length > 0)
   }
 
   const handleClear = () => {
-    setSearchValue("")
     onChange?.("")
     onClear?.()
     setIsDropdownOpen(false)
   }
 
   const handleClubSelect = (club: Club) => {
-    setSearchValue(club.name)
+    onChange?.(club.name)
     setIsDropdownOpen(false)
     onClubSelect?.(club)
   }
@@ -74,6 +71,12 @@ const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
       setIsDropdownOpen(true)
     }
   }
+
+  useEffect(() => {
+    if (searchValue.length <= 0) {
+      handleClear()
+    }
+  }, [searchValue])
 
   return (
     <div

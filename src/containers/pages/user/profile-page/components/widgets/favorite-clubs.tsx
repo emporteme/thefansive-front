@@ -122,6 +122,10 @@ const FavoriteClubs: React.FC = () => {
     setClubs([club])
   }
 
+  const handleClearSearch = () => {
+    setClubs(clubsData)
+  }
+
   const handleClubClick = (club: Club) => {
     navigate(routes.clubs.single(club.id.toString()))
   }
@@ -154,6 +158,7 @@ const FavoriteClubs: React.FC = () => {
         onClose={handleCloseModal}
         onClubFavoriteToggle={handleClubFavoriteToggle}
         onSearchClubSelect={handleSearchClubSelect}
+        onClearSearch={handleClearSearch}
       />
     </div>
   )

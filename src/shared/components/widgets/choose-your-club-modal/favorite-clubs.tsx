@@ -1,6 +1,7 @@
 import React, { useMemo } from "react"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
+import { cn } from "@/shared/lib/utils"
 import { FavoriteClubCard } from "./favorite-club-card"
 
 interface Club {
@@ -48,9 +49,14 @@ const FavoriteClubs: React.FC<ChosenClubsProps> = ({ clubs, className = "" }) =>
 
   return (
     <div
-      className={`mx-auto flex gap-2.5 rounded-2xl bg-slate-200 px-6 py-3 ${
-        hasScroll ? "w-[calc(9*80px+8*10px+48px)] overflow-x-auto" : "w-fit"
-      } ${className}`}
+      className={cn(
+        `mx-auto flex gap-2.5 rounded-2xl bg-slate-200 px-6 py-3`,
+        {
+          "w-[calc(9*80px+8*10px+48px)] overflow-x-auto": hasScroll,
+          "w-fit": !hasScroll,
+        },
+        className
+      )}
     >
       {displayClubs.map((club) => (
         <FavoriteClubCard key={club.id} club={club} onClick={() => handleClubClick(club)} />

@@ -69,6 +69,26 @@ export const favoriteClubsData = [
     logo: "/images/dev/arsenal-logo.png",
     name: "F.C. Arsenal",
   },
+  {
+    id: 3,
+    logo: "/images/dev/lakers-logo.png",
+    name: "Los Angeles Lakers",
+  },
+  {
+    id: 4,
+    logo: "/images/dev/wolverhampton-logo.png",
+    name: "Wolverhampton",
+  },
+  {
+    id: 5,
+    logo: "/images/dev/manchester-logo.png",
+    name: "Manchester City",
+  },
+  {
+    id: 10,
+    logo: "/images/dev/madrid-logo.png",
+    name: "Manchester United",
+  },
 ]
 
 const FavoriteClubs: React.FC = () => {

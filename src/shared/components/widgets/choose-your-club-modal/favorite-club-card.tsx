@@ -1,12 +1,12 @@
 import Image from "next/image"
+import { Club } from "./favorite-clubs"
 
 interface ClubAvatarProps {
-  logo: string
-  name: string
+  club: Club
   onClick: () => void
 }
 
-const ChosenClubCard: React.FC<ClubAvatarProps> = ({ logo, name, onClick }) => {
+const FavoriteClubCard: React.FC<ClubAvatarProps> = ({ club, onClick }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
     onClick()
@@ -18,10 +18,17 @@ const ChosenClubCard: React.FC<ClubAvatarProps> = ({ logo, name, onClick }) => {
       onClick={handleClick}
     >
       <div className={`h-13.5 w-11.5 overflow-hidden rounded-lg`}>
-        <Image src={logo} alt={name} width={45} height={54} className="h-full w-full object-contain" quality={90} />
+        <Image
+          src={club.logo}
+          alt={club.name}
+          width={45}
+          height={54}
+          className="h-full w-full object-contain"
+          quality={100}
+        />
       </div>
     </div>
   )
 }
 
-export { ChosenClubCard }
+export { FavoriteClubCard }

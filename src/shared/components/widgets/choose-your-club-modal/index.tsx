@@ -5,8 +5,8 @@ import { ModalLayout } from "@/shared/components/ui"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Cancel } from "@/shared/icons"
-import { ChosenClubs, Club } from "./chosen-clubs"
 import { ClubsCardList } from "./clubs-card-list"
+import { Club, FavoriteClubs } from "./favorite-clubs"
 import { LeagueFilterSelect } from "./league-filter-select"
 import { SearchFavoriteClub } from "./search-favorite-club"
 import { ClubFilterSelect } from "./sport-filter-select"
@@ -84,7 +84,7 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
           <Cancel className="h-6 w-6 text-black" />
         </button>
       </div>
-      <ChosenClubs clubs={favoriteClubs} />
+      <FavoriteClubs clubs={favoriteClubs} />
       <SearchFavoriteClub className="mt-6" clubs={clubs} onClubSelect={handleSearchClubSelect} />
       <div className="mt-6 flex items-center gap-2">
         <ClubFilterSelect placeholder="Sports" onChange={handleSportChange} value={selectedSport} />

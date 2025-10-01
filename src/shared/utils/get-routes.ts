@@ -11,7 +11,10 @@ export const getRoutes = (locale?: string) => {
       confirmation: () => getRoute("/cart/confirmation"),
     },
     ecosystem: () => getRoute("/ecosystem"),
-    clubs: () => getRoute("/clubs"),
+    clubs: {
+      all: () => getRoute("/clubs"),
+      single: (id: string) => getRoute(`/clubs/${id}`),
+    },
     game: () => getRoute("/game"),
     howItWorks: () => getRoute("/how-it-works"),
     partners: () => getRoute("/partners"),

@@ -13,7 +13,7 @@ export const getEcosystemDropdownItems = (): EcosystemDropdownItem[] => {
   const routes = getRoutes()
 
   return [
-    { id: 1, href: routes.clubs(), children: "Clubs" },
+    { id: 1, href: routes.clubs.all(), children: "Clubs" },
     { id: 2, children: "Athlets", isComing: true },
     { id: 3, children: "Raffle", isComing: true },
     { id: 4, children: "NFT's", isComing: true },

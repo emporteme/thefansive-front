@@ -39,9 +39,7 @@ const ClubsCardList: React.FC<ClubsCardListProps> = ({
         {clubs.map((club) => (
           <ClubsCardItem
             key={club.id}
-            id={club.id}
-            name={club.name}
-            logo={club.logo}
+            club={club}
             isFavorite={isFavorite(club)}
             onToggleFavorite={onToggleFavorite}
             onClubClick={onClubClick}

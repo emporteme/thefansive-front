@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
 import { Club } from "@/shared/components/widgets/choose-your-club-modal/chosen-clubs"
+import { useNavigate } from "@/shared/hooks/client/use-navigate"
+import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { AddFavoriteClubs, FavoriteClubCard } from "../ui"
 
 export const clubsData = [
@@ -55,6 +57,8 @@ export const favoriteClubsData = [
 ]
 
 const FavoriteClubs: React.FC = () => {
+  const routes = useRoutes()
+  const navigate = useNavigate()
   const [clubs, setClubs] = useState(clubsData)
   const [favoriteClubs, setFavoriteClubs] = useState(favoriteClubsData)
   const [isChooseYourClubModalOpen, setIsChooseYourClubModalOpen] = useState(false)
@@ -83,6 +87,10 @@ const FavoriteClubs: React.FC = () => {
     setClubs([club])
   }
 
+  const handleClubClick = (club: Club) => {
+    navigate(routes.clubs.single(club.id.toString()))
+  }
+
   return (
     <div className="flex w-full flex-col gap-4.5 rounded-3xl bg-slate-100 p-5 pb-7.5">
       <div className="flex items-center justify-between">
@@ -98,6 +106,7 @@ const FavoriteClubs: React.FC = () => {
               logo={club.logo}
               name={club.name}
               onCancel={() => handleRemoveClub(club.id)}
+              onClick={() => handleClubClick(club)}
             />
           ))}
         </div>

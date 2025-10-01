@@ -2,21 +2,18 @@ import Image from "next/image"
 import React from "react"
 import { Favorite as FavoriteIcon } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
+import { Club } from "./clubs-card-list"
 
 interface ClubsCardItemProps {
-  id: number
-  name: string
-  logo: string
+  club: Club
   isFavorite?: boolean
   onToggleFavorite?: (id: number) => void
-  onClubClick?: (club: { id: number; name: string; logo: string }) => void
+  onClubClick?: (club: Club) => void
   className?: string
 }
 
 const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
-  id,
-  name,
-  logo,
+  club,
   isFavorite = false,
   onToggleFavorite,
   onClubClick,
@@ -24,21 +21,26 @@ const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
 }) => {
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation()
-    onToggleFavorite?.(id)
+    onToggleFavorite?.(club.id)
+  }
+
+  const handleClubClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    onClubClick?.(club)
   }
 
   return (
     <div
       className={`h-[232px] w-40 cursor-pointer rounded-2xl bg-white transition-all ${className}`}
-      onClick={() => onClubClick?.({ id, name, logo })}
+      onClick={handleClubClick}
     >
       <div className="p-1.5 pb-2.5">
         <div className="relative mx-auto mb-1.5 h-[148px] w-[148px]">
-          <Image src={logo} alt={`${name} logo`} fill className="rounded-[10px] object-cover" />
+          <Image src={club.logo} alt={`${club.name} logo`} fill className="rounded-[10px] object-cover" />
         </div>
 
         <div className="flex-between flex flex-col gap-1.5">
-          <h3 className="line-clamp-2 min-h-[32px] text-sm font-semibold text-slate-900">{name}</h3>
+          <h3 className="line-clamp-2 min-h-[32px] text-sm font-semibold text-slate-900">{club.name}</h3>
 
           <div className="flex justify-end">
             <button

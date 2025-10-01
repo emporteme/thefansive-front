@@ -5,13 +5,27 @@ interface FavoriteClubCardProps {
   name: string
   logo: string
   onCancel: () => void
+  onClick: () => void
 }
 
-const FavoriteClubCard: React.FC<FavoriteClubCardProps> = ({ name, logo, onCancel }) => {
+const FavoriteClubCard: React.FC<FavoriteClubCardProps> = ({ name, logo, onCancel, onClick }) => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+    onClick()
+  }
+
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    onCancel()
+  }
+
   return (
-    <div className="relative flex flex-shrink-0 flex-col rounded-2xl bg-white px-[5px] py-2.5">
+    <div
+      className="relative flex flex-shrink-0 cursor-pointer flex-col rounded-2xl bg-white px-[5px] py-2.5"
+      onClick={handleClick}
+    >
       <button
-        onClick={onCancel}
+        onClick={handleCancel}
         className="absolute top-0 right-0 z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-white"
       >
         <CancelIcon className="h-3.5 w-3.5 text-slate-600" />

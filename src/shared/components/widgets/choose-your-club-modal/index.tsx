@@ -2,6 +2,8 @@
 
 import React, { useState } from "react"
 import { ModalLayout } from "@/shared/components/ui"
+import { useNavigate } from "@/shared/hooks/client/use-navigate"
+import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Cancel } from "@/shared/icons"
 import { ChosenClubs, Club } from "./chosen-clubs"
 import { ClubsCardList } from "./clubs-card-list"
@@ -30,6 +32,8 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
   onLeagueChange,
   onSearchClubSelect,
 }) => {
+  const routes = useRoutes()
+  const navigate = useNavigate()
   const [selectedSport, setSelectedSport] = useState<string>("")
   const [selectedLeague, setSelectedLeague] = useState<string>("")
 
@@ -57,6 +61,10 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
 
   const handleSearchClubSelect = (club: Club) => {
     onSearchClubSelect?.(club)
+  }
+
+  const handleClubClick = (club: Club) => {
+    navigate(routes.clubs.single(club.id.toString()))
   }
 
   return (
@@ -93,6 +101,7 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
         clubs={clubs}
         favoriteClubs={favoriteClubs}
         onToggleFavorite={handleToggleFavorite}
+        onClubClick={handleClubClick}
       />
     </ModalLayout>
   )

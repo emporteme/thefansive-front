@@ -1,4 +1,5 @@
 import React from "react"
+import { cn } from "@/shared/lib/utils"
 import { ClubsCardItem } from "./clubs-card-item"
 
 interface Club {
@@ -20,7 +21,7 @@ const ClubsCardList: React.FC<ClubsCardListProps> = ({
   favoriteClubs,
   onToggleFavorite,
   onClubClick,
-  className = "",
+  className,
 }) => {
   if (clubs.length === 0) {
     return (
@@ -33,7 +34,7 @@ const ClubsCardList: React.FC<ClubsCardListProps> = ({
   const isFavorite = (club: Club) => favoriteClubs?.some((c) => c.id === club.id)
 
   return (
-    <div className={`flex flex-col gap-4 ${className}`}>
+    <div className={cn(`flex flex-col gap-4`, className)}>
       <h3 className="text-2xl font-semibold text-slate-900">Trending</h3>
       <div className={`grid grid-cols-[repeat(5,minmax(160px,1fr))] gap-2.5 px-4`}>
         {clubs.map((club) => (

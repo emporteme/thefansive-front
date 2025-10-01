@@ -17,7 +17,7 @@ const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
   isFavorite = false,
   onToggleFavorite,
   onClubClick,
-  className = "",
+  className,
 }) => {
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -31,7 +31,7 @@ const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
 
   return (
     <div
-      className={`h-[232px] w-40 cursor-pointer rounded-2xl bg-white transition-all ${className}`}
+      className={cn(`h-[232px] w-40 cursor-pointer rounded-2xl bg-white transition-all`, className)}
       onClick={handleClubClick}
     >
       <div className="p-1.5 pb-2.5">

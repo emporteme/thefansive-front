@@ -9,7 +9,7 @@ interface ClubsCardItemProps {
   logo: string
   isFavorite?: boolean
   onToggleFavorite?: (id: number) => void
-  onClubSelect?: (club: { id: number; name: string; logo: string }) => void
+  onClubClick?: (club: { id: number; name: string; logo: string }) => void
   className?: string
 }
 
@@ -19,7 +19,7 @@ const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
   logo,
   isFavorite = false,
   onToggleFavorite,
-  onClubSelect,
+  onClubClick,
   className = "",
 }) => {
   const handleToggleFavorite = (e: React.MouseEvent) => {
@@ -27,14 +27,10 @@ const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
     onToggleFavorite?.(id)
   }
 
-  const handleClubClick = () => {
-    onClubSelect?.({ id, name, logo })
-  }
-
   return (
     <div
       className={`h-[232px] w-40 cursor-pointer rounded-2xl bg-white transition-all ${className}`}
-      onClick={handleClubClick}
+      onClick={() => onClubClick?.({ id, name, logo })}
     >
       <div className="p-1.5 pb-2.5">
         <div className="relative mx-auto mb-1.5 h-[148px] w-[148px]">

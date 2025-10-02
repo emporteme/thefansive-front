@@ -5,8 +5,8 @@ const donates = [
   {
     id: "1234567899",
     date: "10.08.2025",
-    type: "Liverpool FC",
-    title: "Special Donation",
+    title: "Liverpool FC",
+    image: "/images/dev/liverpool-logo.png",
     paymentStatus: "paid" as PaymentStatus,
     deliveryStatus: "delivered" as DeliveryStatus,
     yourDonation: "5.000",
@@ -15,7 +15,7 @@ const donates = [
 
 const AllTabSection: React.FC = () => {
   return (
-    <div className="mt-6 flex w-full flex-col gap-6">
+    <div className="mt-6 flex w-full flex-col gap-6 rounded-3xl bg-slate-100 px-5 py-7.5">
       {donates.map((donate) => (
         <DonateCard key={donate.id} donate={donate} />
       ))}

@@ -1,3 +1,3 @@
 export type PaymentStatus = "paid" | "pending" | "failed"
 
-export type DeliveryStatus = "delivered" | "preparing"
+export type DeliveryStatus = "delivered" | "preparing" | "shipped"

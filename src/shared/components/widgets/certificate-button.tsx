@@ -1,7 +1,6 @@
 import { CertificateOutlined } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
-
-type CertificateType = "fan" | "donation"
+import { CertificateType } from "@/shared/types/fan-support"
 
 interface CertificateData {
   label: string

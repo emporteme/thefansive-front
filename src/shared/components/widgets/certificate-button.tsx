@@ -1,4 +1,4 @@
-import { CertificateOutlined } from "@/shared/icons"
+import { CertificateFilled } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
 import { CertificateType } from "@/shared/types/fan-support"
 
@@ -31,7 +31,7 @@ const CertificateButton: React.FC<CertificateButtonProps> = ({ type, className, 
       onClick={onClick}
       {...props}
     >
-      <CertificateOutlined className="h-4.5 w-4.5 text-slate-700" />
+      <CertificateFilled className="h-4.5 w-4.5 text-slate-700" />
       <span className="text-sm leading-[1.7] font-semibold text-slate-700">{dataByType?.[type]?.label}</span>
     </button>
   )

@@ -1,4 +1,4 @@
-import { ClockFilled, Tick as TickIcon } from "@/shared/icons"
+import { Airplane as AirplaneIcon, ClockFilled, Tick as TickIcon } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
 import { DeliveryStatus } from "@/shared/types/order"
 
@@ -22,6 +22,11 @@ const dataByStatus = {
     label: "Preparing",
     className: "bg-orange-50 text-orange-500",
     icon: <ClockFilled className="text-orange-500" />,
+  },
+  shipped: {
+    label: "Shipped",
+    className: "bg-blue-50 text-blue-500",
+    icon: <AirplaneIcon className="text-blue-500" />,
   },
 } as Record<DeliveryStatus, DeliveryStatusData>
 

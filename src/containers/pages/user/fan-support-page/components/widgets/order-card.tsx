@@ -23,7 +23,7 @@ interface OrderCardProps {
 
 const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
   return (
-    <div className="flex h-full w-full shrink rounded-3xl bg-white p-3 pr-5">
+    <div className="flex h-full w-full shrink rounded-sm bg-white p-3">
       <div className="flex flex-1/2 gap-3">
         <Image
           src={order.image}

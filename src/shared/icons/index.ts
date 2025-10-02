@@ -23,6 +23,7 @@ export { ContainerTruckFilled } from "./container-truck"
 export { default as Calendar } from "./calendar"
 export { default as Timer } from "./timer"
 export { Favorite } from "./favorite"
+export { default as Airplane } from "./airplane"
 
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"

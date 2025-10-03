@@ -6,21 +6,21 @@ const tasks = [
     title: "Daily Rewards",
     description: "The reward is given out every day.",
     points: 100,
-    image: "/images/tasks/calendar.png",
+    image: "/images/tasks/daily-reward.png",
   },
   {
     id: "2",
     title: "Daily Watch",
     description: "Watch videos to earn points.",
     points: 150,
-    image: "/images/tasks/film-slate.png",
+    image: "/images/tasks/youtube-reward.png",
   },
   {
     id: "3",
     title: "Make a transaction with Base",
-    description: "Complete a transaction on Base network.",
+    description: "Earn points by trading on the base platform.",
     points: 300,
-    image: "/images/tasks/base-logo.png",
+    image: "/images/tasks/base-reward.png",
   },
 ]
 

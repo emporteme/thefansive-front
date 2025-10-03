@@ -3,22 +3,11 @@ import { Tag } from "@/shared/components/ui"
 import { CertificateButton, InvoiceInfoButton, PaymentStatusTag } from "@/shared/components/widgets"
 import { DeliveryStatusTag } from "@/shared/components/widgets/delivery-status-tag"
 import { Calendar, ContainerTruckFilled, CopyFilled } from "@/shared/icons"
-import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { copyText } from "@/shared/utils"
+import { FanSupportOrder } from "../../fan-support-page"
+
 interface OrderCardProps {
-  order: {
-    id: string
-    collection: string
-    title: string
-    date: string
-    paymentStatus: PaymentStatus
-    deliveryStatus: DeliveryStatus
-    estimatedDelivery: string
-    carrier: string
-    carrierImage: string
-    code: string
-    image: string
-  }
+  order: FanSupportOrder
 }
 
 const OrderCard: React.FC<OrderCardProps> = ({ order }) => {

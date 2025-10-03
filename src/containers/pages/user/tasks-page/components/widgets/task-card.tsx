@@ -1,14 +1,9 @@
 import Image from "next/image"
 import { Button } from "@/shared/components/ui"
+import { Task } from "../../tasks-page"
 
 interface TaskCardProps {
-  task: {
-    id: string
-    title: string
-    description: string
-    points: number
-    image: string
-  }
+  task: Task
 }
 
 const TaskCard = ({ task }: TaskCardProps) => {
@@ -26,7 +21,9 @@ const TaskCard = ({ task }: TaskCardProps) => {
 
         <div className="flex items-center justify-between">
           <span className="text-base leading-[1.4] font-semibold text-slate-900">+{task.points} points</span>
-          <Button className="flex h-8 w-35 items-center justify-center text-xs font-semibold">Get</Button>
+          <Button className="flex h-8 w-35 items-center justify-center text-xs font-semibold">
+            {task.action.title}
+          </Button>
         </div>
       </div>
     </div>

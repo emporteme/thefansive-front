@@ -23,7 +23,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onTabChange, className }) 
             key={tab.value}
             value={tab.value}
             className={cn(
-              "rounded-2lg min-w-[160px] cursor-pointer border-[1.5px] border-transparent bg-slate-100 px-4 py-3 text-center text-base leading-[24px] font-semibold text-slate-600 transition-all duration-300 hover:border-slate-900",
+              "rounded-2lg h-12 min-w-[160px] cursor-pointer border-[1.5px] border-transparent bg-slate-100 px-4 py-3 text-center text-base leading-[1.4] font-semibold text-slate-600 transition-all duration-300 hover:border-slate-900",
               isActiveTab(tab.value) && "bg-slate-900",
               isActiveTab(tab.value) && "text-slate-50"
             )}

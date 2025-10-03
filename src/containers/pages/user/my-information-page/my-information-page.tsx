@@ -16,7 +16,7 @@ const tabs = [
   { label: "Address", value: PersonalInformationTab.Address, content: <MembershipTabSection /> },
 ]
 
-const PersonalInformationPage: React.FC = () => {
+const MyInformationPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>(PersonalInformationTab.Membership)
 
   const handleTabChange = (tab: string) => {
@@ -26,4 +26,4 @@ const PersonalInformationPage: React.FC = () => {
   return <Tabs tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
 }
 
-export default PersonalInformationPage
+export default MyInformationPage

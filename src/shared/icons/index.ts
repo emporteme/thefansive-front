@@ -40,6 +40,8 @@ export { default as AppStore } from "./(mobile-store)/app-store"
 export { default as ArrowRight } from "./(navigation)/arrow-right"
 export { default as ArrowLeft } from "./(navigation)/arrow-left"
 export { default as ArrowSelect } from "./(navigation)/arrow-select"
+export { default as ArrowPaginationLeft } from "./(navigation)/arrow-pagination-left"
+export { default as ArrowPaginationRight } from "./(navigation)/arrow-pagination-right"
 
 // Tags Icons
 export { default as Signature } from "./(tags)/signature"

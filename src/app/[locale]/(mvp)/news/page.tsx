@@ -24,7 +24,7 @@ const Page: FC = () => {
   const routes = useRoutes()
 
   const openArticle = (id: number) => {
-    navigate(routes.newsArticle(id))
+    navigate(routes.news.single(id))
   }
 
   useEffect(() => {

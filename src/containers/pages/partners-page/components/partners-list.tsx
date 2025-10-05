@@ -10,7 +10,7 @@ interface PartnersListProps {
   itemsPerPage?: number
 }
 
-const PartnersList: React.FC<PartnersListProps> = ({ partners, itemsPerPage = 18 }) => {
+const PartnersList: React.FC<PartnersListProps> = ({ partners, itemsPerPage = 31 }) => {
   const [currentPage, setCurrentPage] = useState(0)
 
   const pageCount = Math.ceil(partners.length / itemsPerPage)
@@ -34,7 +34,7 @@ const PartnersList: React.FC<PartnersListProps> = ({ partners, itemsPerPage = 18
       </div>
 
       {pageCount > 1 && (
-        <div className="mt-16">
+        <div className="mt-12">
           <Pagination pageCount={pageCount} currentPage={currentPage} onPageChange={handlePageChange} />
         </div>
       )}

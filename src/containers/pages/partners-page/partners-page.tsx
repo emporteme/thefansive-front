@@ -12,13 +12,23 @@ export interface Partner {
   image: string
 }
 
+const images = [
+  "/images/dev/arsenal-logo.png",
+  "/images/dev/liverpool-logo.png",
+  "/images/dev/manchester-logo.png",
+  "/images/dev/madrid-logo.png",
+  "/images/dev/wolverhampton-logo.png",
+  "/images/dev/lakers-logo.png",
+  "/images/dev/premier-league-logo.png",
+]
+
 const createPartner = (name: string) => ({
   id: Math.random(),
   name,
-  image: "/images/dev/arsenal-logo.png",
+  image: images[Math.floor(Math.random() * images.length)] ?? "",
 })
 
-const partners = Array.from({ length: 100 }).map((_, index) => createPartner(`Partner ${index + 1}`))
+const partners = Array.from({ length: 1000 }).map((_, index) => createPartner(`Partner ${index + 1}`))
 
 const tabs = [
   { label: "Football", value: "football", content: <PartnersList partners={partners} /> },

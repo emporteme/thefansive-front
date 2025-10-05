@@ -13,13 +13,17 @@ export interface Partner {
 }
 
 const images = [
-  "/images/dev/arsenal-logo.png",
-  "/images/dev/liverpool-logo.png",
-  "/images/dev/manchester-logo.png",
-  "/images/dev/madrid-logo.png",
-  "/images/dev/wolverhampton-logo.png",
-  "/images/dev/lakers-logo.png",
-  "/images/dev/premier-league-logo.png",
+  "/images/dev/clubs/arsenal.png",
+  "/images/dev/clubs/liverpool.png",
+  "/images/dev/clubs/manchester-city.png",
+  "/images/dev/clubs/real-madrid.png",
+  "/images/dev/clubs/chelsea.png",
+  "/images/dev/clubs/espanyol.png",
+  "/images/dev/clubs/everton.png",
+  "/images/dev/clubs/wolverhampton.png",
+  "/images/dev/clubs/manchester-united.png",
+  "/images/dev/clubs/tottenham.png",
+  "/images/dev/clubs/juventus.png",
 ]
 
 const createPartner = (name: string) => ({

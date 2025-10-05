@@ -2,6 +2,8 @@
 
 import React, { useMemo, useState } from "react"
 import { Pagination } from "@/shared/components/ui"
+import { useNavigate } from "@/shared/hooks/client/use-navigate"
+import { useRoutes } from "@/shared/hooks/client/use-routes"
 import PartnerCard from "./partner-card"
 import { Partner } from "../partners-page"
 
@@ -12,7 +14,8 @@ interface PartnersListProps {
 
 const PartnersList: React.FC<PartnersListProps> = ({ partners, itemsPerPage = 31 }) => {
   const [currentPage, setCurrentPage] = useState(0)
-
+  const routes = useRoutes()
+  const navigate = useNavigate()
   const pageCount = Math.ceil(partners.length / itemsPerPage)
 
   const currentPartners = useMemo(() => {
@@ -23,6 +26,10 @@ const PartnersList: React.FC<PartnersListProps> = ({ partners, itemsPerPage = 31
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected)
+  }
+
+  const handlePartnerClick = (partner: Partner) => {
+    navigate(routes.clubs.single(partner.id.toString()))
   }
 
   const renderPartners = () => {
@@ -67,7 +74,7 @@ const PartnersList: React.FC<PartnersListProps> = ({ partners, itemsPerPage = 31
           }`}
         >
           {rowPartners.map((partner) => (
-            <PartnerCard key={partner.id} partner={partner} />
+            <PartnerCard key={partner.id} partner={partner} onClick={() => handlePartnerClick(partner)} />
           ))}
         </div>
       )

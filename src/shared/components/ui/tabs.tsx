@@ -9,7 +9,7 @@ export interface Tab {
 
 interface TabsProps {
   tabs: Tab[]
-  activeTab: Tab
+  activeTab: Tab | undefined
   onTabChange: (tab: Tab) => void
   className?: string
   variant?: "primary" | "secondary"
@@ -28,10 +28,10 @@ const Tabs: React.FC<TabsProps> = ({
   gap = 8,
   align = "start",
 }) => {
-  const isActiveTab = (tab: Tab) => tab === activeTab
+  const isActiveTab = (tab: Tab) => tab.value === activeTab?.value
 
   return (
-    <ReactTabs.Root defaultValue={activeTab.value} className={className}>
+    <ReactTabs.Root value={activeTab?.value} className={className}>
       <ReactTabs.List
         className={cn("flex", {
           "gap-8": gap === 8,

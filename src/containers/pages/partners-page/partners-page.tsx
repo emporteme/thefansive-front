@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Tab, Tabs } from "@/shared/components/ui"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import PartnersList from "./components/partners-list"
@@ -32,9 +32,7 @@ const createPartner = (name: string) => ({
   image: images[Math.floor(Math.random() * images.length)] ?? "",
 })
 
-const partners = Array.from({ length: 1000 }).map((_, index) => createPartner(`Partner ${index + 1}`))
-
-const tabs = [
+const tabs = (partners: Partner[]) => [
   { label: "Football", value: "football", content: <PartnersList partners={partners} /> },
   { label: "Basketball", value: "basketball", content: <PartnersList partners={partners} /> },
   { label: "Tennis", value: "tennis", content: <PartnersList partners={partners} /> },
@@ -45,11 +43,20 @@ const tabs = [
 ]
 
 const PartnersPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>(tabs[0] as Tab)
+  const [activeTab, setActiveTab] = useState<Tab | undefined>()
+
+  const partners = useMemo(() => {
+    return Array.from({ length: 1000 }).map((_, index) => createPartner(`Partner ${index + 1}`))
+  }, [activeTab])
 
   const handleTabChange = (tab: Tab) => {
     setActiveTab(tab)
   }
+
+  useEffect(() => {
+    const tab = tabs(partners)[0]
+    setActiveTab(tab)
+  }, [])
 
   return (
     <div className="flex flex-col pb-10">
@@ -68,7 +75,7 @@ const PartnersPage: React.FC = () => {
             minWidth={144}
             gap={2}
             variant="secondary"
-            tabs={tabs}
+            tabs={tabs(partners)}
             activeTab={activeTab}
             onTabChange={handleTabChange}
             align="center"

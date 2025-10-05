@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Tabs } from "@/shared/components/ui/tabs"
+import { Tab, Tabs } from "@/shared/components/ui/tabs"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { TabSection } from "./components/sections/tab-section"
 
@@ -106,24 +106,22 @@ const orders = {
   ],
 } as const satisfies Record<string, FanSupportOrder[]>
 
-const FanSupportPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>("all")
+const tabs = [
+  { label: "All", value: "all", content: <TabSection orders={orders.all} /> },
+  { label: "Ongoing", value: "ongoing", content: <TabSection orders={orders.ongoing} /> },
+  { label: "Completed", value: "completed", content: <TabSection orders={orders.completed} /> },
+]
 
-  const handleTabChange = (tab: string) => {
+const FanSupportPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<Tab | undefined>(tabs[0])
+
+  const handleTabChange = (tab: Tab) => {
     setActiveTab(tab)
   }
 
   return (
     <div className="flex w-full flex-col">
-      <Tabs
-        tabs={[
-          { label: "All", value: "all", content: <TabSection orders={orders.all} /> },
-          { label: "Ongoing", value: "ongoing", content: <TabSection orders={orders.ongoing} /> },
-          { label: "Completed", value: "completed", content: <TabSection orders={orders.completed} /> },
-        ]}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-      />
+      <Tabs tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
     </div>
   )
 }

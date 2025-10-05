@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Tabs } from "@/shared/components/ui"
+import { Tab, Tabs } from "@/shared/components/ui"
 import { MembershipTabSection } from "./components/sections/membership-tab-section"
 
 enum PersonalInformationTab {
@@ -17,9 +17,9 @@ const tabs = [
 ]
 
 const MyInformationPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>(PersonalInformationTab.Membership)
+  const [activeTab, setActiveTab] = useState<Tab | undefined>(tabs[0])
 
-  const handleTabChange = (tab: string) => {
+  const handleTabChange = (tab: Tab) => {
     setActiveTab(tab)
   }
 

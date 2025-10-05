@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Tabs } from "@/shared/components/ui/tabs"
+import { Tab, Tabs } from "@/shared/components/ui/tabs"
 import { TabSection } from "./components/sections/tab-section"
 
 export interface Task {
@@ -126,29 +126,23 @@ const tasks = {
   ],
 } as const satisfies Record<string, Task[]>
 
-const TasksPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>("daily")
+const tabs = [
+  { label: "Daily", value: "daily", content: <TabSection title="Daily Tasks" tasks={tasks.daily} /> },
+  { label: "Social", value: "social", content: <TabSection title="Social Tasks" tasks={tasks.social} /> },
+  { label: "Youtube", value: "youtube", content: <TabSection title="Youtube Tasks" tasks={tasks.youtube} /> },
+  { label: "Partners", value: "partners", content: <TabSection title="Partners Tasks" tasks={tasks.partners} /> },
+]
 
-  const handleTabChange = (tab: string) => {
+const TasksPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<Tab | undefined>(tabs[0])
+
+  const handleTabChange = (tab: Tab) => {
     setActiveTab(tab)
   }
 
   return (
     <div className="flex w-full flex-col">
-      <Tabs
-        tabs={[
-          { label: "Daily", value: "daily", content: <TabSection title="Daily Tasks" tasks={tasks.daily} /> },
-          { label: "Social", value: "social", content: <TabSection title="Social Tasks" tasks={tasks.social} /> },
-          { label: "Youtube", value: "youtube", content: <TabSection title="Youtube Tasks" tasks={tasks.youtube} /> },
-          {
-            label: "Partners",
-            value: "partners",
-            content: <TabSection title="Partners Tasks" tasks={tasks.partners} />,
-          },
-        ]}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-      />
+      <Tabs tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
     </div>
   )
 }

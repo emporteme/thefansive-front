@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Tabs } from "@/shared/components/ui/tabs"
+import { Tab, Tabs } from "@/shared/components/ui/tabs"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
 import { TabSection } from "./components/sections/tab-section"
 
@@ -29,20 +29,18 @@ const donates = {
   ],
 } as const satisfies Record<string, Donate[]>
 
-const DonatePage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>("all")
+const tabs = [{ label: "All", value: "all", content: <TabSection donates={donates.all} /> }]
 
-  const handleTabChange = (tab: string) => {
+const DonatePage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<Tab | undefined>(tabs[0])
+
+  const handleTabChange = (tab: Tab) => {
     setActiveTab(tab)
   }
 
   return (
     <div className="flex w-full flex-col">
-      <Tabs
-        tabs={[{ label: "All", value: "all", content: <TabSection donates={donates.all} /> }]}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-      />
+      <Tabs tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
     </div>
   )
 }

@@ -37,7 +37,12 @@ const tabs = (partners: Partner[]) => [
   { label: "Basketball", value: "basketball", content: <PartnersList partners={partners} /> },
   { label: "Tennis", value: "tennis", content: <PartnersList partners={partners} /> },
   { label: "Rugby", value: "rugby", content: <PartnersList partners={partners} /> },
-  { label: "Cricket", value: "cricket", content: <PartnersList partners={partners} /> },
+  {
+    label: "Cricket",
+    value: "cricket",
+    content: <PartnersList partners={partners} />,
+    after: <div className="mx-1 h-12 w-[1px] bg-gray-200" />,
+  },
   { label: "League", value: "league", content: <PartnersList partners={partners} /> },
   { label: "Other", value: "other", content: <PartnersList partners={partners} /> },
 ]

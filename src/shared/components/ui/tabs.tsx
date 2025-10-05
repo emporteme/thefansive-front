@@ -5,6 +5,7 @@ export interface Tab {
   label: string
   value: string
   content: React.ReactNode
+  after?: React.ReactNode
 }
 
 interface TabsProps {
@@ -43,24 +44,27 @@ const Tabs: React.FC<TabsProps> = ({
         })}
       >
         {tabs.map((tab) => (
-          <ReactTabs.Trigger
-            key={tab.value as string}
-            value={tab.value}
-            style={{ minWidth: `${minWidth}px` }}
-            className={cn(
-              "rounded-2lg h-12 cursor-pointer border-[1.5px] border-transparent px-4 py-3 text-center text-base leading-[1.4] font-semibold transition-all duration-300",
-              {
-                "bg-slate-100 text-slate-600 hover:border-slate-900": variant === "primary",
-                "bg-slate-900 text-slate-50": isActiveTab(tab) && variant === "primary",
-                "border-slate-900 bg-transparent text-slate-600 hover:bg-slate-900 hover:text-slate-50":
-                  variant === "secondary",
-                "border-slate-900 bg-slate-900 text-slate-50": isActiveTab(tab) && variant === "secondary",
-              }
-            )}
-            onClick={() => onTabChange(tab)}
-          >
-            {tab.label}
-          </ReactTabs.Trigger>
+          <>
+            <ReactTabs.Trigger
+              key={tab.value as string}
+              value={tab.value}
+              style={{ minWidth: `${minWidth}px` }}
+              className={cn(
+                "rounded-2lg h-12 cursor-pointer border-[1.5px] border-transparent px-4 py-3 text-center text-base leading-[1.4] font-semibold transition-all duration-300",
+                {
+                  "bg-slate-100 text-slate-600 hover:border-slate-900": variant === "primary",
+                  "bg-slate-900 text-slate-50": isActiveTab(tab) && variant === "primary",
+                  "border-slate-900 bg-transparent text-slate-600 hover:bg-slate-900 hover:text-slate-50":
+                    variant === "secondary",
+                  "border-slate-900 bg-slate-900 text-slate-50": isActiveTab(tab) && variant === "secondary",
+                }
+              )}
+              onClick={() => onTabChange(tab)}
+            >
+              {tab.label}
+            </ReactTabs.Trigger>
+            {tab?.after}
+          </>
         ))}
       </ReactTabs.List>
       {tabs.map((tab) => (

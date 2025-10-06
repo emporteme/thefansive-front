@@ -1,6 +1,6 @@
 import { TextField } from "../ui/text-field"
 
-const MembershipTabSection: React.FC = () => {
+const PersonalTabSection: React.FC = () => {
   return (
     <div className="mt-6 flex w-full flex-col gap-2">
       <TextField label="Name" placeholder="This name is required to confirm orders." value="" />
@@ -9,4 +9,4 @@ const MembershipTabSection: React.FC = () => {
   )
 }
 
-export { MembershipTabSection }
+export { PersonalTabSection }

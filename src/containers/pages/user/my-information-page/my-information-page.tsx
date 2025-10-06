@@ -2,18 +2,17 @@
 
 import { useState } from "react"
 import { Tab, Tabs } from "@/shared/components/ui"
-import { MembershipTabSection } from "./components/sections/membership-tab-section"
+import { AddressTabSection } from "./components/sections/address-tab-section"
+import { PersonalTabSection } from "./components/sections/personal-tab-section"
 
-enum PersonalInformationTab {
-  Membership = "membership",
-  Password = "password",
+enum MyInformationTab {
+  PersonalInformation = "personal-information",
   Address = "address",
 }
 
 const tabs = [
-  { label: "Membership", value: PersonalInformationTab.Membership, content: <MembershipTabSection /> },
-  { label: "Password", value: PersonalInformationTab.Password, content: <MembershipTabSection /> },
-  { label: "Address", value: PersonalInformationTab.Address, content: <MembershipTabSection /> },
+  { label: "Personal Information", value: MyInformationTab.PersonalInformation, content: <PersonalTabSection /> },
+  { label: "Address", value: MyInformationTab.Address, content: <AddressTabSection /> },
 ]
 
 const MyInformationPage: React.FC = () => {

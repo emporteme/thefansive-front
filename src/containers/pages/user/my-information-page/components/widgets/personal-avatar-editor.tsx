@@ -13,12 +13,10 @@ const PersonalAvatarEditor: React.FC<PersonalAvatarEditorProps> = ({ className }
   const [isPublicProfile, setIsPublicProfile] = useState(false)
 
   const handleUploadPhoto = () => {
-    // TODO: Implement photo upload functionality
     console.log("Upload photo clicked")
   }
 
   const handleRemovePhoto = () => {
-    // TODO: Implement photo deletion functionality
     console.log("Delete photo clicked")
   }
 
@@ -32,22 +30,16 @@ const PersonalAvatarEditor: React.FC<PersonalAvatarEditorProps> = ({ className }
             width={100}
             height={100}
             className="h-full w-full object-cover"
+            quality={100}
           />
         </div>
 
         <div className="flex flex-col gap-5">
-          <Button
-            onClick={handleUploadPhoto}
-            className="h-10 gap-2 rounded-lg bg-slate-900 px-3 text-sm font-medium text-white hover:bg-slate-800"
-          >
+          <Button onClick={handleUploadPhoto} size="md">
             Upload
           </Button>
 
-          <Button
-            onClick={handleRemovePhoto}
-            variant="outline"
-            className="h-10 gap-2 rounded-lg border-0 bg-slate-200 px-3 text-sm font-medium text-slate-700 hover:bg-slate-300"
-          >
+          <Button onClick={handleRemovePhoto} size="md" variant="secondary">
             Remove
           </Button>
         </div>

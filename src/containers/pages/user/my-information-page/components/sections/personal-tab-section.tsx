@@ -1,5 +1,6 @@
 import { TextField } from "../ui/text-field"
 import { PersonalAvatarEditor } from "../widgets/personal-avatar-editor"
+import { PersonalSaveBlock } from "../widgets/personal-save-block"
 
 const PersonalTabSection: React.FC = () => {
   return (
@@ -9,6 +10,7 @@ const PersonalTabSection: React.FC = () => {
         <TextField label="Name" placeholder="This name is required to confirm orders." value="" />
         <TextField label="Username" placeholder="This name will be visible to other members" value="" />
       </div>
+      <PersonalSaveBlock />
     </div>
   )
 }

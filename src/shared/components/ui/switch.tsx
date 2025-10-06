@@ -10,7 +10,7 @@ const switchRootVariants = cva(
   {
     variants: {
       variant: {
-        default: "focus:ring-4 focus:ring-gray-200",
+        default: "focus:ring-gray-200",
       },
       size: {
         lg: "h-7 w-11",
@@ -19,10 +19,11 @@ const switchRootVariants = cva(
         xs: "h-4 w-7",
       },
       checked: {
-        true: "bg-slate-900",
+        true: "bg-slate-900 ",
         false: "bg-gray-200",
       },
     },
+    compoundVariants: [{ variant: "default", checked: true, class: "focus:ring-4" }],
     defaultVariants: {
       variant: "default",
       size: "lg",
@@ -56,13 +57,13 @@ const switchThumbVariants = cva("block rounded-full bg-white transition-transfor
   },
 })
 
-const switchLabelVariants = cva("leading-6 font-bold text-slate-900", {
+const switchLabelVariants = cva("font-bold text-slate-900", {
   variants: {
     size: {
-      lg: "text-lg",
-      md: "text-base",
-      sm: "text-sm",
-      xs: "text-xs",
+      lg: "text-lg leading-6",
+      md: "text-base leading-6",
+      sm: "text-sm leading-6",
+      xs: "text-xs leading-4",
     },
   },
   defaultVariants: {
@@ -70,13 +71,13 @@ const switchLabelVariants = cva("leading-6 font-bold text-slate-900", {
   },
 })
 
-const switchCaptionVariants = cva("leading-4 text-slate-600", {
+const switchCaptionVariants = cva("text-slate-600", {
   variants: {
     size: {
-      lg: "text-sm",
-      md: "text-xs",
-      sm: "text-xs",
-      xs: "text-xs",
+      lg: "text-sm leading-4",
+      md: "text-xs leading-4",
+      sm: "text-xs leading-4",
+      xs: "text-xs leading-4",
     },
   },
   defaultVariants: {

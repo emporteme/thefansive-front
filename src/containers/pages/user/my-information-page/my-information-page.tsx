@@ -22,7 +22,11 @@ const MyInformationPage: React.FC = () => {
     setActiveTab(tab)
   }
 
-  return <Tabs tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
+  return (
+    <div className="flex w-full flex-col">
+      <Tabs tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
+    </div>
+  )
 }
 
 export default MyInformationPage

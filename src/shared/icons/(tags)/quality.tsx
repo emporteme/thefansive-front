@@ -18,9 +18,9 @@ const Quality: React.FC<{ className?: string }> = ({ className }) => {
       <path
         d="M4.99805 4.24951H6.99805"
         stroke="currentColor"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )

@@ -82,7 +82,7 @@ const Page: FC = () => {
                   <h2 className="text-4xl font-bold text-gray-800">Shipping Address</h2>
                 </div>
                 <div>
-                  <Button size="lg" className="flex bg-white text-slate-700">
+                  <Button size="lg" variant="secondary">
                     Add New Address
                   </Button>
                 </div>

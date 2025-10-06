@@ -1,6 +1,6 @@
 import Image from "next/image"
 import React from "react"
-import { NFT, Quality, Signature, Soccer, Timer } from "@/shared/icons"
+import { NFT as _NFT, Quality as _Quality, Signature as _Signature, Timer as _Timer, Soccer } from "@/shared/icons"
 
 interface ITag {
   id: string | number
@@ -23,18 +23,18 @@ interface IFanSupportCardProps {
 }
 
 const NewCard: React.FC<IFanSupportCardProps> = ({
-  id,
+  id: _id,
   status,
   date,
   image,
-  images,
+  images: _images,
   name,
-  orderType,
+  orderType: _orderType,
   description,
-  tags,
-  price,
-  currency,
-  deliveryTime,
+  tags: _tags,
+  price: _price,
+  currency: _currency,
+  deliveryTime: _deliveryTime,
 }) => {
   return (
     <div className="flex flex-col items-stretch gap-6 rounded-xl bg-white p-3 md:flex-row">

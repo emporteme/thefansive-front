@@ -44,6 +44,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
     <ModalLayout
       isOpen={isOpen}
       onClose={handleClose}
+      disableOverlayClick
       className="relative !w-[680px] !max-w-[680px] flex-col rounded-3xl !bg-white px-6 pt-8 pb-8"
     >
       <div className="absolute top-[14px] right-[24px]">

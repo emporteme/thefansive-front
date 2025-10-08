@@ -1,25 +1,21 @@
 import React, { useState } from "react"
 import AuthModal from "@/shared/components/widgets/auth-modal"
-import { useNavigate } from "@/shared/hooks/client/use-navigate"
-import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Auth as AuthIcon } from "@/shared/icons"
 
 const Auth: React.FC = () => {
-  const routes = useRoutes()
-  const navigate = useNavigate()
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
   const handleAuth = () => {
-    navigate(routes.auth.login())
+    setIsOpenModal(true)
   }
 
   const handleClose = () => {
-    setIsOpen(false)
+    setIsOpenModal(false)
   }
 
   return (
     <>
-      <AuthModal isOpen={isOpen} onClose={handleClose} />
+      <AuthModal isOpen={isOpenModal} onClose={handleClose} initialMode="login" />
       <div
         className="flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-3 text-gray-700 transition-all duration-200 hover:bg-gray-100 lg:px-4"
         onClick={handleAuth}

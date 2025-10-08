@@ -1,6 +1,9 @@
 "use client"
 
-import React, { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import React, { forwardRef, useImperativeHandle, useState } from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 import { Password } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
 
@@ -8,13 +11,69 @@ interface ChangePasswordProps {
   className?: string
 }
 
-const ChangePassword: React.FC<ChangePasswordProps> = ({ className }) => {
-  const [currentPassword, setCurrentPassword] = useState("")
-  const [newPassword, setNewPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+export interface ChangePasswordRef {
+  submit: () => Promise<void>
+}
+
+// Zod validation schema
+const changePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(1, "Current password is required"),
+    newPassword: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+      .regex(/[0-9]/, "Password must contain at least one number")
+      .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
+  })
+  .refine((data) => data.newPassword !== data.currentPassword, {
+    message: "New password must be different from current password",
+    path: ["newPassword"],
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  })
+
+type ChangePasswordFormData = z.infer<typeof changePasswordSchema>
+
+const ChangePassword = forwardRef<ChangePasswordRef, ChangePasswordProps>(({ className }, ref) => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ChangePasswordFormData>({
+    resolver: zodResolver(changePasswordSchema),
+    mode: "onBlur",
+  })
+
+  const onSubmit = async (data: ChangePasswordFormData) => {
+    try {
+      // TODO: Implement API call to change password
+      console.log("Password change data:", data)
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      reset()
+      // TODO: Show success message
+    } catch (error) {
+      // TODO: Show error message
+      console.error("Password change failed:", error)
+    }
+  }
+
+  // Expose submit method to parent component
+  useImperativeHandle(ref, () => ({
+    submit: async () => {
+      await handleSubmit(onSubmit)()
+    },
+  }))
 
   return (
     <div className={cn("flex flex-col gap-6 rounded-3xl bg-slate-100 p-7.5", className)}>
@@ -30,10 +89,12 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ className }) => {
             </div>
             <input
               type={showCurrentPassword ? "text" : "password"}
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
+              {...register("currentPassword")}
               placeholder="Enter your current password"
-              className="text-dark-bg block w-full rounded-xl border border-slate-200 bg-white py-3 pr-12 pl-12 transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-slate-400 focus:outline-none"
+              className={cn(
+                "text-dark-bg block w-full rounded-xl border bg-white py-3 pr-12 pl-12 transition-all duration-200 focus:border-transparent focus:ring-2 focus:outline-none",
+                errors.currentPassword ? "border-red-500 focus:ring-red-400" : "border-slate-200 focus:ring-slate-400"
+              )}
             />
             <button
               type="button"
@@ -43,6 +104,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ className }) => {
               {showCurrentPassword ? <EyeIcon /> : <EyeOffIcon />}
             </button>
           </div>
+          {errors.currentPassword && <p className="px-1 text-sm text-red-500">{errors.currentPassword.message}</p>}
         </div>
 
         {/* New Password */}
@@ -54,10 +116,12 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ className }) => {
             </div>
             <input
               type={showNewPassword ? "text" : "password"}
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              {...register("newPassword")}
               placeholder="Enter your new password"
-              className="text-dark-bg block w-full rounded-xl border border-slate-200 bg-white py-3 pr-12 pl-12 transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-slate-400 focus:outline-none"
+              className={cn(
+                "text-dark-bg block w-full rounded-xl border bg-white py-3 pr-12 pl-12 transition-all duration-200 focus:border-transparent focus:ring-2 focus:outline-none",
+                errors.newPassword ? "border-red-500 focus:ring-red-400" : "border-slate-200 focus:ring-slate-400"
+              )}
             />
             <button
               type="button"
@@ -67,6 +131,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ className }) => {
               {showNewPassword ? <EyeIcon /> : <EyeOffIcon />}
             </button>
           </div>
+          {errors.newPassword && <p className="px-1 text-sm text-red-500">{errors.newPassword.message}</p>}
         </div>
 
         {/* Confirm New Password */}
@@ -78,10 +143,12 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ className }) => {
             </div>
             <input
               type={showConfirmPassword ? "text" : "password"}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              {...register("confirmPassword")}
               placeholder="Re-enter your new password"
-              className="text-dark-bg block w-full rounded-xl border border-slate-200 bg-white py-3 pr-12 pl-12 transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-slate-400 focus:outline-none"
+              className={cn(
+                "text-dark-bg block w-full rounded-xl border bg-white py-3 pr-12 pl-12 transition-all duration-200 focus:border-transparent focus:ring-2 focus:outline-none",
+                errors.confirmPassword ? "border-red-500 focus:ring-red-400" : "border-slate-200 focus:ring-slate-400"
+              )}
             />
             <button
               type="button"
@@ -91,11 +158,14 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ className }) => {
               {showConfirmPassword ? <EyeIcon /> : <EyeOffIcon />}
             </button>
           </div>
+          {errors.confirmPassword && <p className="px-1 text-sm text-red-500">{errors.confirmPassword.message}</p>}
         </div>
       </div>
     </div>
   )
-}
+})
+
+ChangePassword.displayName = "ChangePassword"
 
 // Eye icon components (visible state)
 const EyeIcon = () => (

@@ -1,11 +1,16 @@
 "use client"
 
-import Link from "next/link"
 import React from "react"
 import Logo from "@/shared/components/elements/logo"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
-import { Email, Google, Password } from "@/shared/icons"
 import { getRoutes } from "@/shared/utils/get-routes"
+import { EmailInput } from "./components/email-input"
+import { GoogleSignInButton } from "./components/google-sign-in-button"
+import { LoginButton } from "./components/login-button"
+import { OrDivider } from "./components/or-divider"
+import { PasswordInput } from "./components/password-input"
+import { RememberForgotSection } from "./components/remember-forgot-section"
+import { SignUpLink } from "./components/sign-up-link"
 
 const AuthPage = () => {
   const routes = getRoutes()
@@ -24,73 +29,17 @@ const AuthPage = () => {
       <p className="mt-2 text-slate-600">Go Beyond Being a Fan</p>
 
       <div className="mt-12 flex flex-col gap-6">
-        {/* Google Sign In Button */}
-        <button className="mx-auto flex w-fit cursor-pointer items-center justify-center gap-3 rounded-lg border border-black bg-white px-4 py-3 text-black transition-all duration-200 hover:bg-slate-50">
-          <Google />
-          <span className="text-sm font-medium">Sign in with Google</span>
-        </button>
+        <GoogleSignInButton />
+        <OrDivider />
 
-        {/* Separator */}
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-slate-300"></div>
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="bg-white px-2 text-sm text-slate-500">or continue with Email</span>
-          </div>
-        </div>
-
-        {/* Email and Password Fields */}
         <div className="space-y-4">
-          <div className="relative text-slate-400">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-              <Email />
-            </div>
-            <input
-              type="email"
-              placeholder="example@mail.com"
-              className="block w-full rounded-lg border border-slate-300 bg-slate-50 py-3 pr-3 pl-12 transition-all duration-200 hover:bg-slate-100 focus:border-transparent focus:ring-2 focus:ring-slate-500 focus:outline-none"
-            />
-          </div>
-
-          <div className="relative text-slate-400">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-              <Password />
-            </div>
-            <input
-              type="password"
-              placeholder="Password"
-              className="block w-full rounded-lg border border-slate-300 bg-slate-50 py-3 pr-3 pl-12 transition-all duration-200 hover:bg-slate-100 focus:border-transparent focus:ring-2 focus:ring-slate-500 focus:outline-none"
-            />
-          </div>
+          <EmailInput />
+          <PasswordInput />
         </div>
 
-        {/* Remember Me and Forgot Password */}
-        <div className="flex items-center justify-between">
-          <label className="flex cursor-pointer items-center">
-            <input type="checkbox" className="h-4 w-4 rounded border-slate-300 text-slate-600 focus:ring-slate-500" />
-            <span className="ml-2 text-sm text-slate-700">Remember me</span>
-          </label>
-          <Link href={routes.auth.forgot()} className="text-sm font-semibold text-slate-600 hover:text-slate-800">
-            Forgot Password?
-          </Link>
-        </div>
-
-        {/* Login Button */}
-        <button
-          className="w-full cursor-pointer rounded-lg border border-slate-300 bg-white px-4 py-3 font-medium text-black transition-all duration-200 hover:bg-slate-50"
-          onClick={handleLogin}
-        >
-          Log in
-        </button>
-
-        {/* Sign Up Link */}
-        <div className="text-center text-sm">
-          <span className="text-slate-500">Don't have an account? </span>
-          <Link href={routes.auth.signup()} className="font-semibold text-slate-800 hover:text-slate-600">
-            Sign Up
-          </Link>
-        </div>
+        <RememberForgotSection />
+        <LoginButton onClick={handleLogin} />
+        <SignUpLink />
       </div>
     </div>
   )

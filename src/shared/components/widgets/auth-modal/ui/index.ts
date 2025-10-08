@@ -1,3 +1,4 @@
+export { CloseButton } from "./close-button"
 export { EmailInput } from "./email-input"
 export { GoogleSignInButton } from "./google-sign-in-button"
 export { LoginButton } from "./login-button"

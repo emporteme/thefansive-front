@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import type { AuthModalMode } from "../types"
 import {
   EmailInput,
   GoogleSignInButton,
@@ -11,8 +12,18 @@ import {
   SignUpLink,
 } from "../ui"
 
-const AuthPage = () => {
-  const handleLogin = () => {}
+interface LoginSectionProps {
+  onModeChange: (mode: AuthModalMode) => void
+}
+
+const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
+  const handleLogin = () => {
+    // TODO: Implement login logic
+  }
+
+  const handleSignUpClick = () => {
+    onModeChange("signup")
+  }
 
   return (
     <>
@@ -32,10 +43,10 @@ const AuthPage = () => {
 
         <RememberForgotSection />
         <LoginButton onClick={handleLogin} />
-        <SignUpLink />
+        <SignUpLink onClick={handleSignUpClick} />
       </div>
     </>
   )
 }
 
-export default AuthPage
+export default LoginSection

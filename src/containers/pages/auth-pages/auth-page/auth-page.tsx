@@ -4,13 +4,16 @@ import React from "react"
 import Logo from "@/shared/components/elements/logo"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { getRoutes } from "@/shared/utils/get-routes"
-import { EmailInput } from "./components/email-input"
-import { GoogleSignInButton } from "./components/google-sign-in-button"
-import { LoginButton } from "./components/login-button"
-import { OrDivider } from "./components/or-divider"
-import { PasswordInput } from "./components/password-input"
-import { RememberForgotSection } from "./components/remember-forgot-section"
-import { SignUpLink } from "./components/sign-up-link"
+import {
+  CloseButton,
+  EmailInput,
+  GoogleSignInButton,
+  LoginButton,
+  OrDivider,
+  PasswordInput,
+  RememberForgotSection,
+  SignUpLink,
+} from "./components"
 
 const AuthPage = () => {
   const routes = getRoutes()
@@ -20,19 +23,32 @@ const AuthPage = () => {
     navigate(routes.user.profile())
   }
 
-  return (
-    <div className="flex min-w-120 flex-col rounded-xl bg-white px-6 py-8 shadow-2xl shadow-slate-400/50">
-      <Logo className="mb-[5vh] w-32" />
-      <h1 className="mt-3 text-3xl leading-[150%] text-black">
-        Welcome to <br /> <span className="text-4xl font-bold">Thefansive platform</span>
-      </h1>
-      <p className="mt-2 text-slate-600">Go Beyond Being a Fan</p>
+  const handleClose = () => {
+    navigate(routes.home())
+  }
 
-      <div className="mt-12 flex flex-col gap-6">
+  return (
+    <div className="relative flex w-[680px] flex-col rounded-3xl bg-white px-6 pt-[31px] pb-8 shadow-2xl shadow-slate-400/50">
+      {/* Close button */}
+      <div className="absolute top-[14px] right-[14px]">
+        <CloseButton onClick={handleClose} />
+      </div>
+
+      {/* Logo */}
+      <Logo className="w-[143px]" />
+
+      {/* Header */}
+      <h1 className="mt-[94px] text-[32px] leading-[48px] font-normal text-black">
+        Welcome to <br /> <span className="text-[40px] leading-[48px] font-bold">Thefansive platform</span>
+      </h1>
+      <p className="mt-2 text-base text-black">Go Beyond Being a Spectator</p>
+
+      {/* Form */}
+      <div className="mt-[67px] flex flex-col gap-6">
         <GoogleSignInButton />
         <OrDivider />
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           <EmailInput />
           <PasswordInput />
         </div>

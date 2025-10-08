@@ -7,7 +7,7 @@ interface LoginButtonProps {
 export const LoginButton = ({ onClick }: LoginButtonProps) => {
   return (
     <button
-      className="w-full cursor-pointer rounded-lg border border-slate-300 bg-white px-4 py-3 font-medium text-black transition-all duration-200 hover:bg-slate-50"
+      className="w-full cursor-pointer rounded-xl bg-slate-100 px-4 py-[15px] text-base font-medium text-slate-700 transition-all duration-200 hover:bg-slate-200"
       onClick={onClick}
     >
       Log in

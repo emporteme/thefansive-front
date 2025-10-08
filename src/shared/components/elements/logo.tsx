@@ -10,7 +10,7 @@ const Logo: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <Link href={routes.home()}>
       <Image
-        src="/logo-1.png"
+        src="/logo.svg"
         alt="logo - thefansive.com"
         width={140}
         height={140}

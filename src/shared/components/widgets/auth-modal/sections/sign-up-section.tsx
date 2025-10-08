@@ -1,9 +1,6 @@
 "use client"
 
 import React from "react"
-import Logo from "@/shared/components/elements/logo"
-import { useNavigate } from "@/shared/hooks/client/use-navigate"
-import { getRoutes } from "@/shared/utils/get-routes"
 import {
   EmailInput,
   GoogleSignInButton,
@@ -12,24 +9,13 @@ import {
   PasswordInput,
   RememberForgotSection,
   SignUpLink,
-} from "./components"
+} from "../ui"
 
 const AuthPage = () => {
-  const routes = getRoutes()
-  const navigate = useNavigate()
-
-  const handleLogin = () => {
-    navigate(routes.user.profile())
-  }
-
-  const handleClose = () => {
-    navigate(routes.home())
-  }
+  const handleLogin = () => {}
 
   return (
-    <div className="relative flex w-[680px] flex-col rounded-3xl bg-white px-6 pt-[31px] pb-8 shadow-2xl shadow-slate-400/50">
-      <Logo className="w-[143px]" />
-
+    <>
       <h1 className="mt-[94px] text-[32px] leading-[48px] font-normal text-black">
         Welcome to <br /> <span className="text-[40px] leading-[48px] font-bold">Thefansive platform</span>
       </h1>
@@ -48,7 +34,7 @@ const AuthPage = () => {
         <LoginButton onClick={handleLogin} />
         <SignUpLink />
       </div>
-    </div>
+    </>
   )
 }
 

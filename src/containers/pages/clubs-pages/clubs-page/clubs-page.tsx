@@ -4,11 +4,11 @@ import { CardsSlider, ClubsCard, FanSupportCard, GoBeyond, MainSlider, News } fr
 const ClubsPage = () => {
   const images = [
     {
-      src: "/images/dev/fc-liverpool-logo.png",
+      src: "/images/dev/liverpool-logo.png",
       alt: "Liverpool FC Logo",
     },
     {
-      src: "/images/dev/fc-wolverhampton-logo.png",
+      src: "/images/dev/wolverhampton-logo.png",
       alt: "Wolverhampton FC Logo",
     },
     {

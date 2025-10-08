@@ -5,6 +5,7 @@ import Logo from "@/shared/components/elements/logo"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { getRoutes } from "@/shared/utils/get-routes"
 import LoginSection from "./sections/login-section"
+import SignUpSection from "./sections/signup-section"
 import type { AuthModalMode } from "./types"
 import { CloseButton } from "./ui/close-button"
 import { ModalLayout } from "../../ui/modal-layout"
@@ -18,13 +19,24 @@ interface AuthModalProps {
 const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "login" }) => {
   const navigate = useNavigate()
   const routes = getRoutes()
-  const [_mode, setMode] = useState<AuthModalMode>(initialMode)
+  const [mode, setMode] = useState<AuthModalMode>(initialMode)
 
   const handleClose = () => {
     if (onClose) {
       onClose()
     } else {
       navigate(routes.home())
+    }
+  }
+
+  const renderSection = () => {
+    switch (mode) {
+      case "login":
+        return <LoginSection onModeChange={setMode} />
+      case "signup":
+        return <SignUpSection onModeChange={setMode} />
+      default:
+        return <LoginSection onModeChange={setMode} />
     }
   }
 
@@ -38,7 +50,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
         <CloseButton onClick={handleClose} />
       </div>
       <Logo className="w-[145px]" />
-      <LoginSection onModeChange={setMode} />
+      {renderSection()}
     </ModalLayout>
   )
 }

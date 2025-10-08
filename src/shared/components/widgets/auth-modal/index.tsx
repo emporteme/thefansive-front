@@ -27,6 +27,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
     } else {
       navigate(routes.home())
     }
+    setMode(initialMode)
   }
 
   const renderSection = () => {

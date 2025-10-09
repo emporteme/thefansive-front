@@ -1,17 +1,10 @@
 "use client"
 
 import React from "react"
+import { Email, Password } from "@/shared/icons"
 import type { AuthModalMode } from "../types"
-import {
-  EmailInput,
-  GoogleSignInButton,
-  LoginButton,
-  OrDivider,
-  PasswordInput,
-  RememberForgotSection,
-  SignUpLink,
-  WelcomeText,
-} from "../ui"
+import { GoogleSignInButton, LoginButton, OrDivider, RememberForgotSection, SignUpLink, WelcomeText } from "../ui"
+import { Input } from "../ui/input"
 
 interface LoginSectionProps {
   onModeChange: (mode: AuthModalMode) => void
@@ -38,8 +31,8 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
         <OrDivider text="or continue with Email" />
 
         <div className="space-y-3">
-          <EmailInput />
-          <PasswordInput />
+          <Input LeftIcon={Email} placeholder="example@mail.com" type="email" />
+          <Input LeftIcon={Password} placeholder="Enter your password" type="password" />
         </div>
 
         <RememberForgotSection onForgotPasswordClick={handleForgotPasswordClick} />

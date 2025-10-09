@@ -32,8 +32,8 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
         <OrDivider text="or continue with Email" />
         <div className="space-y-3">
           <div className="space-y-3">
-            <Input LeftIcon={Email} placeholder="example@mail.com" type="email" />
-            <Input LeftIcon={Password} placeholder="Enter your password" type="password" />
+            <Input label="Email" LeftIcon={Email} placeholder="example@mail.com" type="email" />
+            <Input label="Password" LeftIcon={Password} placeholder="Enter your password" type="password" />
           </div>
           <RememberForgotSection onForgotPasswordClick={handleForgotPasswordClick} />
         </div>

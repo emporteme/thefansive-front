@@ -1,6 +1,5 @@
 export { CloseButton } from "./close-button"
 export { GoogleSignInButton } from "./google-sign-in-button"
-export { LoginButton } from "./login-button"
 export { OrDivider } from "./or-divider"
 export { RememberForgotSection } from "./remember-forgot-section"
 export { SignUpLink } from "./sign-up-link"

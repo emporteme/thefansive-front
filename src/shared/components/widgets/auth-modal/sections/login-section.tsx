@@ -1,9 +1,10 @@
 "use client"
 
 import React from "react"
+import { Button } from "@/shared/components/ui"
 import { Email, Password } from "@/shared/icons"
 import type { AuthModalMode } from "../types"
-import { GoogleSignInButton, LoginButton, OrDivider, RememberForgotSection, SignUpLink, WelcomeText } from "../ui"
+import { GoogleSignInButton, OrDivider, RememberForgotSection, SignUpLink, WelcomeText } from "../ui"
 import { Input } from "../ui/input"
 
 interface LoginSectionProps {
@@ -29,14 +30,14 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
       <div className="mt-[67px] flex flex-col gap-6">
         <GoogleSignInButton />
         <OrDivider text="or continue with Email" />
-
         <div className="space-y-3">
           <Input LeftIcon={Email} placeholder="example@mail.com" type="email" />
           <Input LeftIcon={Password} placeholder="Enter your password" type="password" />
         </div>
-
         <RememberForgotSection onForgotPasswordClick={handleForgotPasswordClick} />
-        <LoginButton onClick={handleLogin} />
+        <Button size="xl" className="w-full" onClick={handleLogin} disabled>
+          Login
+        </Button>
         <SignUpLink onClick={handleSignUpClick} />
       </div>
     </>

@@ -10,6 +10,7 @@ import {
   PasswordInput,
   RememberForgotSection,
   SignUpLink,
+  WelcomeText,
 } from "../ui"
 
 interface LoginSectionProps {
@@ -27,14 +28,10 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
 
   return (
     <>
-      <h1 className="mt-[94px] text-[32px] leading-[48px] font-normal text-black">
-        Welcome to <br /> <span className="text-[40px] leading-[48px] font-bold">Thefansive platform</span>
-      </h1>
-      <p className="mt-2 text-base text-black">Go Beyond Being a Spectator</p>
-
+      <WelcomeText />
       <div className="mt-[67px] flex flex-col gap-6">
         <GoogleSignInButton />
-        <OrDivider />
+        <OrDivider text="or continue with Email" />
 
         <div className="space-y-3">
           <EmailInput />

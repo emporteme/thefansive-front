@@ -52,10 +52,10 @@ export const Input = ({
           </div>
         )}
         <input
-          {...register}
-          {...props}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          {...register}
+          {...props}
           type={type}
           placeholder={placeholder}
           className={cn(
@@ -63,7 +63,7 @@ export const Input = ({
             {
               "border-slate-300": !error && !isFocused,
               "border-slate-900 outline-none": isFocused && !error,
-              "border-[#EC003F] shadow-[0_0_0_4px_rgba(255,224,224,1),0_2px_4px_0_rgba(17,12,34,0.12)] outline-none":
+              "border-red-600 shadow-[0_0_0_4px_rgba(255,224,224,1),0_2px_4px_0_rgba(17,12,34,0.12)] outline-none":
                 error,
               "pl-12": LeftIcon,
               "pl-4": !LeftIcon,
@@ -82,13 +82,12 @@ export const Input = ({
             <RightIcon
               className={cn("h-5 w-5 text-slate-400", {
                 "text-slate-900": isFocused && !error,
-                "text-[#EC003F]": error,
               })}
             />
           </div>
         )}
       </div>
-      {error && <p className="pl-1 text-sm text-[#E7000B]">{error}</p>}
+      {error && <p className="pt-0.5 pl-1 text-sm leading-[24px] font-semibold text-red-600">{error}</p>}
     </div>
   )
 }

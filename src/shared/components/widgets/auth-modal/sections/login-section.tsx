@@ -18,13 +18,17 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, values },
+    watch,
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
+    mode: "onBlur",
   })
 
+  const email = watch("email")
+  const password = watch("password")
+
   const onSubmit = async (data: LoginFormData) => {
-    // TODO: Implement login logic
     console.log("Login data:", data)
     await new Promise((resolve) => setTimeout(resolve, 1000))
   }
@@ -37,7 +41,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
     onModeChange("forgot")
   }
 
-  const isDisabled = isSubmitting || values.email === "" || values.password === ""
+  const isDisabled = isSubmitting || !email || !password
 
   return (
     <>

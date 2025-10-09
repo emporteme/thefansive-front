@@ -1,10 +1,10 @@
-import Link from "next/link"
 import React from "react"
-import { getRoutes } from "@/shared/utils/get-routes"
 
-export const RememberForgotSection = () => {
-  const routes = getRoutes()
+interface RememberForgotSectionProps {
+  onForgotPasswordClick?: () => void
+}
 
+export const RememberForgotSection = ({ onForgotPasswordClick }: RememberForgotSectionProps) => {
   return (
     <div className="flex items-center justify-between">
       <label className="flex cursor-pointer items-center">
@@ -14,9 +14,9 @@ export const RememberForgotSection = () => {
         />
         <span className="ml-2.5 text-base text-slate-800">Remember me</span>
       </label>
-      <Link href={routes.auth.forgot()} className="text-base font-medium text-slate-700 hover:text-slate-900">
+      <button onClick={onForgotPasswordClick} className="text-base font-medium text-slate-700 hover:text-slate-900">
         Forgot Password?
-      </Link>
+      </button>
     </div>
   )
 }

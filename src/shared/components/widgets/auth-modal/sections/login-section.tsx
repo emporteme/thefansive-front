@@ -26,6 +26,10 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
     onModeChange("signup")
   }
 
+  const handleForgotPasswordClick = () => {
+    onModeChange("forgot")
+  }
+
   return (
     <>
       <WelcomeText />
@@ -38,7 +42,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
           <PasswordInput />
         </div>
 
-        <RememberForgotSection />
+        <RememberForgotSection onForgotPasswordClick={handleForgotPasswordClick} />
         <LoginButton onClick={handleLogin} />
         <SignUpLink onClick={handleSignUpClick} />
       </div>

@@ -4,7 +4,9 @@ import React, { useState } from "react"
 import Logo from "@/shared/components/elements/logo"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { getRoutes } from "@/shared/utils/get-routes"
+import ForgotSection from "./sections/forgot-section"
 import LoginSection from "./sections/login-section"
+import RestoreSection from "./sections/restore-section"
 import SignUpSection from "./sections/signup-section"
 import type { AuthModalMode } from "./types"
 import { CloseButton } from "./ui/close-button"
@@ -36,6 +38,10 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
         return <LoginSection onModeChange={setMode} />
       case "signup":
         return <SignUpSection onModeChange={setMode} />
+      case "forgot":
+        return <ForgotSection onModeChange={setMode} />
+      case "restore":
+        return <RestoreSection onModeChange={setMode} />
       default:
         return <LoginSection onModeChange={setMode} />
     }

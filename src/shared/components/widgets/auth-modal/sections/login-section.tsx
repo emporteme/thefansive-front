@@ -30,7 +30,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
       <div className="mt-12 flex flex-col gap-9">
         <GoogleSignInButton />
         <OrDivider text="or continue with Email" />
-        <div className="space-y-5">
+        <div className="space-y-3">
           <div className="space-y-3">
             <Input LeftIcon={Email} placeholder="example@mail.com" type="email" />
             <Input LeftIcon={Password} placeholder="Enter your password" type="password" />

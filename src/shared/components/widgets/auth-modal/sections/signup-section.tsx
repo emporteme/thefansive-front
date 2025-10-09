@@ -3,6 +3,7 @@
 import React from "react"
 import { Email, EmailCode, Password, User } from "@/shared/icons"
 import type { AuthModalMode } from "../types"
+import { WelcomeText } from "../ui"
 
 interface SignUpSectionProps {
   onModeChange: (mode: AuthModalMode) => void
@@ -19,10 +20,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
 
   return (
     <>
-      <h1 className="mt-[94px] text-[32px] leading-[48px] font-normal text-black">
-        Welcome to <br /> <span className="text-[40px] leading-[48px] font-bold">Thefansive platform</span>
-      </h1>
-      <p className="mt-2 text-base text-black">Go Beyond Being a Fan</p>
+      <WelcomeText />
 
       <div className="mt-[67px] flex flex-col gap-4">
         {/* Full Name Input */}

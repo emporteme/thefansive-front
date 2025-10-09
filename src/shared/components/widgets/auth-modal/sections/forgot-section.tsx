@@ -3,6 +3,7 @@
 import React from "react"
 import { Email } from "@/shared/icons"
 import type { AuthModalMode } from "../types"
+import { WelcomeText } from "../ui"
 
 interface ForgotSectionProps {
   onModeChange: (mode: AuthModalMode) => void
@@ -10,9 +11,7 @@ interface ForgotSectionProps {
 
 const ForgotSection: React.FC<ForgotSectionProps> = ({ onModeChange }) => {
   const handleSendCode = () => {
-    // TODO: Implement send reset code logic
-    // After successful send, could redirect to restore page
-    // onModeChange("restore")
+    onModeChange("restore")
   }
 
   const handleBackToLogin = () => {
@@ -21,10 +20,7 @@ const ForgotSection: React.FC<ForgotSectionProps> = ({ onModeChange }) => {
 
   return (
     <>
-      <h1 className="mt-[94px] text-[32px] leading-[48px] font-normal text-black">
-        Forgot <br /> <span className="text-[40px] leading-[48px] font-bold">Password?</span>
-      </h1>
-      <p className="mt-2 text-base text-black">Don't worry, we'll help you reset it</p>
+      <WelcomeText />
 
       <div className="mt-[67px] flex flex-col gap-6">
         {/* Description Text */}

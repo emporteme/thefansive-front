@@ -4,7 +4,7 @@ import React from "react"
 import { Button } from "@/shared/components/ui"
 import { Email, Password } from "@/shared/icons"
 import type { AuthModalMode } from "../types"
-import { GoogleSignInButton, OrDivider, RememberForgotSection, SignUpLink, WelcomeText } from "../ui"
+import { GoogleSignInButton, OrDivider, QuestionLink, RememberForgotSection, WelcomeText } from "../ui"
 import { Input } from "../ui/input"
 
 interface LoginSectionProps {
@@ -27,18 +27,22 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
   return (
     <>
       <WelcomeText />
-      <div className="mt-[67px] flex flex-col gap-6">
+      <div className="mt-12 flex flex-col gap-9">
         <GoogleSignInButton />
         <OrDivider text="or continue with Email" />
-        <div className="space-y-3">
-          <Input LeftIcon={Email} placeholder="example@mail.com" type="email" />
-          <Input LeftIcon={Password} placeholder="Enter your password" type="password" />
+        <div className="space-y-5">
+          <div className="space-y-3">
+            <Input LeftIcon={Email} placeholder="example@mail.com" type="email" />
+            <Input LeftIcon={Password} placeholder="Enter your password" type="password" />
+          </div>
+          <RememberForgotSection onForgotPasswordClick={handleForgotPasswordClick} />
         </div>
-        <RememberForgotSection onForgotPasswordClick={handleForgotPasswordClick} />
-        <Button size="xl" className="w-full" onClick={handleLogin} disabled>
-          Login
-        </Button>
-        <SignUpLink onClick={handleSignUpClick} />
+        <div className="mt-4 space-y-4">
+          <Button size="xl" className="w-full" onClick={handleLogin} disabled>
+            Login
+          </Button>
+          <QuestionLink onClick={handleSignUpClick} question="Don't have an account?" action="Sign Up" />
+        </div>
       </div>
     </>
   )

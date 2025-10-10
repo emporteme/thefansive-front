@@ -34,6 +34,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
   const [hasOtpError, setHasOtpError] = useState(false)
   const [timer, setTimer] = useState(0)
 
+  const sentEmailRef = useRef<string>("")
   const validatedEmailRef = useRef<string>("")
 
   const signUpMutation = useSignUp()
@@ -55,17 +56,20 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
     return () => clearInterval(interval)
   }, [timer])
 
-  // Сброс валидации OTP при изменении email
+  // Сброс OTP при изменении email (если код был отправлен или валидирован)
   useEffect(() => {
-    if (isOtpValidated && validatedEmailRef.current && email !== validatedEmailRef.current) {
+    const emailChanged = email !== sentEmailRef.current && sentEmailRef.current !== ""
+
+    if (emailChanged && (showOtpInput || isOtpValidated)) {
       setIsOtpValidated(false)
       setValidatedOtp("")
       setShowOtpInput(false)
       setHasOtpError(false)
       setTimer(0)
+      sentEmailRef.current = ""
       validatedEmailRef.current = ""
     }
-  }, [email, isOtpValidated])
+  }, [email, showOtpInput, isOtpValidated])
 
   const onSubmit = async (data: SignupFormData) => {
     if (!isOtpValidated || !validatedOtp) {
@@ -105,6 +109,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setShowOtpInput(true)
       setHasOtpError(false)
       setTimer(60)
+      sentEmailRef.current = email
     } catch (error: unknown) {
       toast.error(getErrorMessage(error))
     }

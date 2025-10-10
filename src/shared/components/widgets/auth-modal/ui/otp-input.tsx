@@ -32,6 +32,10 @@ export const OtpInput: React.FC<OtpInputProps> = ({
     }
   }, [hasError, length])
 
+  useEffect(() => {
+    inputRefs.current[0]?.focus()
+  }, [])
+
   const handleChange = (index: number, value: string) => {
     if (isValidating) return
 

@@ -1,75 +1,76 @@
 "use client"
 
+import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
+import { useForm } from "react-hook-form"
+import { Button } from "@/shared/components/ui"
 import { Password } from "@/shared/icons"
+import { type RestoreFormData, restoreSchema } from "../schemas/restore-schema"
 import type { AuthModalMode } from "../types"
+import { QuestionLink, WelcomeText } from "../ui"
+import { Input } from "../ui/input"
 
 interface RestoreSectionProps {
   onModeChange: (mode: AuthModalMode) => void
 }
 
 const RestoreSection: React.FC<RestoreSectionProps> = ({ onModeChange }) => {
-  const handleResetPassword = () => {
-    // TODO: Implement reset password logic
-    // After successful reset, redirect to login
-    // onModeChange("login")
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<RestoreFormData>({
+    resolver: zodResolver(restoreSchema),
+    mode: "onBlur",
+  })
+
+  const password = watch("password")
+  const confirmPassword = watch("confirmPassword")
+
+  const onSubmit = async (data: RestoreFormData) => {
+    console.log("Reset password data:", data)
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    onModeChange("login")
   }
 
   const handleBackToLogin = () => {
     onModeChange("login")
   }
 
+  const isDisabled = isSubmitting || !password || !confirmPassword
+
   return (
     <>
-      <h1 className="mt-[94px] text-[32px] leading-[48px] font-normal text-black">
-        Reset <br /> <span className="text-[40px] leading-[48px] font-bold">Password</span>
-      </h1>
-      <p className="mt-2 text-base text-black">Create a new secure password</p>
+      <WelcomeText />
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-[67px] flex flex-col gap-6">
+        <p className="text-center text-sm text-slate-600">Enter your new password below</p>
 
-      <div className="mt-[67px] flex flex-col gap-6">
-        {/* Description Text */}
-        <p className="text-center text-slate-600">Enter your new password below</p>
+        <Input
+          label="New Password"
+          LeftIcon={Password}
+          placeholder="New Password"
+          type="password"
+          register={register("password")}
+          error={errors.password?.message}
+        />
 
-        {/* New Password Input */}
-        <div className="relative text-slate-400">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-            <Password className="h-5 w-5 text-slate-400" />
-          </div>
-          <input
-            type="password"
-            placeholder="New Password"
-            className="block w-full rounded-xl border border-slate-300 bg-white py-3 pr-3 pl-12 text-slate-400 transition-all duration-200 placeholder:text-slate-400 focus:border-slate-300 focus:outline-none"
-          />
+        <Input
+          label="Confirm New Password"
+          LeftIcon={Password}
+          placeholder="Confirm New Password"
+          type="password"
+          register={register("confirmPassword")}
+          error={errors.confirmPassword?.message}
+        />
+
+        <div className="space-y-4">
+          <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
+            {isSubmitting ? "Resetting..." : "Reset Password"}
+          </Button>
+          <QuestionLink onClick={handleBackToLogin} question="Remember your password?" action="Back to Login" />
         </div>
-
-        {/* Confirm Password Input */}
-        <div className="relative text-slate-400">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-            <Password className="h-5 w-5 text-slate-400" />
-          </div>
-          <input
-            type="password"
-            placeholder="Confirm New Password"
-            className="block w-full rounded-xl border border-slate-300 bg-white py-3 pr-3 pl-12 text-slate-400 transition-all duration-200 placeholder:text-slate-400 focus:border-slate-300 focus:outline-none"
-          />
-        </div>
-
-        {/* Submit Button */}
-        <button
-          onClick={handleResetPassword}
-          className="w-full cursor-pointer rounded-xl bg-slate-100 px-4 py-[15px] text-base font-medium text-slate-700 transition-all duration-200 hover:bg-slate-200"
-        >
-          Reset Password
-        </button>
-
-        {/* Back to Login Link */}
-        <div className="text-center text-base">
-          <span className="text-slate-700">Remember your password? </span>
-          <button onClick={handleBackToLogin} className="font-semibold text-slate-700 hover:text-slate-900">
-            Back to Login
-          </button>
-        </div>
-      </div>
+      </form>
     </>
   )
 }

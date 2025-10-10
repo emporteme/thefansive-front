@@ -1,16 +1,35 @@
 "use client"
 
+import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
+import { useForm } from "react-hook-form"
+import { Button } from "@/shared/components/ui"
 import { Email } from "@/shared/icons"
+import { type ForgotFormData, forgotSchema } from "../schemas/forgot-schema"
 import type { AuthModalMode } from "../types"
-import { WelcomeText } from "../ui"
+import { QuestionLink, WelcomeText } from "../ui"
+import { Input } from "../ui/input"
 
 interface ForgotSectionProps {
   onModeChange: (mode: AuthModalMode) => void
 }
 
 const ForgotSection: React.FC<ForgotSectionProps> = ({ onModeChange }) => {
-  const handleSendCode = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<ForgotFormData>({
+    resolver: zodResolver(forgotSchema),
+    mode: "onBlur",
+  })
+
+  const email = watch("email")
+
+  const onSubmit = async (data: ForgotFormData) => {
+    console.log("Forgot password data:", data)
+    await new Promise((resolve) => setTimeout(resolve, 1000))
     onModeChange("restore")
   }
 
@@ -18,44 +37,32 @@ const ForgotSection: React.FC<ForgotSectionProps> = ({ onModeChange }) => {
     onModeChange("login")
   }
 
+  const isDisabled = isSubmitting || !email
+
   return (
     <>
       <WelcomeText />
-
-      <div className="mt-[67px] flex flex-col gap-6">
-        {/* Description Text */}
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-[67px] flex flex-col gap-6">
         <p className="-mb-2 text-center text-sm text-slate-600">
           Fill your email and you will receive a code on that email
         </p>
 
-        {/* Email Input */}
-        <div className="relative text-slate-400">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-            <Email className="h-5 w-5 text-slate-400" />
-          </div>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="block w-full rounded-xl border border-slate-300 bg-white py-3 pr-3 pl-12 text-slate-400 transition-all duration-200 placeholder:text-slate-400 focus:border-slate-300 focus:outline-none"
-          />
-        </div>
+        <Input
+          label="Email"
+          LeftIcon={Email}
+          placeholder="Enter your email"
+          type="email"
+          register={register("email")}
+          error={errors.email?.message}
+        />
 
-        {/* Submit Button */}
-        <button
-          onClick={handleSendCode}
-          className="w-full cursor-pointer rounded-xl bg-slate-100 px-4 py-[15px] text-base font-medium text-slate-700 transition-all duration-200 hover:bg-slate-200"
-        >
-          Send Reset Code
-        </button>
-
-        {/* Back to Login Link */}
-        <div className="text-center text-base">
-          <span className="text-slate-700">Remember your password? </span>
-          <button onClick={handleBackToLogin} className="font-semibold text-slate-700 hover:text-slate-900">
-            Back to Login
-          </button>
+        <div className="space-y-4">
+          <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
+            {isSubmitting ? "Sending..." : "Send Reset Code"}
+          </Button>
+          <QuestionLink onClick={handleBackToLogin} question="Remember your password?" action="Back to Login" />
         </div>
-      </div>
+      </form>
     </>
   )
 }

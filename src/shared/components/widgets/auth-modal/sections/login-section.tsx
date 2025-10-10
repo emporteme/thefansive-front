@@ -62,7 +62,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange, closeModal })
   return (
     <>
       <WelcomeText />
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-12 flex flex-col gap-9 px-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-8 flex flex-col gap-9 px-4">
         <GoogleSignInButton />
         <OrDivider text="or continue with Email" />
         <div className="space-y-3">

@@ -9,6 +9,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder: string
   type: string
   onRightIconClick?: () => void
+  onEnter?: () => void
   error?: string
   register?: UseFormRegisterReturn
 }
@@ -20,6 +21,7 @@ export const Input = ({
   placeholder,
   type,
   onRightIconClick,
+  onEnter,
   error,
   register,
   ...props
@@ -32,6 +34,13 @@ export const Input = ({
 
   const handleBlur = () => {
     setIsFocused(false)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && onEnter) {
+      e.preventDefault()
+      onEnter()
+    }
   }
 
   return (
@@ -54,6 +63,7 @@ export const Input = ({
         <input
           onFocus={handleFocus}
           onBlur={handleBlur}
+          onKeyDown={handleKeyDown}
           {...register}
           {...props}
           type={type}

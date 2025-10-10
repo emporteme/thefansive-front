@@ -145,6 +145,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
               type="email"
               register={register("email")}
               error={errors.email?.message}
+              onEnter={handleSendCode}
             />
           </div>
           <Button
@@ -159,14 +160,11 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
         </div>
 
         {showOtpInput && (
-          <div className="space-y-3">
-            <p className="text-center text-sm text-slate-600">Enter the 6-digit code sent to your email</p>
-            <OtpInput
-              onComplete={handleOtpComplete}
-              isValidating={validateOtpMutation.isPending}
-              hasError={hasOtpError}
-            />
-          </div>
+          <OtpInput
+            onComplete={handleOtpComplete}
+            isValidating={validateOtpMutation.isPending}
+            hasError={hasOtpError}
+          />
         )}
 
         <Input

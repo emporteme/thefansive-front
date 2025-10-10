@@ -30,6 +30,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
   const [showOtpInput, setShowOtpInput] = useState(false)
   const [isOtpValidated, setIsOtpValidated] = useState(false)
   const [validatedOtp, setValidatedOtp] = useState("")
+  const [hasOtpError, setHasOtpError] = useState(false)
 
   const signUpMutation = useSignUp()
   const sendOtpMutation = useSendEmailOtp()
@@ -88,15 +89,22 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
   const handleOtpComplete = async (otp: string) => {
     if (!email) return
 
+    // Reset error state when user starts typing new OTP
+    setHasOtpError(false)
+
     try {
       await validateOtpMutation.mutateAsync({ email, otp })
       toast.success("Code verified successfully!")
       setIsOtpValidated(true)
       setValidatedOtp(otp)
+      setHasOtpError(false)
     } catch (error: unknown) {
       console.error("Validate OTP error:", error)
       const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
+      setHasOtpError(true)
+      setIsOtpValidated(false)
+      setValidatedOtp("")
     }
   }
 
@@ -153,7 +161,11 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
         {showOtpInput && (
           <div className="space-y-3">
             <p className="text-center text-sm text-slate-600">Enter the 6-digit code sent to your email</p>
-            <OtpInput onComplete={handleOtpComplete} isValidating={validateOtpMutation.isPending} />
+            <OtpInput
+              onComplete={handleOtpComplete}
+              isValidating={validateOtpMutation.isPending}
+              hasError={hasOtpError}
+            />
           </div>
         )}
 

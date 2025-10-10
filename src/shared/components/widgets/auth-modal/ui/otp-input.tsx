@@ -6,9 +6,15 @@ interface OtpInputProps {
   length?: number
   onComplete: (otp: string) => void
   isValidating?: boolean
+  hasError?: boolean
 }
 
-export const OtpInput: React.FC<OtpInputProps> = ({ length = 6, onComplete, isValidating = false }) => {
+export const OtpInput: React.FC<OtpInputProps> = ({
+  length = 6,
+  onComplete,
+  isValidating = false,
+  hasError = false,
+}) => {
   const [otp, setOtp] = useState<string[]>(Array(length).fill(""))
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
 
@@ -80,7 +86,11 @@ export const OtpInput: React.FC<OtpInputProps> = ({ length = 6, onComplete, isVa
           onKeyDown={(e) => handleKeyDown(index, e)}
           onPaste={handlePaste}
           disabled={isValidating}
-          className="h-12 w-12 rounded-xl border border-slate-950 bg-white text-center text-lg font-semibold text-slate-950 transition-all duration-200 focus:border-slate-950 focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className={`h-12 w-12 rounded-xl border bg-white text-center text-lg font-semibold transition-all duration-200 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 ${
+            hasError
+              ? "border-[#EC003F] text-slate-950 shadow-[0_0_0_4px_#FFE0E0,0_2px_4px_0_rgba(17,12,34,0.12)]"
+              : "border-slate-950 text-slate-950 focus:border-slate-950 focus:ring-2 focus:ring-slate-950 focus:ring-offset-2"
+          }`}
         />
       ))}
     </div>

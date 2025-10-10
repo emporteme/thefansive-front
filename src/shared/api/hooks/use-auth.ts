@@ -10,8 +10,12 @@ import type {
   LoginResponse,
   RestorePasswordRequest,
   RestorePasswordResponse,
+  SendEmailOtpRequest,
+  SendEmailOtpResponse,
   SignUpRequest,
   SignUpResponse,
+  ValidateOtpRequest,
+  ValidateOtpResponse,
 } from "../types"
 
 export function useLogin(): UseMutationResult<LoginResponse, ApiError, LoginRequest> {
@@ -44,7 +48,7 @@ export function useLogin(): UseMutationResult<LoginResponse, ApiError, LoginRequ
 export function useSignUp(): UseMutationResult<SignUpResponse, ApiError, SignUpRequest> {
   return useMutation({
     mutationFn: async (data: SignUpRequest) => {
-      const response = await apiClient.POST("/auth/register", {
+      const response = await apiClient.POST("/auth/signup", {
         body: data,
       })
 
@@ -128,4 +132,44 @@ export function getCurrentUser() {
 // Check if user is authenticated
 export function isAuthenticated(): boolean {
   return !!localStorage.getItem("access_token")
+}
+
+export function useSendEmailOtp(): UseMutationResult<SendEmailOtpResponse, ApiError, SendEmailOtpRequest> {
+  return useMutation({
+    mutationFn: async (data: SendEmailOtpRequest) => {
+      const response = await apiClient.POST("/auth/send-email-otp", {
+        body: data,
+      })
+
+      if (response.error) {
+        throw response.error
+      }
+
+      if (!response.data) {
+        throw new Error("No data received from server")
+      }
+
+      return response.data
+    },
+  })
+}
+
+export function useValidateOtp(): UseMutationResult<ValidateOtpResponse, ApiError, ValidateOtpRequest> {
+  return useMutation({
+    mutationFn: async (data: ValidateOtpRequest) => {
+      const response = await apiClient.POST("/auth/validate-otp", {
+        body: data,
+      })
+
+      if (response.error) {
+        throw response.error
+      }
+
+      if (!response.data) {
+        throw new Error("No data received from server")
+      }
+
+      return response.data
+    },
+  })
 }

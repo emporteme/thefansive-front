@@ -1,15 +1,15 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import React from "react"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { useSignUp } from "@/shared/api"
+import { useSendEmailOtp, useSignUp, useValidateOtp } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
-import { Email, EmailCode, Password, User } from "@/shared/icons"
+import { Email, Password } from "@/shared/icons"
 import { type SignupFormData, signupSchema } from "../schemas/signup-schema"
 import type { AuthModalMode } from "../types"
-import { QuestionLink, WelcomeText } from "../ui"
+import { OtpInput, QuestionLink, WelcomeText } from "../ui"
 import { Input } from "../ui/input"
 
 interface SignUpSectionProps {
@@ -27,16 +27,34 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
     mode: "onBlur",
   })
 
-  const signUpMutation = useSignUp()
+  const [showOtpInput, setShowOtpInput] = useState(false)
+  const [isOtpValidated, setIsOtpValidated] = useState(false)
+  const [validatedOtp, setValidatedOtp] = useState("")
 
-  const fullName = watch("fullName")
+  const signUpMutation = useSignUp()
+  const sendOtpMutation = useSendEmailOtp()
+  const validateOtpMutation = useValidateOtp()
+
+  const firstName = watch("firstName")
+  const lastName = watch("lastName")
   const email = watch("email")
-  const emailCode = watch("emailCode")
   const password = watch("password")
 
   const onSubmit = async (data: SignupFormData) => {
+    if (!isOtpValidated || !validatedOtp) {
+      toast.error("Please verify your email first")
+      return
+    }
+
     try {
-      await signUpMutation.mutateAsync(data)
+      const signupData = {
+        email: data.email,
+        password: data.password,
+        lastName: data.lastName,
+        firstName: data.firstName,
+        otp: validatedOtp,
+      }
+      await signUpMutation.mutateAsync(signupData)
       toast.success("Successfully signed up!")
       // Optionally close modal or redirect
     } catch (error: unknown) {
@@ -53,53 +71,99 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
     onModeChange("login")
   }
 
-  const handleSendCode = () => {
-    console.log("Send code clicked")
+  const handleSendCode = async () => {
+    if (!email) {
+      toast.error("Please enter your email first")
+      return
+    }
+
+    try {
+      await sendOtpMutation.mutateAsync({ email })
+      toast.success("Code sent to your email!")
+      setShowOtpInput(true)
+    } catch (error: unknown) {
+      console.error("Send OTP error:", error)
+      const errorMessage =
+        error && typeof error === "object" && "message" in error
+          ? String(error.message)
+          : "Failed to send code. Please try again."
+      toast.error(errorMessage)
+    }
   }
 
-  const isDisabled = isSubmitting || signUpMutation.isPending || !fullName || !email || !emailCode || !password
+  const handleOtpComplete = async (otp: string) => {
+    if (!email) return
+
+    try {
+      await validateOtpMutation.mutateAsync({ email, otp })
+      toast.success("Code verified successfully!")
+      setIsOtpValidated(true)
+      setValidatedOtp(otp)
+    } catch (error: unknown) {
+      console.error("Validate OTP error:", error)
+      const errorMessage =
+        error && typeof error === "object" && "message" in error
+          ? String(error.message)
+          : "Invalid code. Please try again."
+      toast.error(errorMessage)
+    }
+  }
+
+  const isDisabled =
+    isSubmitting || signUpMutation.isPending || !firstName || !lastName || !email || !password || !isOtpValidated
 
   return (
     <>
       <WelcomeText />
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-[67px] flex flex-col gap-4">
-        <Input
-          label="Full Name"
-          LeftIcon={User}
-          placeholder="Full Name"
-          type="text"
-          register={register("fullName")}
-          error={errors.fullName?.message}
-        />
-
-        <Input
-          label="Email"
-          LeftIcon={Email}
-          placeholder="Email"
-          type="email"
-          register={register("email")}
-          error={errors.email?.message}
-        />
-
-        <div className="flex gap-2">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-[67px] flex flex-col gap-4 px-4">
+        <div className="flex gap-3">
           <div className="flex-1">
             <Input
-              label="Email Code"
-              LeftIcon={EmailCode}
-              placeholder="Email Code"
+              label="First Name"
+              placeholder="First Name"
               type="text"
-              register={register("emailCode")}
-              error={errors.emailCode?.message}
+              register={register("firstName")}
+              error={errors.firstName?.message}
+            />
+          </div>
+          <div className="flex-1">
+            <Input
+              label="Last Name"
+              placeholder="Last Name"
+              type="text"
+              register={register("lastName")}
+              error={errors.lastName?.message}
+            />
+          </div>
+        </div>
+
+        <div className="flex items-end gap-3">
+          <div className="flex-1">
+            <Input
+              label="Email"
+              LeftIcon={Email}
+              placeholder="Email"
+              type="email"
+              register={register("email")}
+              error={errors.email?.message}
             />
           </div>
           <button
             type="button"
             onClick={handleSendCode}
-            className="mt-[30px] cursor-pointer self-start rounded-xl bg-green-500 px-4 py-3 text-sm font-medium text-white transition-all duration-200 hover:bg-green-600"
+            disabled={!email || sendOtpMutation.isPending || isOtpValidated}
+            className="h-12 shrink-0 rounded-xl bg-slate-950 px-4 text-sm font-medium text-white transition-all duration-200 hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Send Code
+            {sendOtpMutation.isPending ? "Sending..." : isOtpValidated ? "Verified" : "Send Code"}
           </button>
         </div>
+
+        {showOtpInput && (
+          <div className="space-y-3">
+            <p className="text-center text-sm text-slate-600">Enter the 6-digit code sent to your email</p>
+            <OtpInput onComplete={handleOtpComplete} isValidating={validateOtpMutation.isPending} />
+          </div>
+        )}
 
         <Input
           label="Password"
@@ -110,7 +174,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
           error={errors.password?.message}
         />
 
-        <div className="my-4 space-y-4">
+        <div className="mt-[150px] space-y-4">
           <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
             {isSubmitting || signUpMutation.isPending ? "Signing up..." : "Sign Up"}
           </Button>

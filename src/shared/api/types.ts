@@ -15,10 +15,11 @@ export interface LoginResponse {
 }
 
 export interface SignUpRequest {
-  fullName: string
   email: string
-  emailCode: string
   password: string
+  lastName: string
+  firstName: string
+  otp: string
 }
 
 export interface SignUpResponse {
@@ -46,6 +47,23 @@ export interface RestorePasswordRequest {
 
 export interface RestorePasswordResponse {
   message: string
+}
+
+export interface SendEmailOtpRequest {
+  email: string
+}
+
+export interface SendEmailOtpResponse {
+  success: boolean
+}
+
+export interface ValidateOtpRequest {
+  email: string
+  otp: string
+}
+
+export interface ValidateOtpResponse {
+  success: boolean
 }
 
 export interface ApiError {
@@ -77,7 +95,7 @@ export interface paths {
       }
     }
   }
-  "/auth/register": {
+  "/auth/signup": {
     post: {
       requestBody: {
         content: {
@@ -130,6 +148,48 @@ export interface paths {
         200: {
           content: {
             "application/json": RestorePasswordResponse
+          }
+        }
+        400: {
+          content: {
+            "application/json": ApiError
+          }
+        }
+      }
+    }
+  }
+  "/auth/send-email-otp": {
+    post: {
+      requestBody: {
+        content: {
+          "application/json": SendEmailOtpRequest
+        }
+      }
+      responses: {
+        200: {
+          content: {
+            "application/json": SendEmailOtpResponse
+          }
+        }
+        400: {
+          content: {
+            "application/json": ApiError
+          }
+        }
+      }
+    }
+  }
+  "/auth/validate-otp": {
+    post: {
+      requestBody: {
+        content: {
+          "application/json": ValidateOtpRequest
+        }
+      }
+      responses: {
+        200: {
+          content: {
+            "application/json": ValidateOtpResponse
           }
         }
         400: {

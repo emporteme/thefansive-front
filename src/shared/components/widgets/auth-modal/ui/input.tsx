@@ -59,7 +59,7 @@ export const Input = ({
           type={type}
           placeholder={placeholder}
           className={cn(
-            "rounded-2lg block w-full border bg-white py-3 text-lg font-medium text-slate-900 transition-all duration-200 placeholder:text-slate-400",
+            "rounded-2lg block h-12 w-full border bg-white py-3 text-lg font-medium text-slate-900 transition-all duration-200 placeholder:text-slate-400",
             {
               "border-slate-300": !error && !isFocused,
               "border-slate-900 outline-none": isFocused && !error,

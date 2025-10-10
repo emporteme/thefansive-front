@@ -148,14 +148,15 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
               error={errors.email?.message}
             />
           </div>
-          <button
+          <Button
+            size="lg"
             type="button"
             onClick={handleSendCode}
-            disabled={!email || sendOtpMutation.isPending || isOtpValidated}
-            className="h-12 shrink-0 rounded-xl bg-slate-950 px-4 text-sm font-medium text-white transition-all duration-200 hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={sendOtpMutation.isPending || isOtpValidated}
+            className="self-end"
           >
             {sendOtpMutation.isPending ? "Sending..." : isOtpValidated ? "Verified" : "Send Code"}
-          </button>
+          </Button>
         </div>
 
         {showOtpInput && (
@@ -174,8 +175,8 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
           error={errors.password?.message}
         />
 
-        <div className="mt-[150px] space-y-4">
-          <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
+        <div className="mt-12 space-y-4">
+          <Button size="xl" className="w-full" type="submit">
             {isSubmitting || signUpMutation.isPending ? "Signing up..." : "Sign Up"}
           </Button>
           <QuestionLink onClick={handleLoginClick} question="Have an account?" action="Login" />

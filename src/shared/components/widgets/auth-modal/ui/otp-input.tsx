@@ -11,6 +11,7 @@ interface OtpInputProps {
   hasError?: boolean
   setHasError?: React.Dispatch<React.SetStateAction<boolean>>
   timer?: number
+  onResend?: () => void
 }
 
 export const OtpInput: React.FC<OtpInputProps> = ({
@@ -20,6 +21,7 @@ export const OtpInput: React.FC<OtpInputProps> = ({
   hasError = false,
   setHasError,
   timer = 0,
+  onResend,
 }) => {
   const [otp, setOtp] = useState<string[]>(Array(length).fill(""))
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
@@ -163,7 +165,7 @@ export const OtpInput: React.FC<OtpInputProps> = ({
           />
         ))}
       </div>
-      {hasError && (
+      {hasError && isShowTimer && (
         <Button type="button" variant="link" className="self-end text-xs" disabled>
           Invalid code. Please try again.
         </Button>
@@ -171,6 +173,11 @@ export const OtpInput: React.FC<OtpInputProps> = ({
       {isShowTimer && !hasError && (
         <Button type="button" variant="link" className="self-end text-xs" disabled>
           Resend code in {timer}s
+        </Button>
+      )}
+      {!isShowTimer && onResend && (
+        <Button type="button" variant="link" className="self-end text-xs" onClick={onResend}>
+          Resend code
         </Button>
       )}
     </div>

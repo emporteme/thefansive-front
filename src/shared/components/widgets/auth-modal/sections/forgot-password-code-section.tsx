@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { getErrorMessage, useValidateOtp } from "@/shared/api"
+import { getErrorMessage, useSendEmailOtp, useValidateOtp } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import type { AuthModalMode } from "../types"
 import { OtpInput, WelcomeText } from "../ui"
@@ -19,6 +19,7 @@ const ForgotPasswordCodeSection: React.FC<ForgotPasswordCodeSectionProps> = ({ o
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""))
 
   const validateOtpMutation = useValidateOtp()
+  const sendOtpMutation = useSendEmailOtp()
 
   useEffect(() => {
     if (timer <= 0) return
@@ -30,16 +31,24 @@ const ForgotPasswordCodeSection: React.FC<ForgotPasswordCodeSectionProps> = ({ o
     return () => clearInterval(interval)
   }, [timer])
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     try {
       await validateOtpMutation.mutateAsync({ email, otp: otp.join("") })
       toast.success("Reset code confirmed!")
       setEmail("")
       onModeChange("reset-password")
-    } catch (error: unknown) {
-      const errorMessage = getErrorMessage(error)
-      toast.error(errorMessage)
+    } catch {
+      setHasOtpError(true)
     }
+  }
+
+  const handleResend = () => {
+    sendOtpMutation.mutateAsync({ email })
+    setHasOtpError(false)
+    setOtp(Array(6).fill(""))
+    setTimer(60)
   }
 
   const handleBackToLogin = () => {
@@ -61,6 +70,7 @@ const ForgotPasswordCodeSection: React.FC<ForgotPasswordCodeSectionProps> = ({ o
             hasError={hasOtpError}
             setHasError={setHasOtpError}
             timer={timer}
+            onResend={handleResend}
           />
         </div>
 

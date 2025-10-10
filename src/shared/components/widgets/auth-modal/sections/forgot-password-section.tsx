@@ -67,7 +67,7 @@ const ForgotPasswordSection: React.FC<ForgotPasswordSectionProps> = ({ onModeCha
           hint="Enter your email address and we’ll send you a link to reset your password."
         />
 
-        <div className="flex flex-col items-center gap-3">
+        <div className="mt-2 flex flex-col items-center gap-3">
           <Button size="xl" className="w-[220px]" type="submit" disabled={isDisabled}>
             {isSubmitting || sendEmailOtpMutation.isPending ? "Sending..." : "Send code"}
           </Button>

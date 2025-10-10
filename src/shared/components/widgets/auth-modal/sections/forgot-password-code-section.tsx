@@ -37,7 +37,6 @@ const ForgotPasswordCodeSection: React.FC<ForgotPasswordCodeSectionProps> = ({ o
       setEmail("")
       onModeChange("reset-password")
     } catch (error: unknown) {
-      console.error("Reset code error:", error)
       const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
     }
@@ -53,17 +52,19 @@ const ForgotPasswordCodeSection: React.FC<ForgotPasswordCodeSectionProps> = ({ o
     <>
       <WelcomeText />
       <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-6 px-4">
-        <h2 className="text-lg leading-[1.2] font-semibold text-slate-900">Enter code</h2>
+        <div className="mx-auto flex flex-col gap-6">
+          <h2 className="text-lg leading-[1.2] font-semibold text-slate-900">Enter code</h2>
 
-        <OtpInput
-          onComplete={(otp) => setOtp(otp.split(""))}
-          isValidating={validateOtpMutation.isPending}
-          hasError={hasOtpError}
-          setHasError={setHasOtpError}
-          timer={timer}
-        />
+          <OtpInput
+            onComplete={(otp) => setOtp(otp.split(""))}
+            isValidating={validateOtpMutation.isPending}
+            hasError={hasOtpError}
+            setHasError={setHasOtpError}
+            timer={timer}
+          />
+        </div>
 
-        <div className="flex flex-col items-center gap-3">
+        <div className="mt-2 flex flex-col items-center gap-3">
           <Button size="xl" className="w-[220px]" type="submit" disabled={isDisabled}>
             {validateOtpMutation.isPending ? "Confirming..." : "Confirm"}
           </Button>

@@ -19,16 +19,10 @@ interface AuthModalProps {
 }
 
 const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "login" }) => {
-  const navigate = useNavigate()
-  const routes = getRoutes()
   const [mode, setMode] = useState<AuthModalMode>(initialMode)
 
   const handleClose = () => {
-    if (onClose) {
-      onClose()
-    } else {
-      navigate(routes.home())
-    }
+    onClose?.()
     setMode(initialMode)
   }
 
@@ -43,7 +37,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
       case "restore":
         return <RestoreSection onModeChange={setMode} />
       default:
-        return <LoginSection onModeChange={setMode} />
+        return <LoginSection onModeChange={setMode} closeModal={handleClose} />
     }
   }
 

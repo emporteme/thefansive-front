@@ -14,9 +14,10 @@ import { Input } from "../ui/input"
 
 interface LoginSectionProps {
   onModeChange: (mode: AuthModalMode) => void
+  closeModal?: () => void
 }
 
-const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
+const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange, closeModal }) => {
   const {
     register,
     handleSubmit,
@@ -36,10 +37,8 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
     try {
       await loginMutation.mutateAsync(data)
       toast.success("Successfully logged in!")
-      // Optionally close modal or redirect
-      // window.location.reload() or router.push('/')
+      closeModal?.()
     } catch (error: unknown) {
-      console.error("Login error:", error)
       const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
     }

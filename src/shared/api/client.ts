@@ -1,29 +1,19 @@
 import createClient from "openapi-fetch"
 import type { paths } from "./types"
 
+const defaultHeaders: Record<string, string> = {
+  "Content-Type": "application/json",
+}
+
 export const apiClient = createClient<paths>({
   baseUrl: process.env.NEXT_PUBLIC_API_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers: defaultHeaders,
 })
 
 export function setAuthToken(token: string | null) {
   if (token) {
-    apiClient.use({
-      onRequest({ request }) {
-        request.headers.set("Authorization", `Bearer ${token}`)
-        return request
-      },
-    })
+    defaultHeaders["Authorization"] = `Bearer ${token}`
+  } else {
+    delete defaultHeaders["Authorization"]
   }
 }
-
-apiClient.use({
-  onResponse({ response }) {
-    if (!response.ok && process.env.NODE_ENV === "development") {
-      console.warn(`API Error: ${response.status} ${response.statusText}`)
-    }
-    return response
-  },
-})

@@ -6,7 +6,6 @@ import { Button } from "@/shared/components/ui"
 interface OtpInputProps {
   length?: number
   onComplete: (otp: string) => void
-  onResend?: () => void
   isValidating?: boolean
   hasError?: boolean
 }
@@ -14,7 +13,6 @@ interface OtpInputProps {
 export const OtpInput: React.FC<OtpInputProps> = ({
   length = 6,
   onComplete,
-  onResend,
   isValidating = false,
   hasError = false,
 }) => {
@@ -22,7 +20,6 @@ export const OtpInput: React.FC<OtpInputProps> = ({
   const [timer, setTimer] = useState(60)
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
 
-  // Timer countdown
   useEffect(() => {
     if (timer <= 0) {
       return
@@ -87,13 +84,7 @@ export const OtpInput: React.FC<OtpInputProps> = ({
     }
   }
 
-  const handleResend = () => {
-    if (onResend) {
-      setTimer(60)
-      setOtp(Array(length).fill(""))
-      onResend()
-    }
-  }
+  const isShowTimer = timer > 0
 
   return (
     <div className="mx-auto flex flex-col gap-3">
@@ -120,13 +111,14 @@ export const OtpInput: React.FC<OtpInputProps> = ({
           />
         ))}
       </div>
-      {timer > 0 ? (
+      {hasError && (
+        <Button type="button" variant="link" className="self-end text-xs" disabled>
+          Invalid code. Please try again.
+        </Button>
+      )}
+      {isShowTimer && !hasError && (
         <Button type="button" variant="link" className="self-end text-xs" disabled>
           Resend code in {timer}s
-        </Button>
-      ) : (
-        <Button type="button" variant="link" className="self-end text-xs" onClick={handleResend}>
-          Resend code
         </Button>
       )}
     </div>

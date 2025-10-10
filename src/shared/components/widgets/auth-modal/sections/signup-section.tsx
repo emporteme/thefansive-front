@@ -163,7 +163,6 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
         {showOtpInput && (
           <OtpInput
             onComplete={handleOtpComplete}
-            onResend={handleResend}
             isValidating={validateOtpMutation.isPending}
             hasError={hasOtpError}
           />

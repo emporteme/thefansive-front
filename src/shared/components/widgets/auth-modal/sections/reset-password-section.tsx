@@ -34,7 +34,7 @@ const ResetPasswordSection: React.FC<ResetPasswordSectionProps> = ({ onModeChang
 
   const onSubmit = async (data: RestoreFormData) => {
     try {
-      await restorePasswordMutation.mutateAsync(data)
+      // await restorePasswordMutation.mutateAsync(data)
       onModeChange("reset-password-success")
     } catch (error: unknown) {
       const errorMessage = getErrorMessage(error)
@@ -42,8 +42,8 @@ const ResetPasswordSection: React.FC<ResetPasswordSectionProps> = ({ onModeChang
     }
   }
 
-  const handleBackToLogin = () => {
-    onModeChange("login")
+  const handleBack = () => {
+    onModeChange("forgot-password")
   }
 
   const isDisabled = isSubmitting || restorePasswordMutation.isPending || !password || !confirmPassword
@@ -51,32 +51,36 @@ const ResetPasswordSection: React.FC<ResetPasswordSectionProps> = ({ onModeChang
   return (
     <>
       <WelcomeText />
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-[67px] flex flex-col gap-6">
-        <p className="text-center text-sm text-slate-600">Enter your new password below</p>
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-8 flex flex-col gap-6 px-4">
+        <h2 className="text-lg leading-[1.2] font-semibold text-slate-900">Reset Password</h2>
 
-        <Input
-          label="New Password"
-          LeftIcon={Password}
-          placeholder="New Password"
-          type="password"
-          register={register("password")}
-          error={errors.password?.message}
-        />
+        <div className="space-y-3">
+          <Input
+            label="Create a new password for your account."
+            LeftIcon={Password}
+            placeholder="New Password"
+            type="password"
+            register={register("password")}
+            error={errors.password?.message}
+          />
 
-        <Input
-          label="Confirm New Password"
-          LeftIcon={Password}
-          placeholder="Confirm New Password"
-          type="password"
-          register={register("confirmPassword")}
-          error={errors.confirmPassword?.message}
-        />
+          <Input
+            label="Confirm Password"
+            LeftIcon={Password}
+            placeholder="Confirm Password"
+            type="password"
+            register={register("confirmPassword")}
+            error={errors.confirmPassword?.message}
+          />
+        </div>
 
-        <div className="space-y-4">
-          <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
-            {isSubmitting || restorePasswordMutation.isPending ? "Resetting..." : "Reset Password"}
+        <div className="mt-2 flex flex-col items-center gap-3">
+          <Button size="xl" className="w-[220px]" type="submit" disabled={isDisabled}>
+            {isSubmitting || restorePasswordMutation.isPending ? "Saving..." : "Save and Continue"}
           </Button>
-          <QuestionLink onClick={handleBackToLogin} question="Remember your password?" action="Back to Login" />
+          <Button variant="link" className="w-[220px]" size="xl" onClick={handleBack}>
+            Back
+          </Button>
         </div>
       </form>
     </>

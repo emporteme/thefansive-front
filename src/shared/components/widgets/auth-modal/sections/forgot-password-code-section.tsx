@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { toast } from "react-toastify"
 import { useSendEmailOtp, useValidateOtp } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import type { AuthModalMode } from "../types"
@@ -50,8 +49,8 @@ const ForgotPasswordCodeSection: React.FC<ForgotPasswordCodeSectionProps> = ({ o
     setTimer(60)
   }
 
-  const handleBackToLogin = () => {
-    onModeChange("login")
+  const handleBack = () => {
+    onModeChange("forgot-password")
   }
 
   const isDisabled = validateOtpMutation.isPending || otp.join("").length !== 6
@@ -77,8 +76,8 @@ const ForgotPasswordCodeSection: React.FC<ForgotPasswordCodeSectionProps> = ({ o
           <Button size="xl" className="w-[220px]" type="submit" disabled={isDisabled}>
             {validateOtpMutation.isPending ? "Confirming..." : "Confirm"}
           </Button>
-          <Button variant="link" className="w-[220px]" size="xl" onClick={handleBackToLogin}>
-            Back to Login
+          <Button variant="link" className="w-[220px]" size="xl" onClick={handleBack}>
+            Back
           </Button>
         </div>
       </form>

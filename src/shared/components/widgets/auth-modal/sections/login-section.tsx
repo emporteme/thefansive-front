@@ -86,7 +86,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
           <RememberForgotSection onForgotPasswordClick={handleForgotPasswordClick} />
         </div>
         <div className="mt-4 space-y-4">
-          <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
+          <Button tabIndex={0} size="xl" className="w-full" type="submit" disabled={isDisabled}>
             {isSubmitting || loginMutation.isPending ? "Logging in..." : "Login"}
           </Button>
           <QuestionLink onClick={handleSignUpClick} question="Don't have an account?" action="Sign Up" />

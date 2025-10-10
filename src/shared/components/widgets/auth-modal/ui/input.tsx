@@ -12,6 +12,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onEnter?: () => void
   error?: string
   register?: UseFormRegisterReturn
+  hint?: string
 }
 
 export const Input = ({
@@ -24,6 +25,7 @@ export const Input = ({
   onEnter,
   error,
   register,
+  hint,
   ...props
 }: InputProps) => {
   const [isFocused, setIsFocused] = useState(false)
@@ -99,6 +101,7 @@ export const Input = ({
           )}
         </div>
       </div>
+      {hint && !error && <p className="pl-1 text-sm leading-[24px] font-semibold text-slate-900">{hint}</p>}
       {error && <p className="pl-1 text-sm leading-[24px] font-semibold text-red-600">{error}</p>}
     </div>
   )

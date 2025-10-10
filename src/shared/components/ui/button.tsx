@@ -5,7 +5,7 @@ import * as React from "react"
 import { cn } from "@/shared/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex justify-center self-center cursor-pointer items-center gap-2 disabled:opacity-50 aria-invalid:border-destructive focus-visible:border-ring rounded-md outline-none aria-invalid:ring-destructive/20 focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:aria-invalid:ring-destructive/40 [&_svg:not([class*='size-'])]:size-4 font-medium text-sm whitespace-nowrap transition-all [&_svg]:pointer-events-none disabled:pointer-events-none shrink-0 [&_svg]:shrink-0",
+  "inline-flex justify-center self-center cursor-pointer items-center gap-2 disabled:opacity-50 aria-invalid:border-destructive focus-visible:border-ring rounded-md outline-none aria-invalid:ring-destructive/20 focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:aria-invalid:ring-destructive/40 [&_svg:not([class*='size-'])]:size-4 font-semibold text-sm whitespace-nowrap transition-all [&_svg]:pointer-events-none disabled:pointer-events-none shrink-0 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -25,7 +25,7 @@ const buttonVariants = cva(
         sm: "h-8 rounded-md gap-1.5 px-3 text-xs has-[>svg]:px-3",
         md: "h-10 rounded-md gap-2 px-6 text-sm has-[>svg]:px-3",
         lg: "h-12 rounded-2lg gap-2.5 px-6 text-base has-[>svg]:px-4",
-        xl: "h-13.5 rounded-2lg gap-3 px-4 text-md has-[>svg]:px-4.5",
+        xl: "h-13.5 rounded-2lg gap-3 px-4 text-lg has-[>svg]:px-4.5",
         icon: "size-10 rounded-md",
       },
     },

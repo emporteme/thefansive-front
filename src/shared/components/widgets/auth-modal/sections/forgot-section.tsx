@@ -52,25 +52,26 @@ const ForgotSection: React.FC<ForgotSectionProps> = ({ onModeChange }) => {
   return (
     <>
       <WelcomeText />
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-[67px] flex flex-col gap-6">
-        <p className="-mb-2 text-center text-sm text-slate-600">
-          Fill your email and you will receive a code on that email
-        </p>
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-8 flex flex-col gap-6 px-4">
+        <h2 className="text-lg leading-[1.2] font-semibold text-slate-900">Forgot Password?</h2>
 
         <Input
           label="Email"
           LeftIcon={Email}
-          placeholder="Enter your email"
+          placeholder="example@mail.com"
           type="email"
           register={register("email")}
           error={errors.email?.message}
+          hint="Enter your email address and we’ll send you a link to reset your password."
         />
 
-        <div className="space-y-4">
-          <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
-            {isSubmitting || forgotPasswordMutation.isPending ? "Sending..." : "Send Reset Code"}
+        <div className="flex flex-col items-center gap-3">
+          <Button size="xl" className="w-[220px]" type="submit" disabled={isDisabled}>
+            {isSubmitting || forgotPasswordMutation.isPending ? "Sending..." : "Send code"}
           </Button>
-          <QuestionLink onClick={handleBackToLogin} question="Remember your password?" action="Back to Login" />
+          <Button variant="link" className="w-[220px]" size="xl" onClick={handleBackToLogin}>
+            Back to Login
+          </Button>
         </div>
       </form>
     </>

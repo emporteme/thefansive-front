@@ -40,7 +40,7 @@ export const Input = ({
       <div className="relative text-slate-400">
         {LeftIcon && (
           <div
-            className={cn("pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4", {
+            className={cn("pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-4", {
               "text-slate-900": isFocused || error,
             })}
           >

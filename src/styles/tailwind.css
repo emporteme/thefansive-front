@@ -198,16 +198,11 @@
   }
 }
 
-/* ============================================
-   CUSTOM SCROLLBAR - НАСТРОЙКИ
-   ============================================ */
-
 :root {
-  /* Размеры скроллбара */
-  --scrollbar-width: 6px; /* Общая ширина области скроллбара */
-  --scrollbar-thumb-width: 2px; /* Ширина самого ползунка (по умолчанию) */
-  --scrollbar-thumb-width-hover: 2px; /* Ширина ползунка при наведении */
-  --scrollbar-thumb-color: rgb(15, 23, 43); /* Цвет ползунка (темно-синий) */
+  --scrollbar-width: 10px; /* Общая ширина области скроллбара */
+  --scrollbar-thumb-width: 4px; /* Ширина самого ползунка (по умолчанию) */
+  --scrollbar-thumb-width-hover: 5px; /* Ширина ползунка при наведении */
+  --scrollbar-thumb-color: #0f172b; /* Цвет ползунка (темно-синий) */
   --scrollbar-track-color: transparent; /* Цвет дорожки (прозрачный) */
   --scrollbar-thumb-radius: 100px; /* Скругление ползунка */
   --scrollbar-thumb-min-height: 48px; /* Минимальная высота ползунка */
@@ -221,6 +216,7 @@
 
   ::-webkit-scrollbar-track {
     background: var(--scrollbar-track-color);
+    border-radius: inherit;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -229,6 +225,7 @@
     border-radius: var(--scrollbar-thumb-radius);
     border: calc((var(--scrollbar-width) - var(--scrollbar-thumb-width)) / 2) solid transparent;
     min-height: var(--scrollbar-thumb-min-height);
+    cursor: pointer;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -239,6 +236,7 @@
 
   ::-webkit-scrollbar-corner {
     background: transparent;
+    border-radius: inherit;
   }
 
   * {
@@ -248,5 +246,10 @@
 
   html {
     scrollbar-gutter: stable;
+  }
+
+  *[class*="rounded"],
+  *[class*="overflow"] {
+    contain: paint;
   }
 }

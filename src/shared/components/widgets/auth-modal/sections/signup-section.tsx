@@ -97,10 +97,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setValidatedOtp(otp)
       setHasOtpError(false)
       setShowOtpInput(false)
-    } catch (error: unknown) {
-      console.error("Validate OTP error:", error)
-      const errorMessage = getErrorMessage(error)
-      toast.error(errorMessage)
+    } catch {
       setHasOtpError(true)
       setIsOtpValidated(false)
       setValidatedOtp("")

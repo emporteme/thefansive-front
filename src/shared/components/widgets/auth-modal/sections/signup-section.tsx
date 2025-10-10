@@ -60,7 +60,6 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       toast.success("Successfully signed up!")
       onModeChange("login")
     } catch (error: unknown) {
-      console.error("Signup error:", error)
       const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
     }
@@ -81,7 +80,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       toast.success("Code sent to your email!")
       setShowOtpInput(true)
     } catch (error: unknown) {
-      console.error("Send OTP error:", error)
+      toast.error(getErrorMessage(error))
     }
   }
 

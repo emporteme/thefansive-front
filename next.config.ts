@@ -8,6 +8,10 @@ const config: NextConfig = {
   images: {
     domains: [], // hostnames
   },
+  experimental: {
+    // Оптимизация для быстрого HMR
+    optimizePackageImports: ["@tanstack/react-query", "react-toastify"],
+  },
 }
 
 export default env.ANALYZE ? withBundleAnalyzer({ enabled: env.ANALYZE })(config) : config

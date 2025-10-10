@@ -9,6 +9,7 @@ interface BaseModalProps {
   className?: string
   showCloseButton?: boolean
   closeOnOverlayClick?: boolean
+  disableOverlayClick?: boolean
 }
 
 const ModalLayout: React.FC<BaseModalProps> = ({
@@ -17,6 +18,7 @@ const ModalLayout: React.FC<BaseModalProps> = ({
   children,
   className = "",
   closeOnOverlayClick = true,
+  disableOverlayClick = false,
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -49,14 +51,14 @@ const ModalLayout: React.FC<BaseModalProps> = ({
   if (!isOpen) return null
 
   const handleOverlayClick = (e: React.MouseEvent) => {
-    if (closeOnOverlayClick && e.target === e.currentTarget) {
+    if (closeOnOverlayClick && e.target === e.currentTarget && !disableOverlayClick) {
       onClose()
     }
   }
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm"
+      className="fixed inset-0 z-1000 flex items-center justify-center bg-black/35 backdrop-blur-sm"
       onClick={handleOverlayClick}
     >
       <div

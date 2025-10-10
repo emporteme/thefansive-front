@@ -11,10 +11,11 @@ const Cancel: React.FC<{ className?: string; onClick?: () => void }> = ({ classN
       className={className}
       onClick={onClick}
     >
+      <path d="M18 6L6.00081 17.9992L18 6ZM17.9992 18L6 6.00085L17.9992 18Z" fill="currentColor" />
       <path
-        d="M19 5L5 19M5 5L19 19"
+        d="M18 6L6.00081 17.9992M17.9992 18L6 6.00085"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

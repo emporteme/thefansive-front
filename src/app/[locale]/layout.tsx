@@ -4,7 +4,7 @@ import { ReactElement } from "react"
 import { ToastContainer } from "react-toastify"
 import { I18nProviderClient } from "@/locale/client"
 import { TonProvider, Web3Provider } from "@/shared/components/elements/web3"
-import { ProgressBarProvider } from "@/shared/providers"
+import { ProgressBarProvider, ReactQueryProvider } from "@/shared/providers"
 import "@/styles/tailwind.css"
 
 const manrope = Manrope({
@@ -34,13 +34,15 @@ export default async function RootLayout({
         <meta name="bingbot" content="noindex, nofollow" />
       </head>
       <body className="flex min-h-screen flex-col">
-        <I18nProviderClient locale={locale}>
-          <Web3Provider>
-            <TonProvider>
-              <ProgressBarProvider>{children}</ProgressBarProvider>
-            </TonProvider>
-          </Web3Provider>
-        </I18nProviderClient>
+        <ReactQueryProvider>
+          <I18nProviderClient locale={locale}>
+            <Web3Provider>
+              <TonProvider>
+                <ProgressBarProvider>{children}</ProgressBarProvider>
+              </TonProvider>
+            </Web3Provider>
+          </I18nProviderClient>
+        </ReactQueryProvider>
         <ToastContainer />
       </body>
     </html>

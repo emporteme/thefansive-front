@@ -7,6 +7,7 @@ import { toast } from "react-toastify"
 import { getErrorMessage, useSendEmailOtp, useSignUp, useValidateOtp } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import { Email, Password } from "@/shared/icons"
+import { cn } from "@/shared/lib"
 import { type SignupFormData, signupSchema } from "../schemas/signup-schema"
 import type { AuthModalMode } from "../types"
 import { OtpInput, QuestionLink, WelcomeText } from "../ui"
@@ -57,7 +58,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       }
       await signUpMutation.mutateAsync(signupData)
       toast.success("Successfully signed up!")
-      // Optionally close modal or redirect
+      onModeChange("login")
     } catch (error: unknown) {
       console.error("Signup error:", error)
       const errorMessage = getErrorMessage(error)
@@ -81,15 +82,12 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setShowOtpInput(true)
     } catch (error: unknown) {
       console.error("Send OTP error:", error)
-      const errorMessage = getErrorMessage(error)
-      toast.error(errorMessage)
     }
   }
 
   const handleOtpComplete = async (otp: string) => {
     if (!email) return
 
-    // Reset error state when user starts typing new OTP
     setHasOtpError(false)
 
     try {
@@ -98,7 +96,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setIsOtpValidated(true)
       setValidatedOtp(otp)
       setHasOtpError(false)
-      setShowOtpInput(false) // Hide OTP input after successful validation
+      setShowOtpInput(false)
     } catch (error: unknown) {
       console.error("Validate OTP error:", error)
       const errorMessage = getErrorMessage(error)
@@ -107,10 +105,6 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setIsOtpValidated(false)
       setValidatedOtp("")
     }
-  }
-
-  const handleTimerEnd = () => {
-    setShowOtpInput(false)
   }
 
   const handleResend = async () => {
@@ -162,7 +156,9 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
             type="button"
             onClick={handleSendCode}
             disabled={sendOtpMutation.isPending || isOtpValidated || showOtpInput}
-            className="self-end"
+            className={cn("self-end", {
+              "mb-6.5": errors.email?.message,
+            })}
           >
             {sendOtpMutation.isPending ? "Sending..." : isOtpValidated ? "Verified" : "Send Code"}
           </Button>
@@ -172,7 +168,6 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
           <OtpInput
             onComplete={handleOtpComplete}
             onResend={handleResend}
-            onTimerEnd={handleTimerEnd}
             isValidating={validateOtpMutation.isPending}
             hasError={hasOtpError}
           />

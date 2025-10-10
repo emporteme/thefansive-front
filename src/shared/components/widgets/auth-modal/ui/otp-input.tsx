@@ -7,7 +7,6 @@ interface OtpInputProps {
   length?: number
   onComplete: (otp: string) => void
   onResend?: () => void
-  onTimerEnd?: () => void
   isValidating?: boolean
   hasError?: boolean
 }
@@ -16,7 +15,6 @@ export const OtpInput: React.FC<OtpInputProps> = ({
   length = 6,
   onComplete,
   onResend,
-  onTimerEnd,
   isValidating = false,
   hasError = false,
 }) => {
@@ -91,8 +89,8 @@ export const OtpInput: React.FC<OtpInputProps> = ({
 
   const handleResend = () => {
     if (onResend) {
-      setTimer(60) // Reset timer
-      setOtp(Array(length).fill("")) // Clear OTP
+      setTimer(60)
+      setOtp(Array(length).fill(""))
       onResend()
     }
   }

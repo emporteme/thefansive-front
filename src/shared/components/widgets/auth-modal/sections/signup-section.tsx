@@ -90,6 +90,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       await sendOtpMutation.mutateAsync({ email })
       toast.success("Code sent to your email!")
       setShowOtpInput(true)
+      setHasOtpError(false)
       setTimer(60)
     } catch (error: unknown) {
       toast.error(getErrorMessage(error))
@@ -145,39 +146,46 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
           </div>
         </div>
 
-        <div className="flex items-end gap-3">
-          <div className="flex-1">
-            <Input
-              label="Email"
-              LeftIcon={Email}
-              placeholder="Email"
-              type="email"
-              register={register("email")}
-              error={errors.email?.message}
-              onEnter={handleSendCode}
-            />
+        <div
+          className={cn("flex flex-col gap-6", {
+            "mb-3": showOtpInput && !isShowTimer && !hasOtpError,
+          })}
+        >
+          <div className="flex items-end gap-3">
+            <div className="flex-1">
+              <Input
+                label="Email"
+                LeftIcon={Email}
+                placeholder="Email"
+                type="email"
+                register={register("email")}
+                error={errors.email?.message}
+                onEnter={handleSendCode}
+              />
+            </div>
+            <Button
+              size="lg"
+              type="button"
+              onClick={handleSendCode}
+              disabled={sendOtpMutation.isPending || isOtpValidated || (showOtpInput && isShowTimer)}
+              className={cn("self-end", {
+                "mb-6.5": errors.email?.message,
+              })}
+            >
+              {sendOtpMutation.isPending ? "Sending..." : isOtpValidated ? "Verified" : "Send Code"}
+            </Button>
           </div>
-          <Button
-            size="lg"
-            type="button"
-            onClick={handleSendCode}
-            disabled={sendOtpMutation.isPending || isOtpValidated || (showOtpInput && isShowTimer)}
-            className={cn("self-end", {
-              "mb-6.5": errors.email?.message,
-            })}
-          >
-            {sendOtpMutation.isPending ? "Sending..." : isOtpValidated ? "Verified" : "Send Code"}
-          </Button>
-        </div>
 
-        {showOtpInput && (
-          <OtpInput
-            onComplete={handleOtpComplete}
-            isValidating={validateOtpMutation.isPending}
-            hasError={hasOtpError}
-            timer={timer}
-          />
-        )}
+          {showOtpInput && (
+            <OtpInput
+              onComplete={handleOtpComplete}
+              isValidating={validateOtpMutation.isPending}
+              hasError={hasOtpError}
+              setHasError={setHasOtpError}
+              timer={timer}
+            />
+          )}
+        </div>
 
         <Input
           label="Password"

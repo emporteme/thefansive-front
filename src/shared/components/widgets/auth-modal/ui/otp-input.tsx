@@ -2,12 +2,14 @@
 
 import React, { useRef, useState } from "react"
 import { Button } from "@/shared/components/ui"
+import { cn } from "@/shared/lib/utils"
 
 interface OtpInputProps {
   length?: number
   onComplete: (otp: string) => void
   isValidating?: boolean
   hasError?: boolean
+  setHasError?: React.Dispatch<React.SetStateAction<boolean>>
   timer?: number
 }
 
@@ -16,6 +18,7 @@ export const OtpInput: React.FC<OtpInputProps> = ({
   onComplete,
   isValidating = false,
   hasError = false,
+  setHasError,
   timer = 0,
 }) => {
   const [otp, setOtp] = useState<string[]>(Array(length).fill(""))
@@ -23,6 +26,10 @@ export const OtpInput: React.FC<OtpInputProps> = ({
 
   const handleChange = (index: number, value: string) => {
     if (isValidating) return
+
+    if (hasError) {
+      setHasError?.(false)
+    }
 
     const newValue = value.replace(/[^0-9]/g, "")
     if (newValue.length > 1) return
@@ -92,15 +99,25 @@ export const OtpInput: React.FC<OtpInputProps> = ({
             onKeyDown={(e) => handleKeyDown(index, e)}
             onPaste={handlePaste}
             disabled={isValidating}
-            className={`h-12 w-12 rounded-xl border bg-white text-center text-lg font-semibold transition-all duration-200 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 ${
-              hasError
-                ? "border-[#EC003F] text-slate-950 shadow-[0_0_0_4px_#FFE0E0,0_2px_4px_0_rgba(17,12,34,0.12)]"
-                : "border-slate-950 text-slate-950 focus:border-slate-950 focus:ring-2 focus:ring-slate-950 focus:ring-offset-2"
-            }`}
+            placeholder="-"
+            className={cn(
+              "rounded-2lg h-12 w-12 border bg-white text-center text-lg font-semibold transition-all duration-200 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+              {
+                "border-red-600 text-slate-900 shadow-[0_0_0_4px_#FFE0E0,0_2px_4px_0_rgba(17,12,34,0.12)]": hasError,
+                "border-slate-900 text-slate-900 focus:border-slate-900 focus:ring-2 focus:ring-slate-900 focus:ring-offset-2":
+                  !hasError && digit,
+                "border-slate-300 text-slate-400": !hasError && !digit,
+              }
+            )}
           />
         ))}
       </div>
-      {isShowTimer && (
+      {hasError && (
+        <Button type="button" variant="link" className="self-end text-xs" disabled>
+          Invalid code. Please try again.
+        </Button>
+      )}
+      {isShowTimer && !hasError && (
         <Button type="button" variant="link" className="self-end text-xs" disabled>
           Resend code in {timer}s
         </Button>

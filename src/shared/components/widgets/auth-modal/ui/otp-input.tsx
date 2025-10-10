@@ -54,6 +54,24 @@ export const OtpInput: React.FC<OtpInputProps> = ({
       setHasError?.(false)
     }
 
+    if (/^[0-9]$/.test(e.key)) {
+      if (otp[index]) {
+        e.preventDefault()
+        const nextEmptyIndex = otp.findIndex((digit, idx) => idx > index && digit === "")
+        if (nextEmptyIndex !== -1) {
+          const newOtp = [...otp]
+          newOtp[nextEmptyIndex] = e.key
+          setOtp(newOtp)
+          inputRefs.current[nextEmptyIndex]?.focus()
+
+          if (newOtp.every((digit) => digit !== "")) {
+            onComplete(newOtp.join(""))
+          }
+        }
+        return
+      }
+    }
+
     if (e.key === "Backspace") {
       e.preventDefault()
 

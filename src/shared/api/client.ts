@@ -21,8 +21,8 @@ export function setAuthToken(token: string | null) {
 
 apiClient.use({
   onResponse({ response }) {
-    if (!response.ok) {
-      console.error("API Error:", response.status, response.statusText)
+    if (!response.ok && process.env.NODE_ENV === "development") {
+      console.warn(`API Error: ${response.status} ${response.statusText}`)
     }
     return response
   },

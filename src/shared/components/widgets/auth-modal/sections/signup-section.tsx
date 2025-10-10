@@ -176,7 +176,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
         />
 
         <div className="mt-12 space-y-4">
-          <Button size="xl" className="w-full" type="submit">
+          <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
             {isSubmitting || signUpMutation.isPending ? "Signing up..." : "Sign Up"}
           </Button>
           <QuestionLink onClick={handleLoginClick} question="Have an account?" action="Login" />

@@ -12,11 +12,11 @@ import type { AuthModalMode } from "../types"
 import { QuestionLink, WelcomeText } from "../ui"
 import { Input } from "../ui/input"
 
-interface RestoreSectionProps {
+interface ResetPasswordSectionProps {
   onModeChange: (mode: AuthModalMode) => void
 }
 
-const RestoreSection: React.FC<RestoreSectionProps> = ({ onModeChange }) => {
+const ResetPasswordSection: React.FC<ResetPasswordSectionProps> = ({ onModeChange }) => {
   const {
     register,
     handleSubmit,
@@ -85,4 +85,4 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({ onModeChange }) => {
   )
 }
 
-export default RestoreSection
+export default ResetPasswordSection

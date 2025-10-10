@@ -54,7 +54,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange, closeModal })
   }
 
   const handleForgotPasswordClick = () => {
-    onModeChange("forgot")
+    onModeChange("forgot-password")
   }
 
   const isDisabled = isSubmitting || loginMutation.isPending || !email || !password

@@ -9,14 +9,14 @@ import { Button } from "@/shared/components/ui"
 import { Email } from "@/shared/icons"
 import { type ForgotFormData, forgotSchema } from "../schemas/forgot-schema"
 import type { AuthModalMode } from "../types"
-import { QuestionLink, WelcomeText } from "../ui"
+import { WelcomeText } from "../ui"
 import { Input } from "../ui/input"
 
-interface ForgotSectionProps {
+interface ForgotPasswordSectionProps {
   onModeChange: (mode: AuthModalMode) => void
 }
 
-const ForgotSection: React.FC<ForgotSectionProps> = ({ onModeChange }) => {
+const ForgotPasswordSection: React.FC<ForgotPasswordSectionProps> = ({ onModeChange }) => {
   const {
     register,
     handleSubmit,
@@ -35,7 +35,7 @@ const ForgotSection: React.FC<ForgotSectionProps> = ({ onModeChange }) => {
     try {
       await forgotPasswordMutation.mutateAsync(data)
       toast.success("Reset code sent to your email!")
-      onModeChange("restore")
+      onModeChange("forgot-password-code")
     } catch (error: unknown) {
       console.error("Forgot password error:", error)
       const errorMessage = getErrorMessage(error)
@@ -78,4 +78,4 @@ const ForgotSection: React.FC<ForgotSectionProps> = ({ onModeChange }) => {
   )
 }
 
-export default ForgotSection
+export default ForgotPasswordSection

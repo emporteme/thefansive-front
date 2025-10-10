@@ -57,8 +57,20 @@ export function useSignUp() {
 
 export function useForgotPassword() {
   return useMutation({
-    mutationFn: async (_data: { email: string }) => {
-      throw new Error("Forgot password endpoint not implemented")
+    mutationFn: async (data: SendEmailOtpInput) => {
+      const response = await apiClient.POST("/auth/send-email-otp", {
+        body: data,
+      })
+
+      if (response.error) {
+        throw response.error
+      }
+
+      if (!response.data) {
+        throw new Error("No data received from server")
+      }
+
+      return response.data
     },
   })
 }

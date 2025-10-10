@@ -2,9 +2,9 @@
 
 import React, { useState } from "react"
 import Logo from "@/shared/components/elements/logo"
-import ForgotSection from "./sections/forgot-section"
+import ForgotPasswordSection from "./sections/forgot-password-section"
 import LoginSection from "./sections/login-section"
-import RestoreSection from "./sections/restore-section"
+import ResetPasswordSection from "./sections/reset-password-section"
 import SignUpSection from "./sections/signup-section"
 import SignUpSuccessSection from "./sections/signup-success-section"
 import type { AuthModalMode } from "./types"
@@ -33,10 +33,10 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
         return <SignUpSection onModeChange={setMode} />
       case "signup-success":
         return <SignUpSuccessSection onModeChange={setMode} />
-      case "forgot":
-        return <ForgotSection onModeChange={setMode} />
-      case "restore":
-        return <RestoreSection onModeChange={setMode} />
+      case "forgot-password":
+        return <ForgotPasswordSection onModeChange={setMode} />
+      case "reset-password":
+        return <ResetPasswordSection onModeChange={setMode} />
       default:
         return <LoginSection onModeChange={setMode} closeModal={handleClose} />
     }

@@ -1,12 +1,18 @@
 import Image from "next/image"
 import { Button } from "@/shared/components/ui"
+import { AuthModalMode } from "../types"
 import { WelcomeText } from "../ui"
 
 interface SignUpSuccessSectionProps {
   onClose?: () => void
+  onModeChange?: (mode: AuthModalMode) => void
 }
 
-const SignUpSuccessSection = ({ onClose }: SignUpSuccessSectionProps) => {
+const SignUpSuccessSection = ({ onModeChange }: SignUpSuccessSectionProps) => {
+  const handleLogin = () => {
+    onModeChange?.("login")
+  }
+
   return (
     <>
       <WelcomeText />
@@ -28,7 +34,7 @@ const SignUpSuccessSection = ({ onClose }: SignUpSuccessSectionProps) => {
           </p>
         </div>
 
-        <Button size="xl" className="w-[220px]" onClick={onClose}>
+        <Button size="xl" className="w-[220px]" onClick={handleLogin}>
           Login
         </Button>
       </div>

@@ -32,7 +32,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
       case "signup":
         return <SignUpSection onModeChange={setMode} />
       case "signup-success":
-        return <SignUpSuccessSection onClose={handleClose} />
+        return <SignUpSuccessSection onModeChange={setMode} />
       case "forgot":
         return <ForgotSection onModeChange={setMode} />
       case "restore":

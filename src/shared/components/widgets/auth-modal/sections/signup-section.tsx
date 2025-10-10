@@ -68,8 +68,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
         otp: validatedOtp,
       }
       await signUpMutation.mutateAsync(signupData)
-      toast.success("Successfully signed up!")
-      onModeChange("login")
+      onModeChange("signup-success")
     } catch (error: unknown) {
       const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
@@ -124,7 +123,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
   return (
     <>
       <WelcomeText />
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-[67px] flex flex-col gap-4 px-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-[32px] flex flex-col gap-4 px-4">
         <div className="flex gap-3">
           <div className="flex-1">
             <Input

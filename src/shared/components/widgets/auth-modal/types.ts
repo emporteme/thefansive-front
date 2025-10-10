@@ -1,1 +1,1 @@
-export type AuthModalMode = "login" | "signup" | "forgot" | "restore"
+export type AuthModalMode = "login" | "signup" | "signup-success" | "forgot" | "restore"

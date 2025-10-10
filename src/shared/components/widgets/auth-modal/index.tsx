@@ -6,6 +6,7 @@ import ForgotSection from "./sections/forgot-section"
 import LoginSection from "./sections/login-section"
 import RestoreSection from "./sections/restore-section"
 import SignUpSection from "./sections/signup-section"
+import SignUpSuccessSection from "./sections/signup-success-section"
 import type { AuthModalMode } from "./types"
 import { CloseButton } from "./ui/close-button"
 import { ModalLayout } from "../../ui/modal-layout"
@@ -30,6 +31,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
         return <LoginSection onModeChange={setMode} closeModal={handleClose} />
       case "signup":
         return <SignUpSection onModeChange={setMode} />
+      case "signup-success":
+        return <SignUpSuccessSection onClose={handleClose} />
       case "forgot":
         return <ForgotSection onModeChange={setMode} />
       case "restore":

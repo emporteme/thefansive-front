@@ -6,7 +6,9 @@ import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { getErrorMessage, useLogin } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
+import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { Email, Password } from "@/shared/icons"
+import { getRoutes } from "@/shared/utils/get-routes"
 import { type LoginFormData, loginSchema } from "../schemas/login-schema"
 import type { AuthModalMode } from "../types"
 import { GoogleSignInButton, OrDivider, QuestionLink, RememberForgotSection, WelcomeText } from "../ui"
@@ -18,6 +20,8 @@ interface LoginSectionProps {
 }
 
 const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange, closeModal }) => {
+  const navigate = useNavigate()
+  const routes = getRoutes()
   const {
     register,
     handleSubmit,
@@ -36,6 +40,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange, closeModal })
   const onSubmit = async (data: LoginFormData) => {
     try {
       await loginMutation.mutateAsync(data)
+      navigate(routes.user.profile())
       toast.success("Successfully logged in!")
       closeModal?.()
     } catch (error: unknown) {

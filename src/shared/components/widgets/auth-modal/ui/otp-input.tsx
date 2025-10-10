@@ -50,8 +50,19 @@ export const OtpInput: React.FC<OtpInputProps> = ({
   const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isValidating) return
 
-    if (e.key === "Backspace" && !otp[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus()
+    if (e.key === "Backspace") {
+      e.preventDefault()
+
+      if (otp[index]) {
+        const newOtp = [...otp]
+        newOtp[index] = ""
+        setOtp(newOtp)
+      } else if (index > 0) {
+        const newOtp = [...otp]
+        newOtp[index - 1] = ""
+        setOtp(newOtp)
+        inputRefs.current[index - 1]?.focus()
+      }
     }
   }
 
@@ -82,6 +93,12 @@ export const OtpInput: React.FC<OtpInputProps> = ({
 
   const isShowTimer = timer > 0
 
+  const handleClick = () => {
+    if (hasError) {
+      setHasError?.(false)
+    }
+  }
+
   return (
     <div className="mx-auto flex flex-col gap-3">
       <div className="flex items-center justify-center gap-4">
@@ -97,11 +114,12 @@ export const OtpInput: React.FC<OtpInputProps> = ({
             value={digit}
             onChange={(e) => handleChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
+            onClick={handleClick}
             onPaste={handlePaste}
             disabled={isValidating}
             placeholder="-"
             className={cn(
-              "rounded-2lg h-12 w-12 border bg-white text-center text-lg font-semibold transition-all duration-200 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+              "rounded-2lg h-12 w-12 border bg-white text-center text-lg font-semibold caret-transparent transition-all duration-200 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
               {
                 "border-red-600 text-slate-900 shadow-[0_0_0_4px_#FFE0E0,0_2px_4px_0_rgba(17,12,34,0.12)]": hasError,
                 "border-slate-900 text-slate-900 focus:border-slate-900 focus:ring-2 focus:ring-slate-900 focus:ring-offset-2":

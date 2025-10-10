@@ -50,6 +50,10 @@ export const OtpInput: React.FC<OtpInputProps> = ({
   const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isValidating) return
 
+    if (hasError) {
+      setHasError?.(false)
+    }
+
     if (e.key === "Backspace") {
       e.preventDefault()
 
@@ -57,6 +61,7 @@ export const OtpInput: React.FC<OtpInputProps> = ({
         const newOtp = [...otp]
         newOtp[index] = ""
         setOtp(newOtp)
+        inputRefs.current[index - 1]?.focus()
       } else if (index > 0) {
         const newOtp = [...otp]
         newOtp[index - 1] = ""
@@ -93,7 +98,9 @@ export const OtpInput: React.FC<OtpInputProps> = ({
 
   const isShowTimer = timer > 0
 
-  const handleClick = () => {
+  const handleClick = (index: number) => {
+    inputRefs.current[index]?.focus()
+
     if (hasError) {
       setHasError?.(false)
     }
@@ -114,17 +121,18 @@ export const OtpInput: React.FC<OtpInputProps> = ({
             value={digit}
             onChange={(e) => handleChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
-            onClick={handleClick}
+            onClick={() => handleClick(index)}
             onPaste={handlePaste}
             disabled={isValidating}
             placeholder="-"
             className={cn(
-              "rounded-2lg h-12 w-12 border bg-white text-center text-lg font-semibold caret-transparent transition-all duration-200 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+              "rounded-2lg duration-200focus:outline-none h-12 w-12 border bg-white text-center text-lg font-semibold caret-transparent transition-all disabled:cursor-not-allowed disabled:opacity-50",
               {
                 "border-red-600 text-slate-900 shadow-[0_0_0_4px_#FFE0E0,0_2px_4px_0_rgba(17,12,34,0.12)]": hasError,
                 "border-slate-900 text-slate-900 focus:border-slate-900 focus:ring-2 focus:ring-slate-900 focus:ring-offset-2":
                   !hasError && digit,
-                "border-slate-300 text-slate-400": !hasError && !digit,
+                "border-slate-300 text-slate-400 focus:border-slate-900 focus:ring-2 focus:ring-slate-900 focus:ring-offset-2":
+                  !hasError && !digit,
               }
             )}
           />

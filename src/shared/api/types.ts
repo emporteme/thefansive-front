@@ -66,10 +66,20 @@ export interface ValidateOtpResponse {
   success: boolean
 }
 
+export interface ValidationDetail {
+  field: string
+  value: unknown
+  constraints: Record<string, string>
+}
+
 export interface ApiError {
-  message: string
-  statusCode: number
+  message?: string
+  statusCode?: number
   error?: string
+  cause?: {
+    name: string
+    details?: ValidationDetail[]
+  }
 }
 
 // OpenAPI Paths type structure

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { useLogin } from "@/shared/api"
+import { getErrorMessage, useLogin } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import { Email, Password } from "@/shared/icons"
 import { type LoginFormData, loginSchema } from "../schemas/login-schema"
@@ -40,10 +40,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
       // window.location.reload() or router.push('/')
     } catch (error: unknown) {
       console.error("Login error:", error)
-      const errorMessage =
-        error && typeof error === "object" && "message" in error
-          ? String(error.message)
-          : "Failed to login. Please check your credentials."
+      const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
     }
   }

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { useSendEmailOtp, useSignUp, useValidateOtp } from "@/shared/api"
+import { getErrorMessage, useSendEmailOtp, useSignUp, useValidateOtp } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import { Email, Password } from "@/shared/icons"
 import { type SignupFormData, signupSchema } from "../schemas/signup-schema"
@@ -59,10 +59,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       // Optionally close modal or redirect
     } catch (error: unknown) {
       console.error("Signup error:", error)
-      const errorMessage =
-        error && typeof error === "object" && "message" in error
-          ? String(error.message)
-          : "Failed to sign up. Please try again."
+      const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
     }
   }
@@ -83,10 +80,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setShowOtpInput(true)
     } catch (error: unknown) {
       console.error("Send OTP error:", error)
-      const errorMessage =
-        error && typeof error === "object" && "message" in error
-          ? String(error.message)
-          : "Failed to send code. Please try again."
+      const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
     }
   }
@@ -101,10 +95,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setValidatedOtp(otp)
     } catch (error: unknown) {
       console.error("Validate OTP error:", error)
-      const errorMessage =
-        error && typeof error === "object" && "message" in error
-          ? String(error.message)
-          : "Invalid code. Please try again."
+      const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
     }
   }

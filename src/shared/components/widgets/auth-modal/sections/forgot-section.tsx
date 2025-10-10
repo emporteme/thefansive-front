@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { useForgotPassword } from "@/shared/api"
+import { getErrorMessage, useForgotPassword } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import { Email } from "@/shared/icons"
 import { type ForgotFormData, forgotSchema } from "../schemas/forgot-schema"
@@ -38,10 +38,7 @@ const ForgotSection: React.FC<ForgotSectionProps> = ({ onModeChange }) => {
       onModeChange("restore")
     } catch (error: unknown) {
       console.error("Forgot password error:", error)
-      const errorMessage =
-        error && typeof error === "object" && "message" in error
-          ? String(error.message)
-          : "Failed to send reset code. Please try again."
+      const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
     }
   }

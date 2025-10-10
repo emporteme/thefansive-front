@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import Logo from "@/shared/components/elements/logo"
+import ForgotPasswordCodeSection from "./sections/forgot-password-code-section"
 import ForgotPasswordSection from "./sections/forgot-password-section"
 import LoginSection from "./sections/login-section"
 import ResetPasswordSection from "./sections/reset-password-section"
@@ -20,6 +21,7 @@ interface AuthModalProps {
 
 const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "login" }) => {
   const [mode, setMode] = useState<AuthModalMode>(initialMode)
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState<string>("")
 
   const handleClose = () => {
     onClose?.()
@@ -35,7 +37,15 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
       case "signup-success":
         return <SignUpSuccessSection onModeChange={setMode} />
       case "forgot-password":
-        return <ForgotPasswordSection onModeChange={setMode} />
+        return <ForgotPasswordSection onModeChange={setMode} setEmail={setForgotPasswordEmail} />
+      case "forgot-password-code":
+        return (
+          <ForgotPasswordCodeSection
+            onModeChange={setMode}
+            email={forgotPasswordEmail}
+            setEmail={setForgotPasswordEmail}
+          />
+        )
       case "reset-password":
         return <ResetPasswordSection onModeChange={setMode} />
       case "reset-password-success":

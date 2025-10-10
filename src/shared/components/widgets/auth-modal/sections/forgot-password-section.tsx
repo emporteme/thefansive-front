@@ -14,9 +14,10 @@ import { Input } from "../ui/input"
 
 interface ForgotPasswordSectionProps {
   onModeChange: (mode: AuthModalMode) => void
+  setEmail: (email: string) => void
 }
 
-const ForgotPasswordSection: React.FC<ForgotPasswordSectionProps> = ({ onModeChange }) => {
+const ForgotPasswordSection: React.FC<ForgotPasswordSectionProps> = ({ onModeChange, setEmail }) => {
   const {
     register,
     handleSubmit,
@@ -35,6 +36,7 @@ const ForgotPasswordSection: React.FC<ForgotPasswordSectionProps> = ({ onModeCha
     try {
       await sendEmailOtpMutation.mutateAsync(data)
       toast.success("Reset code sent to your email!")
+      setEmail(data.email)
       onModeChange("forgot-password-code")
     } catch (error: unknown) {
       console.error("Forgot password error:", error)

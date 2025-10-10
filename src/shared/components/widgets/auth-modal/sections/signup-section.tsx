@@ -46,6 +46,8 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
   const email = watch("email")
   const password = watch("password")
 
+  const isShowTimer = timer > 0
+
   useEffect(() => {
     if (timer <= 0) return
 
@@ -102,6 +104,10 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       return
     }
 
+    if (isShowTimer) {
+      return
+    }
+
     try {
       await sendOtpMutation.mutateAsync({ email })
       toast.success("Code sent to your email!")
@@ -133,8 +139,6 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setValidatedOtp("")
     }
   }
-
-  const isShowTimer = timer > 0
 
   const isDisabled =
     isSubmitting || signUpMutation.isPending || !firstName || !lastName || !email || !password || !isOtpValidated

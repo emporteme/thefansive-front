@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import { Button } from "@/shared/components/ui"
 
 interface OtpInputProps {
@@ -8,6 +8,7 @@ interface OtpInputProps {
   onComplete: (otp: string) => void
   isValidating?: boolean
   hasError?: boolean
+  timer?: number
 }
 
 export const OtpInput: React.FC<OtpInputProps> = ({
@@ -15,22 +16,10 @@ export const OtpInput: React.FC<OtpInputProps> = ({
   onComplete,
   isValidating = false,
   hasError = false,
+  timer = 0,
 }) => {
   const [otp, setOtp] = useState<string[]>(Array(length).fill(""))
-  const [timer, setTimer] = useState(60)
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
-
-  useEffect(() => {
-    if (timer <= 0) {
-      return
-    }
-
-    const interval = setInterval(() => {
-      setTimer((prev) => prev - 1)
-    }, 1000)
-
-    return () => clearInterval(interval)
-  }, [timer])
 
   const handleChange = (index: number, value: string) => {
     if (isValidating) return
@@ -111,12 +100,7 @@ export const OtpInput: React.FC<OtpInputProps> = ({
           />
         ))}
       </div>
-      {hasError && (
-        <Button type="button" variant="link" className="self-end text-xs" disabled>
-          Invalid code. Please try again.
-        </Button>
-      )}
-      {isShowTimer && !hasError && (
+      {isShowTimer && (
         <Button type="button" variant="link" className="self-end text-xs" disabled>
           Resend code in {timer}s
         </Button>

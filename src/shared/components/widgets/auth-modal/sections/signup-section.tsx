@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { getErrorMessage, useSendEmailOtp, useSignUp, useValidateOtp } from "@/shared/api"
@@ -32,10 +32,21 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
   const [isOtpValidated, setIsOtpValidated] = useState(false)
   const [validatedOtp, setValidatedOtp] = useState("")
   const [hasOtpError, setHasOtpError] = useState(false)
+  const [timer, setTimer] = useState(0)
 
   const signUpMutation = useSignUp()
   const sendOtpMutation = useSendEmailOtp()
   const validateOtpMutation = useValidateOtp()
+
+  useEffect(() => {
+    if (timer <= 0) return
+
+    const interval = setInterval(() => {
+      setTimer((prev) => prev - 1)
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [timer])
 
   const firstName = watch("firstName")
   const lastName = watch("lastName")
@@ -79,6 +90,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       await sendOtpMutation.mutateAsync({ email })
       toast.success("Code sent to your email!")
       setShowOtpInput(true)
+      setTimer(60)
     } catch (error: unknown) {
       toast.error(getErrorMessage(error))
     }
@@ -103,9 +115,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
     }
   }
 
-  const handleResend = async () => {
-    await handleSendCode()
-  }
+  const isShowTimer = timer > 0
 
   const isDisabled =
     isSubmitting || signUpMutation.isPending || !firstName || !lastName || !email || !password || !isOtpValidated
@@ -151,7 +161,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
             size="lg"
             type="button"
             onClick={handleSendCode}
-            disabled={sendOtpMutation.isPending || isOtpValidated || showOtpInput}
+            disabled={sendOtpMutation.isPending || isOtpValidated || (showOtpInput && isShowTimer)}
             className={cn("self-end", {
               "mb-6.5": errors.email?.message,
             })}
@@ -165,6 +175,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
             onComplete={handleOtpComplete}
             isValidating={validateOtpMutation.isPending}
             hasError={hasOtpError}
+            timer={timer}
           />
         )}
 

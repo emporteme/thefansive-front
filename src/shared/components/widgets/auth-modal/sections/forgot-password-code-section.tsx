@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { getErrorMessage, useSendEmailOtp, useValidateOtp } from "@/shared/api"
+import { useSendEmailOtp, useValidateOtp } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import type { AuthModalMode } from "../types"
 import { OtpInput, WelcomeText } from "../ui"
@@ -36,7 +36,6 @@ const ForgotPasswordCodeSection: React.FC<ForgotPasswordCodeSectionProps> = ({ o
 
     try {
       await validateOtpMutation.mutateAsync({ email, otp: otp.join("") })
-      toast.success("Reset code confirmed!")
       setEmail("")
       onModeChange("reset-password")
     } catch {

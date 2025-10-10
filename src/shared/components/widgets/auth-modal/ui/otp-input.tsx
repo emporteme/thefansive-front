@@ -1,11 +1,13 @@
 "use client"
 
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Button } from "@/shared/components/ui"
 
 interface OtpInputProps {
   length?: number
   onComplete: (otp: string) => void
+  onResend?: () => void
+  onTimerEnd?: () => void
   isValidating?: boolean
   hasError?: boolean
 }
@@ -13,11 +15,27 @@ interface OtpInputProps {
 export const OtpInput: React.FC<OtpInputProps> = ({
   length = 6,
   onComplete,
+  onResend,
+  onTimerEnd,
   isValidating = false,
   hasError = false,
 }) => {
   const [otp, setOtp] = useState<string[]>(Array(length).fill(""))
+  const [timer, setTimer] = useState(60)
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
+
+  // Timer countdown
+  useEffect(() => {
+    if (timer <= 0) {
+      return
+    }
+
+    const interval = setInterval(() => {
+      setTimer((prev) => prev - 1)
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [timer])
 
   const handleChange = (index: number, value: string) => {
     if (isValidating) return
@@ -71,6 +89,14 @@ export const OtpInput: React.FC<OtpInputProps> = ({
     }
   }
 
+  const handleResend = () => {
+    if (onResend) {
+      setTimer(60) // Reset timer
+      setOtp(Array(length).fill("")) // Clear OTP
+      onResend()
+    }
+  }
+
   return (
     <div className="mx-auto flex flex-col gap-3">
       <div className="flex items-center justify-center gap-4">
@@ -96,9 +122,15 @@ export const OtpInput: React.FC<OtpInputProps> = ({
           />
         ))}
       </div>
-      <Button type="button" variant="link" className="self-end text-xs">
-        Resend code in 58s
-      </Button>
+      {timer > 0 ? (
+        <Button type="button" variant="link" className="self-end text-xs" disabled>
+          Resend code in {timer}s
+        </Button>
+      ) : (
+        <Button type="button" variant="link" className="self-end text-xs" onClick={handleResend}>
+          Resend code
+        </Button>
+      )}
     </div>
   )
 }

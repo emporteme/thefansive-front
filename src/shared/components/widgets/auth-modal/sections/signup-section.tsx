@@ -98,6 +98,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setIsOtpValidated(true)
       setValidatedOtp(otp)
       setHasOtpError(false)
+      setShowOtpInput(false) // Hide OTP input after successful validation
     } catch (error: unknown) {
       console.error("Validate OTP error:", error)
       const errorMessage = getErrorMessage(error)
@@ -106,6 +107,14 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setIsOtpValidated(false)
       setValidatedOtp("")
     }
+  }
+
+  const handleTimerEnd = () => {
+    setShowOtpInput(false)
+  }
+
+  const handleResend = async () => {
+    await handleSendCode()
   }
 
   const isDisabled =
@@ -152,7 +161,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
             size="lg"
             type="button"
             onClick={handleSendCode}
-            disabled={sendOtpMutation.isPending || isOtpValidated}
+            disabled={sendOtpMutation.isPending || isOtpValidated || showOtpInput}
             className="self-end"
           >
             {sendOtpMutation.isPending ? "Sending..." : isOtpValidated ? "Verified" : "Send Code"}
@@ -162,6 +171,8 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
         {showOtpInput && (
           <OtpInput
             onComplete={handleOtpComplete}
+            onResend={handleResend}
+            onTimerEnd={handleTimerEnd}
             isValidating={validateOtpMutation.isPending}
             hasError={hasOtpError}
           />

@@ -35,10 +35,8 @@ const ResetPasswordSection: React.FC<ResetPasswordSectionProps> = ({ onModeChang
   const onSubmit = async (data: RestoreFormData) => {
     try {
       await restorePasswordMutation.mutateAsync(data)
-      toast.success("Password reset successfully!")
-      onModeChange("login")
+      onModeChange("reset-password-success")
     } catch (error: unknown) {
-      console.error("Restore password error:", error)
       const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)
     }

@@ -21,7 +21,7 @@
     "postinstall": "npx patch-package -y",
     "prepare": "husky",
     "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg",
-    "api:generate": "npx openapi-fetch http://159.223.16.205/api-json -o ./src/shared/api/types.ts"
+    "api:generate": "npx openapi-typescript http://159.223.16.205/api-json -o ./src/shared/api/schema.ts"
   },
   "dependencies": {
     "@bprogress/next": "^3.2.12",

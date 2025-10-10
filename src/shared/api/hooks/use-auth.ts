@@ -2,21 +2,6 @@
 
 import { useMutation, type UseMutationResult } from "@tanstack/react-query"
 import { apiClient, setAuthToken } from "../client"
-import type {
-  ApiError,
-  ForgotPasswordRequest,
-  ForgotPasswordResponse,
-  LoginRequest,
-  LoginResponse,
-  RestorePasswordRequest,
-  RestorePasswordResponse,
-  SendEmailOtpRequest,
-  SendEmailOtpResponse,
-  SignUpRequest,
-  SignUpResponse,
-  ValidateOtpRequest,
-  ValidateOtpResponse,
-} from "../types"
 
 export function useLogin(): UseMutationResult<LoginResponse, ApiError, LoginRequest> {
   return useMutation({

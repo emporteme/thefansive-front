@@ -197,3 +197,56 @@
     line-height: 0.75rem; /* 12px */
   }
 }
+
+/* ============================================
+   CUSTOM SCROLLBAR - НАСТРОЙКИ
+   ============================================ */
+
+:root {
+  /* Размеры скроллбара */
+  --scrollbar-width: 6px; /* Общая ширина области скроллбара */
+  --scrollbar-thumb-width: 2px; /* Ширина самого ползунка (по умолчанию) */
+  --scrollbar-thumb-width-hover: 2px; /* Ширина ползунка при наведении */
+  --scrollbar-thumb-color: rgb(15, 23, 43); /* Цвет ползунка (темно-синий) */
+  --scrollbar-track-color: transparent; /* Цвет дорожки (прозрачный) */
+  --scrollbar-thumb-radius: 100px; /* Скругление ползунка */
+  --scrollbar-thumb-min-height: 48px; /* Минимальная высота ползунка */
+}
+
+@layer base {
+  ::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+    height: var(--scrollbar-width);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-color);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+    background-clip: padding-box;
+    border-radius: var(--scrollbar-thumb-radius);
+    border: calc((var(--scrollbar-width) - var(--scrollbar-thumb-width)) / 2) solid transparent;
+    min-height: var(--scrollbar-thumb-min-height);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-color);
+    background-clip: padding-box;
+    border: calc((var(--scrollbar-width) - var(--scrollbar-thumb-width-hover)) / 2) solid transparent;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+  }
+
+  html {
+    scrollbar-gutter: stable;
+  }
+}

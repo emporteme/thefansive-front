@@ -45,7 +45,6 @@ const ForgotPasswordCodeSection: React.FC<ForgotPasswordCodeSectionProps> = ({ o
   const handleResend = () => {
     sendOtpMutation.mutateAsync({ email })
     setHasOtpError(false)
-    setOtp(Array(6).fill(""))
     setTimer(60)
   }
 

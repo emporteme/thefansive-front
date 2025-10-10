@@ -132,6 +132,11 @@ export const OtpInput: React.FC<OtpInputProps> = ({
     }
   }
 
+  const handleResend = () => {
+    onResend?.()
+    setOtp(Array(length).fill(""))
+  }
+
   return (
     <div className="mx-auto flex flex-col gap-3">
       <div className="flex items-center justify-center gap-4">
@@ -176,7 +181,7 @@ export const OtpInput: React.FC<OtpInputProps> = ({
         </Button>
       )}
       {!isShowTimer && onResend && (
-        <Button type="button" variant="link" className="self-end text-xs" onClick={onResend}>
+        <Button type="button" variant="link" className="self-end text-xs" onClick={handleResend}>
           Resend code
         </Button>
       )}

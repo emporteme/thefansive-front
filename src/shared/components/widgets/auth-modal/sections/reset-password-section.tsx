@@ -9,7 +9,7 @@ import { Button } from "@/shared/components/ui"
 import { Password } from "@/shared/icons"
 import { type RestoreFormData, restoreSchema } from "../schemas/restore-schema"
 import type { AuthModalMode } from "../types"
-import { QuestionLink, WelcomeText } from "../ui"
+import { WelcomeText } from "../ui"
 import { Input } from "../ui/input"
 
 interface ResetPasswordSectionProps {
@@ -32,7 +32,7 @@ const ResetPasswordSection: React.FC<ResetPasswordSectionProps> = ({ onModeChang
   const password = watch("password")
   const confirmPassword = watch("confirmPassword")
 
-  const onSubmit = async (data: RestoreFormData) => {
+  const onSubmit = async (_data: RestoreFormData) => {
     try {
       // await restorePasswordMutation.mutateAsync(data)
       onModeChange("reset-password-success")

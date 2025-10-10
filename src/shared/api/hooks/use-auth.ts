@@ -55,26 +55,6 @@ export function useSignUp() {
   })
 }
 
-export function useForgotPassword() {
-  return useMutation({
-    mutationFn: async (data: SendEmailOtpInput) => {
-      const response = await apiClient.POST("/auth/send-email-otp", {
-        body: data,
-      })
-
-      if (response.error) {
-        throw response.error
-      }
-
-      if (!response.data) {
-        throw new Error("No data received from server")
-      }
-
-      return response.data
-    },
-  })
-}
-
 export function useRestorePassword() {
   return useMutation({
     mutationFn: async (_data: { password: string; confirmPassword: string }) => {

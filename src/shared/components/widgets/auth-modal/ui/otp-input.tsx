@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Button } from "@/shared/components/ui"
 import { cn } from "@/shared/lib/utils"
 
@@ -23,6 +23,12 @@ export const OtpInput: React.FC<OtpInputProps> = ({
 }) => {
   const [otp, setOtp] = useState<string[]>(Array(length).fill(""))
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
+
+  useEffect(() => {
+    if (hasError) {
+      inputRefs.current[length - 1]?.focus()
+    }
+  }, [hasError, length])
 
   const handleChange = (index: number, value: string) => {
     if (isValidating) return
@@ -144,9 +150,10 @@ export const OtpInput: React.FC<OtpInputProps> = ({
             disabled={isValidating}
             placeholder="-"
             className={cn(
-              "rounded-2lg duration-200focus:outline-none h-12 w-12 border bg-white text-center text-lg font-semibold caret-transparent transition-all disabled:cursor-not-allowed disabled:opacity-50",
+              "rounded-2lg h-12 w-12 border bg-white text-center text-lg font-semibold caret-transparent transition-all duration-200 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
               {
-                "border-red-600 text-slate-900 shadow-[0_0_0_4px_#FFE0E0,0_2px_4px_0_rgba(17,12,34,0.12)]": hasError,
+                "border-rose-600 text-slate-900 shadow-[0_0_0_4px_#FFE0E0,0_2px_4px_0_rgba(17,12,34,0.12)] focus:border-rose-800":
+                  hasError,
                 "border-slate-900 text-slate-900 focus:border-slate-900 focus:ring-2 focus:ring-slate-900 focus:ring-offset-2":
                   !hasError && digit,
                 "border-slate-300 text-slate-400 focus:border-slate-900 focus:ring-2 focus:ring-slate-900 focus:ring-offset-2":

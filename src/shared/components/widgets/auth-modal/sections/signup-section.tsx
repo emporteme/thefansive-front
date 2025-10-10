@@ -56,7 +56,6 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
     return () => clearInterval(interval)
   }, [timer])
 
-  // Сброс OTP при изменении email (если код был отправлен или валидирован)
   useEffect(() => {
     const emailChanged = email !== sentEmailRef.current && sentEmailRef.current !== ""
 

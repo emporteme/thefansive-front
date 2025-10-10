@@ -1,4 +1,4 @@
-import type { ApiError } from "../types"
+import type { ApiError } from "../index"
 
 export function getErrorMessage(error: unknown): string {
   if (!error || typeof error !== "object") {

@@ -1,11 +1,17 @@
 "use client"
 
-import { useMutation, type UseMutationResult } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { apiClient, setAuthToken } from "../client"
+import type { components } from "../schema"
 
-export function useLogin(): UseMutationResult<LoginResponse, ApiError, LoginRequest> {
+type LoginInput = components["schemas"]["LoginInputDto"]
+type SignUpInput = components["schemas"]["SignUpInputDto"]
+type SendEmailOtpInput = components["schemas"]["SendEmailOtpDto"]
+type ValidateOtpInput = components["schemas"]["ValidateOtpDto"]
+
+export function useLogin() {
   return useMutation({
-    mutationFn: async (data: LoginRequest) => {
+    mutationFn: async (data: LoginInput) => {
       const response = await apiClient.POST("/auth/login", {
         body: data,
       })
@@ -29,10 +35,9 @@ export function useLogin(): UseMutationResult<LoginResponse, ApiError, LoginRequ
   })
 }
 
-// Sign up mutation
-export function useSignUp(): UseMutationResult<SignUpResponse, ApiError, SignUpRequest> {
+export function useSignUp() {
   return useMutation({
-    mutationFn: async (data: SignUpRequest) => {
+    mutationFn: async (data: SignUpInput) => {
       const response = await apiClient.POST("/auth/signup", {
         body: data,
       })
@@ -45,62 +50,27 @@ export function useSignUp(): UseMutationResult<SignUpResponse, ApiError, SignUpR
         throw new Error("No data received from server")
       }
 
-      // Save tokens to localStorage
-      localStorage.setItem("access_token", response.data.access_token)
-      localStorage.setItem("refresh_token", response.data.refresh_token)
-      localStorage.setItem("user", JSON.stringify(response.data.user))
-
-      // Set auth token for future requests
-      setAuthToken(response.data.access_token)
-
       return response.data
     },
   })
 }
 
-// Forgot password mutation
-export function useForgotPassword(): UseMutationResult<ForgotPasswordResponse, ApiError, ForgotPasswordRequest> {
+export function useForgotPassword() {
   return useMutation({
-    mutationFn: async (data: ForgotPasswordRequest) => {
-      const response = await apiClient.POST("/auth/forgot-password", {
-        body: data,
-      })
-
-      if (response.error) {
-        throw response.error
-      }
-
-      if (!response.data) {
-        throw new Error("No data received from server")
-      }
-
-      return response.data
+    mutationFn: async (_data: { email: string }) => {
+      throw new Error("Forgot password endpoint not implemented")
     },
   })
 }
 
-// Restore password mutation
-export function useRestorePassword(): UseMutationResult<RestorePasswordResponse, ApiError, RestorePasswordRequest> {
+export function useRestorePassword() {
   return useMutation({
-    mutationFn: async (data: RestorePasswordRequest) => {
-      const response = await apiClient.POST("/auth/restore-password", {
-        body: data,
-      })
-
-      if (response.error) {
-        throw response.error
-      }
-
-      if (!response.data) {
-        throw new Error("No data received from server")
-      }
-
-      return response.data
+    mutationFn: async (_data: { password: string; confirmPassword: string }) => {
+      throw new Error("Restore password endpoint not implemented")
     },
   })
 }
 
-// Logout function
 export function logout() {
   localStorage.removeItem("access_token")
   localStorage.removeItem("refresh_token")
@@ -108,20 +78,18 @@ export function logout() {
   setAuthToken(null)
 }
 
-// Get current user from localStorage
 export function getCurrentUser() {
   const userStr = localStorage.getItem("user")
   return userStr ? JSON.parse(userStr) : null
 }
 
-// Check if user is authenticated
 export function isAuthenticated(): boolean {
   return !!localStorage.getItem("access_token")
 }
 
-export function useSendEmailOtp(): UseMutationResult<SendEmailOtpResponse, ApiError, SendEmailOtpRequest> {
+export function useSendEmailOtp() {
   return useMutation({
-    mutationFn: async (data: SendEmailOtpRequest) => {
+    mutationFn: async (data: SendEmailOtpInput) => {
       const response = await apiClient.POST("/auth/send-email-otp", {
         body: data,
       })
@@ -139,9 +107,9 @@ export function useSendEmailOtp(): UseMutationResult<SendEmailOtpResponse, ApiEr
   })
 }
 
-export function useValidateOtp(): UseMutationResult<ValidateOtpResponse, ApiError, ValidateOtpRequest> {
+export function useValidateOtp() {
   return useMutation({
-    mutationFn: async (data: ValidateOtpRequest) => {
+    mutationFn: async (data: ValidateOtpInput) => {
       const response = await apiClient.POST("/auth/validate-otp", {
         body: data,
       })

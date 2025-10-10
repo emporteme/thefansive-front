@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
+import { useRestorePassword } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import { Password } from "@/shared/icons"
 import { type RestoreFormData, restoreSchema } from "../schemas/restore-schema"
@@ -25,20 +27,31 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({ onModeChange }) => {
     mode: "onBlur",
   })
 
+  const restorePasswordMutation = useRestorePassword()
+
   const password = watch("password")
   const confirmPassword = watch("confirmPassword")
 
   const onSubmit = async (data: RestoreFormData) => {
-    console.log("Reset password data:", data)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    onModeChange("login")
+    try {
+      await restorePasswordMutation.mutateAsync(data)
+      toast.success("Password reset successfully!")
+      onModeChange("login")
+    } catch (error: unknown) {
+      console.error("Restore password error:", error)
+      const errorMessage =
+        error && typeof error === "object" && "message" in error
+          ? String(error.message)
+          : "Failed to reset password. Please try again."
+      toast.error(errorMessage)
+    }
   }
 
   const handleBackToLogin = () => {
     onModeChange("login")
   }
 
-  const isDisabled = isSubmitting || !password || !confirmPassword
+  const isDisabled = isSubmitting || restorePasswordMutation.isPending || !password || !confirmPassword
 
   return (
     <>
@@ -66,7 +79,7 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({ onModeChange }) => {
 
         <div className="space-y-4">
           <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
-            {isSubmitting ? "Resetting..." : "Reset Password"}
+            {isSubmitting || restorePasswordMutation.isPending ? "Resetting..." : "Reset Password"}
           </Button>
           <QuestionLink onClick={handleBackToLogin} question="Remember your password?" action="Back to Login" />
         </div>

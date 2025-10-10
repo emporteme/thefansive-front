@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
+import { useSignUp } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import { Email, EmailCode, Password, User } from "@/shared/icons"
 import { type SignupFormData, signupSchema } from "../schemas/signup-schema"
@@ -25,14 +27,26 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
     mode: "onBlur",
   })
 
+  const signUpMutation = useSignUp()
+
   const fullName = watch("fullName")
   const email = watch("email")
   const emailCode = watch("emailCode")
   const password = watch("password")
 
   const onSubmit = async (data: SignupFormData) => {
-    console.log("Signup data:", data)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      await signUpMutation.mutateAsync(data)
+      toast.success("Successfully signed up!")
+      // Optionally close modal or redirect
+    } catch (error: unknown) {
+      console.error("Signup error:", error)
+      const errorMessage =
+        error && typeof error === "object" && "message" in error
+          ? String(error.message)
+          : "Failed to sign up. Please try again."
+      toast.error(errorMessage)
+    }
   }
 
   const handleLoginClick = () => {
@@ -43,7 +57,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
     console.log("Send code clicked")
   }
 
-  const isDisabled = isSubmitting || !fullName || !email || !emailCode || !password
+  const isDisabled = isSubmitting || signUpMutation.isPending || !fullName || !email || !emailCode || !password
 
   return (
     <>
@@ -98,7 +112,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
 
         <div className="my-4 space-y-4">
           <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
-            {isSubmitting ? "Signing up..." : "Sign Up"}
+            {isSubmitting || signUpMutation.isPending ? "Signing up..." : "Sign Up"}
           </Button>
           <QuestionLink onClick={handleLoginClick} question="Have an account?" action="Login" />
         </div>

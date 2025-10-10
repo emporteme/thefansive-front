@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
+import { useLogin } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import { Email, Password } from "@/shared/icons"
 import { type LoginFormData, loginSchema } from "../schemas/login-schema"
@@ -25,12 +27,25 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
     mode: "onBlur",
   })
 
+  const loginMutation = useLogin()
+
   const email = watch("email")
   const password = watch("password")
 
   const onSubmit = async (data: LoginFormData) => {
-    console.log("Login data:", data)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      await loginMutation.mutateAsync(data)
+      toast.success("Successfully logged in!")
+      // Optionally close modal or redirect
+      // window.location.reload() or router.push('/')
+    } catch (error: unknown) {
+      console.error("Login error:", error)
+      const errorMessage =
+        error && typeof error === "object" && "message" in error
+          ? String(error.message)
+          : "Failed to login. Please check your credentials."
+      toast.error(errorMessage)
+    }
   }
 
   const handleSignUpClick = () => {
@@ -41,7 +56,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
     onModeChange("forgot")
   }
 
-  const isDisabled = isSubmitting || !email || !password
+  const isDisabled = isSubmitting || loginMutation.isPending || !email || !password
 
   return (
     <>
@@ -72,7 +87,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange }) => {
         </div>
         <div className="mt-4 space-y-4">
           <Button size="xl" className="w-full" type="submit" disabled={isDisabled}>
-            {isSubmitting ? "Logging in..." : "Login"}
+            {isSubmitting || loginMutation.isPending ? "Logging in..." : "Login"}
           </Button>
           <QuestionLink onClick={handleSignUpClick} question="Don't have an account?" action="Sign Up" />
         </div>

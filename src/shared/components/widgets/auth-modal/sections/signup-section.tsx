@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { getErrorMessage, useSendEmailOtp, useSignUp, useValidateOtp } from "@/shared/api"
@@ -34,9 +34,16 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
   const [hasOtpError, setHasOtpError] = useState(false)
   const [timer, setTimer] = useState(0)
 
+  const validatedEmailRef = useRef<string>("")
+
   const signUpMutation = useSignUp()
   const sendOtpMutation = useSendEmailOtp()
   const validateOtpMutation = useValidateOtp()
+
+  const firstName = watch("firstName")
+  const lastName = watch("lastName")
+  const email = watch("email")
+  const password = watch("password")
 
   useEffect(() => {
     if (timer <= 0) return
@@ -48,10 +55,17 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
     return () => clearInterval(interval)
   }, [timer])
 
-  const firstName = watch("firstName")
-  const lastName = watch("lastName")
-  const email = watch("email")
-  const password = watch("password")
+  // Сброс валидации OTP при изменении email
+  useEffect(() => {
+    if (isOtpValidated && validatedEmailRef.current && email !== validatedEmailRef.current) {
+      setIsOtpValidated(false)
+      setValidatedOtp("")
+      setShowOtpInput(false)
+      setHasOtpError(false)
+      setTimer(0)
+      validatedEmailRef.current = ""
+    }
+  }, [email, isOtpValidated])
 
   const onSubmit = async (data: SignupFormData) => {
     if (!isOtpValidated || !validatedOtp) {
@@ -108,6 +122,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
       setValidatedOtp(otp)
       setHasOtpError(false)
       setShowOtpInput(false)
+      validatedEmailRef.current = email
     } catch {
       setHasOtpError(true)
       setIsOtpValidated(false)
@@ -128,7 +143,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
           <div className="flex-1">
             <Input
               label="First Name"
-              placeholder="First Name"
+              placeholder="John"
               type="text"
               register={register("firstName")}
               error={errors.firstName?.message}
@@ -137,7 +152,7 @@ const SignUpSection: React.FC<SignUpSectionProps> = ({ onModeChange }) => {
           <div className="flex-1">
             <Input
               label="Last Name"
-              placeholder="Last Name"
+              placeholder="Johnson"
               type="text"
               register={register("lastName")}
               error={errors.lastName?.message}

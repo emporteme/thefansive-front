@@ -1,20 +1,7 @@
-"use client"
-
-import React, { useState } from "react"
-import { clubsData } from "@/containers/pages/user/profile-page/components/widgets/favorite-clubs"
-import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
+import React from "react"
 import { CardsSlider, ChooseTeam, ClubsCard, FanSupportCard, GoBeyond, MainSlider, News } from "./components/sections"
 
-interface Club {
-  id: number
-  name: string
-  logo: string
-}
-
 const ClubsPage = () => {
-  const [favoriteClubs, setFavoriteClubs] = useState<Club[]>([])
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [clubs, setClubs] = useState<Club[]>(clubsData)
   const images = [
     {
       src: "/images/dev/liverpool-logo.png",
@@ -38,37 +25,13 @@ const ClubsPage = () => {
     },
   ]
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-  }
-
-  const handleClubFavoriteToggle = (club: Club) => {
-    if (favoriteClubs.some((c) => c.id === club.id)) {
-      setFavoriteClubs(favoriteClubs.filter((c) => c.id !== club.id))
-    } else {
-      setFavoriteClubs([...favoriteClubs, club])
-    }
-  }
-
-  const handleSearchClubSelect = (club: Club) => {
-    setClubs([club])
-  }
-
-  const handleClearSearch = () => {
-    setClubs(clubsData)
-  }
-
   return (
     <div className="flex flex-col gap-15">
       <MainSlider images={images} autoDelay={4500} loop />
 
       {/* Choose Team Section */}
       <div className="px-[5vw]">
-        <ChooseTeam favoriteClubs={favoriteClubs} onOpenModal={handleOpenModal} />
+        <ChooseTeam />
       </div>
 
       {/* Populer clubs  */}
@@ -108,17 +71,6 @@ const ClubsPage = () => {
 
       <News />
       <GoBeyond />
-
-      {/* Modal */}
-      <ChooseYourClubModal
-        clubs={clubs}
-        favoriteClubs={favoriteClubs}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onClubFavoriteToggle={handleClubFavoriteToggle}
-        onSearchClubSelect={handleSearchClubSelect}
-        onClearSearch={handleClearSearch}
-      />
     </div>
   )
 }

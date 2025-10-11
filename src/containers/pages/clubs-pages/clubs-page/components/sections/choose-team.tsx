@@ -1,13 +1,16 @@
 "use client"
 
 import Image from "next/image"
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import type { Swiper as SwiperType } from "swiper"
 import { A11y, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/navigation"
 
+import { clubsData } from "@/containers/pages/user/profile-page/components/widgets/favorite-clubs"
+import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
 import { ArrowLeft, ArrowRight, ArrowSelect } from "@/shared/icons"
 
 interface Club {
@@ -41,12 +44,10 @@ const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ club, onClick }) => {
   )
 }
 
-interface ChooseTeamProps {
-  favoriteClubs: Club[]
-  onOpenModal: () => void
-}
-
-const ChooseTeam: React.FC<ChooseTeamProps> = ({ favoriteClubs, onOpenModal }) => {
+const ChooseTeam: React.FC = () => {
+  const [favoriteClubs, setFavoriteClubs] = useState<Club[]>([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [clubs, setClubs] = useState<Club[]>(clubsData)
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const swiperRef = useRef<SwiperType | null>(null)
@@ -61,6 +62,30 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ favoriteClubs, onOpenModal }) =
       swiperRef.current.navigation.update()
     }
   }, [showNavigation, favoriteClubs])
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const handleClubFavoriteToggle = (club: Club) => {
+    if (favoriteClubs.some((c) => c.id === club.id)) {
+      setFavoriteClubs(favoriteClubs.filter((c) => c.id !== club.id))
+    } else {
+      setFavoriteClubs([...favoriteClubs, club])
+    }
+  }
+
+  const handleSearchClubSelect = (club: Club) => {
+    setClubs([club])
+  }
+
+  const handleClearSearch = () => {
+    setClubs(clubsData)
+  }
 
   const handleClubClick = (club: Club) => {
     // Navigate to club page or handle club selection
@@ -129,12 +154,28 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ favoriteClubs, onOpenModal }) =
 
       {/* Choose Your Team Button */}
       <button
-        onClick={onOpenModal}
+        onClick={handleOpenModal}
         className="flex items-center gap-2 rounded-xl bg-white px-4 py-3 font-medium text-slate-900 transition hover:bg-gray-50"
       >
         <span>Choose your team</span>
         <ArrowSelect className="h-4 w-4" />
       </button>
+
+      {/* Modal Portal */}
+      {typeof window !== "undefined" &&
+        isModalOpen &&
+        createPortal(
+          <ChooseYourClubModal
+            clubs={clubs}
+            favoriteClubs={favoriteClubs}
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            onClubFavoriteToggle={handleClubFavoriteToggle}
+            onSearchClubSelect={handleSearchClubSelect}
+            onClearSearch={handleClearSearch}
+          />,
+          document.body
+        )}
     </div>
   )
 }

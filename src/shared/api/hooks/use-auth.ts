@@ -71,7 +71,7 @@ export function logout() {
 }
 
 export function getCurrentUser() {
-  const userStr = localStorage.getItem("user")
+  const userStr = localStorage?.getItem("user")
   return userStr ? (JSON.parse(userStr) as components["schemas"]["UserOutputDto"]) : null
 }
 

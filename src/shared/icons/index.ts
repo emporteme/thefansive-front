@@ -24,6 +24,11 @@ export { default as Calendar } from "./calendar"
 export { default as Timer } from "./timer"
 export { Favorite } from "./favorite"
 export { default as Airplane } from "./airplane"
+export { default as Logout } from "./logout"
+export { default as Flag } from "./flag"
+export { default as Gift } from "./gift"
+export { default as Task } from "./task"
+export { default as UserEdit } from "./user-edit"
 
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"

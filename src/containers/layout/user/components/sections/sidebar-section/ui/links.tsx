@@ -3,7 +3,8 @@ import { usePathname } from "next/navigation"
 import { logout } from "@/shared/api"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
-import { User } from "@/shared/icons"
+import { Flag, Logout, Support, Task, User, UserEdit } from "@/shared/icons"
+import Gift from "@/shared/icons/gift"
 import { cn } from "@/shared/lib/utils"
 import { Routes } from "@/shared/types/routes"
 
@@ -53,6 +54,27 @@ const sidebarItems = ({ routes, navigate }: { routes: Routes; navigate: (path: s
   },
 ]
 
+const iconById = (id: string, link: string, isActiveLink: (link: string) => boolean) => {
+  switch (id) {
+    case "profile":
+      return <User className="h-5 w-5" fill={isActiveLink(link)} />
+    case "fan-support":
+      return <Flag className="h-5 w-5" fill={isActiveLink(link)} />
+    case "donate":
+      return <Gift className="h-5 w-5" fill={isActiveLink(link)} />
+    case "tasks":
+      return <Task className="h-5 w-5" fill={isActiveLink(link)} />
+    case "my-information":
+      return <UserEdit className="h-5 w-5" fill={isActiveLink(link)} />
+    case "support":
+      return <Support className="h-5 w-5" fill={isActiveLink(link)} />
+    case "logout":
+      return <Logout className="h-5 w-5" />
+    default:
+      return null
+  }
+}
+
 const Links: React.FC = () => {
   const routes = useRoutes()
   const navigate = useNavigate()
@@ -65,8 +87,8 @@ const Links: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-1.5">
-      {sidebarItems({ routes, navigate }).map((item) =>
-        item.link ? (
+      {sidebarItems({ routes, navigate })?.map((item) => {
+        return item.link ? (
           <Link
             prefetch
             key={item.id}
@@ -78,21 +100,16 @@ const Links: React.FC = () => {
               "font-normal": !isActiveLink(item.link),
             })}
           >
-            <User
-              className={cn("h-5 w-5 text-slate-500", {
-                "text-slate-900": isActiveLink(item.link),
-              })}
-              fill={isActiveLink(item.link)}
-            />
+            {iconById(item.id, item.link, isActiveLink)}
             {item.title}
           </Link>
         ) : (
           <span key={item.id} onClick={item.action ? item.action : undefined} className={cn(className, "mt-4.5")}>
-            <User className="h-5 w-5" />
+            <Logout className="h-5 w-5" />
             {item.title}
           </span>
         )
-      )}
+      })}
     </div>
   )
 }

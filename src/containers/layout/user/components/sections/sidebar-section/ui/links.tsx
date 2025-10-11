@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation"
 import { logout } from "@/shared/api"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
+import { User } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
 import { Routes } from "@/shared/types/routes"
 
@@ -60,7 +61,7 @@ const Links: React.FC = () => {
   const isActiveLink = (link: string) => pathname === link
 
   const className =
-    "flex cursor-pointer text-slate-500 font-normal rounded-xl px-4 py-3 text-base leading-[1.5] transition-all duration-200 hover:font-extrabold hover:text-slate-900"
+    "flex gap-2.5 items-center cursor-pointer text-slate-500 font-normal rounded-xl px-4 py-3 text-base leading-[1.5] transition-all duration-200 hover:font-extrabold hover:text-slate-900"
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -77,10 +78,17 @@ const Links: React.FC = () => {
               "font-normal": !isActiveLink(item.link),
             })}
           >
+            <User
+              className={cn("h-5 w-5 text-slate-500", {
+                "text-slate-900": isActiveLink(item.link),
+              })}
+              fill={isActiveLink(item.link)}
+            />
             {item.title}
           </Link>
         ) : (
-          <span onClick={item.action ? item.action : undefined} className={className}>
+          <span key={item.id} onClick={item.action ? item.action : undefined} className={cn(className, "mt-4.5")}>
+            <User className="h-5 w-5" />
             {item.title}
           </span>
         )

@@ -1,6 +1,6 @@
 import React from "react"
 
-const Gift: React.FC<{ className?: string; fill?: boolean }> = ({ className, fill }) => {
+const Gift: React.FC<{ className?: string; fill?: boolean }> = ({ className }) => {
   return (
     <svg
       width="20"

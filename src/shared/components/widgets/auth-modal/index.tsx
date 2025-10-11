@@ -65,7 +65,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
       <div className="absolute top-[14px] right-[24px]">
         <CloseButton onClick={handleClose} />
       </div>
-      <Logo className="w-[145px]" />
+      <Logo className="w-[145px]" disabled />
       {renderSection()}
     </ModalLayout>
   )

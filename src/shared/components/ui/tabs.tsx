@@ -44,9 +44,8 @@ const Tabs: React.FC<TabsProps> = ({
         })}
       >
         {tabs.map((tab) => (
-          <>
+          <div key={tab.value as string}>
             <ReactTabs.Trigger
-              key={tab.value as string}
               value={tab.value}
               style={{ minWidth: `${minWidth}px` }}
               className={cn(
@@ -64,7 +63,7 @@ const Tabs: React.FC<TabsProps> = ({
               {tab.label}
             </ReactTabs.Trigger>
             {tab?.after}
-          </>
+          </div>
         ))}
       </ReactTabs.List>
       {tabs.map((tab) => (

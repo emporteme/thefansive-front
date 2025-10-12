@@ -1,5 +1,6 @@
 "use client"
 import React, { useCallback, useEffect, useState } from "react"
+import ContainerLayout from "@/shared/components/ui/container-layout"
 import { BottomSection, MobileMenu, TopSection } from "./components/sections"
 
 const Header: React.FC = () => {

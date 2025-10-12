@@ -1,6 +1,7 @@
 import Link from "next/link"
 import React from "react"
 import Logo from "@/shared/components/elements/logo"
+import ContainerLayout from "@/shared/components/ui/container-layout"
 import { AppStore, Facebook, GooglePlay, Instagram, Telegram, X } from "@/shared/icons"
 import { getRoutes } from "@/shared/utils/get-routes"
 
@@ -8,76 +9,78 @@ const Footer: React.FC = () => {
   const routes = getRoutes()
 
   return (
-    <footer className="flex flex-col gap-6 bg-white px-[5vw] py-9 shadow-[0px_-6px_16px_-6px_#110C221A]">
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        <div className="flex flex-col gap-2.5">
-          <Logo />
-          <span className="text-sm font-medium text-black">Go Beyond Being a Fan</span>
-        </div>
-        <div className="flex flex-col gap-2.5">
-          <span className="text-2xl font-semibold text-slate-900">Explore</span>
-          <ul className="flex flex-col gap-1.5">
-            <li className="text-sm font-medium text-black">
-              <Link href={routes.home()}>Home</Link>
-            </li>
-            <li className="text-sm font-medium text-black">
-              <Link href={routes.ecosystem()}>Ecosystem</Link>
-            </li>
-            <li className="text-sm font-medium text-black">
-              <Link href={routes.game()}>Game</Link>
-            </li>
-            <li className="text-sm font-medium text-black">
-              <Link href={routes.partners()}>Partners</Link>
-            </li>
-          </ul>
-        </div>
-        <div className="flex flex-col gap-2.5">
-          <span className="text-2xl font-semibold text-slate-900">Follow us</span>
-          <ul className="flex gap-2.5">
-            <li>
-              <Link href="/">
-                <Facebook />
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <Instagram />
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <Telegram />
-              </Link>
-            </li>
+    <footer className="bg-white shadow-[0px_-6px_16px_-6px_#110C221A]">
+      <ContainerLayout className="flex flex-col gap-6 pt-8.5 pb-5">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="flex flex-col gap-2.5">
+            <Logo />
+            <span className="text-sm font-medium text-black">Go Beyond Being a Fan</span>
+          </div>
+          <div className="flex flex-col gap-2.5">
+            <span className="text-2xl font-semibold text-slate-900">Explore</span>
+            <ul className="flex flex-col gap-1.5">
+              <li className="text-sm font-medium text-black">
+                <Link href={routes.home()}>Home</Link>
+              </li>
+              <li className="text-sm font-medium text-black">
+                <Link href={routes.ecosystem()}>Ecosystem</Link>
+              </li>
+              <li className="text-sm font-medium text-black">
+                <Link href={routes.game()}>Game</Link>
+              </li>
+              <li className="text-sm font-medium text-black">
+                <Link href={routes.partners()}>Partners</Link>
+              </li>
+            </ul>
+          </div>
+          <div className="flex flex-col gap-2.5">
+            <span className="text-2xl font-semibold text-slate-900">Follow us</span>
+            <ul className="flex gap-2.5">
+              <li>
+                <Link href="/">
+                  <Facebook />
+                </Link>
+              </li>
+              <li>
+                <Link href="/">
+                  <Instagram />
+                </Link>
+              </li>
+              <li>
+                <Link href="/">
+                  <Telegram />
+                </Link>
+              </li>
 
-            <li>
-              <Link href="/">
-                <X />
-              </Link>
-            </li>
-          </ul>
+              <li>
+                <Link href="/">
+                  <X />
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="flex flex-col gap-2.5">
+            <span className="text-2xl font-semibold text-slate-900">Download</span>
+            <ul className="flex flex-col gap-2.5">
+              <li>
+                <Link href="/">
+                  <AppStore />
+                </Link>
+              </li>
+              <li>
+                <Link href="/">
+                  <GooglePlay />
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="flex flex-col gap-2.5">
-          <span className="text-2xl font-semibold text-slate-900">Download</span>
-          <ul className="flex flex-col gap-2.5">
-            <li>
-              <Link href="/">
-                <AppStore />
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <GooglePlay />
-              </Link>
-            </li>
-          </ul>
+        <div className="flex items-center justify-center border-t border-slate-200 pt-6">
+          <span className="text-center text-xs font-normal text-slate-900">
+            thefansive — © Copyright 2025. All Rights Reserved.
+          </span>
         </div>
-      </div>
-      <div className="flex items-center justify-center border-t border-slate-200 pt-6">
-        <span className="text-center text-xs font-normal text-slate-900">
-          thefansive — © Copyright 2025. All Rights Reserved.
-        </span>
-      </div>
+      </ContainerLayout>
     </footer>
   )
 }

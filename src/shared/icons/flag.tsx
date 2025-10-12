@@ -10,7 +10,7 @@ const Flag: React.FC<{ className?: string; fill?: boolean }> = ({ className, fil
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      <path d="M3.33398 5.83301V17.4997V5.83301Z" />
+      <path d="M3.33398 5.83301V17.4997V5.83301Z" fill={fill ? "currentColor" : "none"} />
       <path
         d="M3.33398 5.83301V17.4997"
         stroke="currentColor"
@@ -25,6 +25,7 @@ const Flag: React.FC<{ className?: string; fill?: boolean }> = ({ className, fil
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill={fill ? "currentColor" : "none"}
       />
     </svg>
   )

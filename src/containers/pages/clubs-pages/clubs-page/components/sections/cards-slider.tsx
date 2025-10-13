@@ -55,7 +55,7 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   }, [showNavigation])
 
   return (
-    <div className={classNames("w-full px-[5vw]", className)}>
+    <div className={classNames("w-full", className)}>
       {/* Header with title and navigation */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex flex-col gap-2">

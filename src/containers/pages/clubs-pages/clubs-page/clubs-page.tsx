@@ -1,5 +1,5 @@
 import React from "react"
-import { CardsSlider, ClubsCard, FanSupportCard, GoBeyond, MainSlider, News } from "./components/sections"
+import { CardsSlider, ChooseTeam, ClubsCard, FanSupportCard, GoBeyond, MainSlider, News } from "./components/sections"
 
 const ClubsPage = () => {
   const images = [
@@ -28,6 +28,11 @@ const ClubsPage = () => {
   return (
     <div className="flex flex-col gap-15">
       <MainSlider images={images} autoDelay={4500} loop />
+
+      {/* Choose Team Section */}
+      <div className="px-[5vw]">
+        <ChooseTeam />
+      </div>
 
       {/* Populer clubs  */}
       <CardsSlider

@@ -2,25 +2,25 @@ import createClient from "openapi-fetch"
 import type { paths } from "./schema"
 
 export const apiClient = createClient<paths>({
-  baseUrl: process.env.NEXT_PUBLIC_API_URL,
-  credentials: "include",
+  baseUrl: "/api", // Используем локальный прокси вместо прямого URL
   headers: {
     "Content-Type": "application/json",
   },
 })
 
+let authToken: string | null = null
+
 export function setAuthToken(token: string | null) {
-  if (token) {
-    apiClient.use({
-      onRequest({ request }) {
-        request.headers.set("Authorization", `Bearer ${token}`)
-        return request
-      },
-    })
-  }
+  authToken = token
 }
 
 apiClient.use({
+  onRequest({ request }) {
+    if (authToken) {
+      request.headers.set("Authorization", `Bearer ${authToken}`)
+    }
+    return request
+  },
   onResponse({ response }) {
     if (!response.ok && process.env.NODE_ENV === "development") {
       console.warn(`API Error: ${response.status} ${response.statusText}`)

@@ -24,6 +24,7 @@
 
   body {
     @apply leading-[1] tracking-[0.5px];
+    user-select: none;
   }
 
   a,

@@ -1,6 +1,6 @@
 import React from "react"
 import ContainerLayout from "@/shared/components/ui/container-layout"
-import { CurrencySwitcher, LangSwitcher, MobileApp, Support } from "./ui"
+import { CurrencySwitcher, LangSwitcher, Support } from "./ui"
 
 const TopSection: React.FC = () => {
   return (
@@ -8,7 +8,6 @@ const TopSection: React.FC = () => {
       <ContainerLayout className="flex items-center justify-end gap-2 py-1">
         <LangSwitcher />
         <CurrencySwitcher />
-        <MobileApp />
         <Support />
       </ContainerLayout>
     </div>

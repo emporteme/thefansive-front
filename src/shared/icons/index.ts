@@ -25,6 +25,8 @@ export { default as Timer } from "./timer"
 export { Favorite } from "./favorite"
 export { default as Airplane } from "./airplane"
 
+export { default as OfficeWhiteBlack } from "./office-white-black"
+export { default as Personal } from "./personal"
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"
 export { default as Instagram } from "./(social-links)/instagram"

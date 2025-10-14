@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Button } from "@/shared/components/ui"
 
 const EmptyCart: React.FC = () => {

@@ -4,7 +4,7 @@ import { ReactElement } from "react"
 import { ToastContainer } from "react-toastify"
 import { I18nProviderClient } from "@/locale/client"
 import { TonProvider, Web3Provider } from "@/shared/components/elements/web3"
-import { ProgressBarProvider, ReactQueryProvider } from "@/shared/providers"
+import { ModalProvider, ProgressBarProvider, ReactQueryProvider } from "@/shared/providers"
 import "@/styles/tailwind.css"
 
 const manrope = Manrope({
@@ -38,7 +38,9 @@ export default async function RootLayout({
           <I18nProviderClient locale={locale}>
             <Web3Provider>
               <TonProvider>
-                <ProgressBarProvider>{children}</ProgressBarProvider>
+                <ProgressBarProvider>
+                  <ModalProvider>{children}</ModalProvider>
+                </ProgressBarProvider>
               </TonProvider>
             </Web3Provider>
           </I18nProviderClient>

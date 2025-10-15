@@ -1,4 +1,4 @@
-import Image from "next/image"
+import _Image from "next/image"
 
 interface ArticleProps {
   params: Promise<{

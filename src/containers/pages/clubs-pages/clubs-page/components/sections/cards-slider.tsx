@@ -1,7 +1,8 @@
 "use client"
 
 import classNames from "classnames"
-import React, { useRef } from "react"
+import React, { useEffect, useRef } from "react"
+import type { Swiper as SwiperType } from "swiper"
 import { A11y, Autoplay, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
@@ -38,6 +39,7 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   // Navigation element refs
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
+  const swiperRef = useRef<SwiperType | null>(null)
 
   // Calculate total items that can be shown in the grid
   const totalItemsInView = navCount * rowCount
@@ -45,8 +47,15 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   // Show navigation only if we have more elements than can fit in the grid
   const showNavigation = elements.length > totalItemsInView
 
+  // Update navigation after component mounts
+  useEffect(() => {
+    if (swiperRef.current && prevRef.current && nextRef.current) {
+      swiperRef.current.navigation.update()
+    }
+  }, [showNavigation])
+
   return (
-    <div className={classNames("w-full px-[5vw]", className)}>
+    <div className={classNames("w-full", className)}>
       {/* Header with title and navigation */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex flex-col gap-2">
@@ -85,6 +94,9 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
       {/* Grid-based Slider */}
       <Swiper
         modules={[Autoplay, Navigation, Keyboard, A11y]}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper
+        }}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current,

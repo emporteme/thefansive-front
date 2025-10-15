@@ -1,5 +1,41 @@
 {
+  // Tailwind CSS
   "tailwindCSS.experimental.classRegex": [
     ["cva(?:<[^>]*>)?(([^)]*))", "[\"'`]([^\"'`]*).*?[\"'`]", "(?:twMerge|twJoin)\\(([^\\);]*)[\\);]"]
-  ]
+  ],
+
+  // Editor
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+
+  // TypeScript/JavaScript
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // ESLint
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.format.enable": false,
+
+  // Prettier
+  "prettier.enable": true,
+  "prettier.requireConfig": true,
+
+  // Files
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true
 }

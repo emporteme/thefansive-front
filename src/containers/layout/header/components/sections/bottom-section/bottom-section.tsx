@@ -1,5 +1,6 @@
 import React from "react"
 import Logo from "@/shared/components/elements/logo"
+import ContainerLayout from "@/shared/components/ui/container-layout"
 import { Auth, Burger, Cart, Links, Search } from "./ui"
 
 type BottomSectionProps = {
@@ -9,7 +10,7 @@ type BottomSectionProps = {
 
 const BottomSection: React.FC<BottomSectionProps> = ({ isMobileMenuOpen, onToggleMobileMenu }) => {
   return (
-    <div className="flex items-center justify-between gap-5 bg-white px-[5vw] py-4">
+    <ContainerLayout className="flex items-center justify-between gap-5 bg-white py-4">
       <div className="flex items-center gap-10">
         <Logo />
         <Links />
@@ -22,7 +23,7 @@ const BottomSection: React.FC<BottomSectionProps> = ({ isMobileMenuOpen, onToggl
         </div>
         <Burger isOpen={isMobileMenuOpen} onClick={onToggleMobileMenu} />
       </div>
-    </div>
+    </ContainerLayout>
   )
 }
 

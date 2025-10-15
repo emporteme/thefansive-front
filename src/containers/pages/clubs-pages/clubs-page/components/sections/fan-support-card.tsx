@@ -22,17 +22,17 @@ interface IFanSupportCardProps {
 }
 
 const FanSupportCard: React.FC<IFanSupportCardProps> = ({
-  id,
+  id: _id,
   status,
   image,
-  images,
+  images: _images,
   name,
   orderType,
   description,
-  tags,
-  price,
-  currency,
-  deliveryTime,
+  tags: _tags,
+  price: _price,
+  currency: _currency,
+  deliveryTime: _deliveryTime,
 }) => {
   return (
     <div className="flex flex-col items-stretch gap-3 p-3 md:flex-row">

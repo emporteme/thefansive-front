@@ -18,7 +18,7 @@ const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
           alt="user banner"
           width={1500}
           height={160}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
         />
       </div>
       <ContainerLayout>

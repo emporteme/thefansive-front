@@ -1,9 +1,7 @@
 "use client"
 
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { FC, useState } from "react"
-import AddressModal from "@/shared/components/elements/add-new-address/add-new-address"
+import AddNewAddressPopup from "@/shared/components/elements/add-new-address/add-new-address"
+import EditAddressPopup from "@/shared/components/elements/edit-address/edit-address"
 import { Button } from "@/shared/components/ui"
 import Checkbox from "@/shared/components/ui/checkbox"
 import ContainerLayout from "@/shared/components/ui/container-layout"
@@ -14,6 +12,9 @@ import CreditCard from "@/shared/icons/credit-card"
 import NowPayments from "@/shared/icons/now-payments"
 import { Currency, getCurrencySymbol } from "@/shared/store/currency-store"
 import { getRoutes } from "@/shared/utils/get-routes"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { FC, useState } from "react"
 import AddressItem from "./components/address-item"
 
 const fakeDeliveryData = [
@@ -72,13 +73,14 @@ const fakeAddresses = {
 const PaymentPage: FC = () => {
   const router = useRouter()
   const routes = getRoutes()
-  const path = routes.cart.payment()
+  const path = routes.cart.confirmation()
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [activeTab, setActiveTab] = useState<"card" | "crypto">("card")
   const [isCheckedSameAddress, setIsCheckedSameAddress] = useState<boolean>(false)
   const [isCheckedAgreePayment, setIsCheckedAgreePayment] = useState<boolean>(false)
 
-  const addressModal = useModal("add-new-address-modal")
+  const addNewAddressPopup = useModal("add-new-address-modal")
+  const editAddressPopup = useModal("edit-address-modal")
 
   const handleCheckboxSameAddressChange = () => {
     setIsCheckedSameAddress(!isCheckedSameAddress)
@@ -103,14 +105,18 @@ const PaymentPage: FC = () => {
                   <h2 className="text-4xl font-bold text-gray-800">Shipping Address</h2>
                 </div>
                 <div>
-                  <Button size="lg" variant="light" className="flex" onClick={addressModal.open}>
+                  <Button size="lg" variant="light" className="flex" onClick={addNewAddressPopup.open}>
                     Add New Address
                   </Button>
                 </div>
               </div>
               <div className="">
                 <div className="mb-6 flex gap-8">
-                  <AddressItem title={fakeAddresses.title} items={fakeAddresses.items} onClick={() => {}} />
+                  <AddressItem
+                    title={fakeAddresses.title}
+                    items={fakeAddresses.items}
+                    onClick={editAddressPopup.open}
+                  />
                 </div>
                 <div>
                   <Checkbox
@@ -291,12 +297,20 @@ const PaymentPage: FC = () => {
           </div>
         </div>
       </ContainerLayout>
-      <AddressModal
-        open={addressModal.isOpen}
-        onClose={addressModal.close}
+      <AddNewAddressPopup
+        open={addNewAddressPopup.isOpen}
+        onClose={addNewAddressPopup.close}
         onSaveAddress={(data) => {
           console.log("Address saved:", data)
-          addressModal.close()
+          addNewAddressPopup.close()
+        }}
+      />
+      <EditAddressPopup
+        open={editAddressPopup.isOpen}
+        onClose={editAddressPopup.close}
+        onSaveAddress={(data) => {
+          console.log("Address edited:", data)
+          editAddressPopup.close()
         }}
       />
     </div>

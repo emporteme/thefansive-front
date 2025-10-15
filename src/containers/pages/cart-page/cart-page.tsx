@@ -1,8 +1,5 @@
 "use client"
 
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { FC } from "react"
 import { Button } from "@/shared/components/ui"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import CancelCircle from "@/shared/icons/cancel-circle"
@@ -10,6 +7,10 @@ import MinusSign from "@/shared/icons/minus-sign"
 import PlusSign from "@/shared/icons/plus-sign"
 import { Currency, getCurrencySymbol } from "@/shared/store/currency-store"
 import { getRoutes } from "@/shared/utils/get-routes"
+import { getConicGradient } from "@/shared/utils/getConicGradient"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { FC } from "react"
 import EmptyCart from "./components/empty-cart"
 
 const fakeProductsData = [
@@ -65,13 +66,6 @@ const CartPage: FC = () => {
   const router = useRouter()
   const routes = getRoutes()
   const path = routes.cart.payment()
-
-  const getConicGradient = (colors: string[], startDeg = 45) => {
-    const step = 100 / colors.length
-    return `conic-gradient(from ${startDeg}deg, ${colors
-      .map((c, i) => `${c} ${i * step}% ${(i + 1) * step}%`)
-      .join(", ")})`
-  }
 
   const handleCheckout = () => {
     router.push(path)

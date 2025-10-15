@@ -50,14 +50,14 @@ const phoneCodeOptions: OptionType[] = Array.from(
 
 export type AddressFormValues = z.infer<typeof addressSchema>
 
-interface AddNewAddressPopupProps {
+interface EditAddressPopupProps {
   onClose: () => void
   onSaveAddress: (data: AddressFormValues) => void
   initialAddressData?: Partial<AddressFormValues>
   open: boolean
 }
 
-const AddNewAddressPopup: React.FC<AddNewAddressPopupProps> = ({
+const EditAddressPopup: React.FC<EditAddressPopupProps> = ({
   onClose,
   onSaveAddress,
   initialAddressData,
@@ -113,10 +113,10 @@ const AddNewAddressPopup: React.FC<AddNewAddressPopupProps> = ({
   }
 
   return (
-    <Popup open={open} modalId="add-new-address-modal" onClose={handleClose}>
+    <Popup open={open} modalId="edit-address-modal" onClose={handleClose}>
       <div className="max-h-[90vh] space-y-8 overflow-y-auto">
         <div className="flex w-full flex-col gap-6 rounded-[20px] bg-slate-100 p-6">
-          <PopupHeader onClose={handleClose}>Add new address</PopupHeader>
+          <PopupHeader onClose={handleClose}>Edit address</PopupHeader>
           <div className="flex flex-col gap-5">
             <Input
               id="addressTitle"
@@ -273,4 +273,4 @@ const AddNewAddressPopup: React.FC<AddNewAddressPopupProps> = ({
   )
 }
 
-export default AddNewAddressPopup
+export default EditAddressPopup

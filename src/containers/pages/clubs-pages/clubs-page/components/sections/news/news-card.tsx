@@ -1,6 +1,5 @@
 import Image from "next/image"
 import React from "react"
-import { NFT as _NFT, Quality as _Quality, Signature as _Signature, Timer as _Timer, Soccer } from "@/shared/icons"
 
 interface INewsCardProps {
   newsItem: {

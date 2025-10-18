@@ -6,7 +6,6 @@ import type { components } from "../schema"
 
 type CreateAddressDto = components["schemas"]["CreateAddressDto"]
 type UpdateAddressDto = components["schemas"]["UpdateAddressDto"]
-type AddressOutputDto = components["schemas"]["AddressOutputDto"]
 
 // Query keys
 export const addressesKeys = {
@@ -14,7 +13,7 @@ export const addressesKeys = {
   lists: () => [...addressesKeys.all, "list"] as const,
   list: (filters?: Record<string, unknown>) => [...addressesKeys.lists(), filters] as const,
   details: () => [...addressesKeys.all, "detail"] as const,
-  detail: (id: string | number) => [...addressesKeys.details(), id] as const,
+  detail: (id: number) => [...addressesKeys.details(), id] as const,
 }
 
 /**
@@ -26,8 +25,8 @@ export function useAddresses() {
     queryFn: async () => {
       const response = await apiClient.GET("/addresses")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -38,16 +37,16 @@ export function useAddresses() {
 /**
  * Get address by ID
  */
-export function useAddress(id: string | number) {
+export function useAddress(id: number) {
   return useQuery({
     queryKey: addressesKeys.detail(id),
     queryFn: async () => {
       const response = await apiClient.GET("/addresses/{id}", {
-        params: { path: { id: String(id) } },
+        params: { path: { id } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -68,8 +67,8 @@ export function useCreateAddress() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -91,14 +90,14 @@ export function useUpdateAddress() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async ({ id, data }: { id: string | number; data: UpdateAddressDto }) => {
-      const response = await apiClient.PATCH("/addresses/{id}", {
-        params: { path: { id: String(id) } },
+    mutationFn: async ({ id, data }: { id: number; data: UpdateAddressDto }) => {
+      const response = await apiClient.PUT("/addresses/{id}", {
+        params: { path: { id } },
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -121,13 +120,13 @@ export function useDeleteAddress() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (id: string | number) => {
+    mutationFn: async (id: number) => {
       const response = await apiClient.DELETE("/addresses/{id}", {
-        params: { path: { id: String(id) } },
+        params: { path: { id } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data

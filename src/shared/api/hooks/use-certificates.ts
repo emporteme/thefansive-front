@@ -26,8 +26,8 @@ export function useMyCertificates() {
     queryFn: async () => {
       const response = await apiClient.GET("/certificates/my")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -46,8 +46,8 @@ export function useCertificate(id: string | number) {
         params: { path: { id: String(id) } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -67,8 +67,8 @@ export function useVerifyCertificate(hash: string) {
         params: { path: { hash } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -89,8 +89,8 @@ export function useIssueCertificate() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -117,8 +117,8 @@ export function useRevokeCertificate() {
         params: { path: { id: String(id) } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {

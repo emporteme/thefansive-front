@@ -2,11 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { apiClient } from "../client"
-import type { components } from "../schema"
-
-type UserStatisticsOutputDto = components["schemas"]["UserStatisticsOutputDto"]
-type LeaderboardOutputDto = components["schemas"]["LeaderboardOutputDto"]
-type TopFansOutputDto = components["schemas"]["TopFansOutputDto"]
 
 // Query keys
 export const statisticsKeys = {
@@ -14,7 +9,7 @@ export const statisticsKeys = {
   me: () => [...statisticsKeys.all, "me"] as const,
   leaderboard: (filters?: Record<string, unknown>) => [...statisticsKeys.all, "leaderboard", filters] as const,
   topFans: (filters?: Record<string, unknown>) => [...statisticsKeys.all, "topFans", filters] as const,
-  user: (userId: string | number) => [...statisticsKeys.all, "user", userId] as const,
+  user: (userId: number) => [...statisticsKeys.all, "user", userId] as const,
 }
 
 /**
@@ -26,8 +21,8 @@ export function useMyStatistics() {
     queryFn: async () => {
       const response = await apiClient.GET("/statistics/me")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Failed to fetch user statistics")
       }
 
       return response.data
@@ -46,8 +41,8 @@ export function useLeaderboard(params?: { limit?: number; offset?: number }) {
         params: { query: params },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Failed to fetch leaderboard")
       }
 
       return response.data
@@ -66,8 +61,8 @@ export function useTopFans(params?: { limit?: number; offset?: number }) {
         params: { query: params },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Failed to fetch top fans")
       }
 
       return response.data
@@ -78,16 +73,16 @@ export function useTopFans(params?: { limit?: number; offset?: number }) {
 /**
  * Get user statistics by ID
  */
-export function useUserStatistics(userId: string | number) {
+export function useUserStatistics(userId: number) {
   return useQuery({
     queryKey: statisticsKeys.user(userId),
     queryFn: async () => {
       const response = await apiClient.GET("/statistics/{userId}", {
-        params: { path: { userId: String(userId) } },
+        params: { path: { userId } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Failed to fetch user statistics")
       }
 
       return response.data

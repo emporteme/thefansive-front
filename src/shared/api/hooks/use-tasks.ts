@@ -4,11 +4,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { apiClient } from "../client"
 import type { components } from "../schema"
 
-type TaskOutputDto = components["schemas"]["TaskOutputDto"]
 type AssignTaskDto = components["schemas"]["AssignTaskDto"]
-type CompleteUserTaskDto = components["schemas"]["CompleteUserTaskDto"]
-type UserTaskOutputDto = components["schemas"]["UserTaskOutputDto"]
-type UserTaskStatsOutputDto = components["schemas"]["UserTaskStatsOutputDto"]
+
+// Inline CompleteUserTaskDto
+type CompleteUserTaskDto = {
+  userTaskId: number
+  proof?: Record<string, never>
+}
 
 // Query keys
 export const tasksKeys = {
@@ -16,7 +18,7 @@ export const tasksKeys = {
   lists: () => [...tasksKeys.all, "list"] as const,
   list: (filters?: Record<string, unknown>) => [...tasksKeys.lists(), filters] as const,
   details: () => [...tasksKeys.all, "detail"] as const,
-  detail: (id: string | number) => [...tasksKeys.details(), id] as const,
+  detail: (id: number) => [...tasksKeys.details(), id] as const,
   myTeams: () => [...tasksKeys.all, "myTeams"] as const,
   userTasks: () => [...tasksKeys.all, "userTasks"] as const,
   userTasksActive: () => [...tasksKeys.userTasks(), "active"] as const,
@@ -34,8 +36,8 @@ export function useTasks(params?: { teamId?: number; isActive?: boolean }) {
         params: { query: params },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -46,16 +48,16 @@ export function useTasks(params?: { teamId?: number; isActive?: boolean }) {
 /**
  * Get task by ID
  */
-export function useTask(id: string | number) {
+export function useTask(id: number) {
   return useQuery({
     queryKey: tasksKeys.detail(id),
     queryFn: async () => {
       const response = await apiClient.GET("/tasks/{id}", {
-        params: { path: { id: String(id) } },
+        params: { path: { id } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -73,8 +75,8 @@ export function useMyTeamsTasks() {
     queryFn: async () => {
       const response = await apiClient.GET("/tasks/my-teams")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -91,8 +93,8 @@ export function useMyTasks() {
     queryFn: async () => {
       const response = await apiClient.GET("/tasks/user/me")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -109,8 +111,8 @@ export function useMyActiveTasks() {
     queryFn: async () => {
       const response = await apiClient.GET("/tasks/user/me/active")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -127,8 +129,8 @@ export function useMyTaskStats() {
     queryFn: async () => {
       const response = await apiClient.GET("/tasks/user/me/stats")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -148,8 +150,8 @@ export function useAssignTask() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -173,16 +175,12 @@ export function useStartTask() {
 
   return useMutation({
     mutationFn: async (userTaskId: number) => {
-      const response = await apiClient.POST("/tasks/user/{userTaskId}/start", {
+      const response = await apiClient.PATCH("/tasks/user/{userTaskId}/start", {
         params: { path: { userTaskId } },
       })
 
-      if (response.error) {
-        throw response.error
-      }
-
       if (!response.data) {
-        throw new Error("No data received from server")
+        throw new Error("Failed to start task")
       }
 
       return response.data
@@ -206,8 +204,8 @@ export function useCompleteTask() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {

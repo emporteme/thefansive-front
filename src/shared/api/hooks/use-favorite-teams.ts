@@ -22,8 +22,8 @@ export function useFavoriteTeams() {
     queryFn: async () => {
       const response = await apiClient.GET("/user/favorite-teams")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -42,8 +42,8 @@ export function useCheckFavoriteTeam(teamId: number) {
         params: { path: { teamId } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -64,8 +64,8 @@ export function useAddFavoriteTeam() {
         params: { path: { teamId } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -93,8 +93,8 @@ export function useRemoveFavoriteTeam() {
         params: { path: { teamId } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data

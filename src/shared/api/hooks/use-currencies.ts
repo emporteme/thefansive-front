@@ -4,8 +4,6 @@ import { useQuery } from "@tanstack/react-query"
 import { apiClient } from "../client"
 import type { components } from "../schema"
 
-type CurrencyOutputDto = components["schemas"]["CurrencyOutputDto"]
-type ExchangeRateOutputDto = components["schemas"]["ExchangeRateOutputDto"]
 type ConvertCurrencyDto = components["schemas"]["ConvertCurrencyDto"]
 
 // Query keys
@@ -28,8 +26,8 @@ export function useCurrencies() {
     queryFn: async () => {
       const response = await apiClient.GET("/currencies")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -48,8 +46,8 @@ export function useCurrency(code: string) {
         params: { path: { code } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -67,8 +65,8 @@ export function useExchangeRates() {
     queryFn: async () => {
       const response = await apiClient.GET("/currencies/exchange-rates/all")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -87,8 +85,8 @@ export function useExchangeRatesByBase(baseCurrency: string) {
         params: { path: { baseCurrency } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -104,16 +102,16 @@ export function useConvertCurrency(params: ConvertCurrencyDto) {
   return useQuery({
     queryKey: currenciesKeys.convert(params),
     queryFn: async () => {
-      const response = await apiClient.GET("/currencies/convert", {
-        params: { query: params },
+      const response = await apiClient.POST("/currencies/convert", {
+        body: params,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
     },
-    enabled: !!params.from && !!params.to && !!params.amount,
+    enabled: !!params.fromCurrency && !!params.toCurrency && !!params.amount,
   })
 }

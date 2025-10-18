@@ -2,10 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { apiClient } from "../client"
-import type { components } from "../schema"
 
-type TeamOutputDto = components["schemas"]["TeamOutputDto"]
-type SportType = components["schemas"]["SportType"]
+// Sport types from API
+type SportType = "FOOTBALL" | "BASKETBALL" | "HOCKEY" | "VOLLEYBALL" | "TENNIS" | "RUGBY" | "BASEBALL" | "OTHER"
 
 // Query keys
 export const teamsKeys = {
@@ -15,7 +14,7 @@ export const teamsKeys = {
   details: () => [...teamsKeys.all, "detail"] as const,
   detail: (id: string | number) => [...teamsKeys.details(), id] as const,
   search: (query: string) => [...teamsKeys.all, "search", query] as const,
-  bySport: (sportType: SportType) => [...teamsKeys.all, "sport", sportType] as const,
+  bySport: (sportType: string) => [...teamsKeys.all, "sport", sportType] as const,
 }
 
 /**
@@ -35,8 +34,8 @@ export function useTeams(params?: {
         params: { query: params },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Failed to fetch teams")
       }
 
       return response.data
@@ -52,11 +51,11 @@ export function useSearchTeams(query: string) {
     queryKey: teamsKeys.search(query),
     queryFn: async () => {
       const response = await apiClient.GET("/teams/search", {
-        params: { query: { query } },
+        params: { query: { q: query } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Failed to search teams")
       }
 
       return response.data
@@ -68,7 +67,7 @@ export function useSearchTeams(query: string) {
 /**
  * Get teams by sport type
  */
-export function useTeamsBySport(sportType: SportType) {
+export function useTeamsBySport(sportType: string) {
   return useQuery({
     queryKey: teamsKeys.bySport(sportType),
     queryFn: async () => {
@@ -76,8 +75,8 @@ export function useTeamsBySport(sportType: SportType) {
         params: { path: { sportType } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Failed to fetch teams by sport")
       }
 
       return response.data
@@ -89,12 +88,12 @@ export function useTeamsBySport(sportType: SportType) {
 /**
  * Get team by ID
  */
-export function useTeam(id: string | number) {
+export function useTeam(id: number) {
   return useQuery({
     queryKey: teamsKeys.detail(id),
     queryFn: async () => {
       const response = await apiClient.GET("/teams/{id}", {
-        params: { path: { id: String(id) } },
+        params: { path: { id } },
       })
 
       if (response.error) {

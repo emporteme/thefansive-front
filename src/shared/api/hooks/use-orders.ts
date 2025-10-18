@@ -5,8 +5,9 @@ import { apiClient } from "../client"
 import type { components } from "../schema"
 
 type CreateOrderDto = components["schemas"]["CreateOrderDto"]
-type OrderOutputDto = components["schemas"]["OrderOutputDto"]
-type OrderStatus = components["schemas"]["OrderStatus"]
+
+// Order statuses from API
+type OrderStatus = "PENDING" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED"
 
 // Query keys
 export const ordersKeys = {
@@ -14,7 +15,7 @@ export const ordersKeys = {
   lists: () => [...ordersKeys.all, "list"] as const,
   list: (filters?: Record<string, unknown>) => [...ordersKeys.lists(), filters] as const,
   details: () => [...ordersKeys.all, "detail"] as const,
-  detail: (id: string | number) => [...ordersKeys.details(), id] as const,
+  detail: (id: number) => [...ordersKeys.details(), id] as const,
   my: () => [...ordersKeys.all, "my"] as const,
 }
 
@@ -25,12 +26,10 @@ export function useMyOrders(params?: { page?: number; limit?: number; status?: O
   return useQuery({
     queryKey: ordersKeys.list(params),
     queryFn: async () => {
-      const response = await apiClient.GET("/orders/my", {
-        params: { query: params },
-      })
+      const response = await apiClient.GET("/orders/my")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -41,16 +40,16 @@ export function useMyOrders(params?: { page?: number; limit?: number; status?: O
 /**
  * Get order by ID
  */
-export function useOrder(id: string | number) {
+export function useOrder(id: number) {
   return useQuery({
     queryKey: ordersKeys.detail(id),
     queryFn: async () => {
       const response = await apiClient.GET("/orders/{id}", {
-        params: { path: { id: String(id) } },
+        params: { path: { id } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -71,8 +70,8 @@ export function useCreateOrder() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -95,13 +94,13 @@ export function useCancelOrder() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (id: string | number) => {
-      const response = await apiClient.PATCH("/orders/{id}/cancel", {
-        params: { path: { id: String(id) } },
+    mutationFn: async (id: number) => {
+      const response = await apiClient.POST("/orders/{id}/cancel", {
+        params: { path: { id } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {

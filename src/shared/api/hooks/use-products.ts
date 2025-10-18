@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query"
 import { apiClient } from "../client"
 import type { components } from "../schema"
 
-type ProductOutputDto = components["schemas"]["ProductOutputDto"]
-type ProductCategory = components["schemas"]["ProductCategory"]
+// Product categories from API
+type ProductCategory = "FAN_SUPPORT"
 
 // Query keys
 export const productsKeys = {
@@ -13,7 +13,7 @@ export const productsKeys = {
   lists: () => [...productsKeys.all, "list"] as const,
   list: (filters?: Record<string, unknown>) => [...productsKeys.lists(), filters] as const,
   details: () => [...productsKeys.all, "detail"] as const,
-  detail: (id: string | number) => [...productsKeys.details(), id] as const,
+  detail: (id: number) => [...productsKeys.details(), id] as const,
   search: (query: string) => [...productsKeys.all, "search", query] as const,
   category: (category: ProductCategory) => [...productsKeys.all, "category", category] as const,
   myTeams: () => [...productsKeys.all, "myTeams"] as const,
@@ -38,8 +38,8 @@ export function useProducts(params?: {
         params: { query: params },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -50,16 +50,16 @@ export function useProducts(params?: {
 /**
  * Get product by ID
  */
-export function useProduct(id: string | number) {
+export function useProduct(id: number) {
   return useQuery({
     queryKey: productsKeys.detail(id),
     queryFn: async () => {
       const response = await apiClient.GET("/products/{id}", {
-        params: { path: { id: String(id) } },
+        params: { path: { id } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -76,11 +76,11 @@ export function useSearchProducts(query: string) {
     queryKey: productsKeys.search(query),
     queryFn: async () => {
       const response = await apiClient.GET("/products/search", {
-        params: { query: { query } },
+        params: { query: { q: query } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -100,8 +100,8 @@ export function useProductsByCategory(category: ProductCategory) {
         params: { path: { category } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -119,8 +119,8 @@ export function useMyTeamsProducts() {
     queryFn: async () => {
       const response = await apiClient.GET("/products/my-teams")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data

@@ -25,8 +25,8 @@ export function useUser(id: string | number) {
         params: { path: { id: String(id) } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -44,8 +44,8 @@ export function useCurrentUserProfile() {
     queryFn: async () => {
       const response = await apiClient.GET("/users/profile")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -65,8 +65,8 @@ export function useCreateUser() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -93,8 +93,8 @@ export function useDeleteUser() {
         params: { path: { id: String(id) } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data

@@ -2,9 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { apiClient } from "../client"
-import type { components } from "../schema"
-
-type CountryOutputDto = components["schemas"]["CountryOutputDto"]
 
 // Query keys
 export const countriesKeys = {
@@ -12,7 +9,7 @@ export const countriesKeys = {
   lists: () => [...countriesKeys.all, "list"] as const,
   list: (filters?: Record<string, unknown>) => [...countriesKeys.lists(), filters] as const,
   details: () => [...countriesKeys.all, "detail"] as const,
-  detail: (id: string | number) => [...countriesKeys.details(), id] as const,
+  detail: (id: number) => [...countriesKeys.details(), id] as const,
   byIso2: (iso2: string) => [...countriesKeys.all, "iso2", iso2] as const,
   count: () => [...countriesKeys.all, "count"] as const,
 }
@@ -28,8 +25,8 @@ export function useCountries(params?: { page?: number; limit?: number; search?: 
         params: { query: params },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -46,8 +43,8 @@ export function useCountriesCount() {
     queryFn: async () => {
       const response = await apiClient.GET("/countries/count")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -58,16 +55,16 @@ export function useCountriesCount() {
 /**
  * Get country by ID
  */
-export function useCountry(id: string | number) {
+export function useCountry(id: number) {
   return useQuery({
     queryKey: countriesKeys.detail(id),
     queryFn: async () => {
       const response = await apiClient.GET("/countries/{id}", {
-        params: { path: { id: String(id) } },
+        params: { path: { id } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -87,8 +84,8 @@ export function useCountryByIso2(iso2: string) {
         params: { path: { iso2 } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data

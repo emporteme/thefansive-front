@@ -39,8 +39,8 @@ export function useProfile() {
     queryFn: async () => {
       const response = await apiClient.GET("/profile")
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -59,8 +59,8 @@ export function useUserProfile(userId: number) {
         params: { path: { userId } },
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       return response.data
@@ -81,8 +81,8 @@ export function useCreateProfile() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -109,8 +109,8 @@ export function useUpdateProfile() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -137,8 +137,8 @@ export function useUpdateSocialLinks() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -165,8 +165,8 @@ export function useUpdateProfilePreferences() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {

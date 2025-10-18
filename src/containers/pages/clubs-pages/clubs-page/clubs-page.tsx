@@ -9,16 +9,16 @@ const ClubsPage = () => {
       alt: "Banner Team",
     },
     {
-      src: "/images/dev/wolverhampton-logo.png",
-      alt: "Wolverhampton FC Logo",
+      src: "/images/dev/real-madrid-banner.jpg",
+      alt: "Real Madrid Banner",
     },
     {
       src: "/images/dev/banner-team.jpg",
       alt: "Banner Team",
     },
     {
-      src: "/images/dev/premier-league-logo.png",
-      alt: "Premier League Logo",
+      src: "/images/dev/real-madrid-banner-2.png",
+      alt: "Real Madrid Banner 2",
     },
   ]
 

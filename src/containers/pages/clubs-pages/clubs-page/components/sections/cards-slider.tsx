@@ -5,10 +5,9 @@ import React, { useEffect, useRef } from "react"
 import type { Swiper as SwiperType } from "swiper"
 import { A11y, Autoplay, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { ArrowLeft, ArrowRight } from "@/shared/icons"
 import "swiper/css"
 import "swiper/css/navigation"
-
-import { ArrowLeft, ArrowRight } from "@/shared/icons"
 
 interface ICardsSliderProps {
   title: string
@@ -31,23 +30,18 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   loop = true,
   className,
 }) => {
-  // Guard: nothing to render
   if (elements.length === 0) {
     return null
   }
 
-  // Navigation element refs
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const swiperRef = useRef<SwiperType | null>(null)
 
-  // Calculate total items that can be shown in the grid
   const totalItemsInView = navCount * rowCount
 
-  // Show navigation only if we have more elements than can fit in the grid
   const showNavigation = elements.length > totalItemsInView
 
-  // Update navigation after component mounts
   useEffect(() => {
     if (swiperRef.current && prevRef.current && nextRef.current) {
       swiperRef.current.navigation.update()
@@ -56,11 +50,10 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
 
   return (
     <div className={classNames("w-full", className)}>
-      {/* Header with title and navigation */}
       <div className="mb-6 flex items-center justify-between">
-        <div className="flex flex-col gap-2">
-          <h2 className="text-3xl font-semibold text-slate-900">{title}</h2>
-          <p className="font-medium text-slate-900">{subtitle}</p>
+        <div className="flex flex-col gap-0.5">
+          <h2 className="text-3xl leading-[48px] font-semibold tracking-[0] text-slate-900">{title}</h2>
+          <p className="text-base font-normal tracking-[0] text-slate-900">{subtitle}</p>
         </div>
         {showNavigation && (
           <div className="flex gap-2">
@@ -68,9 +61,9 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
               ref={prevRef}
               aria-label="Previous cards"
               className={classNames(
-                "group h-10 w-10 rounded-lg border border-gray-200 bg-white",
+                "group border-1.5 h-15 w-16 rounded-lg border border-slate-200 bg-white",
                 "transition hover:bg-gray-50",
-                "flex items-center justify-center text-gray-700"
+                "flex items-center justify-center text-slate-900"
               )}
             >
               <ArrowLeft />
@@ -80,9 +73,9 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
               ref={nextRef}
               aria-label="Next cards"
               className={classNames(
-                "group h-10 w-10 rounded-lg border border-gray-200 bg-white",
+                "group h-15 w-16 rounded-lg border border-gray-200 bg-white",
                 "transition hover:bg-gray-50",
-                "flex items-center justify-center text-gray-700"
+                "flex items-center justify-center text-slate-900"
               )}
             >
               <ArrowRight />
@@ -91,7 +84,6 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
         )}
       </div>
 
-      {/* Grid-based Slider */}
       <Swiper
         modules={[Autoplay, Navigation, Keyboard, A11y]}
         onSwiper={(swiper) => {
@@ -114,7 +106,6 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
         a11y={{ enabled: true }}
         className="w-full"
       >
-        {/* Group elements into grid pages */}
         {Array.from({ length: Math.ceil(elements.length / totalItemsInView) }, (_, pageIndex) => (
           <SwiperSlide key={`page-${pageIndex}`}>
             <div

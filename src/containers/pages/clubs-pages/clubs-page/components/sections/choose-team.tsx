@@ -11,6 +11,8 @@ import "swiper/css/navigation"
 
 import { clubsData } from "@/containers/pages/user/profile-page/components/widgets/favorite-clubs"
 import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
+import { useNavigate } from "@/shared/hooks/client/use-navigate"
+import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { ArrowSelect } from "@/shared/icons"
 
 interface Club {
@@ -53,6 +55,8 @@ const ChooseTeam: React.FC = () => {
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const swiperRef = useRef<SwiperType | null>(null)
+  const navigate = useNavigate()
+  const routes = useRoutes()
 
   const displayClubs = useMemo(() => {
     if (favoriteClubs.length >= maxShowedClubs) {
@@ -68,7 +72,6 @@ const ChooseTeam: React.FC = () => {
     return [...favoriteClubs, ...emptyClubs]
   }, [favoriteClubs])
 
-  // Update navigation after component mounts
   useEffect(() => {
     if (swiperRef.current) {
       swiperRef.current.navigation.init()
@@ -101,19 +104,16 @@ const ChooseTeam: React.FC = () => {
   }
 
   const handleClubClick = (club: Club) => {
-    // Navigate to club page or handle club selection
-    console.log("Club clicked:", club.name)
+    navigate(routes.clubs.single(club.id.toString()))
   }
 
   const handlePrevClick = () => {
-    console.log("Previous button clicked")
     if (swiperRef.current) {
       swiperRef.current.slidePrev()
     }
   }
 
   const handleNextClick = () => {
-    console.log("Next button clicked")
     if (swiperRef.current) {
       swiperRef.current.slideNext()
     }
@@ -121,7 +121,6 @@ const ChooseTeam: React.FC = () => {
 
   return (
     <div className="mx-20 flex items-center justify-between rounded-2xl bg-slate-200 px-6 py-3">
-      {/* Club Logos Slider */}
       <div className="flex items-center gap-2.5">
         <button
           ref={prevRef}
@@ -167,7 +166,6 @@ const ChooseTeam: React.FC = () => {
         </button>
       </div>
 
-      {/* Choose Your Team Button */}
       <button
         onClick={handleOpenModal}
         className="flex items-center gap-2 rounded-xl bg-white px-4 py-3 font-semibold text-slate-700 transition hover:bg-gray-50"
@@ -176,7 +174,6 @@ const ChooseTeam: React.FC = () => {
         <ArrowSelect className="h-4 w-4" />
       </button>
 
-      {/* Modal Portal */}
       {typeof window !== "undefined" &&
         isModalOpen &&
         createPortal(

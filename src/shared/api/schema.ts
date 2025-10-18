@@ -720,6 +720,23 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  "/teams/sport-types": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get all available sport types */
+    get: operations["TeamsController_getAllSportTypes"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   "/teams/sport/{sportType}": {
     parameters: {
       query?: never
@@ -955,6 +972,26 @@ export interface paths {
     }
     /** Get all products including inactive (Admin only) */
     get: operations["ProductsController_getAllProductsAdmin"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/products/popular": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get popular products (personalized if authenticated)
+     * @description Returns popular products ordered by number of orders. If authenticated and user has favorite teams, returns personalized results. Otherwise returns global popular products.
+     */
+    get: operations["ProductsController_getPopularProducts"]
     put?: never
     post?: never
     delete?: never
@@ -1825,6 +1862,94 @@ export interface paths {
     put?: never
     /** Mark all notifications as read */
     post: operations["NotificationsController_markAllAsRead"]
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/news": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get all active news (public) */
+    get: operations["NewsController_getAllNews"]
+    put?: never
+    /** Create a new news article (Admin only) */
+    post: operations["NewsController_createNews"]
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/news/{id}": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get news by ID (public) */
+    get: operations["NewsController_getNewsById"]
+    /** Update a news article (Admin only) */
+    put: operations["NewsController_updateNews"]
+    post?: never
+    /** Delete a news article permanently (Admin only) */
+    delete: operations["NewsController_deleteNews"]
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/news/{id}/deactivate": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Deactivate a news article (Admin only) */
+    patch: operations["NewsController_deactivateNews"]
+    trace?: never
+  }
+  "/news/{id}/activate": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Activate a news article (Admin only) */
+    patch: operations["NewsController_activateNews"]
+    trace?: never
+  }
+  "/news/personalized": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get personalized news based on favorite teams (requires auth) */
+    get: operations["NewsController_getPersonalizedNews"]
+    put?: never
+    post?: never
     delete?: never
     options?: never
     head?: never
@@ -2726,6 +2851,23 @@ export interface components {
       /** @description Nested team details */
       team?: components["schemas"]["TeamOutputDto"]
     }
+    SportTypeOutputDto: {
+      /**
+       * @description Sport type enum value
+       * @example FOOTBALL
+       * @enum {string}
+       */
+      value: "FOOTBALL" | "BASKETBALL" | "HOCKEY" | "VOLLEYBALL" | "TENNIS" | "RUGBY" | "BASEBALL" | "OTHER"
+      /**
+       * @description Human-readable label for the sport type
+       * @example Football
+       */
+      label: string
+    }
+    SportTypesListDto: {
+      /** @description List of all available sport types */
+      sportTypes: components["schemas"]["SportTypeOutputDto"][]
+    }
     TranslationDto: {
       /**
        * @description English name
@@ -3524,6 +3666,103 @@ export interface components {
        * @example 2025-10-06T12:00:00.000Z
        */
       updatedAt: string
+    }
+    TranslatableTextDto: {
+      /** @example Breaking News: Team Wins Championship */
+      en: string
+      /** @example Срочные новости: Команда выигрывает чемпионат */
+      ru?: string
+      /** @example Última hora: El equipo gana el campeonato */
+      es?: string
+    }
+    CreateNewsDto: {
+      /** @description News title in multiple languages */
+      title: components["schemas"]["TranslatableTextDto"]
+      /** @description News content in multiple languages */
+      content: components["schemas"]["TranslatableTextDto"]
+      /**
+       * @default GENERAL
+       * @example GENERAL
+       * @enum {string}
+       */
+      category: "MATCH_RESULT" | "TRANSFER" | "ANNOUNCEMENT" | "INTERVIEW" | "GENERAL"
+      /**
+       * @description URL to news image
+       * @example https://example.com/news-image.jpg
+       */
+      imageUrl?: string
+      /**
+       * @description Team ID associated with this news
+       * @example 1
+       */
+      teamId?: number
+    }
+    NewsOutputDto: {
+      /** @example 1 */
+      id: number
+      /**
+       * @example {
+       *       "en": "Breaking News: Team Wins Championship",
+       *       "ru": "Срочные новости: Команда выигрывает чемпионат"
+       *     }
+       */
+      title: Record<string, never>
+      /**
+       * @example {
+       *       "en": "The team has won the championship in a thrilling match...",
+       *       "ru": "Команда выиграла чемпионат в захватывающем матче..."
+       *     }
+       */
+      content: Record<string, never>
+      /**
+       * @example GENERAL
+       * @enum {string}
+       */
+      category: "MATCH_RESULT" | "TRANSFER" | "ANNOUNCEMENT" | "INTERVIEW" | "GENERAL"
+      /** @example https://example.com/news-image.jpg */
+      imageUrl: Record<string, never> | null
+      /** @example 1 */
+      teamId: Record<string, never> | null
+      team: components["schemas"]["TeamOutputDto"] | null
+      /**
+       * Format: date-time
+       * @example 2025-10-18T10:00:00.000Z
+       */
+      publishedAt: string
+      /** @example true */
+      isActive: boolean
+      /**
+       * Format: date-time
+       * @example 2025-10-18T10:00:00.000Z
+       */
+      createdAt: string
+      /**
+       * Format: date-time
+       * @example 2025-10-18T10:00:00.000Z
+       */
+      updatedAt: string
+    }
+    UpdateNewsDto: {
+      /** @description News title in multiple languages */
+      title?: components["schemas"]["TranslatableTextDto"]
+      /** @description News content in multiple languages */
+      content?: components["schemas"]["TranslatableTextDto"]
+      /**
+       * @default GENERAL
+       * @example GENERAL
+       * @enum {string}
+       */
+      category: "MATCH_RESULT" | "TRANSFER" | "ANNOUNCEMENT" | "INTERVIEW" | "GENERAL"
+      /**
+       * @description URL to news image
+       * @example https://example.com/news-image.jpg
+       */
+      imageUrl?: string
+      /**
+       * @description Team ID associated with this news
+       * @example 1
+       */
+      teamId?: number
     }
   }
   responses: never
@@ -5213,6 +5452,26 @@ export interface operations {
       }
     }
   }
+  TeamsController_getAllSportTypes: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns list of all sport types */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["SportTypesListDto"]
+        }
+      }
+    }
+  }
   TeamsController_getTeamsBySport: {
     parameters: {
       query?: never
@@ -5846,6 +6105,29 @@ export interface operations {
           [name: string]: unknown
         }
         content?: never
+      }
+    }
+  }
+  ProductsController_getPopularProducts: {
+    parameters: {
+      query?: {
+        /** @description Number of items to return (default: 20) */
+        limit?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Popular products retrieved successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["ProductOutputDto"][]
+        }
       }
     }
   }
@@ -7194,6 +7476,272 @@ export interface operations {
         content: {
           "application/json": unknown
         }
+      }
+    }
+  }
+  NewsController_getAllNews: {
+    parameters: {
+      query?: {
+        /** @description Number of items to return (default: 20) */
+        limit?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description News retrieved successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["NewsOutputDto"][]
+        }
+      }
+    }
+  }
+  NewsController_createNews: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateNewsDto"]
+      }
+    }
+    responses: {
+      /** @description News created successfully */
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["NewsOutputDto"]
+        }
+      }
+      /** @description Forbidden - Admin only */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  NewsController_getNewsById: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description News ID */
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description News retrieved successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["NewsOutputDto"]
+        }
+      }
+      /** @description News not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  NewsController_updateNews: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description News ID */
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateNewsDto"]
+      }
+    }
+    responses: {
+      /** @description News updated successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["NewsOutputDto"]
+        }
+      }
+      /** @description Forbidden - Admin only */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description News not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  NewsController_deleteNews: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description News ID */
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description News deleted successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["NewsOutputDto"]
+        }
+      }
+      /** @description Forbidden - Admin only */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description News not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  NewsController_deactivateNews: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description News ID */
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description News deactivated successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["NewsOutputDto"]
+        }
+      }
+      /** @description Forbidden - Admin only */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description News not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  NewsController_activateNews: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description News ID */
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description News activated successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["NewsOutputDto"]
+        }
+      }
+      /** @description Forbidden - Admin only */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description News not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  NewsController_getPersonalizedNews: {
+    parameters: {
+      query?: {
+        /** @description Number of items to return (default: 20) */
+        limit?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Personalized news retrieved successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["NewsOutputDto"][]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
     }
   }

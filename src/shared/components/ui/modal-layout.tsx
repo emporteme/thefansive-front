@@ -22,13 +22,18 @@ const ModalLayout: React.FC<BaseModalProps> = ({
 }) => {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
 
-    return () => {
-      document.body.style.overflow = "unset"
+      const originalPaddingRight = window.getComputedStyle(document.body).paddingRight
+      const originalOverflow = document.body.style.overflow
+
+      document.body.style.paddingRight = `${parseFloat(originalPaddingRight) + scrollbarWidth}px`
+      document.body.style.overflow = "hidden"
+
+      return () => {
+        document.body.style.paddingRight = originalPaddingRight
+        document.body.style.overflow = originalOverflow
+      }
     }
   }, [isOpen])
 

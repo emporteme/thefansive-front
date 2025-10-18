@@ -109,7 +109,6 @@ const ClubsPage = () => {
     if (target) {
       const productId = target.getAttribute("data-product-id")
       if (productId) {
-        console.log("productId", productId)
         navigate(routes.products.single(productId))
       }
     }

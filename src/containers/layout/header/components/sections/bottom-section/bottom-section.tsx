@@ -10,20 +10,22 @@ type BottomSectionProps = {
 
 const BottomSection: React.FC<BottomSectionProps> = ({ isMobileMenuOpen, onToggleMobileMenu }) => {
   return (
-    <ContainerLayout className="flex items-center justify-between gap-5 border-b border-[#CAD5E2] bg-white py-4">
-      <div className="flex items-center gap-10">
-        <Logo />
-        <Links />
-      </div>
-      <div className="flex items-center gap-2">
-        <div className="hidden items-center gap-2 md:flex">
-          <Search />
-          <Cart />
-          <Auth />
+    <div className="border-b border-[#CAD5E2]">
+      <ContainerLayout className="flex items-center justify-between gap-5 bg-white py-4">
+        <div className="flex items-center gap-10">
+          <Logo />
+          <Links />
         </div>
-        <Burger isOpen={isMobileMenuOpen} onClick={onToggleMobileMenu} />
-      </div>
-    </ContainerLayout>
+        <div className="flex items-center gap-2">
+          <div className="hidden items-center gap-2 md:flex">
+            <Search />
+            <Cart />
+            <Auth />
+          </div>
+          <Burger isOpen={isMobileMenuOpen} onClick={onToggleMobileMenu} />
+        </div>
+      </ContainerLayout>
+    </div>
   )
 }
 

@@ -3,7 +3,7 @@
 import classNames from "classnames"
 import React, { useRef } from "react"
 import type { Swiper as SwiperType } from "swiper"
-import { A11y, Autoplay, Keyboard, Navigation } from "swiper/modules"
+import { A11y, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { ArrowLeft, ArrowRight } from "@/shared/icons"
 import "swiper/css"
@@ -15,7 +15,6 @@ interface ICardsSliderProps {
   navCount: number
   rowCount: number
   elements: React.ReactNode[]
-  autoDelay?: number
   loop?: boolean
   className?: string
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void
@@ -28,7 +27,6 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   navCount,
   rowCount = 1,
   elements = [],
-  autoDelay = 4000,
   loop = true,
   className,
 }) => {
@@ -79,7 +77,16 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
       </div>
 
       <Swiper
-        modules={[Autoplay, Navigation, Keyboard, A11y]}
+        modules={[Navigation, Keyboard, A11y]}
+        onBeforeInit={(swiper) => {
+          if (typeof swiper.params.navigation !== "boolean") {
+            const navigation = swiper.params.navigation
+            if (navigation) {
+              navigation.prevEl = prevRef.current
+              navigation.nextEl = nextRef.current
+            }
+          }
+        }}
         onSwiper={(swiper) => {
           swiperRef.current = swiper
         }}
@@ -87,12 +94,7 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
           prevEl: prevRef.current,
           nextEl: nextRef.current,
         }}
-        autoplay={{
-          delay: autoDelay,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }}
-        loop={loop && showNavigation}
+        loop={loop}
         speed={600}
         slidesPerView={1}
         spaceBetween={0}

@@ -12,7 +12,10 @@ interface IClubsCardProps {
 
 const ClubsCard: React.FC<IClubsCardProps> = ({ club }) => {
   return (
-    <div data-club-id={club.id} className="flex w-[230px] cursor-pointer flex-col gap-3 rounded-md">
+    <div
+      data-club-id={club.id}
+      className="flex w-[230px] cursor-pointer flex-col gap-3 transition-transform hover:scale-[1.01]"
+    >
       <Image
         src={club.logo}
         alt={club.name}

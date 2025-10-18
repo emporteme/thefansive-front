@@ -5,7 +5,6 @@ import { apiClient } from "../client"
 import type { components } from "../schema"
 
 type IssueCertificateDto = components["schemas"]["IssueCertificateDto"]
-type CertificateOutputDto = components["schemas"]["CertificateOutputDto"]
 
 // Query keys
 export const certificatesKeys = {
@@ -13,7 +12,7 @@ export const certificatesKeys = {
   lists: () => [...certificatesKeys.all, "list"] as const,
   my: () => [...certificatesKeys.all, "my"] as const,
   details: () => [...certificatesKeys.all, "detail"] as const,
-  detail: (id: string | number) => [...certificatesKeys.details(), id] as const,
+  detail: (id: number) => [...certificatesKeys.details(), id] as const,
   verify: (hash: string) => [...certificatesKeys.all, "verify", hash] as const,
 }
 
@@ -38,12 +37,12 @@ export function useMyCertificates() {
 /**
  * Get certificate by ID
  */
-export function useCertificate(id: string | number) {
+export function useCertificate(id: number) {
   return useQuery({
     queryKey: certificatesKeys.detail(id),
     queryFn: async () => {
       const response = await apiClient.GET("/certificates/{id}", {
-        params: { path: { id: String(id) } },
+        params: { path: { id } },
       })
 
       if (!response.data) {
@@ -90,11 +89,7 @@ export function useIssueCertificate() {
       })
 
       if (!response.data) {
-        throw new Error("Request failed")
-      }
-
-      if (!response.data) {
-        throw new Error("No data received from server")
+        throw new Error("Failed to issue certificate")
       }
 
       return response.data
@@ -112,17 +107,13 @@ export function useRevokeCertificate() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (id: string | number) => {
-      const response = await apiClient.PATCH("/certificates/{id}/revoke", {
-        params: { path: { id: String(id) } },
+    mutationFn: async (id: number) => {
+      const response = await apiClient.POST("/certificates/{id}/revoke", {
+        params: { path: { id } },
       })
 
       if (!response.data) {
-        throw new Error("Request failed")
-      }
-
-      if (!response.data) {
-        throw new Error("No data received from server")
+        throw new Error("Failed to revoke certificate")
       }
 
       return response.data

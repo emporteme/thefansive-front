@@ -2,9 +2,6 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { apiClient } from "../client"
-import type { components } from "../schema"
-
-type FavoriteTeamOutputDto = components["schemas"]["FavoriteTeamOutputDto"]
 
 // Query keys
 export const favoriteTeamsKeys = {

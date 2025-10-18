@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { apiClient } from "../client"
-import type { components } from "../schema"
 
 // Product categories from API
 type ProductCategory = "FAN_SUPPORT"

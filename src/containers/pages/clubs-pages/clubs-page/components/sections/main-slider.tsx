@@ -3,6 +3,7 @@
 import classNames from "classnames"
 import Image from "next/image"
 import React, { useEffect, useMemo, useRef, useState } from "react"
+import type { Swiper as SwiperType } from "swiper"
 import { A11y, Autoplay, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { ArrowLeft, ArrowRight } from "@/shared/icons"
@@ -39,6 +40,7 @@ const MainSlider: React.FC<MainSliderProps> = ({
 
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
+  const swiperRef = useRef<SwiperType | null>(null)
 
   const [progress, setProgress] = useState<number[]>(Array(slides.length).fill(0))
   const [active, setActive] = useState(0)
@@ -59,6 +61,15 @@ const MainSlider: React.FC<MainSliderProps> = ({
       }
       return next
     })
+  }
+
+  const handleProgressClick = (index: number) => {
+    if (swiperRef.current) {
+      swiperRef.current.slideToLoop(index)
+      if (swiperRef.current.autoplay) {
+        swiperRef.current.autoplay.start()
+      }
+    }
   }
 
   return (
@@ -97,6 +108,9 @@ const MainSlider: React.FC<MainSliderProps> = ({
 
       <Swiper
         modules={[Autoplay, Navigation, Keyboard, A11y]}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper
+        }}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current,
@@ -142,14 +156,23 @@ const MainSlider: React.FC<MainSliderProps> = ({
         ))}
       </Swiper>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-12.5 z-20 flex items-center justify-center gap-3 px-8">
+      <div className="absolute inset-x-0 bottom-12.5 z-20 flex items-center justify-center gap-3 px-8">
         {progress.map((v, i) => (
-          <div key={`bar-${i}`} className="h-1 w-16 overflow-hidden rounded-full bg-white/20">
+          <button
+            key={`bar-${i}`}
+            onClick={() => handleProgressClick(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            className={classNames(
+              "z-30 h-1 w-20 overflow-hidden rounded-full bg-white/50 transition-all duration-200",
+              "cursor-pointer hover:bg-white/70",
+              active === i && "ring-1 ring-white/50 ring-offset-1 ring-offset-black"
+            )}
+          >
             <div
-              className="linear h-full bg-white transition-[width] duration-100"
+              className="h-full bg-white transition-[width] duration-100 ease-linear"
               style={{ width: `${Math.round(v * 100)}%` }}
             />
-          </div>
+          </button>
         ))}
       </div>
     </div>

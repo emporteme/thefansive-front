@@ -5,9 +5,9 @@ import ContainerLayout from "@/shared/components/ui/container-layout"
 const GoBeyond: React.FC = () => {
   return (
     <div className="bg-black text-white">
-      <ContainerLayout className="flex flex-col gap-7.5 py-15">
-        <h2 className="text-center text-4xl font-semibold">Go Beyond Being a Spectator</h2>
-        <p className="pb-11 text-lg leading-5.5 font-medium">
+      <ContainerLayout className="flex flex-col pt-10 pb-15">
+        <h2 className="mb-7.5 text-center text-4xl font-semibold">Go Beyond Being a Spectator</h2>
+        <p className="horizontal-justify mx-auto mb-10 max-w-[725px] text-lg leading-[1.2] font-medium tracking-[-1px]">
           Thefansive transforms fandom from passive spectating into an active force of support. Fans can directly
           contribute to their favorite clubs and athletes, helping shape their future, strengthen their success and
           shift the balance on the competitive stage, fueling new trophies, new championships and unforgettable
@@ -23,7 +23,7 @@ const GoBeyond: React.FC = () => {
           fans gain access to exclusive products, events and limited-edition collectibles, turning their support into a
           lasting legacy.
         </p>
-        <Image src="/images/dev/logo-white.svg" alt="Go Beyond" width={120} height={19} className="mx-auto mb-10" />
+        <Image src="/logo-white.svg" alt="logo - thefansive.com" width={120} height={20} className="mx-auto" />
       </ContainerLayout>
     </div>
   )

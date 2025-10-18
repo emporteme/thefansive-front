@@ -138,7 +138,7 @@ const Article = async ({ params }: ArticleProps) => {
         </article>
 
         {/* News that will be interesting to you */}
-        <section className="border-t bg-[#F1F5F9] p-12">
+        <section className="border-t bg-slate-100 p-12">
           <h2 className="mb-8 text-center text-2xl font-bold text-gray-900">News that will be interesting to you</h2>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">

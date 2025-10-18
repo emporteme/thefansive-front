@@ -18,9 +18,11 @@ interface ICardsSliderProps {
   autoDelay?: number
   loop?: boolean
   className?: string
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void
 }
 
 const CardsSlider: React.FC<ICardsSliderProps> = ({
+  onClick,
   title,
   subtitle,
   navCount,
@@ -49,7 +51,7 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   }, [showNavigation])
 
   return (
-    <div className={classNames("w-full", className)}>
+    <div className={classNames("w-full", className)} onClick={onClick}>
       <div className="mb-6 flex items-center justify-between">
         <div className="flex flex-col gap-0.5">
           <h2 className="text-3xl leading-[48px] font-semibold tracking-[0] text-slate-900">{title}</h2>

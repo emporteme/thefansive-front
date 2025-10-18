@@ -63,7 +63,7 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
               <p>10d : 3h : 7m : 21s</p>
             </span>
           </div>
-          <Button size="lg" className="w-full">
+          <Button size="lg" className="w-full" data-product-id={product.id}>
             Support Your Team
           </Button>
         </div>

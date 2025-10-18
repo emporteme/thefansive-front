@@ -2,8 +2,11 @@
 
 import React from "react"
 import ContainerLayout from "@/shared/components/ui/container-layout"
+import { useNavigate } from "@/shared/hooks/client/use-navigate"
+import { useRoutes } from "@/shared/hooks/client/use-routes"
 import type { Product } from "@/shared/types/fan-support"
 import { CardsSlider, ChooseTeam, ClubsCard, FanSupportCard, GoBeyond, MainSlider, News } from "./components/sections"
+import { favoriteClubsData } from "../../user/profile-page/components/widgets/favorite-clubs"
 
 const banners = [
   {
@@ -86,6 +89,32 @@ const fanSupport = [
 ] as unknown as Product[]
 
 const ClubsPage = () => {
+  const navigate = useNavigate()
+  const routes = useRoutes()
+
+  const handleClickClub = (event: React.MouseEvent<HTMLDivElement>) => {
+    const target = (event.target as HTMLElement).closest("[data-club-id]")
+
+    if (target) {
+      const clubId = target.getAttribute("data-club-id")
+      if (clubId) {
+        navigate(routes.clubs.single(clubId))
+      }
+    }
+  }
+
+  const handleClickProduct = (event: React.MouseEvent<HTMLDivElement>) => {
+    const target = (event.target as HTMLElement).closest("[data-product-id]")
+
+    if (target) {
+      const productId = target.getAttribute("data-product-id")
+      if (productId) {
+        console.log("productId", productId)
+        navigate(routes.products.single(productId))
+      }
+    }
+  }
+
   return (
     <div className="flex flex-col gap-15">
       <MainSlider images={banners} autoDelay={4500} loop />
@@ -94,23 +123,18 @@ const ClubsPage = () => {
         <ChooseTeam />
 
         <CardsSlider
+          onClick={handleClickClub}
           title="Popular Clubs"
           navCount={5}
           rowCount={1}
           elements={[
-            <ClubsCard key="1" title="Juventus" image="/images/dev/club-card-1.svg" />,
-            <ClubsCard key="2" title="Juventus" image="/images/dev/club-card-1.svg" />,
-            <ClubsCard key="3" title="Juventus" image="/images/dev/club-card-1.svg" />,
-            <ClubsCard key="4" title="Juventus" image="/images/dev/club-card-1.svg" />,
-            <ClubsCard key="5" title="Juventus" image="/images/dev/club-card-1.svg" />,
-            <ClubsCard key="6" title="Juventus" image="/images/dev/club-card-1.svg" />,
-            <ClubsCard key="7" title="Juventus" image="/images/dev/club-card-1.svg" />,
-            <ClubsCard key="8" title="Juventus" image="/images/dev/club-card-1.svg" />,
-            <ClubsCard key="9" title="Juventus" image="/images/dev/club-card-1.svg" />,
+            ...favoriteClubsData.map((club) => <ClubsCard key={club.id} club={club} />),
+            ...favoriteClubsData.map((club) => <ClubsCard key={club.id} club={club} />),
           ]}
         />
 
         <CardsSlider
+          onClick={handleClickProduct}
           title="Popular Fan Support"
           subtitle="Empower your club’s future"
           navCount={2}

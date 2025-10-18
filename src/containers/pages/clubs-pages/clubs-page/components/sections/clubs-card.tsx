@@ -3,21 +3,24 @@ import React from "react"
 
 interface IClubsCardProps {
   id?: string | number
-  title: string
-  image: string
+  club: {
+    id: number
+    name: string
+    logo: string
+  }
 }
 
-const ClubsCard: React.FC<IClubsCardProps> = ({ title, image }) => {
+const ClubsCard: React.FC<IClubsCardProps> = ({ club }) => {
   return (
-    <div className="flex flex-col gap-3 text-center text-xl font-bold text-black">
+    <div data-club-id={club.id} className="flex w-[230px] cursor-pointer flex-col gap-3 rounded-md">
       <Image
-        src={image || "/images/dev/club-card-1.svg"}
-        alt={title}
-        width={250}
+        src={club.logo}
+        alt={club.name}
+        width={230}
         height={260}
-        className="h-full w-full object-cover"
+        className="h-[260px] w-full rounded-md object-cover"
       />
-      <h3>{title || "Juventus"}</h3>
+      <h3 className="text-center text-xl leading-[1.2] font-bold tracking-[0] text-slate-900">{club.name}</h3>
     </div>
   )
 }

@@ -5,24 +5,20 @@ import { CardsSlider, ChooseTeam, ClubsCard, FanSupportCard, GoBeyond, MainSlide
 const ClubsPage = () => {
   const images = [
     {
-      src: "/images/dev/liverpool-logo.png",
-      alt: "Liverpool FC Logo",
+      src: "/images/dev/banner-team.jpg",
+      alt: "Banner Team",
     },
     {
       src: "/images/dev/wolverhampton-logo.png",
       alt: "Wolverhampton FC Logo",
     },
     {
-      src: "/images/dev/dhl.png",
-      alt: "DHL Logo",
+      src: "/images/dev/banner-team.jpg",
+      alt: "Banner Team",
     },
     {
       src: "/images/dev/premier-league-logo.png",
       alt: "Premier League Logo",
-    },
-    {
-      src: "/images/dev/messi.png",
-      alt: "Lionel Messi",
     },
   ]
 

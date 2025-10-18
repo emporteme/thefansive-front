@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import type { Swiper as SwiperType } from "swiper"
 import { A11y, Keyboard, Navigation } from "swiper/modules"
@@ -44,6 +44,8 @@ const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ club, onClick }) => {
   )
 }
 
+const maxShowedClubs = 9
+
 const ChooseTeam: React.FC = () => {
   const [favoriteClubs, setFavoriteClubs] = useState<Club[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -52,15 +54,19 @@ const ChooseTeam: React.FC = () => {
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const swiperRef = useRef<SwiperType | null>(null)
 
-  // Create display clubs with fallbacks if needed
-  const displayClubs =
-    favoriteClubs.length > 0
-      ? favoriteClubs
-      : Array.from({ length: 15 }, (_, index) => ({
-          id: -(index + 1),
-          name: "",
-          logo: "/images/fallbacks/empty-card-image-small.png",
-        }))
+  const displayClubs = useMemo(() => {
+    if (favoriteClubs.length >= maxShowedClubs) {
+      return favoriteClubs
+    }
+
+    const emptyClubs = Array.from({ length: maxShowedClubs - favoriteClubs.length }, (_, index) => ({
+      id: -(index + 1),
+      name: "",
+      logo: "/images/fallbacks/empty-card-image-small.png",
+    }))
+
+    return [...favoriteClubs, ...emptyClubs]
+  }, [favoriteClubs])
 
   // Update navigation after component mounts
   useEffect(() => {
@@ -114,7 +120,7 @@ const ChooseTeam: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-between rounded-2xl bg-slate-200 px-6 py-3">
+    <div className="mx-20 flex items-center justify-between rounded-2xl bg-slate-200 px-6 py-3">
       {/* Club Logos Slider */}
       <div className="flex items-center gap-2.5">
         <button

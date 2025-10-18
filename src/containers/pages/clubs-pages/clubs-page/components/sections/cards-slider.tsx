@@ -1,7 +1,7 @@
 "use client"
 
 import classNames from "classnames"
-import React, { useEffect, useRef } from "react"
+import React, { useRef } from "react"
 import type { Swiper as SwiperType } from "swiper"
 import { A11y, Autoplay, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -44,12 +44,6 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
 
   const showNavigation = elements.length > totalItemsInView
 
-  useEffect(() => {
-    if (swiperRef.current && prevRef.current && nextRef.current) {
-      swiperRef.current.navigation.update()
-    }
-  }, [showNavigation])
-
   return (
     <div className={classNames("w-full", className)} onClick={onClick}>
       <div className="mb-6 flex items-center justify-between">
@@ -57,33 +51,31 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
           <h2 className="text-3xl leading-[48px] font-semibold tracking-[0] text-slate-900">{title}</h2>
           <p className="text-base font-normal tracking-[0] text-slate-900">{subtitle}</p>
         </div>
-        {showNavigation && (
-          <div className="flex gap-2">
-            <button
-              ref={prevRef}
-              aria-label="Previous cards"
-              className={classNames(
-                "group border-1.5 h-15 w-16 rounded-lg border border-slate-200 bg-white",
-                "transition hover:bg-gray-50",
-                "flex items-center justify-center text-slate-900"
-              )}
-            >
-              <ArrowLeft />
-            </button>
+        <div className={classNames("flex gap-2", !showNavigation && "invisible")}>
+          <button
+            ref={prevRef}
+            aria-label="Previous cards"
+            className={classNames(
+              "group border-1.5 h-15 w-16 rounded-lg border border-slate-200 bg-white",
+              "transition hover:bg-gray-50",
+              "flex items-center justify-center text-slate-900"
+            )}
+          >
+            <ArrowLeft />
+          </button>
 
-            <button
-              ref={nextRef}
-              aria-label="Next cards"
-              className={classNames(
-                "group h-15 w-16 rounded-lg border border-gray-200 bg-white",
-                "transition hover:bg-gray-50",
-                "flex items-center justify-center text-slate-900"
-              )}
-            >
-              <ArrowRight />
-            </button>
-          </div>
-        )}
+          <button
+            ref={nextRef}
+            aria-label="Next cards"
+            className={classNames(
+              "group h-15 w-16 rounded-lg border border-gray-200 bg-white",
+              "transition hover:bg-gray-50",
+              "flex items-center justify-center text-slate-900"
+            )}
+          >
+            <ArrowRight />
+          </button>
+        </div>
       </div>
 
       <Swiper

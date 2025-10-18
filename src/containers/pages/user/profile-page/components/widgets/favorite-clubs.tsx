@@ -131,26 +131,7 @@ const FavoriteClubs: React.FC = () => {
   }
 
   return (
-    <div className="flex w-full flex-col gap-4.5 rounded-3xl bg-slate-100 p-5 pb-7.5">
-      <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-semibold text-slate-900">Favorite Clubs</h3>
-        <AddFavoriteClubs onAdd={handleAddClub} />
-      </div>
-
-      {favoriteClubs.length > 0 && (
-        <div className="grid w-full grid-cols-6 gap-2">
-          {favoriteClubs.map((club) => (
-            <FavoriteClubCard
-              key={club.id}
-              logo={club.logo}
-              name={club.name}
-              onCancel={() => handleRemoveClub(club.id)}
-              onClick={() => handleClubClick(club)}
-            />
-          ))}
-        </div>
-      )}
-
+    <>
       <ChooseYourClubModal
         clubs={clubs}
         favoriteClubs={favoriteClubs}
@@ -160,7 +141,27 @@ const FavoriteClubs: React.FC = () => {
         onSearchClubSelect={handleSearchClubSelect}
         onClearSearch={handleClearSearch}
       />
-    </div>
+      <div className="flex w-full flex-col gap-4.5 rounded-3xl bg-slate-100 p-5 pb-7.5">
+        <div className="flex items-center justify-between">
+          <h3 className="text-2xl font-semibold text-slate-900">Favorite Clubs</h3>
+          <AddFavoriteClubs onAdd={handleAddClub} />
+        </div>
+
+        {favoriteClubs.length > 0 && (
+          <div className="grid w-full grid-cols-6 gap-2">
+            {favoriteClubs.map((club) => (
+              <FavoriteClubCard
+                key={club.id}
+                logo={club.logo}
+                name={club.name}
+                onCancel={() => handleRemoveClub(club.id)}
+                onClick={() => handleClubClick(club)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   )
 }
 

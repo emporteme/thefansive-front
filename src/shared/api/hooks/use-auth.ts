@@ -16,8 +16,8 @@ export function useLogin() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -42,8 +42,8 @@ export function useSignUp() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -86,8 +86,8 @@ export function useSendEmailOtp() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {
@@ -106,8 +106,8 @@ export function useValidateOtp() {
         body: data,
       })
 
-      if (response.error) {
-        throw response.error
+      if (!response.data) {
+        throw new Error("Request failed")
       }
 
       if (!response.data) {

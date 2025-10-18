@@ -531,6 +531,23 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  "/tasks/my-teams": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get tasks from my favorite teams */
+    get: operations["TasksController_getTasksFromMyTeams"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   "/tasks/user/me": {
     parameters: {
       query?: never
@@ -614,6 +631,163 @@ export interface paths {
     options?: never
     head?: never
     patch?: never
+    trace?: never
+  }
+  "/user/favorite-teams": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get my favorite teams */
+    get: operations["UserFavoriteTeamsController_getFavoriteTeams"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/user/favorite-teams/{teamId}": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Add team to favorites */
+    post: operations["UserFavoriteTeamsController_addFavoriteTeam"]
+    /** Remove team from favorites */
+    delete: operations["UserFavoriteTeamsController_removeFavoriteTeam"]
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/user/favorite-teams/check/{teamId}": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Check if team is in favorites */
+    get: operations["UserFavoriteTeamsController_checkIsFavorite"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/teams": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get all active teams */
+    get: operations["TeamsController_getAllTeams"]
+    put?: never
+    /** Create team (Admin only) */
+    post: operations["TeamsController_createTeam"]
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/teams/search": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Search teams by name (multilingual) */
+    get: operations["TeamsController_searchTeams"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/teams/sport/{sportType}": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get teams by sport type */
+    get: operations["TeamsController_getTeamsBySport"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/teams/{id}": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get team by ID */
+    get: operations["TeamsController_getTeamById"]
+    /** Update team (Admin only) */
+    put: operations["TeamsController_updateTeam"]
+    post?: never
+    /** Delete team permanently (Super Admin only) */
+    delete: operations["TeamsController_deleteTeam"]
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/teams/{id}/activate": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Activate team (Admin only) */
+    patch: operations["TeamsController_activateTeam"]
+    trace?: never
+  }
+  "/teams/{id}/deactivate": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Deactivate team (Admin only) */
+    patch: operations["TeamsController_deactivateTeam"]
     trace?: never
   }
   "/certificates/issue": {
@@ -781,6 +955,23 @@ export interface paths {
     }
     /** Get all products including inactive (Admin only) */
     get: operations["ProductsController_getAllProductsAdmin"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/products/my-teams": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get products from my favorite teams (JWT required) */
+    get: operations["ProductsController_getProductsFromMyTeams"]
     put?: never
     post?: never
     delete?: never
@@ -1348,6 +1539,125 @@ export interface paths {
     options?: never
     head?: never
     patch?: never
+    trace?: never
+  }
+  "/admin/analytics/teams/stats": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get teams statistics (Admin only) */
+    get: operations["AdminController_getTeamsStatistics"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/admin/teams": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get all teams including inactive (Admin only) */
+    get: operations["AdminController_getAllTeamsAdmin"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/admin/teams/{id}/stats": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get detailed statistics for a specific team (Admin only) */
+    get: operations["AdminController_getTeamStatistics"]
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/admin/teams/bulk-activate": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Activate multiple teams (Admin only) */
+    post: operations["AdminController_bulkActivateTeams"]
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/admin/teams/bulk-deactivate": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Deactivate multiple teams (Admin only) */
+    post: operations["AdminController_bulkDeactivateTeams"]
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/admin/teams/{id}/verify": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Mark team as verified (Admin only) */
+    patch: operations["AdminController_verifyTeam"]
+    trace?: never
+  }
+  "/admin/teams/{id}/unverify": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Mark team as unverified (Admin only) */
+    patch: operations["AdminController_unverifyTeam"]
     trace?: never
   }
   "/admin/users": {
@@ -2213,6 +2523,78 @@ export interface components {
        *     }
        */
       metadata?: Record<string, never>
+      /**
+       * @description Team ID this task is associated with
+       * @example 1
+       */
+      teamId?: number
+    }
+    TeamOutputDto: {
+      /** @example 1 */
+      id: number
+      /**
+       * @description Multilingual team name
+       * @example {
+       *       "en": "FC Barcelona",
+       *       "ru": "ФК Барселона",
+       *       "tr": "FC Barcelona"
+       *     }
+       */
+      name: Record<string, never>
+      /**
+       * @description Multilingual short name
+       * @example {
+       *       "en": "Barca",
+       *       "ru": "Барса",
+       *       "tr": "Barça"
+       *     }
+       */
+      shortName?: Record<string, never>
+      /** @description Multilingual team description */
+      description?: Record<string, never>
+      /**
+       * @example FOOTBALL
+       * @enum {string}
+       */
+      sportType: "FOOTBALL" | "BASKETBALL" | "HOCKEY" | "VOLLEYBALL" | "TENNIS" | "RUGBY" | "BASEBALL" | "OTHER"
+      /** @example https://example.com/barcelona-logo.png */
+      logoUrl?: string
+      /** @example https://example.com/barcelona-cover.jpg */
+      coverImageUrl?: string
+      /** @example https://www.fcbarcelona.com */
+      websiteUrl?: string
+      /**
+       * @example {
+       *       "twitter": "https://twitter.com/FCBarcelona",
+       *       "facebook": "https://www.facebook.com/fcbarcelona"
+       *     }
+       */
+      socialLinks?: Record<string, never>
+      /** @example Spain */
+      country?: string
+      /** @example Barcelona */
+      city?: string
+      /** @example 1899 */
+      foundedYear?: number
+      /** @example true */
+      isActive: boolean
+      /** @example false */
+      isVerified: boolean
+      /** @example 0 */
+      displayOrder: number
+      /** Format: date-time */
+      createdAt: string
+      /** Format: date-time */
+      updatedAt: string
+      /**
+       * @description Aggregated counts
+       * @example {
+       *       "products": 10,
+       *       "tasks": 5,
+       *       "favoriteByUsers": 1250
+       *     }
+       */
+      _count?: Record<string, never>
     }
     TaskOutputDto: {
       /** @example 1 */
@@ -2239,12 +2621,17 @@ export interface components {
       taskType: "DAILY" | "WEEKLY" | "ONE_TIME"
       /** @example 100 */
       points: number
-      /** @example {
+      /**
+       * @example {
        *       "action": "complete_profile"
-       *     } */
+       *     }
+       */
       metadata: Record<string, never> | null
       /** @example true */
       isActive: boolean
+      /** @example 1 */
+      teamId: Record<string, never> | null
+      team?: components["schemas"]["TeamOutputDto"] | null
       /** Format: date-time */
       createdAt: string
       /** Format: date-time */
@@ -2264,6 +2651,8 @@ export interface components {
       points?: number
       /** @description Additional metadata for task (JSON) */
       metadata?: Record<string, never>
+      /** @description Team ID this task is associated with */
+      teamId?: number
     }
     AssignTaskDto: {
       /**
@@ -2311,6 +2700,220 @@ export interface components {
        *     }
        */
       proof?: Record<string, never>
+    }
+    FavoriteTeamOutputDto: {
+      /**
+       * @description Unique identifier of the favorite team record
+       * @example 1
+       */
+      id: number
+      /**
+       * @description User ID who favorited the team
+       * @example 123
+       */
+      userId: number
+      /**
+       * @description Team ID that was favorited
+       * @example 5
+       */
+      teamId: number
+      /**
+       * Format: date-time
+       * @description Date when team was added to favorites
+       * @example 2025-10-16T12:00:00Z
+       */
+      addedAt: string
+      /** @description Nested team details */
+      team?: components["schemas"]["TeamOutputDto"]
+    }
+    TranslationDto: {
+      /**
+       * @description English name
+       * @example FC Barcelona
+       */
+      en: string
+      /**
+       * @description Russian name
+       * @example ФК Барселона
+       */
+      ru?: string
+      /**
+       * @description Turkish name
+       * @example FC Barcelona
+       */
+      tr?: string
+    }
+    SocialLinksDto: {
+      /** @example https://twitter.com/FCBarcelona */
+      twitter?: string
+      /** @example https://www.facebook.com/fcbarcelona */
+      facebook?: string
+      /** @example https://www.instagram.com/fcbarcelona */
+      instagram?: string
+      /** @example https://www.youtube.com/fcbarcelona */
+      youtube?: string
+    }
+    CreateTeamDto: {
+      /**
+       * @description Multilingual team name
+       * @example {
+       *       "en": "FC Barcelona",
+       *       "ru": "ФК Барселона",
+       *       "tr": "FC Barcelona"
+       *     }
+       */
+      name: components["schemas"]["TranslationDto"]
+      /**
+       * @description Multilingual short name
+       * @example {
+       *       "en": "Barca",
+       *       "ru": "Барса",
+       *       "tr": "Barça"
+       *     }
+       */
+      shortName?: components["schemas"]["TranslationDto"]
+      /**
+       * @description Multilingual team description
+       * @example {
+       *       "en": "Professional football club based in Barcelona, Spain",
+       *       "ru": "Профессиональный футбольный клуб из Барселоны, Испания"
+       *     }
+       */
+      description?: components["schemas"]["TranslationDto"]
+      /**
+       * @description Type of sport
+       * @example FOOTBALL
+       * @enum {string}
+       */
+      sportType: "FOOTBALL" | "BASKETBALL" | "HOCKEY" | "VOLLEYBALL" | "TENNIS" | "RUGBY" | "BASEBALL" | "OTHER"
+      /**
+       * @description URL to team logo
+       * @example https://example.com/barcelona-logo.png
+       */
+      logoUrl?: string
+      /**
+       * @description URL to team cover image
+       * @example https://example.com/barcelona-cover.jpg
+       */
+      coverImageUrl?: string
+      /**
+       * @description Official website URL
+       * @example https://www.fcbarcelona.com
+       */
+      websiteUrl?: string
+      /** @description Social media links */
+      socialLinks?: components["schemas"]["SocialLinksDto"]
+      /**
+       * @description Country where team is based
+       * @example Spain
+       */
+      country?: string
+      /**
+       * @description City where team is based
+       * @example Barcelona
+       */
+      city?: string
+      /**
+       * @description Year when team was founded
+       * @example 1899
+       */
+      foundedYear?: number
+      /**
+       * @description Whether team is active
+       * @default true
+       */
+      isActive: boolean
+      /**
+       * @description Whether team is officially verified
+       * @default false
+       */
+      isVerified: boolean
+      /**
+       * @description Display order for sorting
+       * @default 0
+       */
+      displayOrder: number
+    }
+    UpdateTeamDto: {
+      /**
+       * @description Multilingual team name
+       * @example {
+       *       "en": "FC Barcelona",
+       *       "ru": "ФК Барселона",
+       *       "tr": "FC Barcelona"
+       *     }
+       */
+      name?: components["schemas"]["TranslationDto"]
+      /**
+       * @description Multilingual short name
+       * @example {
+       *       "en": "Barca",
+       *       "ru": "Барса",
+       *       "tr": "Barça"
+       *     }
+       */
+      shortName?: components["schemas"]["TranslationDto"]
+      /**
+       * @description Multilingual team description
+       * @example {
+       *       "en": "Professional football club based in Barcelona, Spain",
+       *       "ru": "Профессиональный футбольный клуб из Барселоны, Испания"
+       *     }
+       */
+      description?: components["schemas"]["TranslationDto"]
+      /**
+       * @description Type of sport
+       * @example FOOTBALL
+       * @enum {string}
+       */
+      sportType?: "FOOTBALL" | "BASKETBALL" | "HOCKEY" | "VOLLEYBALL" | "TENNIS" | "RUGBY" | "BASEBALL" | "OTHER"
+      /**
+       * @description URL to team logo
+       * @example https://example.com/barcelona-logo.png
+       */
+      logoUrl?: string
+      /**
+       * @description URL to team cover image
+       * @example https://example.com/barcelona-cover.jpg
+       */
+      coverImageUrl?: string
+      /**
+       * @description Official website URL
+       * @example https://www.fcbarcelona.com
+       */
+      websiteUrl?: string
+      /** @description Social media links */
+      socialLinks?: components["schemas"]["SocialLinksDto"]
+      /**
+       * @description Country where team is based
+       * @example Spain
+       */
+      country?: string
+      /**
+       * @description City where team is based
+       * @example Barcelona
+       */
+      city?: string
+      /**
+       * @description Year when team was founded
+       * @example 1899
+       */
+      foundedYear?: number
+      /**
+       * @description Whether team is active
+       * @default true
+       */
+      isActive: boolean
+      /**
+       * @description Whether team is officially verified
+       * @default false
+       */
+      isVerified: boolean
+      /**
+       * @description Display order for sorting
+       * @default 0
+       */
+      displayOrder: number
     }
     IssueCertificateDto: {
       /**
@@ -2442,6 +3045,11 @@ export interface components {
        * @example USD
        */
       currencyCode: string
+      /**
+       * @description Team ID this product is associated with
+       * @example 1
+       */
+      teamId?: number
     }
     ProductOutputDto: {
       /** @example 1 */
@@ -2477,6 +3085,9 @@ export interface components {
       currencyCode: string
       /** @example true */
       isActive: boolean
+      /** @example 1 */
+      teamId: Record<string, never> | null
+      team?: components["schemas"]["TeamOutputDto"] | null
       /** Format: date-time */
       createdAt: string
       /** Format: date-time */
@@ -2500,6 +3111,8 @@ export interface components {
       currencyCode?: string
       /** @description Is product active */
       isActive?: boolean
+      /** @description Team ID this product is associated with */
+      teamId?: number
     }
     CountryOutputDto: {
       /** @example 1 */
@@ -2637,10 +3250,12 @@ export interface components {
     OrderProductDto: {
       /** @example 1 */
       id: number
-      /** @example {
+      /**
+       * @example {
        *       "en": "Fan Support Package",
        *       "ru": "Пакет поддержки"
-       *     } */
+       *     }
+       */
       productName: Record<string, never>
       /** @example 1999 */
       priceCents: number
@@ -3992,7 +4607,10 @@ export interface operations {
   }
   TasksController_getAllTasks: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Filter tasks by team ID */
+        teamId?: number
+      }
       header?: never
       path?: never
       cookie?: never
@@ -4194,6 +4812,26 @@ export interface operations {
       }
     }
   }
+  TasksController_getTasksFromMyTeams: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Tasks from favorite teams */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["TaskOutputDto"][]
+        }
+      }
+    }
+  }
   TasksController_getMyTasks: {
     parameters: {
       query?: {
@@ -4348,6 +4986,458 @@ export interface operations {
       }
     }
   }
+  UserFavoriteTeamsController_getFavoriteTeams: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns list of favorite teams */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["FavoriteTeamOutputDto"][]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  UserFavoriteTeamsController_addFavoriteTeam: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        teamId: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Team added to favorites successfully */
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["FavoriteTeamOutputDto"]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Team not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Team already in favorites */
+      409: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  UserFavoriteTeamsController_removeFavoriteTeam: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        teamId: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Team removed from favorites successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Team not in favorites */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  UserFavoriteTeamsController_checkIsFavorite: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        teamId: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns whether team is in favorites */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": {
+            isFavorite?: boolean
+          }
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  TeamsController_getAllTeams: {
+    parameters: {
+      query?: {
+        /** @description Filter by sport type */
+        sportType?: "FOOTBALL" | "BASKETBALL" | "HOCKEY" | "VOLLEYBALL" | "TENNIS" | "RUGBY" | "BASEBALL" | "OTHER"
+        /** @description Filter by country */
+        country?: string
+        /** @description Search by team name (case insensitive, multilingual) */
+        search?: string
+        /** @description Number of items to return */
+        limit?: number
+        /** @description Number of items to skip */
+        offset?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns list of active teams */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["TeamOutputDto"][]
+        }
+      }
+    }
+  }
+  TeamsController_createTeam: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateTeamDto"]
+      }
+    }
+    responses: {
+      /** @description Team created successfully */
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["TeamOutputDto"]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Forbidden - Admin role required */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  TeamsController_searchTeams: {
+    parameters: {
+      query: {
+        /** @description Search query */
+        q: string
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns matching teams */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["TeamOutputDto"][]
+        }
+      }
+    }
+  }
+  TeamsController_getTeamsBySport: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        sportType: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns teams of specified sport */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["TeamOutputDto"][]
+        }
+      }
+    }
+  }
+  TeamsController_getTeamById: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns team details */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["TeamOutputDto"]
+        }
+      }
+      /** @description Team not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  TeamsController_updateTeam: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateTeamDto"]
+      }
+    }
+    responses: {
+      /** @description Team updated successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["TeamOutputDto"]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Forbidden - Admin role required */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Team not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  TeamsController_deleteTeam: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Team deleted successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Forbidden - Super Admin role required */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Team not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  TeamsController_activateTeam: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Team activated successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["TeamOutputDto"]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Forbidden - Admin role required */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Team not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  TeamsController_deactivateTeam: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Team deactivated successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["TeamOutputDto"]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Forbidden - Admin role required */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Team not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
   CertificatesController_issueCertificate: {
     parameters: {
       query?: never
@@ -4498,7 +5588,10 @@ export interface operations {
   }
   ProductsController_getAllProducts: {
     parameters: {
-      query?: never
+      query?: {
+        /** @description Filter products by team ID */
+        teamId?: number
+      }
       header?: never
       path?: never
       cookie?: never
@@ -4749,6 +5842,33 @@ export interface operations {
       }
       /** @description Forbidden - Admin only */
       403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  ProductsController_getProductsFromMyTeams: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Products from favorite teams */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          "application/json": components["schemas"]["ProductOutputDto"][]
+        }
+      }
+      /** @description Unauthorized */
+      401: {
         headers: {
           [name: string]: unknown
         }
@@ -5622,6 +6742,169 @@ export interface operations {
     responses: {
       /** @description Returns top products */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  AdminController_getTeamsStatistics: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns teams statistics */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  AdminController_getAllTeamsAdmin: {
+    parameters: {
+      query?: {
+        sportType?: "FOOTBALL" | "BASKETBALL" | "HOCKEY" | "VOLLEYBALL" | "TENNIS" | "RUGBY" | "BASEBALL" | "OTHER"
+        country?: string
+        isActive?: boolean
+        isVerified?: boolean
+        search?: string
+        /** @description Default: 100 */
+        limit?: number
+        /** @description Default: 0 */
+        offset?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns all teams with filters */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  AdminController_getTeamStatistics: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Returns detailed team statistics */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Team not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  AdminController_bulkActivateTeams: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Teams activated successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  AdminController_bulkDeactivateTeams: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Teams deactivated successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  AdminController_verifyTeam: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Team verified successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Team not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  AdminController_unverifyTeam: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        id: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Team unverified successfully */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Team not found */
+      404: {
         headers: {
           [name: string]: unknown
         }

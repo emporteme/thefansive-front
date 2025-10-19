@@ -6,17 +6,16 @@ import { createPortal } from "react-dom"
 import type { Swiper as SwiperType } from "swiper"
 import { A11y, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
-import "swiper/css"
-import "swiper/css/navigation"
-
 import { useCurrentLocale } from "@/locale/client"
 import { useFavoriteTeams } from "@/shared/api/hooks"
-import { ChooseYourTeamModal } from "@/shared/components/widgets/choose-your-team-modal"
+import { ChooseYourTeamModal } from "@/shared/components/widgets"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { ArrowSelect } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
 import { EmptyTeam, FavoriteTeam, Team } from "@/shared/types/team"
+import "swiper/css"
+import "swiper/css/navigation"
 
 interface Club {
   id: number

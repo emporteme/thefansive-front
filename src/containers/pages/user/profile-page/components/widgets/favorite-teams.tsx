@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useCurrentLocale } from "@/locale/client"
 import { useFavoriteTeams, useRemoveFavoriteTeam } from "@/shared/api/hooks"
-import { ChooseYourTeamModal } from "@/shared/components/widgets/choose-your-team-modal"
+import { ChooseYourTeamModal } from "@/shared/components/widgets"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { FavoriteTeam, Team } from "@/shared/types/team"

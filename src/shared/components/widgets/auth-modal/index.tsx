@@ -23,6 +23,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, isOpen, initialMode = "l
   const [mode, setMode] = useState<AuthModalMode>(initialMode)
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState<string>("")
 
+  console.log("isOpen", isOpen)
+
   const handleClose = () => {
     onClose?.()
     setMode(initialMode)

@@ -1,9 +1,9 @@
 "use client"
 
 import classNames from "classnames"
-import React, { useEffect, useRef } from "react"
+import React, { useRef, useState } from "react"
 import type { Swiper as SwiperType } from "swiper"
-import { A11y, Autoplay, Keyboard, Navigation } from "swiper/modules"
+import { A11y, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { ArrowLeft, ArrowRight } from "@/shared/icons"
 import "swiper/css"
@@ -15,7 +15,6 @@ interface ICardsSliderProps {
   navCount: number
   rowCount: number
   elements: React.ReactNode[]
-  autoDelay?: number
   loop?: boolean
   className?: string
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void
@@ -28,8 +27,7 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   navCount,
   rowCount = 1,
   elements = [],
-  autoDelay = 4000,
-  loop = true,
+  loop = false,
   className,
 }) => {
   if (elements.length === 0) {
@@ -40,15 +38,12 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const swiperRef = useRef<SwiperType | null>(null)
 
+  const [isBeginning, setIsBeginning] = useState(true)
+  const [isEnd, setIsEnd] = useState(false)
+
   const totalItemsInView = navCount * rowCount
 
   const showNavigation = elements.length > totalItemsInView
-
-  useEffect(() => {
-    if (swiperRef.current && prevRef.current && nextRef.current) {
-      swiperRef.current.navigation.update()
-    }
-  }, [showNavigation])
 
   return (
     <div className={classNames("w-full", className)} onClick={onClick}>
@@ -57,50 +52,62 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
           <h2 className="text-3xl leading-[48px] font-semibold tracking-[0] text-slate-900">{title}</h2>
           <p className="text-base font-normal tracking-[0] text-slate-900">{subtitle}</p>
         </div>
-        {showNavigation && (
-          <div className="flex gap-2">
-            <button
-              ref={prevRef}
-              aria-label="Previous cards"
-              className={classNames(
-                "group border-1.5 h-15 w-16 rounded-lg border border-slate-200 bg-white",
-                "transition hover:bg-gray-50",
-                "flex items-center justify-center text-slate-900"
-              )}
-            >
-              <ArrowLeft />
-            </button>
+        <div className={classNames("flex gap-6", !showNavigation && "invisible")}>
+          <button
+            ref={prevRef}
+            aria-label="Previous cards"
+            disabled={isBeginning && !loop}
+            className={classNames(
+              "group flex h-15 w-16 items-center justify-center rounded-lg border border-gray-200 bg-white text-slate-900 transition hover:bg-gray-50",
+              {
+                "cursor-default !bg-slate-200 !text-slate-400": isBeginning && !loop,
+              }
+            )}
+          >
+            <ArrowLeft />
+          </button>
 
-            <button
-              ref={nextRef}
-              aria-label="Next cards"
-              className={classNames(
-                "group h-15 w-16 rounded-lg border border-gray-200 bg-white",
-                "transition hover:bg-gray-50",
-                "flex items-center justify-center text-slate-900"
-              )}
-            >
-              <ArrowRight />
-            </button>
-          </div>
-        )}
+          <button
+            ref={nextRef}
+            aria-label="Next cards"
+            disabled={isEnd && !loop}
+            className={classNames(
+              "group flex h-15 w-16 items-center justify-center rounded-lg border border-gray-200 bg-white text-slate-900 transition hover:bg-gray-50",
+              {
+                "cursor-default !bg-slate-200 !text-slate-400": isEnd && !loop,
+              }
+            )}
+          >
+            <ArrowRight />
+          </button>
+        </div>
       </div>
 
       <Swiper
-        modules={[Autoplay, Navigation, Keyboard, A11y]}
+        modules={[Navigation, Keyboard, A11y]}
+        onBeforeInit={(swiper) => {
+          if (typeof swiper.params.navigation !== "boolean") {
+            const navigation = swiper.params.navigation
+            if (navigation) {
+              navigation.prevEl = prevRef.current
+              navigation.nextEl = nextRef.current
+            }
+          }
+        }}
         onSwiper={(swiper) => {
           swiperRef.current = swiper
+          setIsBeginning(swiper.isBeginning)
+          setIsEnd(swiper.isEnd)
+        }}
+        onSlideChange={(swiper) => {
+          setIsBeginning(swiper.isBeginning)
+          setIsEnd(swiper.isEnd)
         }}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current,
         }}
-        autoplay={{
-          delay: autoDelay,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }}
-        loop={loop && showNavigation}
+        loop={loop}
         speed={600}
         slidesPerView={1}
         spaceBetween={0}

@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { useFavoriteTeams, useTeams } from "@/shared/api/hooks"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
@@ -92,6 +93,11 @@ const fanSupport = [
 const ClubsPage = () => {
   const navigate = useNavigate()
   const routes = useRoutes()
+  const { data: teams } = useTeams()
+  const { data: myTeams } = useFavoriteTeams()
+
+  console.log("teams", teams)
+  console.log("myTeams", myTeams)
 
   const handleClickClub = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = (event.target as HTMLElement).closest("[data-club-id]")
@@ -120,17 +126,14 @@ const ClubsPage = () => {
       <MainSlider images={banners} autoDelay={4500} loop className="mb-20" />
 
       <ContainerLayout className="flex flex-col">
-        <ChooseTeam className="mb-15" />
+        <ChooseTeam className="mb-15" teams={teams} />
 
         <CardsSlider
           onClick={handleClickClub}
           title="Popular Clubs"
           navCount={5}
           rowCount={1}
-          elements={[
-            ...favoriteClubsData.map((club) => <ClubsCard key={club.id} club={club} />),
-            ...favoriteClubsData.map((club) => <ClubsCard key={club.id} club={club} />),
-          ]}
+          elements={teams?.map((team) => <ClubsCard key={team.id} team={team} />) || []}
           className="mb-10"
         />
 

@@ -1,29 +1,28 @@
 import Image from "next/image"
 import React from "react"
+import { useCurrentLocale } from "@/locale/client"
+import { Team } from "@/shared/types/team"
 
 interface IClubsCardProps {
-  id?: string | number
-  club: {
-    id: number
-    name: string
-    logo: string
-  }
+  team: Team
 }
 
-const ClubsCard: React.FC<IClubsCardProps> = ({ club }) => {
+const ClubsCard: React.FC<IClubsCardProps> = ({ team }) => {
+  const locale = useCurrentLocale()
+
   return (
     <div
-      data-club-id={club.id}
+      data-club-id={team.id}
       className="flex w-[230px] cursor-pointer flex-col gap-3 transition-transform hover:scale-[1.01]"
     >
       <Image
-        src={club.logo}
-        alt={club.name}
+        src={team.logoUrl}
+        alt={team.name[locale]}
         width={230}
         height={260}
         className="h-[260px] w-full rounded-md object-cover"
       />
-      <h3 className="text-center text-xl leading-[1.2] font-bold tracking-[0] text-slate-900">{club.name}</h3>
+      <h3 className="text-center text-xl leading-[1.2] font-bold tracking-[0] text-slate-900">{team.name[locale]}</h3>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+import { Team } from "@/shared/types/team"
 import { apiClient } from "../client"
 
 // Sport types from API
@@ -27,9 +28,9 @@ export function useTeams(params?: {
   sportType?: SportType
   isActive?: boolean
 }) {
-  return useQuery({
+  return useQuery<Team[]>({
     queryKey: teamsKeys.list(params),
-    queryFn: async () => {
+    queryFn: async (): Promise<Team[]> => {
       const response = await apiClient.GET("/teams", {
         params: { query: params },
       })
@@ -38,7 +39,7 @@ export function useTeams(params?: {
         throw new Error("Failed to fetch teams")
       }
 
-      return response.data
+      return response.data as Team[]
     },
   })
 }

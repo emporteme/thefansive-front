@@ -10,11 +10,13 @@ import "swiper/css"
 import "swiper/css/navigation"
 
 import { clubsData } from "@/containers/pages/user/profile-page/components/widgets/favorite-clubs"
+import { useCurrentLocale } from "@/locale/client"
 import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { ArrowSelect } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
+import { Team } from "@/shared/types/team"
 
 interface Club {
   id: number
@@ -23,11 +25,13 @@ interface Club {
 }
 
 interface ClubLogoCardProps {
-  club: Club
+  team: Team
   onClick?: () => void
 }
 
-const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ club, onClick }) => {
+const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ team, onClick }) => {
+  const locale = useCurrentLocale()
+
   return (
     <div
       className="flex h-20 w-20 flex-shrink-0 cursor-pointer items-center justify-center rounded-full border border-[#CAD5E2] bg-white transition-transform"
@@ -35,8 +39,8 @@ const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ club, onClick }) => {
     >
       <div className="h-13.5 w-11.5 overflow-hidden rounded-lg">
         <Image
-          src={club.logo}
-          alt={club.name}
+          src={team.logoUrl}
+          alt={team.name[locale]}
           width={45}
           height={54}
           className="h-full w-full object-contain"
@@ -49,7 +53,12 @@ const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ club, onClick }) => {
 
 const maxShowedClubs = 9
 
-const ChooseTeam: React.FC<{ className?: string }> = ({ className }) => {
+interface ChooseTeamProps {
+  className?: string
+  teams?: Team[]
+}
+
+const ChooseTeam: React.FC<ChooseTeamProps> = ({ className, teams }) => {
   const [favoriteClubs, setFavoriteClubs] = useState<Club[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [clubs, setClubs] = useState<Club[]>(clubsData)
@@ -104,8 +113,8 @@ const ChooseTeam: React.FC<{ className?: string }> = ({ className }) => {
     setClubs(clubsData)
   }
 
-  const handleClubClick = (club: Club) => {
-    navigate(routes.clubs.single(club.id.toString()))
+  const handleTeamClick = (team: Team) => {
+    navigate(routes.clubs.single(team.id.toString()))
   }
 
   const handlePrevClick = () => {
@@ -149,9 +158,9 @@ const ChooseTeam: React.FC<{ className?: string }> = ({ className }) => {
             a11y={{ enabled: true }}
             className="w-full"
           >
-            {displayClubs.map((club) => (
-              <SwiperSlide key={club.id}>
-                <ClubLogoCard club={club} onClick={() => club.id > 0 && handleClubClick(club)} />
+            {teams?.map((team) => (
+              <SwiperSlide key={team.id}>
+                <ClubLogoCard team={team} onClick={() => handleTeamClick(team)} />
               </SwiperSlide>
             ))}
           </Swiper>

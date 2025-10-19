@@ -6,15 +6,16 @@ import { createPortal } from "react-dom"
 import type { Swiper as SwiperType } from "swiper"
 import { A11y, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
-import "swiper/css"
-import "swiper/css/navigation"
-
-import { clubsData } from "@/containers/pages/user/profile-page/components/widgets/favorite-clubs"
-import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
+import { useCurrentLocale } from "@/locale/client"
+import { useFavoriteTeams } from "@/shared/api/hooks"
+import { ChooseYourTeamModal } from "@/shared/components/widgets"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { ArrowSelect } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
+import { EmptyTeam, FavoriteTeam, Team } from "@/shared/types/team"
+import "swiper/css"
+import "swiper/css/navigation"
 
 interface Club {
   id: number
@@ -22,12 +23,21 @@ interface Club {
   logo: string
 }
 
-interface ClubLogoCardProps {
-  club: Club
+interface TeamLogoCardProps {
+  team: FavoriteTeam | EmptyTeam
   onClick?: () => void
 }
 
-const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ club, onClick }) => {
+const TeamLogoCard: React.FC<TeamLogoCardProps> = ({ team, onClick }) => {
+  const locale = useCurrentLocale()
+
+  const isFavoriteTeam = (team: FavoriteTeam | EmptyTeam): team is FavoriteTeam => {
+    return "team" in team
+  }
+
+  const logoUrl = isFavoriteTeam(team) ? team.team.logoUrl : team.logoUrl
+  const altText = isFavoriteTeam(team) ? team.team.name[locale] : ""
+
   return (
     <div
       className="flex h-20 w-20 flex-shrink-0 cursor-pointer items-center justify-center rounded-full border border-[#CAD5E2] bg-white transition-transform"
@@ -35,8 +45,8 @@ const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ club, onClick }) => {
     >
       <div className="h-13.5 w-11.5 overflow-hidden rounded-lg">
         <Image
-          src={club.logo}
-          alt={club.name}
+          src={logoUrl}
+          alt={altText}
           width={45}
           height={54}
           className="h-full w-full object-contain"
@@ -49,36 +59,48 @@ const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ club, onClick }) => {
 
 const maxShowedClubs = 9
 
-const ChooseTeam: React.FC<{ className?: string }> = ({ className }) => {
-  const [favoriteClubs, setFavoriteClubs] = useState<Club[]>([])
+interface ChooseTeamProps {
+  className?: string
+}
+
+const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
+  const { data: favoriteTeams } = useFavoriteTeams()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [clubs, setClubs] = useState<Club[]>(clubsData)
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const swiperRef = useRef<SwiperType | null>(null)
   const navigate = useNavigate()
   const routes = useRoutes()
 
-  const displayClubs = useMemo(() => {
-    if (favoriteClubs.length >= maxShowedClubs) {
-      return favoriteClubs
+  const displayTeams = useMemo(() => {
+    const emptyTeams = Array.from(
+      { length: maxShowedClubs - (favoriteTeams ? favoriteTeams?.length : 0) },
+      (_, index) =>
+        ({
+          id: -(index + 1),
+          logoUrl: "/images/fallbacks/empty-card-image-small.png",
+        }) as EmptyTeam
+    )
+
+    if (!favoriteTeams) {
+      return emptyTeams
     }
 
-    const emptyClubs = Array.from({ length: maxShowedClubs - favoriteClubs.length }, (_, index) => ({
-      id: -(index + 1),
-      name: "",
-      logo: "/images/fallbacks/empty-card-image-small.png",
-    }))
+    if (favoriteTeams.length >= maxShowedClubs) {
+      return favoriteTeams
+    }
 
-    return [...favoriteClubs, ...emptyClubs]
-  }, [favoriteClubs])
+    return [...favoriteTeams, ...emptyTeams]
+  }, [favoriteTeams])
+
+  console.log("displayTeams", displayTeams)
 
   useEffect(() => {
     if (swiperRef.current) {
       swiperRef.current.navigation.init()
       swiperRef.current.navigation.update()
     }
-  }, [displayClubs])
+  }, [displayTeams])
 
   const handleOpenModal = () => {
     setIsModalOpen(true)
@@ -88,24 +110,12 @@ const ChooseTeam: React.FC<{ className?: string }> = ({ className }) => {
     setIsModalOpen(false)
   }
 
-  const handleClubFavoriteToggle = (club: Club) => {
-    if (favoriteClubs.some((c) => c.id === club.id)) {
-      setFavoriteClubs(favoriteClubs.filter((c) => c.id !== club.id))
-    } else {
-      setFavoriteClubs([...favoriteClubs, club])
-    }
-  }
+  const handleSearchClubSelect = (_club: Club) => {}
 
-  const handleSearchClubSelect = (club: Club) => {
-    setClubs([club])
-  }
+  const handleClearSearch = () => {}
 
-  const handleClearSearch = () => {
-    setClubs(clubsData)
-  }
-
-  const handleClubClick = (club: Club) => {
-    navigate(routes.clubs.single(club.id.toString()))
+  const handleTeamClick = (team: Team) => {
+    navigate(routes.clubs.single(team.id.toString()))
   }
 
   const handlePrevClick = () => {
@@ -149,11 +159,23 @@ const ChooseTeam: React.FC<{ className?: string }> = ({ className }) => {
             a11y={{ enabled: true }}
             className="w-full"
           >
-            {displayClubs.map((club) => (
-              <SwiperSlide key={club.id}>
-                <ClubLogoCard club={club} onClick={() => club.id > 0 && handleClubClick(club)} />
-              </SwiperSlide>
-            ))}
+            {displayTeams?.map((team) => {
+              const isFavoriteTeam = "team" in team
+              return (
+                <SwiperSlide key={team.id}>
+                  <TeamLogoCard
+                    team={team}
+                    onClick={() => {
+                      if (isFavoriteTeam) {
+                        handleTeamClick((team as FavoriteTeam).team)
+                      } else {
+                        handleOpenModal()
+                      }
+                    }}
+                  />
+                </SwiperSlide>
+              )
+            })}
           </Swiper>
         </div>
 
@@ -178,12 +200,9 @@ const ChooseTeam: React.FC<{ className?: string }> = ({ className }) => {
       {typeof window !== "undefined" &&
         isModalOpen &&
         createPortal(
-          <ChooseYourClubModal
-            clubs={clubs}
-            favoriteClubs={favoriteClubs}
+          <ChooseYourTeamModal
             isOpen={isModalOpen}
             onClose={handleCloseModal}
-            onClubFavoriteToggle={handleClubFavoriteToggle}
             onSearchClubSelect={handleSearchClubSelect}
             onClearSearch={handleClearSearch}
           />,

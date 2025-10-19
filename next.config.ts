@@ -6,7 +6,12 @@ import { env } from "./env.mjs"
 const config: NextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [], // hostnames
+    remotePatterns: [ // поменять на наш cdn
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   experimental: {
     // Оптимизация для быстрого HMR
@@ -18,6 +23,7 @@ const config: NextConfig = {
         source: '/api/:path*',
         destination: 'https://trading-desk.top/:path*',
       },
+
     ]
   },
 }

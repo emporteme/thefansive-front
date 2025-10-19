@@ -7,7 +7,7 @@ interface AddFavoriteClubsProps {
 const AddFavoriteClubs: React.FC<AddFavoriteClubsProps> = ({ onAdd }) => {
   return (
     <button
-      className="flex cursor-pointer items-center gap-2 rounded-lg bg-transparent px-3 py-2 transition-colors hover:bg-slate-50"
+      className="flex cursor-pointer items-center gap-2 rounded-lg bg-transparent px-3 py-2 transition-colors active:bg-slate-50"
       onClick={onAdd}
     >
       <span className="text-sm font-semibold text-gray-700">Add Clubs</span>

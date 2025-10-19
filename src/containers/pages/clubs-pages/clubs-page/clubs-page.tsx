@@ -1,13 +1,13 @@
 "use client"
 
 import React from "react"
+import { useTeams } from "@/shared/api/hooks"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import type { Product } from "@/shared/types/fan-support"
-import { CardsSlider, ChooseTeam, ClubsCard, FanSupportCard, GoBeyond, MainSlider, News } from "./components/sections"
+import { CardsSlider, ChooseTeam, FanSupportCard, GoBeyond, MainSlider, News, TeamCard } from "./components/sections"
 import BecomeMember from "./components/sections/become-member"
-import { favoriteClubsData } from "../../user/profile-page/components/widgets/favorite-clubs"
 
 const banners = [
   {
@@ -92,14 +92,15 @@ const fanSupport = [
 const ClubsPage = () => {
   const navigate = useNavigate()
   const routes = useRoutes()
+  const { data: teams } = useTeams()
 
-  const handleClickClub = (event: React.MouseEvent<HTMLDivElement>) => {
-    const target = (event.target as HTMLElement).closest("[data-club-id]")
+  const handleClickTeam = (event: React.MouseEvent<HTMLDivElement>) => {
+    const target = (event.target as HTMLElement).closest("[data-team-id]")
 
     if (target) {
-      const clubId = target.getAttribute("data-club-id")
-      if (clubId) {
-        navigate(routes.clubs.single(clubId))
+      const teamId = target.getAttribute("data-team-id")
+      if (teamId) {
+        navigate(routes.clubs.single(teamId))
       }
     }
   }
@@ -123,14 +124,11 @@ const ClubsPage = () => {
         <ChooseTeam className="mb-15" />
 
         <CardsSlider
-          onClick={handleClickClub}
+          onClick={handleClickTeam}
           title="Popular Clubs"
           navCount={5}
           rowCount={1}
-          elements={[
-            ...favoriteClubsData.map((club) => <ClubsCard key={club.id} club={club} />),
-            ...favoriteClubsData.map((club) => <ClubsCard key={club.id} club={club} />),
-          ]}
+          elements={teams?.map((team) => <TeamCard key={team.id} team={team} />) || []}
           className="mb-10"
         />
 

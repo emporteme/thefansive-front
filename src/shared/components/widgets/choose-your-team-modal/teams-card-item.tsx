@@ -1,46 +1,55 @@
 import Image from "next/image"
 import React from "react"
+import { useCurrentLocale } from "@/locale/client"
 import { Favorite as FavoriteIcon } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
-import { Club } from "./clubs-card-list"
+import { Team } from "@/shared/types/team"
 
-interface ClubsCardItemProps {
-  club: Club
+interface TeamsCardItemProps {
+  team: Team
   isFavorite?: boolean
-  onToggleFavorite?: (id: number) => void
-  onClubClick?: (club: Club) => void
+  onToggleFavorite?: (team: Team) => void
+  onTeamClick?: (team: Team) => void
   className?: string
 }
 
-const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
-  club,
+const TeamsCardItem: React.FC<TeamsCardItemProps> = ({
+  team,
   isFavorite = false,
   onToggleFavorite,
-  onClubClick,
+  onTeamClick,
   className,
 }) => {
+  const locale = useCurrentLocale()
+
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation()
-    onToggleFavorite?.(club.id)
+    onToggleFavorite?.(team)
   }
 
-  const handleClubClick = (e: React.MouseEvent) => {
+  const handleTeamClick = (e: React.MouseEvent) => {
     e.stopPropagation()
-    onClubClick?.(club)
+    onTeamClick?.(team)
   }
 
   return (
     <div
       className={cn(`h-[232px] w-40 cursor-pointer rounded-2xl bg-white transition-all`, className)}
-      onClick={handleClubClick}
+      onClick={handleTeamClick}
     >
       <div className="p-1.5 pb-2.5">
         <div className="relative mx-auto mb-1.5 h-[148px] w-[148px]">
-          <Image src={club.logo} alt={`${club.name} logo`} fill className="rounded-[10px] object-cover" />
+          <Image
+            src={team.logoUrl}
+            alt={`${team.name[locale]} logo`}
+            fill
+            className="rounded-lg bg-slate-200 object-contain p-4"
+            quality={90}
+          />
         </div>
 
         <div className="flex-between flex flex-col gap-1.5">
-          <h3 className="line-clamp-2 min-h-[32px] text-sm font-semibold text-slate-900">{club.name}</h3>
+          <h3 className="line-clamp-2 min-h-[32px] text-sm font-semibold text-slate-900">{team.name[locale]}</h3>
 
           <div className="flex justify-end">
             <button
@@ -72,5 +81,4 @@ const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
   )
 }
 
-export { ClubsCardItem }
-export type { ClubsCardItemProps }
+export { TeamsCardItem }

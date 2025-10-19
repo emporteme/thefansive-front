@@ -1,10 +1,12 @@
 "use client"
 
 import React, { useState } from "react"
+import { useAddFavoriteTeam, useFavoriteTeams } from "@/shared/api/hooks"
 import { ModalLayout } from "@/shared/components/ui"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Cancel } from "@/shared/icons"
+import { Team } from "@/shared/types/team"
 import { ClubsCardList } from "./clubs-card-list"
 import { Club, FavoriteClubs } from "./favorite-clubs"
 import { LeagueFilterSelect } from "./league-filter-select"
@@ -13,10 +15,7 @@ import { ClubFilterSelect } from "./sport-filter-select"
 
 interface ChooseYourClubModalProps {
   isOpen: boolean
-  clubs: Club[]
-  favoriteClubs: Club[]
   onClose: () => void
-  onClubFavoriteToggle: (club: Club) => void
   onSportChange?: (sportId: string) => void
   onLeagueChange?: (leagueId: string) => void
   onSearchClubSelect?: (club: Club) => void
@@ -25,10 +24,7 @@ interface ChooseYourClubModalProps {
 
 const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
   isOpen,
-  clubs,
-  favoriteClubs,
   onClose,
-  onClubFavoriteToggle,
   onSportChange,
   onLeagueChange,
   onSearchClubSelect,
@@ -39,6 +35,8 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
   const [selectedSport, setSelectedSport] = useState<string>("")
   const [selectedLeague, setSelectedLeague] = useState<string>("")
   const [searchValue, setSearchValue] = useState("")
+
+  const { mutate: addFavoriteTeam } = useAddFavoriteTeam()
 
   const clearSearch = () => {
     setSearchValue("")
@@ -57,9 +55,8 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
     onLeagueChange?.(leagueId)
   }
 
-  const handleToggleFavorite = (clubId: number) => {
-    const club = clubs.find((club) => club.id === clubId)
-    onClubFavoriteToggle(club as Club)
+  const handleToggleFavorite = (teamId: number) => {
+    addFavoriteTeam(teamId)
   }
 
   const handleCloseModal = () => {
@@ -79,8 +76,8 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
     onClearSearch?.()
   }
 
-  const handleClubClick = (club: Club) => {
-    navigate(routes.clubs.single(club.id.toString()))
+  const handleTeamClick = (team: Team) => {
+    navigate(routes.clubs.single(team.id.toString()))
   }
 
   return (
@@ -100,12 +97,12 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
           <Cancel className="h-6 w-6 text-black" />
         </button>
       </div>
-      <FavoriteClubs clubs={favoriteClubs} />
+      <FavoriteClubs clubs={[]} />
       <SearchFavoriteClub
         className="mt-6"
+        clubs={[]}
         searchValue={searchValue}
         onChange={setSearchValue}
-        clubs={clubs}
         onClubSelect={handleSearchClubSelect}
         onClear={handleClearSearch}
       />
@@ -119,13 +116,7 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
         />
       </div>
 
-      <ClubsCardList
-        className="mt-6"
-        clubs={clubs}
-        favoriteClubs={favoriteClubs}
-        onToggleFavorite={handleToggleFavorite}
-        onClubClick={handleClubClick}
-      />
+      <ClubsCardList className="mt-6" onToggleFavorite={handleToggleFavorite} onTeamClick={handleTeamClick} />
     </ModalLayout>
   )
 }

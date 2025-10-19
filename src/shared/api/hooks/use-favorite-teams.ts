@@ -1,6 +1,7 @@
 "use client"
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { FavoriteTeam } from "@/shared/types/team"
 import { apiClient } from "../client"
 
 // Query keys
@@ -14,7 +15,7 @@ export const favoriteTeamsKeys = {
  * Get user's favorite teams
  */
 export function useFavoriteTeams() {
-  return useQuery({
+  return useQuery<FavoriteTeam[]>({
     queryKey: favoriteTeamsKeys.lists(),
     queryFn: async () => {
       const response = await apiClient.GET("/user/favorite-teams")
@@ -23,7 +24,7 @@ export function useFavoriteTeams() {
         throw new Error("Request failed")
       }
 
-      return response.data
+      return response.data as FavoriteTeam[]
     },
   })
 }

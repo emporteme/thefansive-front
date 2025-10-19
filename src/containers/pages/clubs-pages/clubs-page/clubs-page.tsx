@@ -94,10 +94,6 @@ const ClubsPage = () => {
   const navigate = useNavigate()
   const routes = useRoutes()
   const { data: teams } = useTeams()
-  const { data: myTeams } = useFavoriteTeams()
-
-  console.log("teams", teams)
-  console.log("myTeams", myTeams)
 
   const handleClickClub = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = (event.target as HTMLElement).closest("[data-club-id]")
@@ -126,7 +122,7 @@ const ClubsPage = () => {
       <MainSlider images={banners} autoDelay={4500} loop className="mb-20" />
 
       <ContainerLayout className="flex flex-col">
-        <ChooseTeam className="mb-15" teams={teams} />
+        <ChooseTeam className="mb-15" />
 
         <CardsSlider
           onClick={handleClickClub}

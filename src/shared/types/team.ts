@@ -14,3 +14,11 @@ export type Team = {
   city: string
   foundedYear: number
 }
+
+export type FavoriteTeam = {
+  id: number
+  userId: number
+  teamId: number
+  addedAt: string
+  team: Team
+}

@@ -14,6 +14,7 @@ import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-clu
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { ArrowSelect } from "@/shared/icons"
+import { cn } from "@/shared/lib/utils"
 
 interface Club {
   id: number
@@ -48,7 +49,7 @@ const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ club, onClick }) => {
 
 const maxShowedClubs = 9
 
-const ChooseTeam: React.FC = () => {
+const ChooseTeam: React.FC<{ className?: string }> = ({ className }) => {
   const [favoriteClubs, setFavoriteClubs] = useState<Club[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [clubs, setClubs] = useState<Club[]>(clubsData)
@@ -120,7 +121,7 @@ const ChooseTeam: React.FC = () => {
   }
 
   return (
-    <div className="mx-20 flex items-center justify-between rounded-2xl bg-slate-200 px-6 py-3">
+    <div className={cn("mx-20 flex items-center justify-between rounded-2xl bg-slate-200 px-6 py-3", className)}>
       <div className="flex items-center gap-2.5">
         <button
           ref={prevRef}

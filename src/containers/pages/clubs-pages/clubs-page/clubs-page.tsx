@@ -6,6 +6,7 @@ import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import type { Product } from "@/shared/types/fan-support"
 import { CardsSlider, ChooseTeam, ClubsCard, FanSupportCard, GoBeyond, MainSlider, News } from "./components/sections"
+import BecomeMember from "./components/sections/become-member"
 import { favoriteClubsData } from "../../user/profile-page/components/widgets/favorite-clubs"
 
 const banners = [
@@ -115,11 +116,11 @@ const ClubsPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-15">
-      <MainSlider images={banners} autoDelay={4500} loop />
+    <div className="flex flex-col">
+      <MainSlider images={banners} autoDelay={4500} loop className="mb-20" />
 
-      <ContainerLayout className="flex flex-col gap-15">
-        <ChooseTeam />
+      <ContainerLayout className="flex flex-col">
+        <ChooseTeam className="mb-15" />
 
         <CardsSlider
           onClick={handleClickClub}
@@ -130,6 +131,7 @@ const ClubsPage = () => {
             ...favoriteClubsData.map((club) => <ClubsCard key={club.id} club={club} />),
             ...favoriteClubsData.map((club) => <ClubsCard key={club.id} club={club} />),
           ]}
+          className="mb-10"
         />
 
         <CardsSlider
@@ -141,11 +143,13 @@ const ClubsPage = () => {
           elements={fanSupport.map((product) => (
             <FanSupportCard key={product.id} product={product} />
           ))}
+          className="mb-20"
         />
 
-        <News />
+        <News className="mb-10" />
       </ContainerLayout>
       <GoBeyond />
+      <BecomeMember />
     </div>
   )
 }

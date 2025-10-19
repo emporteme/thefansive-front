@@ -4,6 +4,7 @@ import React from "react"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Soccer } from "@/shared/icons"
+import { cn } from "@/shared/lib/utils"
 import NewsCard from "./news-card"
 
 const news = [
@@ -27,7 +28,7 @@ const news = [
   },
 ]
 
-const News: React.FC = () => {
+const News: React.FC<{ className?: string }> = ({ className }) => {
   const navigate = useNavigate()
   const routes = useRoutes()
 
@@ -43,7 +44,7 @@ const News: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col gap-6 rounded-xl bg-slate-100 px-6 py-10">
+    <div className={cn("flex flex-col gap-6 rounded-xl bg-slate-100 px-6 py-10", className)}>
       <h1 className="text-center text-3xl leading-[48px] font-semibold text-slate-900">
         News that will be interesting to you
       </h1>

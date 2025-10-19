@@ -1,12 +1,12 @@
 "use client"
 
 import React, { useState } from "react"
-import { useAddFavoriteTeam } from "@/shared/api/hooks"
+import { useAddFavoriteTeam, useFavoriteTeams, useRemoveFavoriteTeam } from "@/shared/api/hooks"
 import { ModalLayout } from "@/shared/components/ui"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Cancel } from "@/shared/icons"
-import { Team } from "@/shared/types/team"
+import { FavoriteTeam, Team } from "@/shared/types/team"
 import { FavoriteTeams } from "./favorite-teams"
 import { LeagueFilterSelect } from "./league-filter-select"
 import { SearchFavoriteClub } from "./search-favorite-club"
@@ -28,6 +28,9 @@ interface ChooseYourTeamModalProps {
   onClearSearch?: () => void
 }
 
+const isFavoriteTeam = (teamId: number, favoriteTeams: FavoriteTeam[] | undefined) =>
+  favoriteTeams?.some((favoriteTeam) => favoriteTeam.teamId === teamId)
+
 const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
   isOpen,
   onClose,
@@ -38,11 +41,13 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
 }) => {
   const routes = useRoutes()
   const navigate = useNavigate()
+  const { data: favoriteTeams } = useFavoriteTeams()
   const [selectedSport, setSelectedSport] = useState<string>("")
   const [selectedLeague, setSelectedLeague] = useState<string>("")
   const [searchValue, setSearchValue] = useState("")
 
   const { mutate: addFavoriteTeam } = useAddFavoriteTeam()
+  const { mutate: removeFavoriteTeam } = useRemoveFavoriteTeam()
 
   const clearSearch = () => {
     setSearchValue("")
@@ -62,7 +67,11 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
   }
 
   const handleToggleFavorite = (teamId: number) => {
-    addFavoriteTeam(teamId)
+    if (isFavoriteTeam(teamId, favoriteTeams)) {
+      removeFavoriteTeam(teamId)
+    } else {
+      addFavoriteTeam(teamId)
+    }
   }
 
   const handleCloseModal = () => {

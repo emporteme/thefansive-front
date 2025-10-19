@@ -118,7 +118,6 @@ const MainSlider: React.FC<MainSliderProps> = ({
         autoplay={{
           delay: autoDelay,
           disableOnInteraction: false,
-          pauseOnMouseEnter: true,
         }}
         loop={loop}
         speed={600}

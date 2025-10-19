@@ -7,11 +7,17 @@ import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Cancel } from "@/shared/icons"
 import { Team } from "@/shared/types/team"
-import { ClubsCardList } from "./clubs-card-list"
-import { Club, FavoriteTeams } from "./favorite-teams"
+import { FavoriteTeams } from "./favorite-teams"
 import { LeagueFilterSelect } from "./league-filter-select"
 import { SearchFavoriteClub } from "./search-favorite-club"
 import { ClubFilterSelect } from "./sport-filter-select"
+import { TeamsCardList } from "./teams-card-list"
+
+interface Club {
+  id: number
+  name: string
+  logo: string
+}
 
 interface ChooseYourTeamModalProps {
   isOpen: boolean
@@ -116,7 +122,7 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
         />
       </div>
 
-      <ClubsCardList className="mt-6" onToggleFavorite={handleToggleFavorite} onTeamClick={handleTeamClick} />
+      <TeamsCardList className="mt-6" onToggleFavorite={handleToggleFavorite} onTeamClick={handleTeamClick} />
     </ModalLayout>
   )
 }

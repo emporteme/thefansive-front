@@ -5,7 +5,7 @@ import { Favorite as FavoriteIcon } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
 import { Team } from "@/shared/types/team"
 
-interface ClubsCardItemProps {
+interface TeamsCardItemProps {
   team: Team
   isFavorite?: boolean
   onToggleFavorite?: (id: number) => void
@@ -13,7 +13,7 @@ interface ClubsCardItemProps {
   className?: string
 }
 
-const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
+const TeamsCardItem: React.FC<TeamsCardItemProps> = ({
   team,
   isFavorite = false,
   onToggleFavorite,
@@ -43,7 +43,8 @@ const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
             src={team.logoUrl}
             alt={`${team.name[locale]} logo`}
             fill
-            className="rounded-lg bg-slate-200 object-contain p-3"
+            className="rounded-lg bg-slate-200 object-contain p-4"
+            quality={90}
           />
         </div>
 
@@ -80,5 +81,4 @@ const ClubsCardItem: React.FC<ClubsCardItemProps> = ({
   )
 }
 
-export { ClubsCardItem }
-export type { ClubsCardItemProps }
+export { TeamsCardItem }

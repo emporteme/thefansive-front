@@ -22,3 +22,8 @@ export type FavoriteTeam = {
   addedAt: string
   team: Team
 }
+
+export type EmptyTeam = {
+  id: number
+  logoUrl: string
+}

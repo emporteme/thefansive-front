@@ -9,7 +9,6 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/navigation"
 
-import { clubsData } from "@/containers/pages/user/profile-page/components/widgets/favorite-clubs"
 import { useCurrentLocale } from "@/locale/client"
 import { useFavoriteTeams } from "@/shared/api/hooks"
 import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
@@ -17,7 +16,7 @@ import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { ArrowSelect } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
-import { FavoriteTeam, Team } from "@/shared/types/team"
+import { EmptyTeam, FavoriteTeam, Team } from "@/shared/types/team"
 
 interface Club {
   id: number
@@ -26,12 +25,19 @@ interface Club {
 }
 
 interface ClubLogoCardProps {
-  team: FavoriteTeam
+  team: FavoriteTeam | EmptyTeam
   onClick?: () => void
 }
 
 const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ team, onClick }) => {
   const locale = useCurrentLocale()
+
+  const isFavoriteTeam = (team: FavoriteTeam | EmptyTeam): team is FavoriteTeam => {
+    return "team" in team
+  }
+
+  const logoUrl = isFavoriteTeam(team) ? team.team.logoUrl : team.logoUrl
+  const altText = isFavoriteTeam(team) ? team.team.name[locale] : ""
 
   return (
     <div
@@ -40,8 +46,8 @@ const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ team, onClick }) => {
     >
       <div className="h-13.5 w-11.5 overflow-hidden rounded-lg">
         <Image
-          src={team.team.logoUrl}
-          alt={team.team.name[locale]}
+          src={logoUrl}
+          alt={altText}
           width={45}
           height={54}
           className="h-full w-full object-contain"
@@ -67,33 +73,35 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
   const navigate = useNavigate()
   const routes = useRoutes()
 
-  const displayClubs = useMemo(() => {
-    const emptyClubs = Array.from(
+  const displayTeams = useMemo(() => {
+    const emptyTeams = Array.from(
       { length: maxShowedClubs - (favoriteTeams ? favoriteTeams?.length : 0) },
-      (_, index) => ({
-        id: -(index + 1),
-        name: "",
-        logo: "/images/fallbacks/empty-card-image-small.png",
-      })
+      (_, index) =>
+        ({
+          id: -(index + 1),
+          logoUrl: "/images/fallbacks/empty-card-image-small.png",
+        }) as EmptyTeam
     )
 
     if (!favoriteTeams) {
-      return emptyClubs
+      return emptyTeams
     }
 
     if (favoriteTeams.length >= maxShowedClubs) {
       return favoriteTeams
     }
 
-    return [...favoriteTeams, ...emptyClubs]
+    return [...favoriteTeams, ...emptyTeams]
   }, [favoriteTeams])
+
+  console.log("displayTeams", displayTeams)
 
   useEffect(() => {
     if (swiperRef.current) {
       swiperRef.current.navigation.init()
       swiperRef.current.navigation.update()
     }
-  }, [displayClubs])
+  }, [displayTeams])
 
   const handleOpenModal = () => {
     setIsModalOpen(true)
@@ -103,7 +111,7 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
     setIsModalOpen(false)
   }
 
-  const handleSearchClubSelect = (club: Club) => {}
+  const handleSearchClubSelect = (_club: Club) => {}
 
   const handleClearSearch = () => {}
 
@@ -152,11 +160,23 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
             a11y={{ enabled: true }}
             className="w-full"
           >
-            {favoriteTeams?.map((team) => (
-              <SwiperSlide key={team.id}>
-                <ClubLogoCard team={team} onClick={() => handleTeamClick(team.team)} />
-              </SwiperSlide>
-            ))}
+            {displayTeams?.map((team) => {
+              const isFavoriteTeam = "team" in team
+              return (
+                <SwiperSlide key={team.id}>
+                  <ClubLogoCard
+                    team={team}
+                    onClick={() => {
+                      if (isFavoriteTeam) {
+                        handleTeamClick((team as FavoriteTeam).team)
+                      } else {
+                        handleOpenModal()
+                      }
+                    }}
+                  />
+                </SwiperSlide>
+              )
+            })}
           </Swiper>
         </div>
 

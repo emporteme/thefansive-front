@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { useCurrentLocale } from "@/locale/client"
-import { useFavoriteTeams } from "@/shared/api/hooks"
+import { useFavoriteTeams, useRemoveFavoriteTeam } from "@/shared/api/hooks"
 import { ChooseYourTeamModal } from "@/shared/components/widgets/choose-your-team-modal"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
-import { FavoriteTeam } from "@/shared/types/team"
+import { FavoriteTeam, Team } from "@/shared/types/team"
 import { AddFavoriteClubs, FavoriteTeamCard } from "../ui"
 
 export const clubsData = [
@@ -98,6 +98,7 @@ const FavoriteTeams: React.FC = () => {
   const navigate = useNavigate()
   const [isChooseYourClubModalOpen, setIsChooseYourClubModalOpen] = useState(false)
   const { data: favoriteTeams } = useFavoriteTeams()
+  const { mutate: removeFavoriteTeam } = useRemoveFavoriteTeam()
   const locale = useCurrentLocale()
 
   const handleAddClub = () => {
@@ -112,7 +113,9 @@ const FavoriteTeams: React.FC = () => {
     navigate(routes.clubs.single(team.teamId.toString()))
   }
 
-  const handleRemoveClub = (_id: number) => {}
+  const handleRemoveClub = (team: Team) => {
+    removeFavoriteTeam(team)
+  }
 
   return (
     <>
@@ -130,7 +133,7 @@ const FavoriteTeams: React.FC = () => {
                 key={team.id}
                 logo={team.team.logoUrl}
                 name={team.team.name[locale]}
-                onCancel={() => handleRemoveClub(team.id)}
+                onCancel={() => handleRemoveClub(team.team)}
                 onClick={() => handleTeamClick(team)}
               />
             ))}

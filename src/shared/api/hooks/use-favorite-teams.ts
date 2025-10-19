@@ -1,7 +1,7 @@
 "use client"
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { FavoriteTeam } from "@/shared/types/team"
+import { FavoriteTeam, Team } from "@/shared/types/team"
 import { apiClient } from "../client"
 
 // Query keys
@@ -57,9 +57,9 @@ export function useAddFavoriteTeam() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (teamId: number) => {
+    mutationFn: async (team: Team) => {
       const response = await apiClient.POST("/user/favorite-teams/{teamId}", {
-        params: { path: { teamId } },
+        params: { path: { teamId: team.id } },
       })
 
       if (!response.data) {
@@ -72,9 +72,32 @@ export function useAddFavoriteTeam() {
 
       return response.data
     },
-    onSuccess: (_, teamId) => {
+    onMutate: async (team: Team) => {
+      await queryClient.cancelQueries({ queryKey: favoriteTeamsKeys.lists() })
+      const previousFavoriteTeams = queryClient.getQueryData<FavoriteTeam[]>(favoriteTeamsKeys.lists())
+
+      if (previousFavoriteTeams) {
+        const newFavoriteTeam: FavoriteTeam = {
+          id: Date.now(),
+          userId: 0,
+          teamId: team.id,
+          addedAt: new Date().toISOString(),
+          team: team,
+        }
+
+        queryClient.setQueryData<FavoriteTeam[]>(favoriteTeamsKeys.lists(), [newFavoriteTeam, ...previousFavoriteTeams])
+      }
+
+      return { previousFavoriteTeams }
+    },
+    onError: (err, team, context) => {
+      if (context?.previousFavoriteTeams) {
+        queryClient.setQueryData(favoriteTeamsKeys.lists(), context.previousFavoriteTeams)
+      }
+    },
+    onSettled: (_, __, team) => {
       queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.check(teamId) })
+      queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.check(team.id) })
     },
   })
 }
@@ -86,9 +109,9 @@ export function useRemoveFavoriteTeam() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (teamId: number) => {
+    mutationFn: async (team: Team) => {
       const response = await apiClient.DELETE("/user/favorite-teams/{teamId}", {
-        params: { path: { teamId } },
+        params: { path: { teamId: team.id } },
       })
 
       if (!response.data) {
@@ -97,9 +120,27 @@ export function useRemoveFavoriteTeam() {
 
       return response.data
     },
-    onSuccess: (_, teamId) => {
+    onMutate: async (team: Team) => {
+      await queryClient.cancelQueries({ queryKey: favoriteTeamsKeys.lists() })
+
+      const previousFavoriteTeams = queryClient.getQueryData<FavoriteTeam[]>(favoriteTeamsKeys.lists())
+
+      if (previousFavoriteTeams) {
+        const updatedFavoriteTeams = previousFavoriteTeams.filter((favoriteTeam) => favoriteTeam.teamId !== team.id)
+
+        queryClient.setQueryData<FavoriteTeam[]>(favoriteTeamsKeys.lists(), updatedFavoriteTeams)
+      }
+
+      return { previousFavoriteTeams }
+    },
+    onError: (err, team, context) => {
+      if (context?.previousFavoriteTeams) {
+        queryClient.setQueryData(favoriteTeamsKeys.lists(), context.previousFavoriteTeams)
+      }
+    },
+    onSettled: (_, __, team) => {
       queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.check(teamId) })
+      queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.check(team.id) })
     },
   })
 }
@@ -112,11 +153,18 @@ export function useToggleFavoriteTeam() {
   const removeFavorite = useRemoveFavoriteTeam()
 
   return {
-    toggleFavorite: async (teamId: number, isFavorite: boolean) => {
+    toggleFavorite: async (team: Team, isFavorite: boolean) => {
       if (isFavorite) {
-        return removeFavorite.mutateAsync(teamId)
+        return removeFavorite.mutateAsync(team)
       } else {
-        return addFavorite.mutateAsync(teamId)
+        return addFavorite.mutateAsync(team)
+      }
+    },
+    toggleFavoriteOptimistic: (team: Team, isFavorite: boolean) => {
+      if (isFavorite) {
+        removeFavorite.mutate(team)
+      } else {
+        addFavorite.mutate(team)
       }
     },
     isPending: addFavorite.isPending || removeFavorite.isPending,

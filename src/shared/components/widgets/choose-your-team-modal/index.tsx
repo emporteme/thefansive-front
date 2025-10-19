@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { useAddFavoriteTeam, useFavoriteTeams, useRemoveFavoriteTeam } from "@/shared/api/hooks"
+import { useFavoriteTeams, useToggleFavoriteTeam } from "@/shared/api/hooks"
 import { ModalLayout } from "@/shared/components/ui"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
@@ -42,12 +42,10 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
   const routes = useRoutes()
   const navigate = useNavigate()
   const { data: favoriteTeams } = useFavoriteTeams()
+  const { toggleFavoriteOptimistic } = useToggleFavoriteTeam()
   const [selectedSport, setSelectedSport] = useState<string>("")
   const [selectedLeague, setSelectedLeague] = useState<string>("")
   const [searchValue, setSearchValue] = useState("")
-
-  const { mutate: addFavoriteTeam } = useAddFavoriteTeam()
-  const { mutate: removeFavoriteTeam } = useRemoveFavoriteTeam()
 
   const clearSearch = () => {
     setSearchValue("")
@@ -67,11 +65,8 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
   }
 
   const handleToggleFavorite = (team: Team) => {
-    if (isFavoriteTeam(team.id, favoriteTeams)) {
-      removeFavoriteTeam(team.id)
-    } else {
-      addFavoriteTeam(team.id)
-    }
+    const isFavorite = isFavoriteTeam(team.id, favoriteTeams) ?? false
+    toggleFavoriteOptimistic(team, isFavorite)
   }
 
   const handleCloseModal = () => {

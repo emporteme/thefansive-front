@@ -5,7 +5,7 @@ import { Team } from "@/shared/types/team"
 import { TeamsCardItem } from "./teams-card-item"
 
 interface TeamsCardListProps {
-  onToggleFavorite?: (id: number) => void
+  onToggleFavorite?: (team: Team) => void
   onTeamClick?: (team: Team) => void
   className?: string
 }

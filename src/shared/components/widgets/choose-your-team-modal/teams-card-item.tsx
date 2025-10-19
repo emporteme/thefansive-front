@@ -8,7 +8,7 @@ import { Team } from "@/shared/types/team"
 interface TeamsCardItemProps {
   team: Team
   isFavorite?: boolean
-  onToggleFavorite?: (id: number) => void
+  onToggleFavorite?: (team: Team) => void
   onTeamClick?: (team: Team) => void
   className?: string
 }
@@ -24,7 +24,7 @@ const TeamsCardItem: React.FC<TeamsCardItemProps> = ({
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation()
-    onToggleFavorite?.(team.id)
+    onToggleFavorite?.(team)
   }
 
   const handleTeamClick = (e: React.MouseEvent) => {

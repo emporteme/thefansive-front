@@ -66,11 +66,11 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
     onLeagueChange?.(leagueId)
   }
 
-  const handleToggleFavorite = (teamId: number) => {
-    if (isFavoriteTeam(teamId, favoriteTeams)) {
-      removeFavoriteTeam(teamId)
+  const handleToggleFavorite = (team: Team) => {
+    if (isFavoriteTeam(team.id, favoriteTeams)) {
+      removeFavoriteTeam(team.id)
     } else {
-      addFavoriteTeam(teamId)
+      addFavoriteTeam(team.id)
     }
   }
 

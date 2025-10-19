@@ -47,7 +47,7 @@ const FavoriteTeams: React.FC<FavoriteTeamsProps> = ({ className = "" }) => {
       className={cn(
         `mx-auto flex gap-2.5 rounded-2xl bg-slate-200 px-6 py-3`,
         {
-          "w-[calc(9*80px+8*10px+48px)] overflow-x-auto": hasScroll,
+          "w-[calc(9*80px+8*10px+48px)] !scroll-m-5 overflow-x-auto": hasScroll,
           "w-fit": !hasScroll,
         },
         className

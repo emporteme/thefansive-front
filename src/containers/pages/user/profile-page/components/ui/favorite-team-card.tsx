@@ -1,14 +1,14 @@
 import Image from "next/image"
 import { Cancel as CancelIcon } from "@/shared/icons"
 
-interface FavoriteClubCardProps {
+interface FavoriteTeamCardProps {
   name: string
   logo: string
   onCancel: () => void
   onClick: () => void
 }
 
-const FavoriteClubCard: React.FC<FavoriteClubCardProps> = ({ name, logo, onCancel, onClick }) => {
+const FavoriteTeamCard: React.FC<FavoriteTeamCardProps> = ({ name, logo, onCancel, onClick }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
     onClick()
@@ -40,4 +40,4 @@ const FavoriteClubCard: React.FC<FavoriteClubCardProps> = ({ name, logo, onCance
   )
 }
 
-export { FavoriteClubCard }
+export { FavoriteTeamCard }

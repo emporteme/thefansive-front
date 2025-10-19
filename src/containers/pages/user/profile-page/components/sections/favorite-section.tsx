@@ -1,8 +1,8 @@
 import React from "react"
-import { FavoriteClubs } from "../widgets/favorite-clubs"
+import { FavoriteTeams } from "../widgets/favorite-teams"
 
 const FavoriteSection: React.FC = () => {
-  return <FavoriteClubs />
+  return <FavoriteTeams />
 }
 
 export { FavoriteSection }

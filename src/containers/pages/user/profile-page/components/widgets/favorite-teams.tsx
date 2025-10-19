@@ -1,9 +1,12 @@
 import { useState } from "react"
-import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-team-modal"
+import { useCurrentLocale } from "@/locale/client"
+import { useFavoriteTeams } from "@/shared/api/hooks"
+import { ChooseYourTeamModal } from "@/shared/components/widgets/choose-your-team-modal"
 import { Club } from "@/shared/components/widgets/choose-your-team-modal/favorite-teams"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
-import { AddFavoriteClubs, FavoriteClubCard } from "../ui"
+import { FavoriteTeam } from "@/shared/types/team"
+import { AddFavoriteClubs, FavoriteTeamCard } from "../ui"
 
 export const clubsData = [
   {
@@ -91,71 +94,45 @@ export const favoriteClubsData = [
   },
 ]
 
-const FavoriteClubs: React.FC = () => {
+const FavoriteTeams: React.FC = () => {
   const routes = useRoutes()
   const navigate = useNavigate()
-  const [clubs, setClubs] = useState(clubsData)
-  const [favoriteClubs, setFavoriteClubs] = useState(favoriteClubsData)
   const [isChooseYourClubModalOpen, setIsChooseYourClubModalOpen] = useState(false)
-
-  const handleRemoveClub = (id: number) => {
-    setFavoriteClubs(favoriteClubs.filter((club) => club.id !== id))
-  }
+  const { data: favoriteTeams } = useFavoriteTeams()
+  const locale = useCurrentLocale()
 
   const handleAddClub = () => {
     setIsChooseYourClubModalOpen(true)
-  }
-
-  const handleClubFavoriteToggle = (club: Club) => {
-    if (favoriteClubs.some((c) => c.id === club.id)) {
-      setFavoriteClubs(favoriteClubs.filter((c) => c.id !== club.id))
-    } else {
-      setFavoriteClubs((favoriteClubs) => [...favoriteClubs, club])
-    }
   }
 
   const handleCloseModal = () => {
     setIsChooseYourClubModalOpen(false)
   }
 
-  const handleSearchClubSelect = (club: Club) => {
-    setClubs([club])
+  const handleTeamClick = (team: FavoriteTeam) => {
+    navigate(routes.clubs.single(team.teamId.toString()))
   }
 
-  const handleClearSearch = () => {
-    setClubs(clubsData)
-  }
-
-  const handleClubClick = (club: Club) => {
-    navigate(routes.clubs.single(club.id.toString()))
-  }
+  const handleRemoveClub = (id: number) => {}
 
   return (
     <>
-      <ChooseYourClubModal
-        clubs={clubs}
-        favoriteClubs={favoriteClubs}
-        isOpen={isChooseYourClubModalOpen}
-        onClose={handleCloseModal}
-        onClubFavoriteToggle={handleClubFavoriteToggle}
-        onSearchClubSelect={handleSearchClubSelect}
-        onClearSearch={handleClearSearch}
-      />
+      <ChooseYourTeamModal isOpen={isChooseYourClubModalOpen} onClose={handleCloseModal} />
       <div className="flex w-full flex-col gap-4.5 rounded-3xl bg-slate-100 p-5 pb-7.5">
         <div className="flex items-center justify-between">
           <h3 className="text-2xl font-semibold text-slate-900">Favorite Clubs</h3>
           <AddFavoriteClubs onAdd={handleAddClub} />
         </div>
 
-        {favoriteClubs.length > 0 && (
+        {favoriteTeams && (
           <div className="grid w-full grid-cols-6 gap-2">
-            {favoriteClubs.map((club) => (
-              <FavoriteClubCard
-                key={club.id}
-                logo={club.logo}
-                name={club.name}
-                onCancel={() => handleRemoveClub(club.id)}
-                onClick={() => handleClubClick(club)}
+            {favoriteTeams?.map((team) => (
+              <FavoriteTeamCard
+                key={team.id}
+                logo={team.team.logoUrl}
+                name={team.team.name[locale]}
+                onCancel={() => handleRemoveClub(team.id)}
+                onClick={() => handleTeamClick(team)}
               />
             ))}
           </div>
@@ -165,4 +142,4 @@ const FavoriteClubs: React.FC = () => {
   )
 }
 
-export { FavoriteClubs }
+export { FavoriteTeams }

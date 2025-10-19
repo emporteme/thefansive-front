@@ -1,14 +1,13 @@
 "use client"
 
 import React from "react"
-import { useFavoriteTeams, useTeams } from "@/shared/api/hooks"
+import { useTeams } from "@/shared/api/hooks"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import type { Product } from "@/shared/types/fan-support"
 import { CardsSlider, ChooseTeam, ClubsCard, FanSupportCard, GoBeyond, MainSlider, News } from "./components/sections"
 import BecomeMember from "./components/sections/become-member"
-import { favoriteClubsData } from "../../user/profile-page/components/widgets/favorite-clubs"
 
 const banners = [
   {

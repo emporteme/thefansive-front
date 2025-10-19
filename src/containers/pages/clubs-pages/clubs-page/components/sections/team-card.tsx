@@ -3,16 +3,16 @@ import React from "react"
 import { useCurrentLocale } from "@/locale/client"
 import { Team } from "@/shared/types/team"
 
-interface IClubsCardProps {
+interface ITeamCardProps {
   team: Team
 }
 
-const ClubsCard: React.FC<IClubsCardProps> = ({ team }) => {
+const TeamCard: React.FC<ITeamCardProps> = ({ team }) => {
   const locale = useCurrentLocale()
 
   return (
     <div
-      data-club-id={team.id}
+      data-team-id={team.id}
       className="flex w-[230px] cursor-pointer flex-col gap-3 transition-transform hover:scale-[1.01]"
     >
       <Image
@@ -27,4 +27,4 @@ const ClubsCard: React.FC<IClubsCardProps> = ({ team }) => {
   )
 }
 
-export default ClubsCard
+export default TeamCard

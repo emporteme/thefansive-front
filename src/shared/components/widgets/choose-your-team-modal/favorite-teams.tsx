@@ -6,12 +6,6 @@ import { cn } from "@/shared/lib/utils"
 import { EmptyTeam, FavoriteTeam } from "@/shared/types/team"
 import { FavoriteTeamCard } from "./favorite-team-card"
 
-interface Club {
-  id: number
-  name: string
-  logo: string
-}
-
 interface FavoriteTeamsProps {
   className?: string
 }
@@ -75,4 +69,3 @@ const FavoriteTeams: React.FC<FavoriteTeamsProps> = ({ className = "" }) => {
 }
 
 export { FavoriteTeams }
-export type { Club }

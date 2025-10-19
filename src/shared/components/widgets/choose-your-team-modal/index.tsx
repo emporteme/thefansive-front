@@ -1,19 +1,19 @@
 "use client"
 
 import React, { useState } from "react"
-import { useAddFavoriteTeam, useFavoriteTeams } from "@/shared/api/hooks"
+import { useAddFavoriteTeam } from "@/shared/api/hooks"
 import { ModalLayout } from "@/shared/components/ui"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Cancel } from "@/shared/icons"
 import { Team } from "@/shared/types/team"
 import { ClubsCardList } from "./clubs-card-list"
-import { Club, FavoriteClubs } from "./favorite-clubs"
+import { Club, FavoriteTeams } from "./favorite-teams"
 import { LeagueFilterSelect } from "./league-filter-select"
 import { SearchFavoriteClub } from "./search-favorite-club"
 import { ClubFilterSelect } from "./sport-filter-select"
 
-interface ChooseYourClubModalProps {
+interface ChooseYourTeamModalProps {
   isOpen: boolean
   onClose: () => void
   onSportChange?: (sportId: string) => void
@@ -22,7 +22,7 @@ interface ChooseYourClubModalProps {
   onClearSearch?: () => void
 }
 
-const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
+const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
   isOpen,
   onClose,
   onSportChange,
@@ -97,7 +97,7 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
           <Cancel className="h-6 w-6 text-black" />
         </button>
       </div>
-      <FavoriteClubs clubs={[]} />
+      <FavoriteTeams />
       <SearchFavoriteClub
         className="mt-6"
         clubs={[]}
@@ -121,4 +121,4 @@ const ChooseYourClubModal: React.FC<ChooseYourClubModalProps> = ({
   )
 }
 
-export { ChooseYourClubModal }
+export { ChooseYourTeamModal }

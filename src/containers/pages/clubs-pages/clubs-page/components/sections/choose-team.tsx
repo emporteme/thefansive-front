@@ -11,7 +11,7 @@ import "swiper/css/navigation"
 
 import { useCurrentLocale } from "@/locale/client"
 import { useFavoriteTeams } from "@/shared/api/hooks"
-import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
+import { ChooseYourTeamModal } from "@/shared/components/widgets/choose-your-team-modal"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { ArrowSelect } from "@/shared/icons"
@@ -24,12 +24,12 @@ interface Club {
   logo: string
 }
 
-interface ClubLogoCardProps {
+interface TeamLogoCardProps {
   team: FavoriteTeam | EmptyTeam
   onClick?: () => void
 }
 
-const ClubLogoCard: React.FC<ClubLogoCardProps> = ({ team, onClick }) => {
+const TeamLogoCard: React.FC<TeamLogoCardProps> = ({ team, onClick }) => {
   const locale = useCurrentLocale()
 
   const isFavoriteTeam = (team: FavoriteTeam | EmptyTeam): team is FavoriteTeam => {
@@ -164,7 +164,7 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
               const isFavoriteTeam = "team" in team
               return (
                 <SwiperSlide key={team.id}>
-                  <ClubLogoCard
+                  <TeamLogoCard
                     team={team}
                     onClick={() => {
                       if (isFavoriteTeam) {
@@ -201,7 +201,7 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
       {typeof window !== "undefined" &&
         isModalOpen &&
         createPortal(
-          <ChooseYourClubModal
+          <ChooseYourTeamModal
             isOpen={isModalOpen}
             onClose={handleCloseModal}
             onSearchClubSelect={handleSearchClubSelect}

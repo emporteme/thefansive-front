@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-club-modal"
-import { Club } from "@/shared/components/widgets/choose-your-club-modal/favorite-clubs"
+import { ChooseYourClubModal } from "@/shared/components/widgets/choose-your-team-modal"
+import { Club } from "@/shared/components/widgets/choose-your-team-modal/favorite-teams"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { AddFavoriteClubs, FavoriteClubCard } from "../ui"

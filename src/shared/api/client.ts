@@ -8,7 +8,8 @@ export const apiClient = createClient<paths>({
   },
 })
 
-let authToken: string | null = null
+let authToken: string | null =
+  typeof window !== "undefined" ? window?.localStorage?.getItem("access_token") || null : null
 
 export function setAuthToken(token: string | null) {
   authToken = token

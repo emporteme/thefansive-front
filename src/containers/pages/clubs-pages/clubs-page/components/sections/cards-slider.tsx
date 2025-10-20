@@ -1,7 +1,7 @@
 "use client"
 
 import classNames from "classnames"
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import type { Swiper as SwiperType } from "swiper"
 import { A11y, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -62,6 +62,16 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   const displayElements = isLoading ? skeletonElements : elements
   const showNavigation = displayElements.length > totalItemsInView
 
+  const isBeginningDisabled = isBeginning && !loop
+  const isEndDisabled = isEnd && !loop
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      setIsBeginning(swiperRef.current.isBeginning)
+      setIsEnd(swiperRef.current.isEnd)
+    }
+  }, [elements])
+
   return (
     <div className={classNames("w-full", className)} onClick={onClick}>
       <div className="mb-6 flex items-center justify-between">
@@ -73,11 +83,11 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
           <button
             ref={prevRef}
             aria-label="Previous cards"
-            disabled={isBeginning && !loop}
+            disabled={isBeginningDisabled}
             className={classNames(
               "group flex h-15 w-16 items-center justify-center rounded-lg border border-gray-200 bg-white text-slate-900 transition hover:bg-gray-50",
               {
-                "cursor-default !bg-slate-200 !text-slate-400": isBeginning && !loop,
+                "cursor-default !bg-slate-200 !text-slate-400": isBeginningDisabled,
               }
             )}
           >
@@ -87,11 +97,11 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
           <button
             ref={nextRef}
             aria-label="Next cards"
-            disabled={isEnd && !loop}
+            disabled={isEndDisabled}
             className={classNames(
               "group flex h-15 w-16 items-center justify-center rounded-lg border border-gray-200 bg-white text-slate-900 transition hover:bg-gray-50",
               {
-                "cursor-default !bg-slate-200 !text-slate-400": isEnd && !loop,
+                "cursor-default bg-slate-200 text-slate-400": isEndDisabled,
               }
             )}
           >

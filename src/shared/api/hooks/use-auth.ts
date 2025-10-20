@@ -1,7 +1,8 @@
 "use client"
 
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { FavoriteTeam } from "@/shared/types/team"
+import { favoriteTeamsKeys } from "./use-favorite-teams"
 import { apiClient, setAuthToken } from "../client"
 import type { components } from "../schema"
 
@@ -10,16 +11,20 @@ type SignUpInput = components["schemas"]["SignUpInputDto"]
 type SendEmailOtpInput = components["schemas"]["SendEmailOtpDto"]
 type ValidateOtpInput = components["schemas"]["ValidateOtpDto"]
 
-let isAuth: boolean = typeof window !== "undefined" && !!localStorage.getItem("access_token")
+export const authKeys = {
+  all: ["auth"] as const,
+  isAuthenticated: () => [...authKeys.all, "isAuthenticated"] as const,
+}
 
 export function useLogin() {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (data: LoginInput) => {
       const response = await apiClient.POST("/auth/login", {
         body: data,
       })
 
-      isAuth = true
+      queryClient.setQueryData<boolean>(authKeys.isAuthenticated(), true)
 
       if (!response.data) {
         throw new Error("Request failed")
@@ -35,36 +40,49 @@ export function useLogin() {
 
       setAuthToken(response.data.access_token)
 
-      const favoriteTeamsResponse = await apiClient.GET("/user/favorite-teams")
-
-      const favoriteTeamServer = favoriteTeamsResponse.data as FavoriteTeam[]
-      const favoriteTeamsStorage = JSON.parse(localStorage.getItem("favoriteTeams") ?? "[]") as FavoriteTeam[]
-
-      // remove from server
-      favoriteTeamServer.forEach(async (favoriteTeam) => {
-        if (favoriteTeamsStorage.some((favoriteTeamStorage) => favoriteTeamStorage.id === favoriteTeam.id)) {
-          return
-        } else {
-          apiClient.DELETE("/user/favorite-teams/{teamId}", {
-            params: { path: { teamId: favoriteTeam.id } },
-          })
-        }
-      })
-
-      // add to server from storage
-      favoriteTeamsStorage.forEach(async (favoriteTeamStorage) => {
-        if (favoriteTeamServer.some((favoriteTeam) => favoriteTeam.id === favoriteTeamStorage.id)) {
-          return
-        } else {
-          apiClient.POST("/user/favorite-teams/{teamId}", {
-            params: { path: { teamId: favoriteTeamStorage.id } },
-          })
-        }
-      })
+      queryClient.invalidateQueries({ queryKey: authKeys.isAuthenticated() })
 
       return response.data
     },
   })
+}
+
+export function useSyncFavoriteTeamsAfterLogin(): () => Promise<void> {
+  const queryClient = useQueryClient()
+
+  const syncFavoriteTeamsAfterLogin = async () => {
+    const favoriteTeamsResponse = await apiClient.GET("/user/favorite-teams")
+
+    const favoriteTeamServer = favoriteTeamsResponse.data as FavoriteTeam[]
+    const favoriteTeamsStorage = JSON.parse(localStorage.getItem("favoriteTeams") ?? "[]") as FavoriteTeam[]
+
+    // remove from server
+    favoriteTeamServer.forEach(async (favoriteTeam) => {
+      if (favoriteTeamsStorage.some((favoriteTeamStorage) => favoriteTeamStorage.team.id === favoriteTeam.team.id)) {
+        return
+      } else {
+        apiClient.DELETE("/user/favorite-teams/{teamId}", {
+          params: { path: { teamId: favoriteTeam.team.id } },
+        })
+      }
+    })
+
+    // add to server from storage
+    favoriteTeamsStorage.forEach(async (favoriteTeamStorage) => {
+      if (favoriteTeamServer.some((favoriteTeam) => favoriteTeam.team.id === favoriteTeamStorage.team.id)) {
+        return
+      } else {
+        apiClient.POST("/user/favorite-teams/{teamId}", {
+          params: { path: { teamId: favoriteTeamStorage.team.id } },
+        })
+      }
+    })
+
+    localStorage.removeItem("favoriteTeams")
+    queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.lists() })
+  }
+
+  return syncFavoriteTeamsAfterLogin
 }
 
 export function useSignUp() {
@@ -96,12 +114,14 @@ export function useRestorePassword() {
 }
 
 export function useLogout() {
+  const queryClient = useQueryClient()
   const logout = async () => {
+    queryClient.setQueryData<boolean>(authKeys.isAuthenticated(), false)
     localStorage.removeItem("access_token")
     localStorage.removeItem("refresh_token")
     localStorage.removeItem("user")
     setAuthToken(null)
-    isAuth = false
+    queryClient.invalidateQueries({ queryKey: authKeys.isAuthenticated() })
   }
 
   return { logout }
@@ -113,7 +133,15 @@ export function getCurrentUser() {
 }
 
 export function isAuthenticated(): boolean {
-  return isAuth
+  return (
+    useQuery<boolean>({
+      queryKey: authKeys.isAuthenticated(),
+      queryFn: async () => {
+        const isAuth: boolean = typeof window !== "undefined" && !!localStorage.getItem("access_token")
+        return isAuth
+      },
+    }).data ?? false
+  )
 }
 
 export function useSendEmailOtp() {

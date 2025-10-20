@@ -4,7 +4,7 @@ import { formatCurrency } from "@/containers/pages/example-page/utils/format-uti
 import { useCurrentLocale } from "@/locale/client"
 import { Button } from "@/shared/components/ui"
 import { NFT, Quality, Signature, Timer } from "@/shared/icons"
-import type { Product } from "@/shared/types/fan-support"
+import type { Product } from "@/shared/types/product"
 
 interface IFanSupportCardProps {
   product: Product

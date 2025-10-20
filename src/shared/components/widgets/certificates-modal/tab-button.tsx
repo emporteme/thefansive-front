@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils"
-import { CertificateType } from "@/shared/types/fan-support"
+import { CertificateType } from "@/shared/types/product"
 
 interface TabButtonProps {
   tab: CertificateType

@@ -1,6 +1,6 @@
 import { CertificateFilled } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
-import { CertificateType } from "@/shared/types/fan-support"
+import { CertificateType } from "@/shared/types/product"
 
 interface CertificateData {
   label: string

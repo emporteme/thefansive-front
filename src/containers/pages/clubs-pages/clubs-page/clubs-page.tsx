@@ -1,11 +1,11 @@
 "use client"
 
 import React from "react"
-import { useTeams } from "@/shared/api/hooks"
+import { usePopularProducts, useTeams } from "@/shared/api/hooks"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
-import type { Product } from "@/shared/types/fan-support"
+import type { Product } from "@/shared/types/product"
 import { CardsSlider, ChooseTeam, FanSupportCard, GoBeyond, MainSlider, News, TeamCard } from "./components/sections"
 import BecomeMember from "./components/sections/become-member"
 
@@ -93,6 +93,9 @@ const ClubsPage = () => {
   const navigate = useNavigate()
   const routes = useRoutes()
   const { data: teams, isLoading: isTeamsLoading } = useTeams()
+  const { data: products, isLoading: isPopularProductsLoading } = usePopularProducts({ limit: 16 })
+
+  console.log("products", products)
 
   const handleClickTeam = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = (event.target as HTMLElement).closest("[data-team-id]")
@@ -140,12 +143,9 @@ const ClubsPage = () => {
           subtitle="Empower your club’s future"
           navCount={2}
           rowCount={2}
-          elements={fanSupport.map((product) => (
-            <FanSupportCard key={product.id} product={product} />
-          ))}
+          elements={products?.map((product) => <FanSupportCard key={product.id} product={product} />) || []}
           className="mb-20"
           type="fan-support"
-          isLoading={true}
         />
 
         <News className="mb-10" />

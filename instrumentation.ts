@@ -1,5 +1,6 @@
-import { registerOTel } from "@vercel/otel"
-
-export function register() {
-  registerOTel("thefansive")
+export async function register() {
+  if (process.env.NEXT_RUNTIME === "nodejs") {
+    const { registerOTel } = await import("@vercel/otel")
+    registerOTel({ serviceName: "thefansive" })
+  }
 }

@@ -93,8 +93,6 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
     return [...favoriteTeams, ...emptyTeams]
   }, [favoriteTeams])
 
-  console.log("displayTeams", displayTeams)
-
   useEffect(() => {
     if (swiperRef.current) {
       swiperRef.current.navigation.init()

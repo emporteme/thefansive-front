@@ -92,7 +92,7 @@ const fanSupport = [
 const ClubsPage = () => {
   const navigate = useNavigate()
   const routes = useRoutes()
-  const { data: teams } = useTeams()
+  const { data: teams, isLoading: isTeamsLoading } = useTeams()
 
   const handleClickTeam = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = (event.target as HTMLElement).closest("[data-team-id]")
@@ -130,6 +130,8 @@ const ClubsPage = () => {
           rowCount={1}
           elements={teams?.map((team) => <TeamCard key={team.id} team={team} />) || []}
           className="mb-10"
+          isLoading={isTeamsLoading}
+          type="teams"
         />
 
         <CardsSlider
@@ -142,6 +144,8 @@ const ClubsPage = () => {
             <FanSupportCard key={product.id} product={product} />
           ))}
           className="mb-20"
+          type="fan-support"
+          isLoading={true}
         />
 
         <News className="mb-10" />

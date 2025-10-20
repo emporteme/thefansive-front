@@ -6,6 +6,8 @@ import type { Swiper as SwiperType } from "swiper"
 import { A11y, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { ArrowLeft, ArrowRight } from "@/shared/icons"
+import FanSupportCardSkeleton from "./skeletons/fan-support-card-skeleton"
+import TeamCardSkeleton from "./skeletons/team-card-skeleton"
 import "swiper/css"
 import "swiper/css/navigation"
 
@@ -18,6 +20,8 @@ interface ICardsSliderProps {
   loop?: boolean
   className?: string
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void
+  isLoading?: boolean
+  type: "teams" | "fan-support"
 }
 
 const CardsSlider: React.FC<ICardsSliderProps> = ({
@@ -29,8 +33,10 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
   elements = [],
   loop = false,
   className,
+  isLoading = false,
+  type,
 }) => {
-  if (elements.length === 0) {
+  if (elements.length === 0 && !isLoading) {
     return null
   }
 
@@ -43,7 +49,18 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
 
   const totalItemsInView = navCount * rowCount
 
-  const showNavigation = elements.length > totalItemsInView
+  const skeletonElements = isLoading
+    ? Array.from({ length: totalItemsInView }, (_, index) => {
+        if (type === "teams") {
+          return <TeamCardSkeleton key={`skeleton-${index}`} />
+        } else {
+          return <FanSupportCardSkeleton key={`skeleton-${index}`} />
+        }
+      })
+    : []
+
+  const displayElements = isLoading ? skeletonElements : elements
+  const showNavigation = displayElements.length > totalItemsInView
 
   return (
     <div className={classNames("w-full", className)} onClick={onClick}>
@@ -115,7 +132,7 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
         a11y={{ enabled: true }}
         className="w-full"
       >
-        {Array.from({ length: Math.ceil(elements.length / totalItemsInView) }, (_, pageIndex) => (
+        {Array.from({ length: Math.ceil(displayElements.length / totalItemsInView) }, (_, pageIndex) => (
           <SwiperSlide key={`page-${pageIndex}`}>
             <div
               className="grid h-full gap-1.5"
@@ -124,7 +141,7 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
                 gridTemplateRows: `repeat(${rowCount}, 1fr)`,
               }}
             >
-              {elements
+              {displayElements
                 .slice(pageIndex * totalItemsInView, (pageIndex + 1) * totalItemsInView)
                 .map((element, cardIndex) => (
                   <div key={`card-${pageIndex}-${cardIndex}`} className="h-full">

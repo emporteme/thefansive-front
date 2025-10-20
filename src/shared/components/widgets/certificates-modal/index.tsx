@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import { ModalLayout } from "@/shared/components/ui"
 import { Cancel } from "@/shared/icons"
 import { alert } from "@/shared/lib/alert"
-import { CertificateType } from "@/shared/types/fan-support"
+import { CertificateType } from "@/shared/types/product"
 import { CertificateCard } from "./certificate-card"
 import { TabButton } from "./tab-button"
 

@@ -1,6 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+import { Product } from "@/shared/types/product"
 import { apiClient } from "../client"
 
 // Product categories from API
@@ -16,6 +17,7 @@ export const productsKeys = {
   search: (query: string) => [...productsKeys.all, "search", query] as const,
   category: (category: ProductCategory) => [...productsKeys.all, "category", category] as const,
   myTeams: () => [...productsKeys.all, "myTeams"] as const,
+  popular: () => [...productsKeys.all, "popular"] as const,
 }
 
 /**
@@ -106,6 +108,31 @@ export function useProductsByCategory(category: ProductCategory) {
       return response.data
     },
     enabled: !!category,
+  })
+}
+
+/**
+ * Get products for user's favorite teams
+ */
+export function usePopularProducts(params?: { limit?: number }) {
+  return useQuery<Product[]>({
+    queryKey: productsKeys.popular(),
+    queryFn: async () => {
+      const response = await apiClient.GET("/products/popular", {
+        params: {
+          query: {
+            limit: params?.limit,
+          },
+        },
+      })
+
+      if (!response.data) {
+        throw new Error("Request failed")
+      }
+
+      return response.data as Product[]
+    },
+    enabled: !!params?.limit && params?.limit > 0,
   })
 }
 

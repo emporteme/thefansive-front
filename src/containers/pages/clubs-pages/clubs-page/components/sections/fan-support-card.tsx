@@ -4,7 +4,7 @@ import { formatCurrency } from "@/containers/pages/example-page/utils/format-uti
 import { useCurrentLocale } from "@/locale/client"
 import { Button } from "@/shared/components/ui"
 import { NFT, Quality, Signature, Timer } from "@/shared/icons"
-import type { Product } from "@/shared/types/fan-support"
+import type { Product } from "@/shared/types/product"
 
 interface IFanSupportCardProps {
   product: Product
@@ -20,7 +20,7 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
           Limited Quantity
         </div>
         <Image
-          src={product.productImageUrl || ""}
+          src={"/images/dev/lionel-messi-pro-t-shirt.png"}
           alt={product.productName[locale] ?? ""}
           width={275}
           height={275}

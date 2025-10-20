@@ -7,8 +7,8 @@ import type { Swiper as SwiperType } from "swiper"
 import { A11y, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { useCurrentLocale } from "@/locale/client"
-import { useFavoriteTeams } from "@/shared/api/hooks"
 import { ChooseYourTeamModal } from "@/shared/components/widgets"
+import { useIsHydrated } from "@/shared/hooks/client"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { ArrowSelect } from "@/shared/icons"
@@ -61,11 +61,13 @@ const maxShowedClubs = 9
 
 interface ChooseTeamProps {
   className?: string
+  isLoading: boolean
+  favoriteTeams: FavoriteTeam[]
 }
 
-const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
-  const { data: favoriteTeams } = useFavoriteTeams()
+const ChooseTeam: React.FC<ChooseTeamProps> = ({ className, isLoading, favoriteTeams }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const isHydrated = useIsHydrated()
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const swiperRef = useRef<SwiperType | null>(null)
@@ -73,6 +75,14 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
   const routes = useRoutes()
 
   const displayTeams = useMemo(() => {
+    if (isLoading || !isHydrated) {
+      return Array.from({ length: maxShowedClubs }, (_, index) => ({
+        id: -(index + 1000),
+        logoUrl: "",
+        isSkeleton: true,
+      })) as (EmptyTeam & { isSkeleton: boolean })[]
+    }
+
     const emptyTeams = Array.from(
       { length: maxShowedClubs - (favoriteTeams ? favoriteTeams?.length : 0) },
       (_, index) =>
@@ -91,9 +101,7 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
     }
 
     return [...favoriteTeams, ...emptyTeams]
-  }, [favoriteTeams])
-
-  console.log("displayTeams", displayTeams)
+  }, [favoriteTeams, isLoading, isHydrated])
 
   useEffect(() => {
     if (swiperRef.current) {
@@ -143,40 +151,70 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
         </button>
 
         <div className="w-[calc(8*80px+7*10px)] overflow-hidden">
-          <Swiper
-            modules={[Navigation, Keyboard, A11y]}
-            onSwiper={(swiper) => {
-              swiperRef.current = swiper
-            }}
-            navigation={{
-              prevEl: prevRef.current,
-              nextEl: nextRef.current,
-            }}
-            speed={600}
-            slidesPerView={8}
-            spaceBetween={10}
-            keyboard={{ enabled: true }}
-            a11y={{ enabled: true }}
-            className="w-full"
-          >
-            {displayTeams?.map((team) => {
-              const isFavoriteTeam = "team" in team
-              return (
-                <SwiperSlide key={team.id}>
-                  <TeamLogoCard
-                    team={team}
-                    onClick={() => {
-                      if (isFavoriteTeam) {
-                        handleTeamClick((team as FavoriteTeam).team)
-                      } else {
-                        handleOpenModal()
-                      }
-                    }}
-                  />
-                </SwiperSlide>
-              )
-            })}
-          </Swiper>
+          {!isHydrated ? (
+            // До гидратации показываем статичный grid с skeleton элементами
+            <div className="flex gap-2.5">
+              {Array.from({ length: maxShowedClubs }, (_, index) => (
+                <div
+                  key={`skeleton-${index}`}
+                  className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full border border-[#CAD5E2] bg-white"
+                >
+                  <div className="h-13.5 w-11.5 overflow-hidden rounded-lg">
+                    <div className="h-full w-full animate-pulse rounded-lg bg-slate-200" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <Swiper
+              modules={[Navigation, Keyboard, A11y]}
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper
+              }}
+              navigation={{
+                prevEl: prevRef.current,
+                nextEl: nextRef.current,
+              }}
+              speed={600}
+              slidesPerView={8}
+              spaceBetween={10}
+              keyboard={{ enabled: true }}
+              a11y={{ enabled: true }}
+              className="w-full"
+            >
+              {displayTeams?.map((team) => {
+                const isFavoriteTeam = "team" in team
+                const isSkeleton = "isSkeleton" in team && (team as EmptyTeam & { isSkeleton: boolean }).isSkeleton
+
+                if (isSkeleton) {
+                  return (
+                    <SwiperSlide key={team.id}>
+                      <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full border border-[#CAD5E2] bg-white">
+                        <div className="h-13.5 w-11.5 overflow-hidden rounded-lg">
+                          <div className="h-full w-full animate-pulse rounded-lg bg-slate-200" />
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  )
+                }
+
+                return (
+                  <SwiperSlide key={team.id}>
+                    <TeamLogoCard
+                      team={team}
+                      onClick={() => {
+                        if (isFavoriteTeam) {
+                          handleTeamClick((team as FavoriteTeam).team)
+                        } else {
+                          handleOpenModal()
+                        }
+                      }}
+                    />
+                  </SwiperSlide>
+                )
+              })}
+            </Swiper>
+          )}
         </div>
 
         <button

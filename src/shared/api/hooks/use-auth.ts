@@ -1,7 +1,6 @@
 "use client"
 
 import { useMutation } from "@tanstack/react-query"
-import { useIsAuthenticated } from "@/shared/hooks/client/use-is-authenticated"
 import { FavoriteTeam } from "@/shared/types/team"
 import { apiClient, setAuthToken } from "../client"
 import type { components } from "../schema"
@@ -11,16 +10,16 @@ type SignUpInput = components["schemas"]["SignUpInputDto"]
 type SendEmailOtpInput = components["schemas"]["SendEmailOtpDto"]
 type ValidateOtpInput = components["schemas"]["ValidateOtpDto"]
 
-export function useLogin() {
-  const { setIsAuth } = useIsAuthenticated()
+let isAuth: boolean = typeof window !== "undefined" && !!localStorage.getItem("access_token")
 
+export function useLogin() {
   return useMutation({
     mutationFn: async (data: LoginInput) => {
       const response = await apiClient.POST("/auth/login", {
         body: data,
       })
 
-      setIsAuth(true)
+      isAuth = true
 
       if (!response.data) {
         throw new Error("Request failed")
@@ -97,14 +96,12 @@ export function useRestorePassword() {
 }
 
 export function useLogout() {
-  const { setIsAuth } = useIsAuthenticated()
-
   const logout = async () => {
     localStorage.removeItem("access_token")
     localStorage.removeItem("refresh_token")
     localStorage.removeItem("user")
     setAuthToken(null)
-    setIsAuth(false)
+    isAuth = false
   }
 
   return { logout }
@@ -116,7 +113,7 @@ export function getCurrentUser() {
 }
 
 export function isAuthenticated(): boolean {
-  return typeof window !== "undefined" && !!localStorage.getItem("access_token")
+  return isAuth
 }
 
 export function useSendEmailOtp() {

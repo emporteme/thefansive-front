@@ -5,6 +5,12 @@ export const getRoutes = (locale?: string) => {
 
   return {
     home: () => getRoute("/"),
+    auth: {
+      login: () => getRoute("/auth/login"),
+      signup: () => getRoute("/auth/signup"),
+      forgot: () => getRoute("/auth/forgot"),
+      restore: () => getRoute("/auth/restore"),
+    },
     cart: {
       home: () => getRoute("/cart"),
       payment: () => getRoute("/cart/payment"),

@@ -1,9 +1,9 @@
+import Image from "next/image"
+import { FC } from "react"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { getCurrencySymbol } from "@/shared/constants/currencies"
 import { Currency } from "@/shared/store/currency-store"
-import { getConicGradient } from "@/shared/utils/getConicGradient"
-import Image from "next/image"
-import { FC } from "react"
+import { getConicGradient } from "@/shared/utils/get-conic-gradient"
 
 const fakeData = [
   {

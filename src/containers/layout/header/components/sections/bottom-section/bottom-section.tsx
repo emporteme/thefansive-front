@@ -1,5 +1,5 @@
 import React from "react"
-import { isAuthenticated } from "@/shared/api"
+import { useIsAuthenticated } from "@/shared/api/hooks/use-auth"
 import Logo from "@/shared/components/elements/logo"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { Auth, Burger, Cart, Links, Search } from "./ui"
@@ -11,6 +11,8 @@ type BottomSectionProps = {
 }
 
 const BottomSection: React.FC<BottomSectionProps> = ({ isMobileMenuOpen, onToggleMobileMenu }) => {
+  const { data: isAuthenticated } = useIsAuthenticated()
+
   return (
     <div className="border-b border-[#CAD5E2]">
       <ContainerLayout className="flex items-center justify-between gap-5 bg-white py-4">
@@ -22,7 +24,7 @@ const BottomSection: React.FC<BottomSectionProps> = ({ isMobileMenuOpen, onToggl
           <div className="hidden items-center gap-2 md:flex">
             <Search />
             <Cart />
-            {isAuthenticated() ? <User /> : <Auth />}
+            {isAuthenticated ? <User /> : <Auth />}
           </div>
           <Burger isOpen={isMobileMenuOpen} onClick={onToggleMobileMenu} />
         </div>

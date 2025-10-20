@@ -132,16 +132,14 @@ export function getCurrentUser() {
   return userStr ? (JSON.parse(userStr) as components["schemas"]["UserOutputDto"]) : null
 }
 
-export function isAuthenticated(): boolean {
-  return (
-    useQuery<boolean>({
-      queryKey: authKeys.isAuthenticated(),
-      queryFn: async () => {
-        const isAuth: boolean = typeof window !== "undefined" && !!localStorage.getItem("access_token")
-        return isAuth
-      },
-    }).data ?? false
-  )
+export function useIsAuthenticated() {
+  return useQuery<boolean>({
+    queryKey: authKeys.isAuthenticated(),
+    queryFn: async () => {
+      const isAuth: boolean = typeof window !== "undefined" && !!localStorage.getItem("access_token")
+      return isAuth
+    },
+  })
 }
 
 export function useSendEmailOtp() {

@@ -1,6 +1,7 @@
 "use client"
 
 import { useMutation } from "@tanstack/react-query"
+import { FavoriteTeam } from "@/shared/types/team"
 import { apiClient, setAuthToken } from "../client"
 import type { components } from "../schema"
 
@@ -29,6 +30,33 @@ export function useLogin() {
       localStorage.setItem("user", JSON.stringify(response.data.user))
 
       setAuthToken(response.data.access_token)
+
+      const favoriteTeamsResponse = await apiClient.GET("/user/favorite-teams")
+
+      const favoriteTeamServer = favoriteTeamsResponse.data as FavoriteTeam[]
+      const favoriteTeamsStorage = JSON.parse(localStorage.getItem("favoriteTeams") ?? "[]") as FavoriteTeam[]
+
+      // remove from server
+      favoriteTeamServer.forEach(async (favoriteTeam) => {
+        if (favoriteTeamsStorage.some((favoriteTeamStorage) => favoriteTeamStorage.id === favoriteTeam.id)) {
+          return
+        } else {
+          apiClient.DELETE("/user/favorite-teams/{teamId}", {
+            params: { path: { teamId: favoriteTeam.id } },
+          })
+        }
+      })
+
+      // add to server from storage
+      favoriteTeamsStorage.forEach(async (favoriteTeamStorage) => {
+        if (favoriteTeamServer.some((favoriteTeam) => favoriteTeam.id === favoriteTeamStorage.id)) {
+          return
+        } else {
+          apiClient.POST("/user/favorite-teams/{teamId}", {
+            params: { path: { teamId: favoriteTeamStorage.id } },
+          })
+        }
+      })
 
       return response.data
     },
@@ -71,7 +99,7 @@ export function logout() {
 }
 
 export function getCurrentUser() {
-  const userStr = localStorage?.getItem("user")
+  const userStr = typeof window !== "undefined" ? localStorage?.getItem("user") : null
   return userStr ? (JSON.parse(userStr) as components["schemas"]["UserOutputDto"]) : null
 }
 

@@ -4,17 +4,27 @@ import React from "react"
 import { cn } from "@/shared/lib/utils"
 import { getRoutes } from "@/shared/utils/get-routes"
 
-const Logo: React.FC<{ className?: string }> = ({ className }) => {
+interface LogoProps {
+  className?: string
+  disabled?: boolean
+}
+
+const Logo: React.FC<LogoProps> = ({ className, disabled }) => {
   const routes = getRoutes()
 
   return (
-    <Link href={routes.home()}>
+    <Link
+      href={disabled ? "" : routes.home()}
+      className={cn("inline-block cursor-pointer", {
+        "cursor-default": disabled,
+      })}
+    >
       <Image
-        src="/logo-1.png"
+        src="/logo.svg"
         alt="logo - thefansive.com"
         width={140}
-        height={140}
-        className={cn("min-w-35", className)}
+        height={25}
+        className={cn("h-auto min-w-35", className)}
       />
     </Link>
   )

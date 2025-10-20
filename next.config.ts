@@ -6,7 +6,25 @@ import { env } from "./env.mjs"
 const config: NextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [], // hostnames
+    remotePatterns: [ // поменять на наш cdn
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+  experimental: {
+    // Оптимизация для быстрого HMR
+    optimizePackageImports: ["@tanstack/react-query", "react-toastify"],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://trading-desk.top/:path*',
+      },
+
+    ]
   },
 }
 

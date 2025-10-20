@@ -17,6 +17,7 @@ export const formatCurrency = (amount: number, currency: Currency = "USD"): stri
   return new Intl.NumberFormat(locales[currency], {
     style: "currency",
     currency,
+    maximumFractionDigits: 0,
   }).format(amount)
 }
 

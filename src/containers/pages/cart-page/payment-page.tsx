@@ -1,5 +1,8 @@
 "use client"
 
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { FC, useState } from "react"
 import AddNewAddressPopup from "@/shared/components/elements/add-new-address/add-new-address"
 import EditAddressPopup from "@/shared/components/elements/edit-address/edit-address"
 import { Button } from "@/shared/components/ui"
@@ -12,9 +15,6 @@ import CreditCard from "@/shared/icons/credit-card"
 import NowPayments from "@/shared/icons/now-payments"
 import { Currency, getCurrencySymbol } from "@/shared/store/currency-store"
 import { getRoutes } from "@/shared/utils/get-routes"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { FC, useState } from "react"
 import AddressItem from "./components/address-item"
 
 const fakeDeliveryData = [

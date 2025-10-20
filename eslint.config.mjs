@@ -1,6 +1,7 @@
 // https://github.com/francoismassart/eslint-plugin-tailwindcss/pull/381
 // import eslintPluginTailwindcss from "eslint-plugin-tailwindcss"
 import eslintPluginNext from "@next/eslint-plugin-next"
+import eslintConfigPrettier from "eslint-config-prettier"
 import eslintPluginImport from "eslint-plugin-import"
 import eslintPluginStorybook from "eslint-plugin-storybook"
 import eslintPluginUnicorn from "eslint-plugin-unicorn"
@@ -101,7 +102,9 @@ const config = typescriptEslint.config(
         },
       ],
     },
-  }
+  },
+  // Prettier config должен быть последним, чтобы отключить конфликтующие правила
+  eslintConfigPrettier
 )
 
 function getDirectoriesToSort() {

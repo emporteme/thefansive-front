@@ -15,15 +15,12 @@ export const getRoutes = (locale?: string) => {
       all: () => getRoute("/clubs"),
       single: (id: string) => getRoute(`/clubs/${id}`),
     },
+    products: {
+      single: (id: string) => getRoute(`/products/${id}`),
+    },
     game: () => getRoute("/game"),
     howItWorks: () => getRoute("/how-it-works"),
     partners: () => getRoute("/partners"),
-    auth: {
-      login: () => getRoute("/auth"),
-      signup: () => getRoute("/auth/sign-up"),
-      forgot: () => getRoute("/auth/forgot"),
-      restore: () => getRoute("/auth/restore"),
-    },
     user: {
       profile: () => getRoute("/user/profile"),
       order: () => getRoute("/user/order"),

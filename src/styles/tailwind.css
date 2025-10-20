@@ -24,6 +24,7 @@
 
   body {
     @apply leading-[1] tracking-[0.5px];
+    user-select: none;
   }
 
   a,
@@ -195,5 +196,57 @@
   .text-2xs {
     font-size: 0.625rem; /* 10px */
     line-height: 0.75rem; /* 12px */
+  }
+}
+
+:root {
+  --scrollbar-width: 10px; /* Общая ширина области скроллбара */
+  --scrollbar-thumb-width: 4px; /* Ширина самого ползунка (по умолчанию) */
+  --scrollbar-thumb-width-hover: 5px; /* Ширина ползунка при наведении */
+  --scrollbar-thumb-color: #0f172b; /* Цвет ползунка (темно-синий) */
+  --scrollbar-track-color: transparent; /* Цвет дорожки (прозрачный) */
+  --scrollbar-thumb-radius: 100px; /* Скругление ползунка */
+  --scrollbar-thumb-min-height: 48px; /* Минимальная высота ползунка */
+}
+
+@layer base {
+  ::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+    height: var(--scrollbar-width);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-color);
+    border-radius: inherit;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+    background-clip: padding-box;
+    border-radius: var(--scrollbar-thumb-radius);
+    border: calc((var(--scrollbar-width) - var(--scrollbar-thumb-width)) / 2) solid transparent;
+    min-height: var(--scrollbar-thumb-min-height);
+    cursor: pointer;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-color);
+    background-clip: padding-box;
+    border: calc((var(--scrollbar-width) - var(--scrollbar-thumb-width-hover)) / 2) solid transparent;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+    border-radius: inherit;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+  }
+
+  *[class*="rounded"],
+  *[class*="overflow"] {
+    contain: paint;
   }
 }

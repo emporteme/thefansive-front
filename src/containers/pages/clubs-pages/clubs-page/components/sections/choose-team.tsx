@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { useCurrentLocale } from "@/locale/client"
 import { useFavoriteTeams } from "@/shared/api/hooks"
 import { ChooseYourTeamModal } from "@/shared/components/widgets"
+import { useIsHydrated } from "@/shared/hooks/client"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { ArrowSelect } from "@/shared/icons"
@@ -66,16 +67,12 @@ interface ChooseTeamProps {
 const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
   const { data: favoriteTeams, isLoading: isFavoriteTeamsLoading } = useFavoriteTeams()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isHydrated, setIsHydrated] = useState(false)
+  const isHydrated = useIsHydrated()
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const swiperRef = useRef<SwiperType | null>(null)
   const navigate = useNavigate()
   const routes = useRoutes()
-
-  useEffect(() => {
-    setIsHydrated(true)
-  }, [])
 
   const displayTeams = useMemo(() => {
     if (isFavoriteTeamsLoading || !isHydrated) {

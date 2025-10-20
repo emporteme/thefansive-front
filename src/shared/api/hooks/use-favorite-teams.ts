@@ -1,8 +1,8 @@
 "use client"
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useIsAuthenticated } from "@/shared/hooks/client/use-is-authenticated"
 import { FavoriteTeam, Team } from "@/shared/types/team"
-import { isAuthenticated } from "./use-auth"
 import { apiClient } from "../client"
 
 // Query keys
@@ -16,10 +16,12 @@ export const favoriteTeamsKeys = {
  * Get user's favorite teams
  */
 export function useFavoriteTeams() {
+  const { isAuth } = useIsAuthenticated()
+
   return useQuery<FavoriteTeam[]>({
     queryKey: favoriteTeamsKeys.lists(),
     queryFn: async () => {
-      if (!isAuthenticated()) {
+      if (!isAuth) {
         const favoriteTeams = localStorage.getItem("favoriteTeams")
 
         if (favoriteTeams) {
@@ -65,11 +67,12 @@ export function useCheckFavoriteTeam(teamId: number) {
  * Add team to favorites
  */
 export function useAddFavoriteTeam() {
+  const { isAuth } = useIsAuthenticated()
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: async (team: Team) => {
-      if (!isAuthenticated()) {
+      if (!isAuth) {
         const favoriteTeams = localStorage.getItem("favoriteTeams")
 
         const newFavoriteTeam: FavoriteTeam = {
@@ -106,7 +109,7 @@ export function useAddFavoriteTeam() {
       return response.data
     },
     onMutate: async (team: Team) => {
-      if (!isAuthenticated()) {
+      if (!isAuth) {
         return { previousFavoriteTeams: JSON.parse(localStorage.getItem("favoriteTeams") ?? "[]") as FavoriteTeam[] }
       }
 
@@ -143,11 +146,12 @@ export function useAddFavoriteTeam() {
  * Remove team from favorites
  */
 export function useRemoveFavoriteTeam() {
+  const { isAuth } = useIsAuthenticated()
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: async (team: Team) => {
-      if (!isAuthenticated()) {
+      if (!isAuth) {
         const favoriteTeams = JSON.parse(localStorage.getItem("favoriteTeams") ?? "[]") as FavoriteTeam[]
         const updatedFavoriteTeams = favoriteTeams.filter((favoriteTeam) => favoriteTeam.teamId !== team.id)
         queryClient.setQueryData<FavoriteTeam[]>(favoriteTeamsKeys.lists(), updatedFavoriteTeams)

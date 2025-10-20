@@ -101,7 +101,7 @@ const CardsSlider: React.FC<ICardsSliderProps> = ({
             className={classNames(
               "group flex h-15 w-16 items-center justify-center rounded-lg border border-gray-200 bg-white text-slate-900 transition hover:bg-gray-50",
               {
-                "cursor-default bg-slate-200 text-slate-400": isEndDisabled,
+                "cursor-default !bg-slate-200 !text-slate-400": isEndDisabled,
               }
             )}
           >

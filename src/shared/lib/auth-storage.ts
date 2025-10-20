@@ -34,7 +34,7 @@ export const authStorage = {
     const userStr = localStorage.getItem(USER_KEY)
     if (!userStr) return null
     try {
-      return JSON.parse(userStr)
+      return JSON.parse(userStr) as StoredUser
     } catch {
       return null
     }

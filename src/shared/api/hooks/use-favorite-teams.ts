@@ -19,6 +19,16 @@ export function useFavoriteTeams() {
   return useQuery<FavoriteTeam[]>({
     queryKey: favoriteTeamsKeys.lists(),
     queryFn: async () => {
+      if (!isAuthenticated()) {
+        const favoriteTeams = localStorage.getItem("favoriteTeams")
+
+        if (favoriteTeams) {
+          return JSON.parse(favoriteTeams) as FavoriteTeam[]
+        }
+
+        return []
+      }
+
       const response = await apiClient.GET("/user/favorite-teams")
 
       if (!response.data) {
@@ -27,7 +37,6 @@ export function useFavoriteTeams() {
 
       return response.data as FavoriteTeam[]
     },
-    enabled: isAuthenticated(),
   })
 }
 
@@ -60,6 +69,28 @@ export function useAddFavoriteTeam() {
 
   return useMutation({
     mutationFn: async (team: Team) => {
+      if (!isAuthenticated()) {
+        const favoriteTeams = localStorage.getItem("favoriteTeams")
+
+        const newFavoriteTeam: FavoriteTeam = {
+          id: Date.now(),
+          userId: 0,
+          teamId: team.id,
+          addedAt: new Date().toISOString(),
+          team: team,
+        }
+
+        const newFavoriteTeams = [
+          newFavoriteTeam,
+          ...(favoriteTeams ? (JSON.parse(favoriteTeams) as FavoriteTeam[]) : []),
+        ]
+
+        queryClient.setQueryData<FavoriteTeam[]>(favoriteTeamsKeys.lists(), newFavoriteTeams)
+        localStorage.setItem("favoriteTeams", JSON.stringify(newFavoriteTeams))
+
+        return
+      }
+
       const response = await apiClient.POST("/user/favorite-teams/{teamId}", {
         params: { path: { teamId: team.id } },
       })
@@ -75,6 +106,10 @@ export function useAddFavoriteTeam() {
       return response.data
     },
     onMutate: async (team: Team) => {
+      if (!isAuthenticated()) {
+        return { previousFavoriteTeams: JSON.parse(localStorage.getItem("favoriteTeams") ?? "[]") as FavoriteTeam[] }
+      }
+
       await queryClient.cancelQueries({ queryKey: favoriteTeamsKeys.lists() })
       const previousFavoriteTeams = queryClient.getQueryData<FavoriteTeam[]>(favoriteTeamsKeys.lists())
 
@@ -112,6 +147,14 @@ export function useRemoveFavoriteTeam() {
 
   return useMutation({
     mutationFn: async (team: Team) => {
+      if (!isAuthenticated()) {
+        const favoriteTeams = JSON.parse(localStorage.getItem("favoriteTeams") ?? "[]") as FavoriteTeam[]
+        const updatedFavoriteTeams = favoriteTeams.filter((favoriteTeam) => favoriteTeam.teamId !== team.id)
+        queryClient.setQueryData<FavoriteTeam[]>(favoriteTeamsKeys.lists(), updatedFavoriteTeams)
+        localStorage.setItem("favoriteTeams", JSON.stringify(updatedFavoriteTeams))
+        return
+      }
+
       const response = await apiClient.DELETE("/user/favorite-teams/{teamId}", {
         params: { path: { teamId: team.id } },
       })

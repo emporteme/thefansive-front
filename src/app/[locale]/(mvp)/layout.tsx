@@ -1,3 +1,5 @@
+"use client"
+
 import { FC, ReactElement } from "react"
 import { Footer, Header } from "@/containers/layout"
 

@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { useCurrentLocale } from "@/locale/client"
 import { useFavoriteTeams, useRemoveFavoriteTeam } from "@/shared/api/hooks"
@@ -6,92 +8,6 @@ import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { FavoriteTeam, Team } from "@/shared/types/team"
 import { AddFavoriteClubs, FavoriteTeamCard } from "../ui"
-
-export const clubsData = [
-  {
-    id: 1,
-    logo: "/images/dev/liverpool-logo.png",
-    name: "F.C. Liverpool",
-  },
-  {
-    id: 2,
-    logo: "/images/dev/arsenal-logo.png",
-    name: "F.C. Arsenal",
-  },
-  {
-    id: 3,
-    logo: "/images/dev/lakers-logo.png",
-    name: "Los Angeles Lakers",
-  },
-  {
-    id: 4,
-    logo: "/images/dev/wolverhampton-logo.png",
-    name: "Wolverhampton",
-  },
-  {
-    id: 5,
-    logo: "/images/dev/manchester-logo.png",
-    name: "Manchester City",
-  },
-  {
-    id: 6,
-    logo: "/images/dev/madrid-logo.png",
-    name: "Real Madrid",
-  },
-  {
-    id: 7,
-    logo: "/images/dev/madrid-logo.png",
-    name: "Chelsea",
-  },
-  {
-    id: 8,
-    logo: "/images/dev/madrid-logo.png",
-    name: "Nottingham Forest",
-  },
-  {
-    id: 9,
-    logo: "/images/dev/madrid-logo.png",
-    name: "Sunderland",
-  },
-  {
-    id: 10,
-    logo: "/images/dev/madrid-logo.png",
-    name: "Manchester United",
-  },
-]
-
-export const favoriteClubsData = [
-  {
-    id: 1,
-    logo: "/images/dev/liverpool-logo.png",
-    name: "F.C. Liverpool",
-  },
-  {
-    id: 2,
-    logo: "/images/dev/arsenal-logo.png",
-    name: "F.C. Arsenal",
-  },
-  {
-    id: 3,
-    logo: "/images/dev/lakers-logo.png",
-    name: "Los Angeles Lakers",
-  },
-  {
-    id: 4,
-    logo: "/images/dev/wolverhampton-logo.png",
-    name: "Wolverhampton",
-  },
-  {
-    id: 5,
-    logo: "/images/dev/manchester-logo.png",
-    name: "Manchester City",
-  },
-  {
-    id: 10,
-    logo: "/images/dev/madrid-logo.png",
-    name: "Manchester United",
-  },
-]
 
 const FavoriteTeams: React.FC = () => {
   const routes = useRoutes()

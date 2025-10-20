@@ -1,7 +1,9 @@
 import React from "react"
+import { isAuthenticated } from "@/shared/api"
 import Logo from "@/shared/components/elements/logo"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { Auth, Burger, Cart, Links, Search } from "./ui"
+import User from "./ui/user"
 
 type BottomSectionProps = {
   isMobileMenuOpen: boolean
@@ -20,7 +22,7 @@ const BottomSection: React.FC<BottomSectionProps> = ({ isMobileMenuOpen, onToggl
           <div className="hidden items-center gap-2 md:flex">
             <Search />
             <Cart />
-            <Auth />
+            {isAuthenticated() ? <User /> : <Auth />}
           </div>
           <Burger isOpen={isMobileMenuOpen} onClick={onToggleMobileMenu} />
         </div>

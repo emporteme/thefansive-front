@@ -139,6 +139,15 @@ export function useIsAuthenticated() {
       const isAuth: boolean = typeof window !== "undefined" && !!localStorage.getItem("access_token")
       return isAuth
     },
+    initialData: () => {
+      if (typeof window !== "undefined") {
+        return !!localStorage.getItem("access_token")
+      }
+      return false
+    },
+    staleTime: Infinity,
+    gcTime: Infinity,
+    enabled: typeof window !== "undefined",
   })
 }
 

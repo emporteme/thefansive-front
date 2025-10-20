@@ -20,7 +20,7 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
           Limited Quantity
         </div>
         <Image
-          src={product.productImageUrl || ""}
+          src={"/images/dev/lionel-messi-pro-t-shirt.png"}
           alt={product.productName[locale] ?? ""}
           width={275}
           height={275}

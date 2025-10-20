@@ -2,6 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { FavoriteTeam, Team } from "@/shared/types/team"
+import { isAuthenticated } from "./use-auth"
 import { apiClient } from "../client"
 
 // Query keys
@@ -26,6 +27,7 @@ export function useFavoriteTeams() {
 
       return response.data as FavoriteTeam[]
     },
+    enabled: isAuthenticated(),
   })
 }
 

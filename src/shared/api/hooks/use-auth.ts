@@ -76,7 +76,7 @@ export function getCurrentUser() {
 }
 
 export function isAuthenticated(): boolean {
-  return !!localStorage.getItem("access_token")
+  return typeof window !== "undefined" && !!localStorage.getItem("access_token")
 }
 
 export function useSendEmailOtp() {

@@ -62,10 +62,11 @@ const maxShowedClubs = 9
 
 interface ChooseTeamProps {
   className?: string
+  isLoading: boolean
+  favoriteTeams: FavoriteTeam[]
 }
 
-const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
-  const { data: favoriteTeams, isLoading: isFavoriteTeamsLoading } = useFavoriteTeams()
+const ChooseTeam: React.FC<ChooseTeamProps> = ({ className, isLoading, favoriteTeams }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const isHydrated = useIsHydrated()
   const prevRef = useRef<HTMLButtonElement | null>(null)
@@ -75,7 +76,7 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
   const routes = useRoutes()
 
   const displayTeams = useMemo(() => {
-    if (isFavoriteTeamsLoading || !isHydrated) {
+    if (isLoading || !isHydrated) {
       return Array.from({ length: maxShowedClubs }, (_, index) => ({
         id: -(index + 1000),
         logoUrl: "",
@@ -101,7 +102,7 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className }) => {
     }
 
     return [...favoriteTeams, ...emptyTeams]
-  }, [favoriteTeams, isFavoriteTeamsLoading, isHydrated])
+  }, [favoriteTeams, isLoading, isHydrated])
 
   useEffect(() => {
     if (swiperRef.current) {

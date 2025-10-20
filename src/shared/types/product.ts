@@ -10,7 +10,7 @@ export type Product = {
   productName: Record<Language, string>
   productDescription: Record<Language, string> | null
   productCategory: ProductCategory
-  productImageUrl: string
+  productImageUrl: string | null
   priceCents: number
   currencyCode: string
   isActive: boolean

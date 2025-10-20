@@ -117,7 +117,7 @@ export function useProductsByCategory(category: ProductCategory) {
 export function usePopularProducts(params?: { limit?: number }) {
   return useQuery<Product[]>({
     queryKey: productsKeys.popular(),
-    queryFn: async (): Promise<Product[]> => {
+    queryFn: async () => {
       const response = await apiClient.GET("/products/popular", {
         params: {
           query: {
@@ -130,8 +130,9 @@ export function usePopularProducts(params?: { limit?: number }) {
         throw new Error("Request failed")
       }
 
-      return response.data
+      return response.data as Product[]
     },
+    enabled: !!params?.limit && params?.limit > 0,
   })
 }
 

@@ -3,22 +3,24 @@ import React, { useRef, useState } from "react"
 import { getRoutes } from "@/shared/utils/get-routes"
 
 export type EcosystemDropdownItem = {
-  id: number
+  id: string
   href?: string
   children: string
   isComing?: boolean
+  target?: string
 }
 
 export const getEcosystemDropdownItems = (): EcosystemDropdownItem[] => {
   const routes = getRoutes()
 
   return [
-    { id: 1, href: routes.clubs.all(), children: "Clubs" },
-    { id: 2, children: "Athlets", isComing: true },
-    { id: 3, children: "Raffle", isComing: true },
-    { id: 4, children: "NFT's", isComing: true },
-    { id: 5, children: "Rewards", isComing: true },
-    { id: 6, href: "#", children: "Docs" }, // Add actual docs route when available
+    { id: "clubs", href: routes.clubs.all(), children: "Clubs", isComing: true },
+    { id: "athlets", children: "Athlets", isComing: true },
+    { id: "raffle", children: "Raffle", isComing: true },
+    { id: "nfts", children: "NFT's", isComing: true },
+    { id: "rewards", children: "Rewards", isComing: true },
+    { id: "game", children: "Game", isComing: true },
+    { id: "docs", href: "https://thefansive.gitbook.io/docs/", target: "_blank", children: "Docs" },
   ]
 }
 
@@ -39,7 +41,11 @@ const EcosystemDropdownItem: React.FC<{
   )
 
   if (item.href && !item.isComing) {
-    return <Link href={item.href}>{content}</Link>
+    return (
+      <Link href={item.href} target={item.target}>
+        {content}
+      </Link>
+    )
   }
 
   return content

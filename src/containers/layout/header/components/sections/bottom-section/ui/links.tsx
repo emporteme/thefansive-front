@@ -3,17 +3,16 @@ import React from "react"
 import { getRoutes } from "@/shared/utils/get-routes"
 import EcosystemDropdown from "./ecosystem-dropdown"
 
-export type HeaderLink = { id: number; href: string; children: string }
+export type HeaderLink = { id: string; href: string; children: string }
 
 export const getHeaderLinks = (): HeaderLink[] => {
   const routes = getRoutes()
 
   return [
-    { id: 1, href: routes.home(), children: "Home" },
-    { id: 3, href: routes.game(), children: "Game" },
-    { id: 4, href: routes.partners(), children: "Partners" },
-    { id: 5, href: routes.howItWorks(), children: "How it works?" },
-    { id: 6, href: routes.news.all(), children: "News" },
+    { id: "home", href: routes.home(), children: "Home" },
+    { id: "partners", href: routes.partners(), children: "Partners" },
+    { id: "how-it-works", href: routes.howItWorks(), children: "How it works?" },
+    { id: "news", href: routes.news.all(), children: "News" },
   ]
 }
 

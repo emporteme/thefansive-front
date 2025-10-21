@@ -1,3 +1,5 @@
+"use client"
+
 import { FC, ReactElement } from "react"
 import UserLayout from "@/containers/layout/user/user"
 

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { getErrorMessage, useLogin } from "@/shared/api"
+import { getErrorMessage, useLogin, useSyncFavoriteTeamsAfterLogin } from "@/shared/api"
 import { Button } from "@/shared/components/ui"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { Email, Password } from "@/shared/icons"
@@ -33,6 +33,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange, closeModal })
   })
 
   const loginMutation = useLogin()
+  const syncFavoriteTeamsAfterLogin = useSyncFavoriteTeamsAfterLogin()
 
   const email = watch("email")
   const password = watch("password")
@@ -43,6 +44,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange, closeModal })
       navigate(routes.user.profile())
       toast.success("Successfully logged in!")
       closeModal?.()
+      syncFavoriteTeamsAfterLogin?.()
     } catch (error: unknown) {
       const errorMessage = getErrorMessage(error)
       toast.error(errorMessage)

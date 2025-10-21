@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { logout } from "@/shared/api"
+import { useLogout } from "@/shared/api/hooks/use-auth"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { Flag, Logout, Support, Task, User, UserEdit } from "@/shared/icons"
@@ -8,7 +8,15 @@ import Gift from "@/shared/icons/gift"
 import { cn } from "@/shared/lib/utils"
 import { Routes } from "@/shared/types/routes"
 
-const sidebarItems = ({ routes, navigate }: { routes: Routes; navigate: (path: string) => void }) => [
+const sidebarItems = ({
+  routes,
+  navigate,
+  logout,
+}: {
+  routes: Routes
+  navigate: (path: string) => void
+  logout: () => void
+}) => [
   {
     id: "profile",
     title: "Profile",
@@ -48,7 +56,7 @@ const sidebarItems = ({ routes, navigate }: { routes: Routes; navigate: (path: s
     id: "logout",
     title: "Logout",
     action: () => {
-      logout()
+      logout?.()
       navigate(routes.home())
     },
   },
@@ -79,7 +87,7 @@ const Links: React.FC = () => {
   const routes = useRoutes()
   const navigate = useNavigate()
   const pathname = usePathname()
-
+  const { logout } = useLogout()
   const isActiveLink = (link: string) => pathname === link
 
   const className =
@@ -87,7 +95,7 @@ const Links: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-1.5">
-      {sidebarItems({ routes, navigate })?.map((item) => {
+      {sidebarItems({ routes, navigate, logout })?.map((item) => {
         return item.link ? (
           <Link
             prefetch

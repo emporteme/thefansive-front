@@ -51,10 +51,15 @@ export function useSyncFavoriteTeamsAfterLogin(): () => Promise<void> {
   const queryClient = useQueryClient()
 
   const syncFavoriteTeamsAfterLogin = async () => {
-    const favoriteTeamsResponse = await apiClient.GET("/user/favorite-teams")
+    const favoriteTeams = localStorage.getItem("favoriteTeams")
 
+    if (!favoriteTeams) {
+      return
+    }
+
+    const favoriteTeamsResponse = await apiClient.GET("/user/favorite-teams")
     const favoriteTeamServer = favoriteTeamsResponse.data as FavoriteTeam[]
-    const favoriteTeamsStorage = JSON.parse(localStorage.getItem("favoriteTeams") ?? "[]") as FavoriteTeam[]
+    const favoriteTeamsStorage = JSON.parse(favoriteTeams) as FavoriteTeam[]
     localStorage.removeItem("favoriteTeams")
 
     const deletePromises = favoriteTeamServer.map(async (favoriteTeam) => {

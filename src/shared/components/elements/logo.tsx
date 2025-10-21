@@ -1,6 +1,6 @@
-import Image from "next/image"
 import Link from "next/link"
 import React from "react"
+import { CachedImage } from "@/shared/components/ui"
 import { cn } from "@/shared/lib/utils"
 import { getRoutes } from "@/shared/utils/get-routes"
 
@@ -19,7 +19,7 @@ const Logo: React.FC<LogoProps> = ({ className, disabled }) => {
         "cursor-default": disabled,
       })}
     >
-      <Image
+      <CachedImage
         src="/logo.svg"
         alt="logo - thefansive.com"
         width={140}

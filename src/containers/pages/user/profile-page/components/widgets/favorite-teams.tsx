@@ -7,13 +7,13 @@ import { ChooseYourTeamModal } from "@/shared/components/widgets"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { FavoriteTeam, Team } from "@/shared/types/team"
-import { AddFavoriteClubs, FavoriteTeamCard } from "../ui"
+import { AddFavoriteClubs, FavoriteTeamCard, FavoriteTeamCardSkeleton } from "../ui"
 
 const FavoriteTeams: React.FC = () => {
   const routes = useRoutes()
   const navigate = useNavigate()
   const [isChooseYourClubModalOpen, setIsChooseYourClubModalOpen] = useState(false)
-  const { data: favoriteTeams } = useFavoriteTeams()
+  const { data: favoriteTeams, isLoading } = useFavoriteTeams()
   const { mutate: removeFavoriteTeam } = useRemoveFavoriteTeam()
   const locale = useCurrentLocale()
 
@@ -42,18 +42,26 @@ const FavoriteTeams: React.FC = () => {
           <AddFavoriteClubs onAdd={handleAddClub} />
         </div>
 
-        {favoriteTeams && (
+        {isLoading ? (
           <div className="grid w-full grid-cols-6 gap-2">
-            {favoriteTeams?.map((team) => (
-              <FavoriteTeamCard
-                key={team.id}
-                logo={team.team.logoUrl}
-                name={team.team.name[locale]}
-                onCancel={() => handleRemoveClub(team.team)}
-                onClick={() => handleTeamClick(team)}
-              />
+            {Array.from({ length: 6 }, (_, index) => (
+              <FavoriteTeamCardSkeleton key={`skeleton-${index}`} />
             ))}
           </div>
+        ) : (
+          favoriteTeams && (
+            <div className="grid w-full grid-cols-6 gap-2">
+              {favoriteTeams?.map((team) => (
+                <FavoriteTeamCard
+                  key={team.id}
+                  logo={team.team.logoUrl}
+                  name={team.team.name[locale]}
+                  onCancel={() => handleRemoveClub(team.team)}
+                  onClick={() => handleTeamClick(team)}
+                />
+              ))}
+            </div>
+          )
         )}
       </div>
     </>

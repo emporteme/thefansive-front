@@ -1,5 +1,5 @@
-import Image from "next/image"
 import React from "react"
+import { CachedImage } from "@/shared/components/ui"
 
 type CardProps = {
   id: number
@@ -17,7 +17,7 @@ const Card = ({ title, description, date, image, handleClick }: CardProps) => {
       onClick={handleClick}
     >
       <div className="relative h-[220px] w-[233px] rounded-[8px] border-[1px] bg-gray-200">
-        <Image src={image} alt={"alternative"} fill className="max-h-[220px] max-w-[233px] object-cover" />
+        <CachedImage src={image} alt={"alternative"} fill className="max-h-[220px] max-w-[233px] object-cover" />
       </div>
       <div className="flex h-[152px] w-[233px] flex-col gap-[12px] overflow-hidden">
         <p className="text-base">{date}</p>

@@ -1,5 +1,4 @@
-import Image from "next/image"
-import { Tag } from "@/shared/components/ui"
+import { CachedImage, Tag } from "@/shared/components/ui"
 import { CertificateButton, InvoiceInfoButton, PaymentStatusTag } from "@/shared/components/widgets"
 import { CopyFilled } from "@/shared/icons"
 import { DeliveryStatus, PaymentStatus } from "@/shared/types/order"
@@ -22,7 +21,7 @@ const DonateCard: React.FC<DonateCardProps> = ({ donate }) => {
   return (
     <div className="flex h-full w-full shrink rounded-sm bg-white p-3">
       <div className="flex flex-1/2 gap-3">
-        <Image
+        <CachedImage
           src={donate.image}
           alt="order image"
           width={220}

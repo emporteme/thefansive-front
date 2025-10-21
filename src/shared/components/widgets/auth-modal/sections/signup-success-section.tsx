@@ -1,5 +1,4 @@
-import Image from "next/image"
-import { Button } from "@/shared/components/ui"
+import { Button, CachedImage } from "@/shared/components/ui"
 import { AuthModalMode } from "../types"
 import { WelcomeText } from "../ui"
 
@@ -18,7 +17,7 @@ const SignUpSuccessSection = ({ onModeChange }: SignUpSuccessSectionProps) => {
       <WelcomeText />
 
       <div className="flex flex-col items-center">
-        <Image
+        <CachedImage
           src="/images/success-screen-man.png"
           alt="Success"
           className="mt-8 mb-5 object-contain opacity-90"

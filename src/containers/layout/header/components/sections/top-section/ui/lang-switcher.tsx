@@ -4,7 +4,7 @@ import * as Select from "@radix-ui/react-select"
 import { ChevronDownIcon } from "lucide-react"
 import React from "react"
 import { useChangeLocale, useCurrentLocale } from "@/locale/client"
-import { getLanguageName, LANGUAGES } from "@/shared/constants/languages"
+import { getLanguageFlag, getLanguageName, LANGUAGES } from "@/shared/constants/languages"
 import type { Language } from "@/shared/constants/languages"
 import { cn } from "@/shared/lib/utils"
 
@@ -18,10 +18,10 @@ const LangSwitcher: React.FC = () => {
 
   return (
     <Select.Root value={currentLocale} onValueChange={handleLanguageChange}>
-      <Select.Trigger className="inline-flex cursor-pointer items-center justify-between gap-2 rounded-md bg-black p-3.5 text-sm font-bold text-white shadow-sm hover:bg-gray-900 focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-black focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
+      <Select.Trigger className="inline-flex cursor-pointer items-center justify-between gap-2 rounded-md bg-black p-3.5 text-sm font-bold text-white shadow-sm focus:bg-gray-900 focus:outline-none active:bg-gray-900 disabled:cursor-not-allowed disabled:opacity-50">
         <Select.Value>
           <span className="flex items-center gap-2">
-            {/* <span className="text-lg">{getLanguageFlag(currentLocale as Language)}</span> */}
+            <span className="mt-0.5 text-lg">{getLanguageFlag(currentLocale as Language)}</span>
             <span>{getLanguageName(currentLocale as Language)}</span>
           </span>
         </Select.Value>

@@ -1,8 +1,7 @@
 "use client"
 
-import Image from "next/image"
 import { useEffect, useMemo, useState } from "react"
-import { Tab, Tabs } from "@/shared/components/ui"
+import { CachedImage, Tab, Tabs } from "@/shared/components/ui"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import PartnersList from "./components/partners-list"
 
@@ -66,7 +65,7 @@ const PartnersPage: React.FC = () => {
   return (
     <div className="flex flex-col pb-10">
       <div className="h-9vw mt-7.5 mb-18 w-full border-t border-b border-[#cad5e2]">
-        <Image
+        <CachedImage
           src="/images/fallbacks/user-empty-banner.webp"
           alt="banner"
           width={1500}

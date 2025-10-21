@@ -1,8 +1,7 @@
 "use client"
 
-import Image from "next/image"
 import React, { useState } from "react"
-import { Button, Switch } from "@/shared/components/ui"
+import { Button, CachedImage, Switch } from "@/shared/components/ui"
 import { cn } from "@/shared/lib/utils"
 
 interface PersonalAvatarEditorProps {
@@ -48,7 +47,7 @@ const PersonalAvatarEditor: React.FC<PersonalAvatarEditorProps> = ({ className }
     <div className={cn("flex items-center justify-between gap-6 rounded-3xl bg-slate-100 p-7.5", className)}>
       <div className="flex flex-1 items-center gap-5">
         <div className="h-25 w-25 flex-shrink-0 overflow-hidden rounded-full">
-          <Image
+          <CachedImage
             src={avatarUrl}
             alt="User avatar"
             width={100}

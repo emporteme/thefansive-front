@@ -5,6 +5,7 @@ import { useRoutes } from "@/shared/hooks/client/use-routes"
 import { cn } from "@/shared/lib/utils"
 import { EmptyTeam, FavoriteTeam } from "@/shared/types/team"
 import { FavoriteTeamCard } from "./favorite-team-card"
+import { FavoriteTeamCardSkeleton } from "./favorite-team-card-skeleton"
 
 interface FavoriteTeamsProps {
   className?: string
@@ -13,7 +14,7 @@ interface FavoriteTeamsProps {
 const maxShowedClubs = 9
 
 const FavoriteTeams: React.FC<FavoriteTeamsProps> = ({ className = "" }) => {
-  const { data: favoriteTeams } = useFavoriteTeams()
+  const { data: favoriteTeams, isLoading } = useFavoriteTeams()
   const routes = useRoutes()
   const navigate = useNavigate()
 
@@ -53,18 +54,25 @@ const FavoriteTeams: React.FC<FavoriteTeamsProps> = ({ className = "" }) => {
         className
       )}
     >
-      {displayTeams.map((team, index) => (
-        <FavoriteTeamCard
-          key={team.id}
-          team={team}
-          onClick={() => {
-            if ("team" in team) {
-              handleTeamClick(team)
-            }
-          }}
-          className={index === displayTeams.length - 1 && hasScroll ? "mr-5" : ""}
-        />
-      ))}
+      {isLoading
+        ? Array.from({ length: maxShowedClubs }, (_, index) => (
+            <FavoriteTeamCardSkeleton
+              key={`skeleton-${index}`}
+              className={index === maxShowedClubs - 1 ? "mr-5" : ""}
+            />
+          ))
+        : displayTeams.map((team, index) => (
+            <FavoriteTeamCard
+              key={team.id}
+              team={team}
+              onClick={() => {
+                if ("team" in team) {
+                  handleTeamClick(team)
+                }
+              }}
+              className={index === displayTeams.length - 1 && hasScroll ? "mr-5" : ""}
+            />
+          ))}
     </div>
   )
 }

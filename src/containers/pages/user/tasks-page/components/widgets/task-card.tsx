@@ -1,5 +1,4 @@
-import Image from "next/image"
-import { Button } from "@/shared/components/ui"
+import { Button, CachedImage } from "@/shared/components/ui"
 import { Task } from "../../tasks-page"
 
 interface TaskCardProps {
@@ -10,7 +9,13 @@ const TaskCard = ({ task }: TaskCardProps) => {
   return (
     <div className="rounded-2lg flex w-full cursor-pointer gap-3 bg-white p-3">
       <div className="h-[110px] w-[110px] flex-shrink-0 overflow-hidden rounded-[6.875px]">
-        <Image src={task.image} alt="task image" width={110} height={110} className="h-full w-full object-cover" />
+        <CachedImage
+          src={task.image}
+          alt="task image"
+          width={110}
+          height={110}
+          className="h-full w-full object-cover"
+        />
       </div>
 
       <div className="flex flex-1 flex-col justify-between">

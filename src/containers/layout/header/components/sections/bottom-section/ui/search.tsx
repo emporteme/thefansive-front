@@ -3,14 +3,14 @@ import { Search as SearchIcon } from "@/shared/icons"
 
 const Search: React.FC = () => {
   return (
-    <div className="relative flex items-center text-gray-700">
-      <div className="pointer-events-none absolute left-3">
-        <SearchIcon className="h-5 w-5" />
+    <div className="relative flex items-center">
+      <div className="absolute top-1/2 left-3 z-10 -translate-y-1/2">
+        <SearchIcon className="h-5 w-5 text-gray-800" />
       </div>
       <input
         type="text"
         placeholder="Search..."
-        className="w-full max-w-60 rounded-lg border border-gray-100 bg-gray-50 py-2.5 pr-4 pl-10 font-semibold placeholder-gray-400 transition-all duration-200 hover:border-gray-300 focus:border-transparent focus:ring-2 focus:ring-rose-500 focus:outline-none"
+        className="rounded-2lg h-12 w-[180px] border border-transparent bg-slate-100 py-3 pr-4 pl-11.5 text-base leading-[1.5] font-semibold tracking-[0] text-slate-900 placeholder-slate-700 transition-all duration-200 focus:border-slate-200 focus:outline-none"
       />
     </div>
   )

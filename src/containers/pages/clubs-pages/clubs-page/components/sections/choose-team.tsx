@@ -1,12 +1,12 @@
 "use client"
 
-import Image from "next/image"
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import type { Swiper as SwiperType } from "swiper"
 import { A11y, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { useCurrentLocale } from "@/locale/client"
+import { CachedImage } from "@/shared/components/ui"
 import { ChooseYourTeamModal } from "@/shared/components/widgets"
 import { useIsHydrated } from "@/shared/hooks/client"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
@@ -44,7 +44,7 @@ const TeamLogoCard: React.FC<TeamLogoCardProps> = ({ team, onClick }) => {
       onClick={onClick}
     >
       <div className="h-13.5 w-11.5 overflow-hidden rounded-lg">
-        <Image
+        <CachedImage
           src={logoUrl}
           alt={altText}
           width={45}
@@ -139,20 +139,19 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className, isLoading, favoriteT
   }
 
   return (
-    <div className={cn("mx-20 flex items-center justify-between rounded-2xl bg-slate-200 px-6 py-3", className)}>
+    <div className={cn("mx-20 flex items-center justify-between rounded-2xl bg-slate-200 px-2.5 py-2.5", className)}>
       <div className="flex items-center gap-2.5">
         <button
           ref={prevRef}
           onClick={handlePrevClick}
           aria-label="Previous clubs"
-          className="flex h-12 w-12 items-center justify-center rounded-lg text-gray-700 transition"
+          className="rounded-2lg flex h-12 w-12 items-center justify-center text-gray-700 transition active:bg-gray-50"
         >
-          <ArrowSelect className="h-4 w-4 rotate-90" />
+          <ArrowSelect className="size-5 rotate-90" />
         </button>
 
         <div className="w-[calc(8*80px+7*10px)] overflow-hidden">
           {!isHydrated ? (
-            // До гидратации показываем статичный grid с skeleton элементами
             <div className="flex gap-2.5">
               {Array.from({ length: maxShowedClubs }, (_, index) => (
                 <div
@@ -221,15 +220,15 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className, isLoading, favoriteT
           ref={nextRef}
           onClick={handleNextClick}
           aria-label="Next clubs"
-          className="flex h-12 w-12 items-center justify-center rounded-lg text-gray-700 transition"
+          className="rounded-2lg flex h-12 w-12 items-center justify-center text-gray-700 transition active:bg-gray-50"
         >
-          <ArrowSelect className="h-4 w-4 -rotate-90" />
+          <ArrowSelect className="size-5 -rotate-90" />
         </button>
       </div>
 
       <button
         onClick={handleOpenModal}
-        className="flex items-center gap-2 rounded-xl bg-white px-4 py-3 font-semibold text-slate-700 transition hover:bg-gray-50"
+        className="rounded-2lg flex h-12 items-center gap-2 bg-white px-4 py-3 font-semibold tracking-[0] text-slate-700 transition active:bg-gray-50"
       >
         <span>Choose your team</span>
         <ArrowSelect className="h-4 w-4" />

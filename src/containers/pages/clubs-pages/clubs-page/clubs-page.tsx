@@ -33,7 +33,7 @@ const ClubsPage = () => {
   const { data: favoriteTeams, isLoading: isFavoriteTeamsLoading } = useFavoriteTeams()
   const { data: teams, isLoading: isTeamsLoading } = useTeams()
   const { data: products, isLoading: isPopularProductsLoading } = usePopularProducts({
-    limit: favoriteTeams?.length ?? 32,
+    limit: favoriteTeams?.length || 32,
   })
 
   const handleClickTeam = (event: React.MouseEvent<HTMLDivElement>) => {

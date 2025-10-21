@@ -138,8 +138,8 @@ export function useAddFavoriteTeam() {
     },
     onSettled: (_, __, team) => {
       queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: productsKeys.popular() })
       queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.check(team.id) })
+      queryClient.invalidateQueries({ queryKey: productsKeys.popular() })
     },
   })
 }
@@ -191,8 +191,8 @@ export function useRemoveFavoriteTeam() {
     },
     onSettled: (_, __, team) => {
       queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: productsKeys.popular() })
       queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.check(team.id) })
+      queryClient.invalidateQueries({ queryKey: productsKeys.popular() })
     },
   })
 }

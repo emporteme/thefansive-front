@@ -1,5 +1,3 @@
-"use client"
-
 import Image, { ImageProps } from "next/image"
 import React from "react"
 
@@ -12,6 +10,10 @@ const CachedImage: React.FC<CachedImageProps> = ({
   ...props
 }) => {
   const loader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+    if (typeof window === "undefined") {
+      return src
+    }
+
     const isExternalUrl = src.startsWith("http://") || src.startsWith("https://")
 
     if (isExternalUrl) {

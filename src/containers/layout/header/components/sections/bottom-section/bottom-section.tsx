@@ -16,7 +16,7 @@ const BottomSection: React.FC<BottomSectionProps> = ({ isMobileMenuOpen, onToggl
   return (
     <div className="border-b border-[#CAD5E2]">
       <ContainerLayout className="flex items-center justify-between gap-5 bg-white py-4">
-        <div className="flex items-center gap-10">
+        <div className="flex items-center gap-8">
           <Logo />
           <Links />
         </div>

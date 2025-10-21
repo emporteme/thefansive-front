@@ -30,9 +30,7 @@ const EcosystemDropdownItem: React.FC<{
 }> = ({ item, onItemClick }) => {
   const content = (
     <div
-      className={`cursor-pointer rounded-md px-3 py-2.5 text-sm font-semibold whitespace-nowrap text-slate-900 transition-all duration-200 hover:bg-slate-100 ${
-        item.isComing ? "opacity-60" : ""
-      }`}
+      className={`cursor-pointer rounded-md px-3 py-2 text-base leading-[1.7] font-semibold tracking-[0] whitespace-nowrap text-slate-900 transition-all duration-200 hover:bg-slate-200`}
       onClick={item.isComing ? undefined : onItemClick}
     >
       {item.children}
@@ -72,12 +70,12 @@ const EcosystemDropdown: React.FC = () => {
 
   return (
     <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div className="cursor-pointer rounded-lg p-2.5 font-semibold whitespace-nowrap text-gray-700 transition-all duration-200 hover:bg-gray-100">
+      <div className="rounded-2lg cursor-pointer px-4 py-2 text-base leading-[1.5] font-semibold tracking-[0] whitespace-nowrap text-gray-700 transition-all duration-200 hover:bg-gray-100">
         Ecosystem
       </div>
 
       {isOpen && (
-        <div className="absolute top-full left-0 z-50 mt-1 min-w-[180px] rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
+        <div className="absolute top-full left-0 z-50 mt-1 min-w-[240px] rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
           {items.map((item) => (
             <EcosystemDropdownItem key={item.id} item={item} onItemClick={() => setIsOpen(false)} />
           ))}

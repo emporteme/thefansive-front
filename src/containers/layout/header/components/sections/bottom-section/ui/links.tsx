@@ -20,7 +20,7 @@ const LinkComponent: React.FC<{ href: string; children: React.ReactNode }> = ({ 
   return (
     <Link
       href={href}
-      className="cursor-pointer rounded-lg p-2.5 font-semibold whitespace-nowrap text-gray-700 transition-all duration-200 hover:bg-gray-100"
+      className="rounded-2lg cursor-pointer px-4 py-2 text-base leading-[1.5] font-semibold tracking-[0] whitespace-nowrap text-gray-700 transition-all duration-200 active:bg-gray-100"
     >
       {children}
     </Link>

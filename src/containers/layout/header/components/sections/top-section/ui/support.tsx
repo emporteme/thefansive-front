@@ -13,7 +13,7 @@ const Support: React.FC = () => {
 
   return (
     <div
-      className="flex cursor-pointer items-center gap-2 rounded-lg p-3.5 transition-all duration-200 hover:bg-gray-900"
+      className="flex cursor-pointer items-center gap-2 rounded-lg p-3.5 transition-all duration-200 active:bg-gray-900"
       onClick={handleSupport}
     >
       <span className="hidden text-sm font-semibold md:block">Support</span>

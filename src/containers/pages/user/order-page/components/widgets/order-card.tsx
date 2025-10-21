@@ -1,5 +1,4 @@
-import Image from "next/image"
-import { Tag } from "@/shared/components/ui"
+import { CachedImage, Tag } from "@/shared/components/ui"
 import { InvoiceInfoButton, PaymentStatusTag } from "@/shared/components/widgets"
 import { DeliveryStatusTag } from "@/shared/components/widgets/delivery-status-tag"
 import { Calendar, ContainerTruckFilled, CopyFilled } from "@/shared/icons"
@@ -25,7 +24,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
   return (
     <div className="flex h-full w-full shrink rounded-3xl bg-white p-3 pr-5">
       <div className="flex flex-1/2 gap-3">
-        <Image
+        <CachedImage
           src={order.image}
           alt="order image"
           width={220}
@@ -78,7 +77,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
               <Tag
                 label={order.carrier}
                 position="left"
-                image={<Image src={order.carrierImage} alt="image" width={16} height={16} quality={100} />}
+                image={<CachedImage src={order.carrierImage} alt="image" width={16} height={16} quality={100} />}
               />
             </p>
             <p className="flex items-center justify-between gap-1">

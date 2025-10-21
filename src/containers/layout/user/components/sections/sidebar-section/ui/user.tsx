@@ -1,5 +1,5 @@
-import Image from "next/image"
 import { getCurrentUser } from "@/shared/api"
+import { CachedImage } from "@/shared/components/ui"
 import { CopyOutlined } from "@/shared/icons"
 import { alert } from "@/shared/lib/alert"
 
@@ -15,7 +15,7 @@ const User: React.FC = () => {
 
   return (
     <div className="mb-6 flex items-center gap-3">
-      <Image src="/images/dev/user-image.png" alt="user image" width={60} height={60} className="rounded-full" />
+      <CachedImage src="/images/dev/user-image.png" alt="user image" width={60} height={60} className="rounded-full" />
       <div className="flex flex-col gap-1.5">
         <div className="flex items-center gap-3">
           <div className="text-xl font-semibold text-slate-900">{currentUser?.email.split("@")[0]}</div>

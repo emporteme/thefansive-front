@@ -1,5 +1,5 @@
-import Image from "next/image"
 import React from "react"
+import { CachedImage } from "@/shared/components/ui"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 
 const GoBeyond: React.FC = () => {
@@ -23,7 +23,7 @@ const GoBeyond: React.FC = () => {
           fans gain access to exclusive products, events and limited-edition collectibles, turning their support into a
           lasting legacy.
         </p>
-        <Image src="/logo-white.svg" alt="logo - thefansive.com" width={120} height={20} className="mx-auto" />
+        <CachedImage src="/logo-white.svg" alt="logo - thefansive.com" width={120} height={20} className="mx-auto" />
       </ContainerLayout>
     </div>
   )

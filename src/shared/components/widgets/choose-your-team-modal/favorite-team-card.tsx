@@ -1,5 +1,5 @@
-import Image from "next/image"
 import { useCurrentLocale } from "@/locale/client"
+import { CachedImage } from "@/shared/components/ui"
 import { cn } from "@/shared/lib"
 import { EmptyTeam, FavoriteTeam } from "@/shared/types/team"
 
@@ -35,7 +35,7 @@ const FavoriteTeamCard: React.FC<FavoriteTeamCardProps> = ({ team, onClick, clas
       onClick={handleClick}
     >
       <div className={`h-13.5 w-11.5 overflow-hidden rounded-lg`}>
-        <Image
+        <CachedImage
           src={logoUrl}
           alt={altText}
           width={45}

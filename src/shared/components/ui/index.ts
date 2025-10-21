@@ -1,4 +1,5 @@
 export * from "./button"
+export * from "./cached-image"
 export * from "./client-only"
 export * from "./container-layout"
 export * from "./modal-layout"

@@ -1,5 +1,5 @@
-import Image from "next/image"
 import { FC } from "react"
+import { CachedImage } from "@/shared/components/ui"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { getCurrencySymbol } from "@/shared/constants/currencies"
 import { Currency } from "@/shared/store/currency-store"
@@ -53,7 +53,7 @@ const CartPage: FC = () => {
               <div className="flex flex-col gap-8">
                 <div className="flex items-start justify-between">
                   <div className="flex grow items-stretch gap-[10px]">
-                    <Image
+                    <CachedImage
                       src="/images/dev/lionel-messi-pro-t-shirt.png"
                       alt="item"
                       width={60}
@@ -91,7 +91,7 @@ const CartPage: FC = () => {
                 </div>
                 <div className="flex items-start justify-between">
                   <div className="flex grow items-stretch gap-[10px]">
-                    <Image
+                    <CachedImage
                       src="/images/dev/lionel-messi-pro-t-shirt.png"
                       alt="item"
                       width={60}

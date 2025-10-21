@@ -1,5 +1,5 @@
-import Image from "next/image"
 import React from "react"
+import { CachedImage } from "@/shared/components/ui"
 
 interface INewsCardProps {
   newsItem: {
@@ -26,7 +26,7 @@ const NewsCard: React.FC<INewsCardProps> = ({ newsItem }) => {
           {newsItem.status.icon && newsItem.status.icon}
           {newsItem.status.label}
         </div>
-        <Image
+        <CachedImage
           src={newsItem.image}
           alt={newsItem.name}
           width={220}

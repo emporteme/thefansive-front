@@ -1,11 +1,11 @@
 "use client"
 
 import classNames from "classnames"
-import Image from "next/image"
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import type { Swiper as SwiperType } from "swiper"
 import { A11y, Autoplay, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { CachedImage } from "@/shared/components/ui"
 import { ArrowLeft, ArrowRight } from "@/shared/icons"
 import "swiper/css"
 import "swiper/css/navigation"
@@ -142,7 +142,7 @@ const MainSlider: React.FC<MainSliderProps> = ({
         {slides.map((img, i) => (
           <SwiperSlide key={`${img.src}-${i}`}>
             <div className="relative h-full w-full">
-              <Image
+              <CachedImage
                 src={img.src}
                 alt={img.alt ?? `slide-${i + 1}`}
                 fill

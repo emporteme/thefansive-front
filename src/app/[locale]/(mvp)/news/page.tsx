@@ -1,6 +1,6 @@
 "use client"
-import Image from "next/image"
 import { FC, useEffect, useState } from "react"
+import { CachedImage } from "@/shared/components/ui"
 import { Card, type CardProps } from "@/shared/components/ui/card"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
@@ -37,7 +37,7 @@ const Page: FC = () => {
   return (
     <div className="width-full my-[40px] flex flex-col">
       <div className="relative h-full min-h-[362px] w-full border-t-1 border-b-1">
-        <Image src={"/images/dev/news-placeholder.png"} alt={"news placeholder"} fill className="object-cover" />
+        <CachedImage src={"/images/dev/news-placeholder.png"} alt={"news placeholder"} fill className="object-cover" />
       </div>
       <div className="align-center mx-[60px] my-[40px] flex flex-wrap justify-center gap-[24px]">
         {loading &&

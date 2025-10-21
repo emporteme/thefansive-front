@@ -1,6 +1,6 @@
-import Image from "next/image"
 import React from "react"
 import { useCurrentLocale } from "@/locale/client"
+import { CachedImage } from "@/shared/components/ui"
 import { Favorite as FavoriteIcon } from "@/shared/icons"
 import { cn } from "@/shared/lib/utils"
 import { Team } from "@/shared/types/team"
@@ -39,12 +39,11 @@ const TeamsCardItem: React.FC<TeamsCardItemProps> = ({
     >
       <div className="p-1.5 pb-2.5">
         <div className="relative mx-auto mb-1.5 h-[148px] w-[148px]">
-          <Image
+          <CachedImage
             src={team.logoUrl}
             alt={`${team.name[locale]} logo`}
             fill
             className="rounded-lg bg-slate-200 object-contain p-4"
-            quality={90}
           />
         </div>
 

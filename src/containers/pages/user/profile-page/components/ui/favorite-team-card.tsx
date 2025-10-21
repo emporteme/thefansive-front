@@ -1,4 +1,4 @@
-import Image from "next/image"
+import { CachedImage } from "@/shared/components/ui"
 import { Cancel as CancelIcon } from "@/shared/icons"
 
 interface FavoriteTeamCardProps {
@@ -31,7 +31,7 @@ const FavoriteTeamCard: React.FC<FavoriteTeamCardProps> = ({ name, logo, onCance
         <CancelIcon className="h-3.5 w-3.5 text-slate-600" />
       </button>
       <div className="mx-auto h-[130px] w-[130px] overflow-hidden rounded-lg">
-        <Image
+        <CachedImage
           src={logo}
           alt={name}
           width={130}

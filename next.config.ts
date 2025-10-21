@@ -12,6 +12,8 @@ const config: NextConfig = {
         hostname: '**',
       },
     ],
+    minimumCacheTTL: 600, // 10 minutes cache
+    formats: ['image/webp', 'image/avif'],
   },
   experimental: {
     // Оптимизация для быстрого HMR

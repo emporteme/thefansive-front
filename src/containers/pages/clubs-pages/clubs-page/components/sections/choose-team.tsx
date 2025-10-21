@@ -1,12 +1,12 @@
 "use client"
 
-import Image from "next/image"
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import type { Swiper as SwiperType } from "swiper"
 import { A11y, Keyboard, Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { useCurrentLocale } from "@/locale/client"
+import { CachedImage } from "@/shared/components/ui"
 import { ChooseYourTeamModal } from "@/shared/components/widgets"
 import { useIsHydrated } from "@/shared/hooks/client"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
@@ -44,7 +44,7 @@ const TeamLogoCard: React.FC<TeamLogoCardProps> = ({ team, onClick }) => {
       onClick={onClick}
     >
       <div className="h-13.5 w-11.5 overflow-hidden rounded-lg">
-        <Image
+        <CachedImage
           src={logoUrl}
           alt={altText}
           width={45}

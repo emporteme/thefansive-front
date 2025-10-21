@@ -1,7 +1,7 @@
 "use client"
 
-import Image from "next/image"
 import React from "react"
+import { CachedImage } from "@/shared/components/ui"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { SidebarSection } from "./components/sections"
 
@@ -13,7 +13,7 @@ const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col">
       <div className="h-9vw mt-7.5 mb-18 w-full border-t border-b border-[#cad5e2]">
-        <Image
+        <CachedImage
           src="/images/fallbacks/user-empty-banner.webp"
           alt="user banner"
           width={1500}

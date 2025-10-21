@@ -1,8 +1,7 @@
-import Image from "next/image"
 import React from "react"
 import { formatCurrency } from "@/containers/pages/example-page/utils/format-utils"
 import { useCurrentLocale } from "@/locale/client"
-import { Button } from "@/shared/components/ui"
+import { Button, CachedImage } from "@/shared/components/ui"
 import { NFT, Quality, Signature, Timer } from "@/shared/icons"
 import type { Product } from "@/shared/types/product"
 
@@ -19,7 +18,7 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
         <div className="absolute top-0 left-0 rounded-md bg-orange-50 px-2 py-1 text-sm font-semibold text-orange-500">
           Limited Quantity
         </div>
-        <Image
+        <CachedImage
           src={"/images/dev/lionel-messi-pro-t-shirt.png"}
           alt={product.productName[locale] ?? ""}
           width={275}

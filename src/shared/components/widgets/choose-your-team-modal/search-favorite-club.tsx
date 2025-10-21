@@ -1,7 +1,7 @@
 "use client"
 
-import Image from "next/image"
 import React, { useEffect, useRef, useState } from "react"
+import { CachedImage } from "@/shared/components/ui"
 import Cancel from "@/shared/icons/cancel"
 import Search from "@/shared/icons/search"
 import { cn } from "@/shared/lib/utils"
@@ -124,7 +124,7 @@ const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
               onClick={() => handleClubSelect(club)}
               className="flex cursor-pointer items-center gap-2.5 px-4 py-3 first:rounded-t-2xl last:rounded-b-2xl hover:bg-slate-50"
             >
-              <Image
+              <CachedImage
                 src={club.logo}
                 alt={club.name}
                 width={24}

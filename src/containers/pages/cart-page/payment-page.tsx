@@ -1,11 +1,10 @@
 "use client"
 
-import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { FC, useState } from "react"
 import AddNewAddressPopup from "@/shared/components/elements/add-new-address/add-new-address"
 import EditAddressPopup from "@/shared/components/elements/edit-address/edit-address"
-import { Button } from "@/shared/components/ui"
+import { Button, CachedImage } from "@/shared/components/ui"
 import Checkbox from "@/shared/components/ui/checkbox"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import Input from "@/shared/components/ui/input"
@@ -169,7 +168,7 @@ const PaymentPage: FC = () => {
                         </span>
                       </div>
                       <div className="h-8 w-8 flex-none overflow-hidden rounded-sm">
-                        <Image
+                        <CachedImage
                           src={item.image}
                           width={32}
                           height={32}

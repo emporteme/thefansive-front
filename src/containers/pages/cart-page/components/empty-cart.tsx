@@ -1,11 +1,10 @@
-import Image from "next/image"
-import { Button } from "@/shared/components/ui"
+import { Button, CachedImage } from "@/shared/components/ui"
 
 const EmptyCart: React.FC = () => {
   return (
     <div className="flex flex-col items-center text-center">
       <div className="mb-14 flex max-w-[320px] justify-center">
-        <Image
+        <CachedImage
           src="/images/fallbacks/empty-cart-image.webp"
           alt="cart banner"
           width={320}

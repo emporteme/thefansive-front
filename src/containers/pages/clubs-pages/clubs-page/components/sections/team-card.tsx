@@ -1,6 +1,6 @@
-import Image from "next/image"
 import React from "react"
 import { useCurrentLocale } from "@/locale/client"
+import { CachedImage } from "@/shared/components/ui"
 import { Team } from "@/shared/types/team"
 
 interface ITeamCardProps {
@@ -15,7 +15,7 @@ const TeamCard: React.FC<ITeamCardProps> = ({ team }) => {
       data-team-id={team.id}
       className="flex w-[230px] cursor-pointer flex-col gap-3 transition-transform hover:scale-[1.01]"
     >
-      <Image
+      <CachedImage
         src={team.logoUrl}
         alt={team.name[locale]}
         width={230}

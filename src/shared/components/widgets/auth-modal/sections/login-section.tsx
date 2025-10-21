@@ -42,7 +42,6 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onModeChange, closeModal })
     try {
       await loginMutation.mutateAsync(data)
       navigate(routes.user.profile())
-      toast.success("Successfully logged in!")
       closeModal?.()
       syncFavoriteTeamsAfterLogin?.()
     } catch (error: unknown) {

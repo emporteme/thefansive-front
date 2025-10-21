@@ -81,7 +81,7 @@ const ClubsPage = () => {
           title="Popular Fan Support"
           subtitle="Empower your club’s future"
           navCount={2}
-          rowCount={2}
+          rowCount={products && products?.length > 2 ? 2 : 1}
           elements={products?.map((product) => <FanSupportCard key={product.id} product={product} />) || []}
           className="mb-20"
           isLoading={isPopularProductsLoading}

@@ -35,3 +35,6 @@ export * from "./use-countries"
 
 // Currency hooks
 export * from "./use-currencies"
+
+// News hooks
+export * from "./use-news"

@@ -16,7 +16,7 @@ const BecomeMember: React.FC = () => {
   }
 
   return (
-    <div className="bg-[#007BC6] text-white">
+    <div className="bg-sky-600 text-white">
       <AuthModal isOpen={isOpenModal} onClose={handleClose} initialMode="signup" />
       <ContainerLayout className="flex items-center justify-center gap-7.5 py-11">
         <h3 className="tracing-[-1px] text-2xl font-bold">Become a Member & Unlock Exclusives</h3>

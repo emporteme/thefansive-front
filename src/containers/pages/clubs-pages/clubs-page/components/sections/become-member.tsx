@@ -22,7 +22,7 @@ const BecomeMember: React.FC = () => {
         <h3 className="tracing-[-1px] text-2xl font-bold">Become a Member & Unlock Exclusives</h3>
         <Button
           size="md"
-          className="h-11 gap-0 bg-[#FF0000] !px-10 !pr-9 text-base font-extrabold uppercase active:bg-[#FF0000]/80"
+          className="h-11 gap-0 bg-[#FF0000] !px-10 !pr-9 text-base font-extrabold uppercase active:bg-[#FF0000]/90"
           onClick={handleSignUp}
         >
           Sign Up

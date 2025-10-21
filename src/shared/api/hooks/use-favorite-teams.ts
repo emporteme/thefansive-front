@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { FavoriteTeam, Team } from "@/shared/types/team"
 import { useIsAuthenticated } from "./use-auth"
+import { productsKeys } from "./use-products"
 import { apiClient } from "../client"
 
 // Query keys
@@ -137,6 +138,7 @@ export function useAddFavoriteTeam() {
     },
     onSettled: (_, __, team) => {
       queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: productsKeys.popular() })
       queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.check(team.id) })
     },
   })
@@ -189,6 +191,7 @@ export function useRemoveFavoriteTeam() {
     },
     onSettled: (_, __, team) => {
       queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: productsKeys.popular() })
       queryClient.invalidateQueries({ queryKey: favoriteTeamsKeys.check(team.id) })
     },
   })

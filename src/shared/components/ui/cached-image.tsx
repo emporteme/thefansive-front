@@ -1,3 +1,5 @@
+"use client"
+
 import Image, { ImageProps } from "next/image"
 import React from "react"
 
@@ -10,6 +12,12 @@ const CachedImage: React.FC<CachedImageProps> = ({
   ...props
 }) => {
   const loader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+    const isExternalUrl = src.startsWith("http://") || src.startsWith("https://")
+
+    if (isExternalUrl) {
+      return src
+    }
+
     const url = new URL(src, window.location.origin)
     url.searchParams.set("w", width.toString())
     url.searchParams.set("q", (quality || 90).toString())
@@ -17,7 +25,8 @@ const CachedImage: React.FC<CachedImageProps> = ({
     return url.toString()
   }
 
-  return <Image {...props} loader={loader} unoptimized={false} />
+  const isExternalSrc = typeof props.src === "string" && props.src.startsWith("http")
+  return <Image {...props} loader={loader} unoptimized={isExternalSrc} />
 }
 
 export { CachedImage }

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { useFavoriteTeams, useSportTypes, useTeams, useToggleFavoriteTeam } from "@/shared/api/hooks"
+import { useFavoriteTeams, useSearchTeams, useSportTypes, useTeams, useToggleFavoriteTeam } from "@/shared/api/hooks"
 import { ModalLayout } from "@/shared/components/ui"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
 import { useRoutes } from "@/shared/hooks/client/use-routes"
@@ -13,18 +13,11 @@ import { SearchFavoriteClub } from "./search-favorite-club"
 import { ClubFilterSelect } from "./sport-filter-select"
 import { TeamsCardList } from "./teams-card-list"
 
-interface Club {
-  id: number
-  name: string
-  logo: string
-}
-
 interface ChooseYourTeamModalProps {
   isOpen: boolean
   onClose: () => void
   onSportChange?: (sportId: string) => void
   onLeagueChange?: (leagueId: string) => void
-  onSearchClubSelect?: (club: Club) => void
   onClearSearch?: () => void
 }
 
@@ -36,7 +29,6 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
   onClose,
   onSportChange,
   onLeagueChange,
-  onSearchClubSelect,
   onClearSearch,
 }) => {
   const routes = useRoutes()
@@ -50,6 +42,7 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
   const { data: teams, isLoading: isTeamsLoading } = useTeams({
     sportType: selectedSport as SportTypeValue,
   })
+  const { data: searchTeams } = useSearchTeams(searchValue)
 
   const clearSearch = () => {
     setSearchValue("")
@@ -80,10 +73,8 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
     onClose()
   }
 
-  const handleSearchClubSelect = (club: Club) => {
-    onSearchClubSelect?.(club)
-    setSelectedSport("")
-    setSelectedLeague("")
+  const handleTeamSelect = (team: Team) => {
+    navigate(routes.clubs.single(team.id.toString()))
   }
 
   const handleClearSearch = () => {
@@ -114,10 +105,10 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
       <FavoriteTeams />
       <SearchFavoriteClub
         className="mt-6"
-        clubs={[]}
+        teams={searchTeams || []}
         searchValue={searchValue}
         onChange={setSearchValue}
-        onClubSelect={handleSearchClubSelect}
+        onTeamSelect={handleTeamSelect}
         onClear={handleClearSearch}
       />
       <div className="mt-6 flex items-center gap-2">

@@ -57,7 +57,7 @@ export function useSearchTeams(query: string) {
         throw new Error("Failed to search teams")
       }
 
-      return response.data
+      return response.data as Team[]
     },
     enabled: query.length > 0,
   })

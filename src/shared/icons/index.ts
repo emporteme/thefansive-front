@@ -39,15 +39,21 @@ export { default as Flag } from "./flag"
 export { default as Gift } from "./gift"
 export { default as Task } from "./task"
 export { default as UserEdit } from "./user-edit"
-
+export { default as Partnership } from "./partnership"
+export { default as DollarCircle } from "./dollar-circle"
 export { default as OfficeWhiteBlack } from "./office-white-black"
 export { default as Personal } from "./personal"
+export { default as License } from "./license"
+export { default as Fans } from "./fans"
+export { default as Comfortable } from "./comfortable"
+
 // Social Media Icons
 export { default as Facebook } from "./(social-links)/facebook"
 export { default as Google } from "./(social-links)/google"
 export { default as Instagram } from "./(social-links)/instagram"
 export { default as Telegram } from "./(social-links)/telegram"
 export { default as X } from "./(social-links)/x"
+export { default as TikTok } from "./(social-links)/tiktok"
 
 // Mobile Store Icons
 export { default as AppStore } from "./(mobile-store)/app-store"
@@ -59,6 +65,7 @@ export { default as ArrowPaginationLeft } from "./(navigation)/arrow-pagination-
 export { default as ArrowPaginationRight } from "./(navigation)/arrow-pagination-right"
 export { default as ArrowRight } from "./(navigation)/arrow-right"
 export { default as ArrowSelect } from "./(navigation)/arrow-select"
+export { default as LinkCircle } from "./(navigation)/link-circle"
 
 // Tags Icons
 export { default as NFT } from "./(tags)/nft"

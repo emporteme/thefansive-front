@@ -1,2 +1,2 @@
 export type Language = "en" | "ru" | "tr"
-export type SocialMedia = "twitter" | "facebook"
+export type SocialMedia = "twitter" | "facebook" | "instagram" | "telegram" | "tiktok"

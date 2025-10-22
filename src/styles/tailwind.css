@@ -47,6 +47,13 @@
     @apply cursor-pointer;
   }
 }
+
+@layer components {
+  .shadow-e1 {
+    @apply shadow-[0px_1px_2px_-1px_rgba(17,12,34,0.08)];
+  }
+}
+
 /*
   ---break---
 */

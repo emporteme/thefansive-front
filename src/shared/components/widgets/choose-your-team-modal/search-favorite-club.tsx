@@ -1,16 +1,12 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
+import { useCurrentLocale } from "@/locale/client"
 import { CachedImage } from "@/shared/components/ui"
 import Cancel from "@/shared/icons/cancel"
 import Search from "@/shared/icons/search"
 import { cn } from "@/shared/lib/utils"
-
-interface Club {
-  id: number
-  name: string
-  logo: string
-}
+import { Team } from "@/shared/types/team"
 
 interface SearchFavoriteClubProps {
   searchValue: string
@@ -18,8 +14,8 @@ interface SearchFavoriteClubProps {
   onChange?: (value: string) => void
   onClear?: () => void
   className?: string
-  clubs?: Club[]
-  onClubSelect?: (club: Club) => void
+  teams?: Team[]
+  onTeamSelect?: (team: Team) => void
 }
 
 const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
@@ -27,13 +23,12 @@ const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
   onChange,
   onClear,
   className,
-  clubs = [],
-  onClubSelect,
+  teams = [],
+  onTeamSelect,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-
-  const filteredClubs = clubs.filter((club) => club.name.toLowerCase().includes(searchValue.toLowerCase()))
+  const locale = useCurrentLocale()
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -51,7 +46,7 @@ const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
     onChange?.(newValue)
-    setIsDropdownOpen(newValue.length > 0 && filteredClubs.length > 0)
+    setIsDropdownOpen(newValue.length > 0 && teams.length > 0)
   }
 
   const handleClear = () => {
@@ -60,14 +55,14 @@ const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
     setIsDropdownOpen(false)
   }
 
-  const handleClubSelect = (club: Club) => {
-    onChange?.(club.name)
+  const handleTeamSelect = (team: Team) => {
+    onChange?.(team.name[locale])
     setIsDropdownOpen(false)
-    onClubSelect?.(club)
+    onTeamSelect?.(team)
   }
 
   const handleInputFocus = () => {
-    if (searchValue.length > 0 && filteredClubs.length > 0) {
+    if (searchValue.length > 0 && teams.length > 0) {
       setIsDropdownOpen(true)
     }
   }
@@ -116,22 +111,22 @@ const SearchFavoriteClub: React.FC<SearchFavoriteClubProps> = ({
         )}
       </div>
 
-      {isDropdownOpen && filteredClubs.length > 0 && (
+      {isDropdownOpen && teams.length > 0 && (
         <div className="absolute top-full left-0 z-50 mt-1.5 w-full rounded-2xl border border-slate-100 bg-white shadow-lg">
-          {filteredClubs.slice(0, 8).map((club) => (
+          {teams.slice(0, 8).map((team) => (
             <div
-              key={club.id}
-              onClick={() => handleClubSelect(club)}
+              key={team.id}
+              onClick={() => handleTeamSelect(team)}
               className="flex cursor-pointer items-center gap-2.5 px-4 py-3 first:rounded-t-2xl last:rounded-b-2xl hover:bg-slate-50"
             >
               <CachedImage
-                src={club.logo}
-                alt={club.name}
+                src={team.logoUrl}
+                alt={team.name[locale]}
                 width={24}
                 height={24}
                 className="h-6 w-6 flex-shrink-0 rounded-full object-cover"
               />
-              <span className="flex-1 text-base font-bold text-slate-600">{club.name}</span>
+              <span className="flex-1 text-base font-bold text-slate-600">{team.name[locale]}</span>
             </div>
           ))}
         </div>

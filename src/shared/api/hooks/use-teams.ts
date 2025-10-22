@@ -1,11 +1,8 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { Team } from "@/shared/types/team"
+import { SportType, SportTypeValue, Team } from "@/shared/types/team"
 import { apiClient } from "../client"
-
-// Sport types from API
-type SportType = "FOOTBALL" | "BASKETBALL" | "HOCKEY" | "VOLLEYBALL" | "TENNIS" | "RUGBY" | "BASEBALL" | "OTHER"
 
 // Query keys
 export const teamsKeys = {
@@ -16,6 +13,7 @@ export const teamsKeys = {
   detail: (id: string | number) => [...teamsKeys.details(), id] as const,
   search: (query: string) => [...teamsKeys.all, "search", query] as const,
   bySport: (sportType: string) => [...teamsKeys.all, "sport", sportType] as const,
+  sportTypes: () => [...teamsKeys.all, "sport-types"] as const,
 }
 
 /**
@@ -25,7 +23,7 @@ export function useTeams(params?: {
   page?: number
   limit?: number
   search?: string
-  sportType?: SportType
+  sportType?: SportTypeValue
   isActive?: boolean
 }) {
   return useQuery<Team[]>({
@@ -59,9 +57,27 @@ export function useSearchTeams(query: string) {
         throw new Error("Failed to search teams")
       }
 
-      return response.data
+      return response.data as Team[]
     },
     enabled: query.length > 0,
+  })
+}
+
+/**
+ * Get sports
+ */
+export function useSportTypes() {
+  return useQuery({
+    queryKey: teamsKeys.sportTypes(),
+    queryFn: async () => {
+      const response = await apiClient.GET("/teams/sport-types")
+
+      if (!response.data) {
+        throw new Error("Failed to fetch sports")
+      }
+
+      return response.data.sportTypes as SportType[]
+    },
   })
 }
 

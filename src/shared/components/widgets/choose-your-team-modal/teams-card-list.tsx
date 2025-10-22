@@ -1,7 +1,6 @@
 import React from "react"
-import { useFavoriteTeams, useTeams } from "@/shared/api/hooks"
 import { cn } from "@/shared/lib/utils"
-import { Team } from "@/shared/types/team"
+import { FavoriteTeam, Team } from "@/shared/types/team"
 import { TeamsCardItem } from "./teams-card-item"
 import { TeamsCardItemSkeleton } from "./teams-card-item-skeleton"
 
@@ -9,13 +8,22 @@ interface TeamsCardListProps {
   onToggleFavorite?: (team: Team) => void
   onTeamClick?: (team: Team) => void
   className?: string
+  teams: Team[]
+  favoriteTeams: FavoriteTeam[]
+  isLoading: boolean
+  isTrending: boolean
 }
 
-const TeamsCardList: React.FC<TeamsCardListProps> = ({ onToggleFavorite, onTeamClick, className }) => {
-  const { data: teams, isLoading: isTeamsLoading } = useTeams()
-  const { data: favoriteTeams, isLoading: isFavoriteTeamsLoading } = useFavoriteTeams()
-
-  if (teams?.length === 0) {
+const TeamsCardList: React.FC<TeamsCardListProps> = ({
+  onToggleFavorite,
+  onTeamClick,
+  className,
+  teams,
+  favoriteTeams,
+  isLoading,
+  isTrending,
+}) => {
+  if (teams?.length === 0 && !isLoading) {
     return (
       <div className={`py-8 text-center ${className}`}>
         <p className="text-slate-500">Teams not found</p>
@@ -24,11 +32,10 @@ const TeamsCardList: React.FC<TeamsCardListProps> = ({ onToggleFavorite, onTeamC
   }
 
   const isFavorite = (team: Team) => favoriteTeams?.some((favoriteTeam) => favoriteTeam.teamId === team.id)
-  const isLoading = isTeamsLoading || isFavoriteTeamsLoading
 
   return (
     <div className={cn(`flex flex-col gap-4`, className)}>
-      <h3 className="text-2xl font-semibold text-slate-900">Trending</h3>
+      {isTrending && <h3 className="text-2xl font-semibold text-slate-900">Trending</h3>}
       <div className={`grid grid-cols-[repeat(5,minmax(160px,1fr))] gap-2.5 px-4`}>
         {isLoading
           ? Array.from({ length: 10 }, (_, index) => <TeamsCardItemSkeleton key={`skeleton-${index}`} />)

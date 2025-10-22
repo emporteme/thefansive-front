@@ -27,3 +27,18 @@ export type EmptyTeam = {
   id: number
   logoUrl: string
 }
+
+export type SportTypeValue =
+  | "FOOTBALL"
+  | "BASKETBALL"
+  | "HOCKEY"
+  | "VOLLEYBALL"
+  | "TENNIS"
+  | "RUGBY"
+  | "BASEBALL"
+  | "OTHER"
+
+export type SportType = {
+  value: SportTypeValue
+  label: string
+}

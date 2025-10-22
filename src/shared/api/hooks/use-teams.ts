@@ -106,7 +106,7 @@ export function useTeamsBySport(sportType: string) {
  * Get team by ID
  */
 export function useTeam(id: number) {
-  return useQuery({
+  return useQuery<Team>({
     queryKey: teamsKeys.detail(id),
     queryFn: async () => {
       const response = await apiClient.GET("/teams/{id}", {
@@ -117,7 +117,7 @@ export function useTeam(id: number) {
         throw response.error
       }
 
-      return response.data
+      return response.data as Team
     },
     enabled: !!id,
   })

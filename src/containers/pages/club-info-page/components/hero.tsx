@@ -7,8 +7,10 @@ import { Favorite, LinkCircle } from "@/shared/icons"
 import { Team } from "@/shared/types/team"
 import SocialsList from "./socials-list"
 
-const Hero = ({ team }: { team: Partial<Team> }) => {
+const Hero = ({ team }: { team?: Team }) => {
   const locale = useCurrentLocale()
+
+  if (!team) return null
 
   return (
     <div className={`relative h-full min-h-[400px] w-full bg-red-500 py-8 text-white`}>
@@ -18,7 +20,7 @@ const Hero = ({ team }: { team: Partial<Team> }) => {
           <div>
             <div className="mb-8 h-40 w-fit min-w-40">
               <Image
-                src={team.websiteUrl || ""}
+                src={team.logoUrl || ""}
                 alt={`${team.name?.[locale] || "Image not found"}`}
                 width={160}
                 height={160}

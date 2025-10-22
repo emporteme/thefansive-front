@@ -16,21 +16,12 @@ import { TeamsCardList } from "./teams-card-list"
 interface ChooseYourTeamModalProps {
   isOpen: boolean
   onClose: () => void
-  onSportChange?: (sportId: string) => void
-  onLeagueChange?: (leagueId: string) => void
-  onClearSearch?: () => void
 }
 
 const isFavoriteTeam = (teamId: number, favoriteTeams: FavoriteTeam[] | undefined) =>
   favoriteTeams?.some((favoriteTeam) => favoriteTeam.teamId === teamId)
 
-const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
-  isOpen,
-  onClose,
-  onSportChange,
-  onLeagueChange,
-  onClearSearch,
-}) => {
+const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({ isOpen, onClose }) => {
   const routes = useRoutes()
   const navigate = useNavigate()
   const [selectedSport, setSelectedSport] = useState<string | undefined>(undefined)
@@ -52,13 +43,11 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
     clearSearch()
     setSelectedSport(sportId)
     setSelectedLeague("")
-    onSportChange?.(sportId)
   }
 
   const handleLeagueChange = (leagueId: string) => {
     clearSearch()
     setSelectedLeague(leagueId)
-    onLeagueChange?.(leagueId)
   }
 
   const handleToggleFavorite = (team: Team) => {
@@ -77,9 +66,7 @@ const ChooseYourTeamModal: React.FC<ChooseYourTeamModalProps> = ({
     navigate(routes.clubs.single(team.id.toString()))
   }
 
-  const handleClearSearch = () => {
-    onClearSearch?.()
-  }
+  const handleClearSearch = () => {}
 
   const handleTeamClick = (team: Team) => {
     navigate(routes.clubs.single(team.id.toString()))

@@ -17,12 +17,6 @@ import { EmptyTeam, FavoriteTeam, Team } from "@/shared/types/team"
 import "swiper/css"
 import "swiper/css/navigation"
 
-interface Club {
-  id: number
-  name: string
-  logo: string
-}
-
 interface TeamLogoCardProps {
   team: FavoriteTeam | EmptyTeam
   onClick?: () => void
@@ -117,10 +111,6 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className, isLoading, favoriteT
   const handleCloseModal = () => {
     setIsModalOpen(false)
   }
-
-  const handleSearchClubSelect = (_club: Club) => {}
-
-  const handleClearSearch = () => {}
 
   const handleTeamClick = (team: Team) => {
     navigate(routes.clubs.single(team.id.toString()))
@@ -236,15 +226,7 @@ const ChooseTeam: React.FC<ChooseTeamProps> = ({ className, isLoading, favoriteT
 
       {typeof window !== "undefined" &&
         isModalOpen &&
-        createPortal(
-          <ChooseYourTeamModal
-            isOpen={isModalOpen}
-            onClose={handleCloseModal}
-            onSearchClubSelect={handleSearchClubSelect}
-            onClearSearch={handleClearSearch}
-          />,
-          document.body
-        )}
+        createPortal(<ChooseYourTeamModal isOpen={isModalOpen} onClose={handleCloseModal} />, document.body)}
     </div>
   )
 }

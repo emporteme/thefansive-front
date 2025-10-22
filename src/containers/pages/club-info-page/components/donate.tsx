@@ -16,7 +16,7 @@ const Donate = ({
   imageHeight,
   onSubmit,
 }: {
-  team: Partial<Team>
+  team?: Team
   imageHeight?: string
   onSubmit: (data: number) => void
 }) => {
@@ -35,6 +35,8 @@ const Donate = ({
     const donation = formData.get("donation") as string
     onSubmit(Number(donation))
   }
+
+  if (!team) return null
 
   return (
     <div className="py-10">

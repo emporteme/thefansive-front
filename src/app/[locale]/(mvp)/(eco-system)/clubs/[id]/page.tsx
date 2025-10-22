@@ -1,8 +1,8 @@
 import { FC } from "react"
-import ClubsPage from "@/containers/pages/clubs-pages/clubs-page/clubs-page"
+import ClubInfoPage from "@/containers/pages/club-info-page/club-info-page"
 
 const ClubsSinglePage: FC = () => {
-  return <ClubsPage />
+  return <ClubInfoPage />
 }
 
 export default ClubsSinglePage

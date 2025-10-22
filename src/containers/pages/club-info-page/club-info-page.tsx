@@ -1,19 +1,20 @@
 "use client"
-import { useTeams } from "@/shared/api/hooks"
-import { Team } from "@/shared/types/team"
+import { useParams } from "next/navigation"
+import { useTeam } from "@/shared/api/hooks"
 import Banner from "./components/banner"
 import Donate from "./components/donate"
 import Hero from "./components/hero"
 import Product from "./components/product"
 
 const ClubInfoPage = () => {
-  const { data: teams } = useTeams()
+  const params = useParams<{ id: string }>()
+  const { data: team } = useTeam(Number(params?.id))
 
   return (
     <>
-      <Hero team={teams as Partial<Team>} />
+      <Hero team={team} />
       <Donate
-        team={teams as Partial<Team>}
+        team={team}
         onSubmit={(data) => {
           console.log(data)
         }}

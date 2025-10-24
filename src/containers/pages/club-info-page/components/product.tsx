@@ -1,9 +1,16 @@
 import Image from "next/image"
+import { useCurrentLocale } from "@/locale/client"
 import { Button } from "@/shared/components/ui"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { ArrowRightSmallRound, Comfortable, Fans, License } from "@/shared/icons"
+import { Product as ProductType } from "@/shared/types/product"
+interface ProductProps {
+  product: ProductType
+}
 
-const Product = () => {
+const Product = ({ product }: ProductProps) => {
+  const locale = useCurrentLocale()
+
   return (
     <ContainerLayout>
       <div className="flex gap-10">
@@ -15,7 +22,7 @@ const Product = () => {
             <span className="shadow-e1 inline-block flex-none rounded-md bg-slate-500 p-2 font-semibold text-white">
               Sale Now
             </span>
-            <h2 className="grow text-2xl font-bold">Liverpool T-shirt Champions 24/25</h2>
+            <h2 className="grow text-2xl font-bold">{product.productName[locale]}</h2>
           </div>
           <p className="mb-8 text-xl text-gray-500">
             Bring the passion of Liverpool onto the field with this exclusive green jersey, now available in limited

@@ -15,9 +15,11 @@ interface ClubInfoPageProps {
 
 const ClubInfoPage = ({ serverTeam, serverProducts }: ClubInfoPageProps) => {
   const params = useParams<{ id: string }>()
-  const { data: team } = useTeam(Number(params?.id), {
+
+  const { data: team, isLoading: isTeamLoading } = useTeam(Number(params?.id), {
     initialData: serverTeam,
   })
+
   const { data: products } = useProducts(
     { teamId: Number(params?.id) },
     {
@@ -25,7 +27,11 @@ const ClubInfoPage = ({ serverTeam, serverProducts }: ClubInfoPageProps) => {
     }
   )
 
-  // console.log(products)
+  const product = products?.[0]
+
+  if (isTeamLoading || !team) {
+    return null
+  }
 
   return (
     <>
@@ -38,7 +44,7 @@ const ClubInfoPage = ({ serverTeam, serverProducts }: ClubInfoPageProps) => {
       />
       <div className="py-6">
         <Banner />
-        <Product />
+        {product && <Product product={product} />}
       </div>
     </>
   )

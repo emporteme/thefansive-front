@@ -1,6 +1,6 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
+import { QueryOptions, useQuery } from "@tanstack/react-query"
 import { Product } from "@/shared/types/product"
 import { apiClient } from "../client"
 
@@ -33,7 +33,7 @@ export function useProducts(
     minPrice?: number
     maxPrice?: number
   },
-  options?: { initialData?: Product[] }
+  options?: QueryOptions<Product[]>
 ) {
   return useQuery<Product[]>({
     queryKey: productsKeys.list(params),
@@ -48,7 +48,7 @@ export function useProducts(
 
       return response.data as Product[]
     },
-    initialData: options?.initialData as Product[],
+    ...options,
   })
 }
 

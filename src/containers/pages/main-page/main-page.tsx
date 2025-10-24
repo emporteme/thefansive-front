@@ -27,7 +27,7 @@ const banners = [
   },
 ]
 
-const ClubsPage = () => {
+const MainPage = () => {
   const navigate = useNavigate()
   const routes = useRoutes()
   const { data: favoriteTeams, isLoading: isFavoriteTeamsLoading } = useFavoriteTeams()
@@ -96,4 +96,4 @@ const ClubsPage = () => {
   )
 }
 
-export default ClubsPage
+export default MainPage

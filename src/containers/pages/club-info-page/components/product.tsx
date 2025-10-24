@@ -12,10 +12,16 @@ const Product = ({ product }: ProductProps) => {
   const locale = useCurrentLocale()
 
   return (
-    <ContainerLayout>
+    <ContainerLayout className="mt-6">
       <div className="flex gap-10">
-        <div className="flex w-[500px] flex-none items-center justify-center rounded-lg bg-[#F4F4F4] p-6">
-          <Image src="/images/dev/messi.png" alt="Product 1" width={500} height={500} className="h-auto w-full" />
+        <div className="rounded-2lg flex w-[500px] flex-none items-center justify-center bg-[#F4F4F4] p-6">
+          <Image
+            src={product.productImageUrl || "/images/dev/lionel-messi-pro-t-shirt.png"}
+            alt={product.productName[locale] || "Product image"}
+            width={500}
+            height={500}
+            className="h-auto w-full object-contain"
+          />
         </div>
         <div className="flex-1">
           <div className="mb-6 flex items-baseline gap-4">

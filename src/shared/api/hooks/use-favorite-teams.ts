@@ -58,7 +58,7 @@ export function useCheckFavoriteTeam(teamId: number) {
         throw new Error("Request failed")
       }
 
-      return response.data
+      return response?.data?.isFavorite
     },
     enabled: !!teamId,
   })

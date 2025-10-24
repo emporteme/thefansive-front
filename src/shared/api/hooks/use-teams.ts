@@ -105,7 +105,7 @@ export function useTeamsBySport(sportType: string) {
 /**
  * Get team by ID
  */
-export function useTeam(id: number) {
+export function useTeam(id: number, options?: { initialData?: Team }) {
   return useQuery<Team>({
     queryKey: teamsKeys.detail(id),
     queryFn: async () => {
@@ -120,5 +120,6 @@ export function useTeam(id: number) {
       return response.data as Team
     },
     enabled: !!id,
+    initialData: options?.initialData,
   })
 }

@@ -15,7 +15,7 @@ const getExploreLinks = (routes: Routes) => [
   { title: "Game", href: routes.game() },
 ]
 
-const getCompanyLinks = (routes: Routes) => [
+const getCompanyLinks = (_routes: Routes) => [
   { title: "About", href: "/about" },
   { title: "Contact", href: "/contact" },
   { title: "Partners", href: "/partners" },
@@ -27,10 +27,12 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-white shadow-[0px_-6px_16px_-6px_#110C221A]">
       <ContainerLayout>
-        <div className="grid grid-cols-1 gap-5 pt-8.5 pb-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <LogoAndSocial />
-          <LinkList title="Explore" links={getExploreLinks(routes)} />
-          <LinkList title="Company" links={getCompanyLinks(routes)} />
+        <div className="flex pt-8.5 pb-5">
+          <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+            <LogoAndSocial />
+            <LinkList title="Explore" links={getExploreLinks(routes)} />
+            <LinkList title="Company" links={getCompanyLinks(routes)} />
+          </div>
           <div>
             <LangSwitcher variant="white" />
           </div>

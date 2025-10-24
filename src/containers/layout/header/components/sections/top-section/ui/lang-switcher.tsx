@@ -8,7 +8,7 @@ import { getLanguageFlag, getLanguageName, LANGUAGES } from "@/shared/constants/
 import type { Language } from "@/shared/constants/languages"
 import { cn } from "@/shared/lib/utils"
 
-const LangSwitcher: React.FC = () => {
+const LangSwitcher: React.FC<{ variant?: "black" | "white" }> = ({ variant = "white" }) => {
   const changeLocale = useChangeLocale()
   const currentLocale = useCurrentLocale()
 
@@ -16,9 +16,20 @@ const LangSwitcher: React.FC = () => {
     changeLocale(newLanguage)
   }
 
+  const blackClasses = "text-white active:bg-gray-900"
+  const whiteClasses = "text-black active:bg-gray-100"
+
   return (
     <Select.Root value={currentLocale} onValueChange={handleLanguageChange}>
-      <Select.Trigger className="inline-flex cursor-pointer items-center justify-between gap-2 rounded-md bg-black p-3.5 text-sm font-bold text-white shadow-sm focus:bg-gray-900 focus:outline-none active:bg-gray-900 disabled:cursor-not-allowed disabled:opacity-50">
+      <Select.Trigger
+        className={cn(
+          "inline-flex cursor-pointer items-center justify-between gap-2 rounded-md p-3.5 text-sm font-bold focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+          {
+            [blackClasses]: variant === "black",
+            [whiteClasses]: variant === "white",
+          }
+        )}
+      >
         <Select.Value>
           <span className="flex items-center gap-2">
             <span className="mt-0.5 text-lg">{getLanguageFlag(currentLocale as Language)}</span>

@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
     <footer className="bg-white shadow-[0px_-6px_16px_-6px_#110C221A]">
       <ContainerLayout>
         <div className="flex pt-8.5 pb-5">
-          <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="grid w-full grid-cols-1 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
             <LogoAndSocial />
             <LinkList title="Explore" links={getExploreLinks(routes)} />
             <LinkList title="Company" links={getCompanyLinks(routes)} />

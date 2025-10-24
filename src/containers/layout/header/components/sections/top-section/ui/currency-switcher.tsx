@@ -39,7 +39,7 @@ const CurrencySwitcher: React.FC = () => {
 
   return (
     <Select.Root value={currency} onValueChange={handleCurrencyChange}>
-      <Select.Trigger className="inline-flex cursor-pointer items-center justify-between gap-2 rounded-md bg-black p-3.5 text-sm font-bold text-white shadow-sm focus:bg-gray-900 focus:outline-none active:bg-gray-900 disabled:cursor-not-allowed disabled:opacity-50">
+      <Select.Trigger className="inline-flex cursor-pointer items-center justify-between gap-2 rounded-md p-3.5 text-sm font-bold text-white focus:outline-none active:bg-gray-900 disabled:cursor-not-allowed disabled:opacity-50">
         <Select.Value>
           <span className="flex items-center gap-1">
             <span>{getCurrencySymbol(currency)}</span>

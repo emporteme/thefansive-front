@@ -6,7 +6,7 @@ const TopSection: React.FC = () => {
   return (
     <div className="bg-black text-white">
       <ContainerLayout className="flex items-center justify-end gap-2 py-1">
-        <LangSwitcher />
+        <LangSwitcher variant="black" />
         <CurrencySwitcher />
         <Support />
       </ContainerLayout>

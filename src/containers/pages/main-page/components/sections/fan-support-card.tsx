@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { memo, useMemo } from "react"
 import { formatCurrency } from "@/containers/pages/example-page/utils/format-utils"
 import { useCurrentLocale } from "@/locale/client"
 import { Button, CachedImage } from "@/shared/components/ui"
@@ -10,7 +10,7 @@ interface IFanSupportCardProps {
   product: Product
 }
 
-const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
+const FanSupportCard: React.FC<IFanSupportCardProps> = memo(({ product }) => {
   const imageNumber = useMemo(() => Math.floor(Math.random() * 5) + 1, [])
   const locale = useCurrentLocale()
 
@@ -87,6 +87,8 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
       </div>
     </div>
   )
-}
+})
+
+FanSupportCard.displayName = "FanSupportCard"
 
 export default FanSupportCard

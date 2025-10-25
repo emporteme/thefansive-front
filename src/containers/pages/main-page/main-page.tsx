@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useMemo } from "react"
 import { useFavoriteTeams, usePopularProducts, useTeams } from "@/shared/api/hooks"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
@@ -58,6 +58,15 @@ const MainPage = () => {
     }
   }
 
+  // Мемоизируем элементы для предотвращения перерендеров
+  const teamElements = useMemo(() => {
+    return teams?.map((team) => <TeamCard key={team.id} team={team} />) || []
+  }, [teams])
+
+  const productElements = useMemo(() => {
+    return products?.map((product) => <FanSupportCard key={product.id} product={product} />) || []
+  }, [products])
+
   return (
     <div className="flex flex-col">
       <MainSlider images={banners} autoDelay={4500} loop className="mb-20" />
@@ -70,7 +79,7 @@ const MainPage = () => {
           title="Popular Clubs"
           navCount={5}
           rowCount={1}
-          elements={teams?.map((team) => <TeamCard key={team.id} team={team} />) || []}
+          elements={teamElements}
           className="mb-10"
           isLoading={isTeamsLoading}
           type="teams"
@@ -79,10 +88,10 @@ const MainPage = () => {
         <CardsSlider
           onClick={handleClickProduct}
           title="Popular Fan Support"
-          subtitle="Empower your club’s future"
+          subtitle="Empower your club's future"
           navCount={2}
           rowCount={products && products?.length > 2 ? 2 : 1}
-          elements={products?.map((product) => <FanSupportCard key={product.id} product={product} />) || []}
+          elements={productElements}
           className="mb-20"
           isLoading={isPopularProductsLoading}
           type="fan-support"

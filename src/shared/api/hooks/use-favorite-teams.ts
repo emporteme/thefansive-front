@@ -47,9 +47,21 @@ export function useFavoriteTeams() {
  * Check if team is favorite
  */
 export function useCheckFavoriteTeam(teamId: number) {
+  const { data: isAuthenticated } = useIsAuthenticated()
+
   return useQuery({
     queryKey: favoriteTeamsKeys.check(teamId),
     queryFn: async () => {
+      if (!isAuthenticated) {
+        const favoriteTeams = localStorage.getItem("favoriteTeams")
+
+        if (favoriteTeams) {
+          return (JSON.parse(favoriteTeams) as FavoriteTeam[]).some((favoriteTeam) => favoriteTeam.teamId === teamId)
+        }
+
+        return false
+      }
+
       const response = await apiClient.GET("/user/favorite-teams/check/{teamId}", {
         params: { path: { teamId } },
       })
@@ -60,7 +72,6 @@ export function useCheckFavoriteTeam(teamId: number) {
 
       return response?.data?.isFavorite
     },
-    enabled: !!teamId,
   })
 }
 

@@ -16,7 +16,7 @@ const Product = ({ product }: ProductProps) => {
       <div className="flex gap-10">
         <div className="rounded-2lg flex w-[500px] flex-none items-center justify-center bg-[#F4F4F4] p-6">
           <Image
-            src={product.productImageUrl || "/images/dev/lionel-messi-pro-t-shirt.png"}
+            src={"/images/dev/lionel-messi-pro-t-shirt.png"}
             alt={product.productName[locale] || "Product image"}
             width={500}
             height={500}

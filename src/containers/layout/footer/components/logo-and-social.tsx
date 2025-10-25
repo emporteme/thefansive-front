@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Logo from "@/shared/components/elements/logo"
-import { Facebook, Instagram, Telegram, X } from "@/shared/icons"
+import { Telegram, X } from "@/shared/icons"
 import { socialMediaLinks } from "@/shared/types/app"
 
 const LogoAndSocial = () => {
@@ -11,16 +11,6 @@ const LogoAndSocial = () => {
         <span className="text-sm leading-[1.2] font-medium text-black">Go Beyond Being a Spectator</span>
       </div>
       <ul className="flex gap-2.5">
-        <li>
-          <Link href={socialMediaLinks.facebook} target="_blank" rel="noopener noreferrer">
-            <Facebook className="size-6 text-gray-800" />
-          </Link>
-        </li>
-        <li>
-          <Link href={socialMediaLinks.instagram} target="_blank" rel="noopener noreferrer">
-            <Instagram className="size-6 text-gray-800" />
-          </Link>
-        </li>
         <li>
           <Link href={socialMediaLinks.telegram} target="_blank" rel="noopener noreferrer">
             <Telegram className="size-6 text-gray-800" />

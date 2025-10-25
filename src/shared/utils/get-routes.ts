@@ -10,7 +10,6 @@ export const getRoutes = (locale?: string) => {
       payment: () => getRoute("/cart/payment"),
       confirmation: () => getRoute("/cart/confirmation"),
     },
-    ecosystem: () => getRoute("/ecosystem"),
     clubs: {
       all: () => getRoute("/clubs"),
       single: (id: string) => getRoute(`/clubs/${id}`),
@@ -18,9 +17,6 @@ export const getRoutes = (locale?: string) => {
     products: {
       single: (id: string) => getRoute(`/products/${id}`),
     },
-    game: () => getRoute("/game"),
-    howItWorks: () => getRoute("/how-it-works"),
-    partners: () => getRoute("/partners"),
     user: {
       profile: () => getRoute("/user/profile"),
       order: () => getRoute("/user/order"),
@@ -34,5 +30,11 @@ export const getRoutes = (locale?: string) => {
       all: () => getRoute("/news"),
       single: (id: number) => getRoute(`/news/${id}`),
     },
+    game: () => getRoute("/game"),
+    ecosystem: () => getRoute("/ecosystem"),
+    howItWorks: () => getRoute("/how-it-works"),
+    partners: () => getRoute("/partners"),
+    about: () => getRoute("/about"),
+    contact: () => getRoute("/contact"),
   }
 }

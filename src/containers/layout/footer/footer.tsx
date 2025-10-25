@@ -9,16 +9,16 @@ import LinkList from "./components/link-list"
 import LogoAndSocial from "./components/logo-and-social"
 import { LangSwitcher } from "../header/components/sections/top-section/ui"
 
-const getExploreLinks = (routes: Routes) => [
+const _getExploreLinks = (routes: Routes) => [
   { title: "Home", href: routes.home() },
   { title: "Ecosystem", href: routes.ecosystem() },
   { title: "Game", href: routes.game() },
 ]
 
-const getCompanyLinks = (_routes: Routes) => [
-  { title: "About", href: "/about" },
-  { title: "Contact", href: "/contact" },
-  { title: "Partners", href: "/partners" },
+const getCompanyLinks = (routes: Routes) => [
+  { title: "About", href: routes.about() },
+  { title: "Contact", href: routes.contact() },
+  { title: "Partners", href: routes.partners() },
 ]
 
 const Footer: React.FC = () => {
@@ -30,7 +30,6 @@ const Footer: React.FC = () => {
         <div className="flex pt-8.5 pb-5">
           <div className="grid w-full grid-cols-1 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
             <LogoAndSocial />
-            <LinkList title="Explore" links={getExploreLinks(routes)} />
             <LinkList title="Company" links={getCompanyLinks(routes)} />
           </div>
           <div>

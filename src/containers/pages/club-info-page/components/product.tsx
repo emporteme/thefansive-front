@@ -2,6 +2,7 @@ import Image from "next/image"
 import { useCurrentLocale } from "@/locale/client"
 import { Button } from "@/shared/components/ui"
 import ContainerLayout from "@/shared/components/ui/container-layout"
+import { useCountdown } from "@/shared/hooks/client"
 import { ArrowRightSmallRound, Comfortable, Fans, License } from "@/shared/icons"
 import { Product as ProductType } from "@/shared/types/product"
 interface ProductProps {
@@ -10,6 +11,16 @@ interface ProductProps {
 
 const Product = ({ product }: ProductProps) => {
   const locale = useCurrentLocale()
+
+  const saleEndDate = new Date()
+  saleEndDate.setDate(saleEndDate.getDate() + 5)
+  saleEndDate.setHours(23, 59, 59, 999)
+
+  const { days, hours, minutes, seconds, isExpired } = useCountdown(saleEndDate, {
+    onComplete: () => {
+      console.log("Sale has ended!")
+    },
+  })
 
   return (
     <ContainerLayout className="mt-6">
@@ -34,27 +45,33 @@ const Product = ({ product }: ProductProps) => {
             Bring the passion of Liverpool onto the field with this exclusive green jersey, now available in limited
             quantities!
           </p>
-          <div className="mb-8 flex w-fit items-center gap-[10px] rounded-lg bg-slate-100 px-5 py-[10px]">
-            <div className="flex flex-col gap-1 p-1 text-center">
-              <p className="text-2xl font-bold">5</p>
-              <p className="text-sm text-gray-500">Days</p>
+          {!isExpired ? (
+            <div className="mb-8 flex w-fit items-center gap-[10px] rounded-lg bg-slate-100 px-5 py-[10px]">
+              <div className="flex flex-col gap-1 p-1 text-center">
+                <p className="text-2xl font-bold">{days.toString().padStart(2, "0")}</p>
+                <p className="text-sm text-gray-500">Days</p>
+              </div>
+              <span className="block h-5 w-[1px] bg-slate-400"></span>
+              <div className="flex flex-col gap-1 p-1 text-center">
+                <p className="text-2xl font-bold">{hours.toString().padStart(2, "0")}</p>
+                <p className="text-sm text-gray-500">Hours</p>
+              </div>
+              <span className="block h-5 w-[1px] bg-slate-400"></span>
+              <div className="flex flex-col gap-1 p-1 text-center">
+                <p className="text-2xl font-bold">{minutes.toString().padStart(2, "0")}</p>
+                <p className="text-sm text-gray-500">Minutes</p>
+              </div>
+              <span className="block h-5 w-[1px] bg-slate-400"></span>
+              <div className="flex flex-col gap-1 p-1 text-center">
+                <p className="text-2xl font-bold">{seconds.toString().padStart(2, "0")}</p>
+                <p className="text-sm text-gray-500">Seconds</p>
+              </div>
             </div>
-            <span className="block h-5 w-[1px] bg-slate-400"></span>
-            <div className="flex flex-col gap-1 p-1 text-center">
-              <p className="text-2xl font-bold">5</p>
-              <p className="text-sm text-gray-500">Days</p>
+          ) : (
+            <div className="mb-8 flex w-fit items-center gap-[10px] rounded-lg bg-red-100 px-5 py-[10px]">
+              <p className="text-lg font-semibold text-red-600">Sale Ended</p>
             </div>
-            <span className="block h-5 w-[1px] bg-slate-400"></span>
-            <div className="flex flex-col gap-1 p-1 text-center">
-              <p className="text-2xl font-bold">5</p>
-              <p className="text-sm text-gray-500">Days</p>
-            </div>
-            <span className="block h-5 w-[1px] bg-slate-400"></span>
-            <div className="flex flex-col gap-1 p-1 text-center">
-              <p className="text-2xl font-bold">5</p>
-              <p className="text-sm text-gray-500">Days</p>
-            </div>
-          </div>
+          )}
           <div className="flex justify-between gap-4">
             <div className="flex flex-1 flex-col gap-6">
               <div className="flex items-center gap-4 text-slate-600">

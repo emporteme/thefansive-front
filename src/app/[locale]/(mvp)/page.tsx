@@ -1,10 +1,10 @@
 "use client"
 
 import { FC } from "react"
-import ClubsPage from "@/containers/pages/clubs-pages/clubs-page/clubs-page"
+import MainPage from "@/containers/pages/main-page/main-page"
 
 const Page: FC = () => {
-  return <ClubsPage />
+  return <MainPage />
 }
 
 export default Page

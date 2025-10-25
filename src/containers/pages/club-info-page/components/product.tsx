@@ -1,21 +1,34 @@
 import Image from "next/image"
+import { useCurrentLocale } from "@/locale/client"
 import { Button } from "@/shared/components/ui"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { ArrowRightSmallRound, Comfortable, Fans, License } from "@/shared/icons"
+import { Product as ProductType } from "@/shared/types/product"
+interface ProductProps {
+  product: ProductType
+}
 
-const Product = () => {
+const Product = ({ product }: ProductProps) => {
+  const locale = useCurrentLocale()
+
   return (
-    <ContainerLayout>
+    <ContainerLayout className="mt-6">
       <div className="flex gap-10">
-        <div className="flex w-[500px] flex-none items-center justify-center rounded-lg bg-[#F4F4F4] p-6">
-          <Image src="/images/dev/messi.png" alt="Product 1" width={500} height={500} className="h-auto w-full" />
+        <div className="rounded-2lg flex w-[500px] flex-none items-center justify-center bg-[#F4F4F4] p-6">
+          <Image
+            src={"/images/dev/lionel-messi-pro-t-shirt.png"}
+            alt={product.productName[locale] || "Product image"}
+            width={500}
+            height={500}
+            className="h-auto w-full object-contain"
+          />
         </div>
         <div className="flex-1">
           <div className="mb-6 flex items-baseline gap-4">
             <span className="shadow-e1 inline-block flex-none rounded-md bg-slate-500 p-2 font-semibold text-white">
               Sale Now
             </span>
-            <h2 className="grow text-2xl font-bold">Liverpool T-shirt Champions 24/25</h2>
+            <h2 className="grow text-2xl font-bold">{product.productName[locale]}</h2>
           </div>
           <p className="mb-8 text-xl text-gray-500">
             Bring the passion of Liverpool onto the field with this exclusive green jersey, now available in limited

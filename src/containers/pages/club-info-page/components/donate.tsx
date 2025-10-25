@@ -41,11 +41,11 @@ const Donate = ({
   return (
     <div className="py-10">
       <ContainerLayout>
-        <h2 className="mb-6 flex gap-2">
-          {team.logoUrl}
-          <span className="text-[32px] font-semibold">Donate</span>
+        <h2 className="mb-6 flex gap-2.5">
+          <Image src={team.logoUrl} alt={`${team.name?.[locale] || "Image not found"}`} width={32} height={32} />
+          <span className="text-3xl leading-[48px] font-semibold tracking-normal">Donate</span>
         </h2>
-        <div className="flex items-stretch rounded-lg bg-slate-100 px-4 py-6">
+        <div className="flex items-stretch rounded-lg bg-slate-100 px-7 py-5">
           <div className="flex grow flex-col border-r-4 border-slate-200 pr-4">
             <div className="mb-6 flex justify-between">
               <h3 className="text-2xl font-semibold">Support your team by making a donation</h3>
@@ -57,17 +57,17 @@ const Donate = ({
                 className="h-auto max-w-[26px]"
               />
             </div>
-            <div className="flex grow gap-4">
+            <div className="flex grow gap-5">
               <div
                 className="relative w-full grow overflow-hidden rounded-[10px] bg-gray-200"
                 style={{
-                  height: imageHeight || "auto",
-                  minHeight: "200px",
+                  height: imageHeight || "320px",
+                  minHeight: "320px",
                 }}
               >
                 {!imageError ? (
                   <Image
-                    src={team?.coverImageUrl || "/images/dev/real-madrid-banner.jpg"}
+                    src={"/images/dev/club-donate-team.png"}
                     alt={`${team?.name?.[locale] || "Image not found"}`}
                     fill
                     className="h-full w-full object-cover"
@@ -84,7 +84,7 @@ const Donate = ({
                   </div>
                 )}
               </div>
-              <div className="flex min-w-[250px] flex-none flex-col gap-4">
+              <div className="flex min-w-[260px] flex-none flex-col gap-4">
                 <div className="flex flex-col gap-3 rounded-lg bg-white px-3 py-2">
                   <p className="flex justify-between gap-2 text-[15px] whitespace-nowrap">
                     <span className="font-medium text-slate-600">Total Donations:</span>
@@ -136,8 +136,7 @@ const Donate = ({
             </div>
             <div className="mb-6">
               <h4 className="mb-3 flex gap-1 text-sm font-semibold">
-                <CertificateOutlined className="inline" />{" "}
-                <span className="mt-[2px]">Digital Certificate Digital Certificate</span>
+                <CertificateOutlined className="inline" /> <span className="mt-[2px]">Digital Certificate</span>
               </h4>
               <p className="text-xs font-medium text-slate-600">
                 Earn a digital certificate in recognition of your support for your club

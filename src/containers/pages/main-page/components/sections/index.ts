@@ -1,0 +1,7 @@
+export { default as MainSlider } from "./main-slider"
+export { default as CardsSlider } from "./cards-slider"
+export { default as TeamCard } from "./team-card"
+export { default as FanSupportCard } from "./fan-support-card"
+export { default as News } from "./news/news"
+export { default as GoBeyond } from "./go-beyond"
+export { default as ChooseTeam } from "./choose-team"

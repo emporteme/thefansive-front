@@ -1,6 +1,6 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
+import { QueryOptions, useQuery } from "@tanstack/react-query"
 import { Product } from "@/shared/types/product"
 import { apiClient } from "../client"
 
@@ -23,16 +23,19 @@ export const productsKeys = {
 /**
  * Get all products
  */
-export function useProducts(params?: {
-  page?: number
-  limit?: number
-  teamId?: number
-  category?: ProductCategory
-  isActive?: boolean
-  minPrice?: number
-  maxPrice?: number
-}) {
-  return useQuery({
+export function useProducts(
+  params?: {
+    page?: number
+    limit?: number
+    teamId?: number
+    category?: ProductCategory
+    isActive?: boolean
+    minPrice?: number
+    maxPrice?: number
+  },
+  options?: QueryOptions<Product[]>
+) {
+  return useQuery<Product[]>({
     queryKey: productsKeys.list(params),
     queryFn: async () => {
       const response = await apiClient.GET("/products", {
@@ -43,8 +46,9 @@ export function useProducts(params?: {
         throw new Error("Request failed")
       }
 
-      return response.data
+      return response.data as Product[]
     },
+    ...options,
   })
 }
 

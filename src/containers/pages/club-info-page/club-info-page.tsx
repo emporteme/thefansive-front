@@ -1,14 +1,37 @@
 "use client"
 import { useParams } from "next/navigation"
-import { useTeam } from "@/shared/api/hooks"
+import { useProducts, useTeam } from "@/shared/api/hooks"
+import { Product as ProductType } from "@/shared/types/product"
+import { Team } from "@/shared/types/team"
 import Banner from "./components/banner"
 import Donate from "./components/donate"
 import Hero from "./components/hero"
 import Product from "./components/product"
 
-const ClubInfoPage = () => {
+interface ClubInfoPageProps {
+  serverTeam?: Team
+  serverProducts?: ProductType[]
+}
+
+const ClubInfoPage = ({ serverTeam, serverProducts }: ClubInfoPageProps) => {
   const params = useParams<{ id: string }>()
-  const { data: team } = useTeam(Number(params?.id))
+
+  const { data: team, isLoading: isTeamLoading } = useTeam(Number(params?.id), {
+    initialData: serverTeam,
+  })
+
+  const { data: products } = useProducts(
+    { teamId: Number(params?.id) },
+    {
+      initialData: serverProducts,
+    }
+  )
+
+  const product = products?.[0]
+
+  if (isTeamLoading || !team) {
+    return null
+  }
 
   return (
     <>
@@ -21,7 +44,7 @@ const ClubInfoPage = () => {
       />
       <div className="py-6">
         <Banner />
-        <Product />
+        {product && <Product product={product} />}
       </div>
     </>
   )

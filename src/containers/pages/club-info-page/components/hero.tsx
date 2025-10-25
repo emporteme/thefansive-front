@@ -27,7 +27,7 @@ const Hero = ({ team }: { team?: Team }) => {
   }
 
   return (
-    <div className={`relative mt-6 h-full min-h-[400px] w-full bg-red-500 pt-8 pb-14 text-white`}>
+    <div className={`relative h-full min-h-[400px] w-full bg-red-500 pt-8 pb-14 text-white`}>
       <Image
         src="/images/banner-club-dark-pattern.png"
         alt="Banner Pattern"

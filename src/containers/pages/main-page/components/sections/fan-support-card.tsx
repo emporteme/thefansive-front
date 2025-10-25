@@ -10,6 +10,10 @@ interface IFanSupportCardProps {
   product: Product
 }
 
+const getNumber = () => {
+  return Math.floor(Math.random() * 5) + 1 // 1-5
+}
+
 const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
   const locale = useCurrentLocale()
 
@@ -36,7 +40,7 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
           Limited Quantity
         </div>
         <CachedImage
-          src={"/images/dev/lionel-messi-pro-t-shirt.png"}
+          src={`/images/dev/products/${getNumber()}.png`}
           alt={product.productName[locale] ?? ""}
           width={275}
           height={275}

@@ -4,7 +4,7 @@ import { type NextConfig } from "next"
 import { env } from "./env.mjs"
 
 const config: NextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false, // Временно отключаем для проверки
   images: {
     remotePatterns: [ // поменять на наш cdn
       {

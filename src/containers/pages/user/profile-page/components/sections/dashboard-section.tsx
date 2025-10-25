@@ -1,6 +1,7 @@
 "use client"
 
 import React, { FC } from "react"
+import { useCounterAnimation } from "@/shared/hooks/client/use-counter-animation"
 import { ConnectWallet } from "../widgets/connect-wallet"
 import { MyCertificates } from "../widgets/my-certificates"
 
@@ -9,6 +10,15 @@ type UserInfo = {
   fanSupport: number
   donation: number
   completedTasks: number
+}
+
+const AnimatedCounter: FC<{ value: number; delay?: number }> = ({ value, delay = 0 }) => {
+  const { currentValue } = useCounterAnimation(value, {
+    duration: value * 10,
+    delay: delay,
+  })
+
+  return <span className="flex justify-start text-2xl font-semibold text-slate-900">{currentValue}</span>
 }
 
 const dashboardItems = (user: UserInfo) => [
@@ -38,8 +48,8 @@ const DashboardSection: FC = () => {
   const user = {
     points: 250,
     fanSupport: 3,
-    donation: 2,
-    completedTasks: 4,
+    donation: 5,
+    completedTasks: 20,
   }
 
   return (
@@ -51,7 +61,7 @@ const DashboardSection: FC = () => {
             className="flex min-h-[120px] min-w-[155px] flex-1 flex-col justify-between gap-5 rounded-xl bg-white p-5"
           >
             <span className="text-sm leading-[1.2] font-medium whitespace-pre-line text-slate-600">{item.title}</span>
-            <span className="flex justify-start text-2xl font-semibold text-slate-900">{item.value}</span>
+            <AnimatedCounter value={item.value} />
           </div>
         ))}
       </div>

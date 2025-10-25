@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useCallback, useMemo } from "react"
 import { useFavoriteTeams, usePopularProducts, useTeams } from "@/shared/api/hooks"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
@@ -28,35 +28,59 @@ const banners = [
 ]
 
 const MainPage = () => {
+  // Отладка перерисовок в development
+  if (process.env.NODE_ENV === "development") {
+    console.log("MainPage rendered")
+  }
+
   const navigate = useNavigate()
   const routes = useRoutes()
   const { data: favoriteTeams, isLoading: isFavoriteTeamsLoading } = useFavoriteTeams()
   const { data: teams, isLoading: isTeamsLoading } = useTeams()
+
+  const productsLimit = useMemo(() => {
+    return favoriteTeams?.length || 32
+  }, [favoriteTeams?.length])
+
   const { data: products, isLoading: isPopularProductsLoading } = usePopularProducts({
-    limit: favoriteTeams?.length || 32,
+    limit: productsLimit,
   })
 
-  const handleClickTeam = (event: React.MouseEvent<HTMLDivElement>) => {
-    const target = (event.target as HTMLElement).closest("[data-team-id]")
+  const handleClickTeam = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const target = (event.target as HTMLElement).closest("[data-team-id]")
 
-    if (target) {
-      const teamId = target.getAttribute("data-team-id")
-      if (teamId) {
-        navigate(routes.clubs.single(teamId))
+      if (target) {
+        const teamId = target.getAttribute("data-team-id")
+        if (teamId) {
+          navigate(routes.clubs.single(teamId))
+        }
       }
-    }
-  }
+    },
+    [navigate, routes.clubs]
+  )
 
-  const handleClickProduct = (event: React.MouseEvent<HTMLDivElement>) => {
-    const target = (event.target as HTMLElement).closest("[data-product-id]")
+  const handleClickProduct = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const target = (event.target as HTMLElement).closest("[data-product-id]")
 
-    if (target) {
-      const productId = target.getAttribute("data-product-id")
-      if (productId) {
-        navigate(routes.products.single(productId))
+      if (target) {
+        const productId = target.getAttribute("data-product-id")
+        if (productId) {
+          navigate(routes.products.single(productId))
+        }
       }
-    }
-  }
+    },
+    [navigate, routes.products]
+  )
+
+  const teamElements = useMemo(() => {
+    return teams?.map((team) => <TeamCard key={team.id} team={team} />) || []
+  }, [teams])
+
+  const productElements = useMemo(() => {
+    return products?.map((product) => <FanSupportCard key={product.id} product={product} showCountdown />) || []
+  }, [products])
 
   return (
     <div className="flex flex-col">
@@ -70,7 +94,7 @@ const MainPage = () => {
           title="Popular Clubs"
           navCount={5}
           rowCount={1}
-          elements={teams?.map((team) => <TeamCard key={team.id} team={team} />) || []}
+          elements={teamElements}
           className="mb-10"
           isLoading={isTeamsLoading}
           type="teams"
@@ -79,10 +103,10 @@ const MainPage = () => {
         <CardsSlider
           onClick={handleClickProduct}
           title="Popular Fan Support"
-          subtitle="Empower your club’s future"
+          subtitle="Empower your club's future"
           navCount={2}
           rowCount={products && products?.length > 2 ? 2 : 1}
-          elements={products?.map((product) => <FanSupportCard key={product.id} product={product} />) || []}
+          elements={productElements}
           className="mb-20"
           isLoading={isPopularProductsLoading}
           type="fan-support"

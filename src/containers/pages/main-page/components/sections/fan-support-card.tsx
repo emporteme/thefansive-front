@@ -1,48 +1,26 @@
-import React, { useEffect, useState } from "react"
+import React, { memo, useMemo } from "react"
 import { formatCurrency } from "@/containers/pages/example-page/utils/format-utils"
 import { useCurrentLocale } from "@/locale/client"
 import { Button, CachedImage } from "@/shared/components/ui"
-import { NFT, Quality, Signature, Timer } from "@/shared/icons"
+import { NFT, Quality, Signature } from "@/shared/icons"
 import type { Product } from "@/shared/types/product"
+import CountdownTimer from "./countdown-timer"
 
 interface IFanSupportCardProps {
   product: Product
+  showCountdown?: boolean
 }
 
-const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
+const FanSupportCard: React.FC<IFanSupportCardProps> = memo(({ product, showCountdown = true }) => {
+  const imageNumber = useMemo(() => Math.floor(Math.random() * 5) + 1, [])
   const locale = useCurrentLocale()
-  const [timeLeft, setTimeLeft] = useState("")
 
-  const formatTime = (totalSeconds: number): string => {
-    const days = Math.floor(totalSeconds / (24 * 60 * 60))
-    const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60))
-    const minutes = Math.floor((totalSeconds % (60 * 60)) / 60)
-    const seconds = totalSeconds % 60
-
-    return `${days}d : ${hours}h : ${minutes}m : ${seconds}s`
-  }
-
-  const calculateTimeLeft = (): number => {
-    const endDate = new Date()
-    endDate.setDate(endDate.getDate() + 10)
-    endDate.setHours(3, 7, 21, 0)
-
-    const now = new Date()
-    const difference = endDate.getTime() - now.getTime()
-
-    return Math.max(0, Math.floor(difference / 1000))
-  }
-
-  useEffect(() => {
-    const updateTimer = () => {
-      const secondsLeft = calculateTimeLeft()
-      setTimeLeft(formatTime(secondsLeft))
-    }
-
-    updateTimer()
-
-    const interval = setInterval(updateTimer, 1000)
-    return () => clearInterval(interval)
+  // Устанавливаем дату окончания (через 10 дней в 03:07:21)
+  const endDate = useMemo(() => {
+    const date = new Date()
+    date.setDate(date.getDate() + 10)
+    date.setHours(3, 7, 21, 0)
+    return date
   }, [])
 
   return (
@@ -52,7 +30,7 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
           Limited Quantity
         </div>
         <CachedImage
-          src={"/images/dev/lionel-messi-pro-t-shirt.png"}
+          src={`/images/dev/products/${imageNumber}.png`}
           alt={product.productName[locale] ?? ""}
           width={275}
           height={275}
@@ -90,10 +68,7 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
             <h3 className="text-xl leading-[1.5] font-extrabold tracking-[0] text-slate-900">
               {formatCurrency(product.priceCents)}
             </h3>
-            <span className="flex items-center gap-1 text-sm tracking-[0] text-gray-600">
-              <Timer />
-              <p>{timeLeft}</p>
-            </span>
+            {showCountdown && <CountdownTimer endDate={endDate} />}
           </div>
           <Button size="lg" className="w-full" data-product-id={product.id}>
             Support Your Team
@@ -102,6 +77,8 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
       </div>
     </div>
   )
-}
+})
+
+FanSupportCard.displayName = "FanSupportCard"
 
 export default FanSupportCard

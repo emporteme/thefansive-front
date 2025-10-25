@@ -34,7 +34,7 @@ const ClubInfoPage = ({ serverTeam, serverProducts }: ClubInfoPageProps) => {
   }
 
   return (
-    <>
+    <div className="pt-6 pb-15">
       <Hero team={team} />
       <Donate
         team={team}
@@ -46,7 +46,7 @@ const ClubInfoPage = ({ serverTeam, serverProducts }: ClubInfoPageProps) => {
         <Banner />
         {product && <Product product={product} />}
       </div>
-    </>
+    </div>
   )
 }
 

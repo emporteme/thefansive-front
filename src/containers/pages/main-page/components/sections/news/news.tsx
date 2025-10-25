@@ -54,6 +54,10 @@ const News: React.FC<{ className?: string }> = ({ className }) => {
     )
   }
 
+  if (!adaptedNewsData || adaptedNewsData?.length === 0) {
+    return null
+  }
+
   return (
     <div className={cn("flex flex-col gap-6 rounded-xl bg-slate-100 px-6 py-10", className)}>
       <h1 className="text-center text-3xl leading-[48px] font-semibold text-slate-900">

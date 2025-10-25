@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 export interface CountdownTime {
   days: number
@@ -10,6 +10,7 @@ export interface CountdownTime {
 export interface UseCountdownOptions {
   onComplete?: () => void
   autoStart?: boolean
+  updateInterval?: number // Добавляем возможность настройки интервала
 }
 
 export const useCountdown = (
@@ -22,7 +23,7 @@ export const useCountdown = (
   pause: () => void
   reset: () => void
 } => {
-  const { onComplete, autoStart = true } = options
+  const { onComplete, autoStart = true, updateInterval = 1000 } = options
 
   const [timeLeft, setTimeLeft] = useState<CountdownTime>({
     days: 0,
@@ -38,10 +39,14 @@ export const useCountdown = (
   const onCompleteRef = useRef(onComplete)
   onCompleteRef.current = onComplete
 
+  // Мемоизируем targetDate для предотвращения лишних пересчетов
+  const targetTimestamp = useMemo(() => {
+    return new Date(targetDate).getTime()
+  }, [targetDate])
+
   const calculateTimeLeft = useCallback(() => {
     const now = new Date().getTime()
-    const target = new Date(targetDate).getTime()
-    const difference = target - now
+    const difference = targetTimestamp - now
 
     if (difference <= 0) {
       setIsExpired(true)
@@ -61,7 +66,7 @@ export const useCountdown = (
     const seconds = Math.floor((difference % (1000 * 60)) / 1000)
 
     return { days, hours, minutes, seconds }
-  }, [targetDate])
+  }, [targetTimestamp])
 
   useEffect(() => {
     if (!isRunning) return
@@ -72,14 +77,14 @@ export const useCountdown = (
     // Set up interval
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft())
-    }, 1000)
+    }, updateInterval)
 
     return () => clearInterval(timer)
-  }, [isRunning, calculateTimeLeft])
+  }, [isRunning, calculateTimeLeft, updateInterval])
 
-  const start = () => setIsRunning(true)
-  const pause = () => setIsRunning(false)
-  const reset = () => {
+  const start = useCallback(() => setIsRunning(true), [])
+  const pause = useCallback(() => setIsRunning(false), [])
+  const reset = useCallback(() => {
     setIsRunning(false)
     setIsExpired(false)
     setTimeLeft({
@@ -88,7 +93,7 @@ export const useCountdown = (
       minutes: 0,
       seconds: 0,
     })
-  }
+  }, [])
 
   return {
     ...timeLeft,

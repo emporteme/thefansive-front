@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useMemo } from "react"
+import React, { useCallback, useMemo } from "react"
 import { useFavoriteTeams, usePopularProducts, useTeams } from "@/shared/api/hooks"
 import ContainerLayout from "@/shared/components/ui/container-layout"
 import { useNavigate } from "@/shared/hooks/client/use-navigate"
@@ -28,6 +28,11 @@ const banners = [
 ]
 
 const MainPage = () => {
+  // Отладка перерисовок в development
+  if (process.env.NODE_ENV === "development") {
+    console.log("MainPage rendered")
+  }
+
   const navigate = useNavigate()
   const routes = useRoutes()
   const { data: favoriteTeams, isLoading: isFavoriteTeamsLoading } = useFavoriteTeams()
@@ -41,34 +46,40 @@ const MainPage = () => {
     limit: productsLimit,
   })
 
-  const handleClickTeam = (event: React.MouseEvent<HTMLDivElement>) => {
-    const target = (event.target as HTMLElement).closest("[data-team-id]")
+  const handleClickTeam = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const target = (event.target as HTMLElement).closest("[data-team-id]")
 
-    if (target) {
-      const teamId = target.getAttribute("data-team-id")
-      if (teamId) {
-        navigate(routes.clubs.single(teamId))
+      if (target) {
+        const teamId = target.getAttribute("data-team-id")
+        if (teamId) {
+          navigate(routes.clubs.single(teamId))
+        }
       }
-    }
-  }
+    },
+    [navigate, routes.clubs]
+  )
 
-  const handleClickProduct = (event: React.MouseEvent<HTMLDivElement>) => {
-    const target = (event.target as HTMLElement).closest("[data-product-id]")
+  const handleClickProduct = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const target = (event.target as HTMLElement).closest("[data-product-id]")
 
-    if (target) {
-      const productId = target.getAttribute("data-product-id")
-      if (productId) {
-        navigate(routes.products.single(productId))
+      if (target) {
+        const productId = target.getAttribute("data-product-id")
+        if (productId) {
+          navigate(routes.products.single(productId))
+        }
       }
-    }
-  }
+    },
+    [navigate, routes.products]
+  )
 
   const teamElements = useMemo(() => {
     return teams?.map((team) => <TeamCard key={team.id} team={team} />) || []
   }, [teams])
 
   const productElements = useMemo(() => {
-    return products?.map((product) => <FanSupportCard key={product.id} product={product} />) || []
+    return products?.map((product) => <FanSupportCard key={product.id} product={product} showCountdown />) || []
   }, [products])
 
   return (

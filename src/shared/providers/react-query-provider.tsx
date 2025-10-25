@@ -18,7 +18,7 @@ export function ReactQueryProvider({ children }: ReactQueryProviderProps) {
             refetchOnWindowFocus: false,
             refetchOnMount: false,
             refetchOnReconnect: false,
-            retry: false,
+            retry: 0,
             // Отключаем автоматические запросы в development
             ...(process.env.NODE_ENV === "development" && {
               refetchInterval: false,
@@ -26,7 +26,7 @@ export function ReactQueryProvider({ children }: ReactQueryProviderProps) {
             }),
           },
           mutations: {
-            retry: 1,
+            retry: 0,
           },
         },
       })

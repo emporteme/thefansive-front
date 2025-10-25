@@ -75,7 +75,7 @@ const MainSlider: React.FC<MainSliderProps> = ({
   return (
     <div
       className={classNames(
-        "relative mt-7.5 w-full overflow-hidden rounded-none bg-black",
+        "relative mt-6 w-full overflow-hidden rounded-none bg-black",
         "aspect-[1440/500]",
         className
       )}

@@ -32,8 +32,13 @@ const MainPage = () => {
   const routes = useRoutes()
   const { data: favoriteTeams, isLoading: isFavoriteTeamsLoading } = useFavoriteTeams()
   const { data: teams, isLoading: isTeamsLoading } = useTeams()
+
+  const productsLimit = useMemo(() => {
+    return favoriteTeams?.length || 32
+  }, [favoriteTeams?.length])
+
   const { data: products, isLoading: isPopularProductsLoading } = usePopularProducts({
-    limit: favoriteTeams?.length || 32,
+    limit: productsLimit,
   })
 
   const handleClickTeam = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -58,7 +63,6 @@ const MainPage = () => {
     }
   }
 
-  // Мемоизируем элементы для предотвращения перерендеров
   const teamElements = useMemo(() => {
     return teams?.map((team) => <TeamCard key={team.id} team={team} />) || []
   }, [teams])

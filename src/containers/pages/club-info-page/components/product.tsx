@@ -41,30 +41,30 @@ const Product = ({ product }: ProductProps) => {
             </span>
             <h2 className="grow text-2xl font-bold">{product.productName[locale]}</h2>
           </div>
-          <p className="mb-8 text-xl text-gray-500">
+          <p className="mb-9 text-xl leading-[1.4] tracking-normal text-slate-900">
             Bring the passion of Liverpool onto the field with this exclusive green jersey, now available in limited
             quantities!
           </p>
           {!isExpired ? (
-            <div className="mb-8 flex w-fit items-center gap-[10px] rounded-lg bg-slate-100 px-5 py-[10px]">
+            <div className="mb-9 flex w-fit items-center gap-2.5 rounded-lg bg-slate-100 px-5 py-2.5">
               <div className="flex flex-col gap-1 p-1 text-center">
-                <p className="text-2xl font-bold">{days.toString().padStart(2, "0")}</p>
-                <p className="text-sm text-gray-500">Days</p>
+                <p className="text-2xl font-medium">{days.toString().padStart(2, "0")}</p>
+                <p className="text-xs text-gray-500">Days</p>
               </div>
               <span className="block h-5 w-[1px] bg-slate-400"></span>
               <div className="flex flex-col gap-1 p-1 text-center">
-                <p className="text-2xl font-bold">{hours.toString().padStart(2, "0")}</p>
-                <p className="text-sm text-gray-500">Hours</p>
+                <p className="text-2xl font-medium">{hours.toString().padStart(2, "0")}</p>
+                <p className="text-xs text-gray-500">Hours</p>
               </div>
               <span className="block h-5 w-[1px] bg-slate-400"></span>
               <div className="flex flex-col gap-1 p-1 text-center">
-                <p className="text-2xl font-bold">{minutes.toString().padStart(2, "0")}</p>
-                <p className="text-sm text-gray-500">Minutes</p>
+                <p className="text-2xl font-medium">{minutes.toString().padStart(2, "0")}</p>
+                <p className="text-xs text-gray-500">Minutes</p>
               </div>
               <span className="block h-5 w-[1px] bg-slate-400"></span>
               <div className="flex flex-col gap-1 p-1 text-center">
-                <p className="text-2xl font-bold">{seconds.toString().padStart(2, "0")}</p>
-                <p className="text-sm text-gray-500">Seconds</p>
+                <p className="text-2xl font-medium">{seconds.toString().padStart(2, "0")}</p>
+                <p className="text-xs text-gray-500">Seconds</p>
               </div>
             </div>
           ) : (

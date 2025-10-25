@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { formatCurrency } from "@/containers/pages/example-page/utils/format-utils"
 import { useCurrentLocale } from "@/locale/client"
 import { Button, CachedImage } from "@/shared/components/ui"
+import { useCountdown } from "@/shared/hooks/client"
 import { NFT, Quality, Signature, Timer } from "@/shared/icons"
 import type { Product } from "@/shared/types/product"
 
@@ -11,39 +12,22 @@ interface IFanSupportCardProps {
 
 const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
   const locale = useCurrentLocale()
-  const [timeLeft, setTimeLeft] = useState("")
 
-  const formatTime = (totalSeconds: number): string => {
-    const days = Math.floor(totalSeconds / (24 * 60 * 60))
-    const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60))
-    const minutes = Math.floor((totalSeconds % (60 * 60)) / 60)
-    const seconds = totalSeconds % 60
+  // Устанавливаем дату окончания (через 10 дней в 03:07:21)
+  const endDate = new Date()
+  endDate.setDate(endDate.getDate() + 10)
+  endDate.setHours(3, 7, 21, 0)
 
+  const { days, hours, minutes, seconds, isExpired } = useCountdown(endDate, {
+    onComplete: () => {
+      console.log("Fan support campaign has ended!")
+    },
+  })
+
+  const formatTime = (): string => {
+    if (isExpired) return "Ended"
     return `${days}d : ${hours}h : ${minutes}m : ${seconds}s`
   }
-
-  const calculateTimeLeft = (): number => {
-    const endDate = new Date()
-    endDate.setDate(endDate.getDate() + 10)
-    endDate.setHours(3, 7, 21, 0)
-
-    const now = new Date()
-    const difference = endDate.getTime() - now.getTime()
-
-    return Math.max(0, Math.floor(difference / 1000))
-  }
-
-  useEffect(() => {
-    const updateTimer = () => {
-      const secondsLeft = calculateTimeLeft()
-      setTimeLeft(formatTime(secondsLeft))
-    }
-
-    updateTimer()
-
-    const interval = setInterval(updateTimer, 1000)
-    return () => clearInterval(interval)
-  }, [])
 
   return (
     <div className="flex flex-col items-stretch gap-3 p-3 md:flex-row">
@@ -92,7 +76,7 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
             </h3>
             <span className="flex items-center gap-1 text-sm tracking-[0] text-gray-600">
               <Timer />
-              <p>{timeLeft}</p>
+              <p>{formatTime()}</p>
             </span>
           </div>
           <Button size="lg" className="w-full" data-product-id={product.id}>

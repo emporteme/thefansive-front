@@ -14,7 +14,7 @@ type UserInfo = {
 
 const AnimatedCounter: FC<{ value: number; delay?: number }> = ({ value, delay = 0 }) => {
   const { currentValue } = useCounterAnimation(value, {
-    duration: 1500,
+    duration: value * 10,
     delay: delay,
   })
 

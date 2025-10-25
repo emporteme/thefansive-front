@@ -9,7 +9,7 @@ interface CountdownTimerProps {
 
 const CountdownTimer: React.FC<CountdownTimerProps> = memo(({ endDate, className }) => {
   const { days, hours, minutes, seconds, isExpired } = useCountdown(endDate, {
-    updateInterval: 5000, // Обновляем каждые 5 секунд
+    updateInterval: 1000,
   })
 
   const formatTime = useCallback((): string => {

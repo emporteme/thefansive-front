@@ -8,7 +8,7 @@ import CountdownTimer from "./countdown-timer"
 
 interface IFanSupportCardProps {
   product: Product
-  showCountdown?: boolean // Добавляем опцию для отключения countdown
+  showCountdown?: boolean
 }
 
 const FanSupportCard: React.FC<IFanSupportCardProps> = memo(({ product, showCountdown = true }) => {

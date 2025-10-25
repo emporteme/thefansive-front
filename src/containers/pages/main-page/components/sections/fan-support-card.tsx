@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { formatCurrency } from "@/containers/pages/example-page/utils/format-utils"
 import { useCurrentLocale } from "@/locale/client"
 import { Button, CachedImage } from "@/shared/components/ui"
@@ -10,11 +10,8 @@ interface IFanSupportCardProps {
   product: Product
 }
 
-const getNumber = () => {
-  return Math.floor(Math.random() * 5) + 1 // 1-5
-}
-
 const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
+  const imageNumber = useMemo(() => Math.floor(Math.random() * 5) + 1, [])
   const locale = useCurrentLocale()
 
   // Устанавливаем дату окончания (через 10 дней в 03:07:21)
@@ -40,7 +37,7 @@ const FanSupportCard: React.FC<IFanSupportCardProps> = ({ product }) => {
           Limited Quantity
         </div>
         <CachedImage
-          src={`/images/dev/products/${getNumber()}.png`}
+          src={`/images/dev/products/${imageNumber}.png`}
           alt={product.productName[locale] ?? ""}
           width={275}
           height={275}

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useMemo } from "react"
 import { useCurrentLocale } from "@/locale/client"
 import { Button } from "@/shared/components/ui"
 import ContainerLayout from "@/shared/components/ui/container-layout"
@@ -9,12 +10,9 @@ interface ProductProps {
   product: ProductType
 }
 
-const getNumber = () => {
-  return Math.floor(Math.random() * 5) + 1 // 1-5
-}
-
 const Product = ({ product }: ProductProps) => {
   const locale = useCurrentLocale()
+  const imageNumber = useMemo(() => Math.floor(Math.random() * 5) + 1, [])
 
   const saleEndDate = new Date()
   saleEndDate.setDate(saleEndDate.getDate() + 5)
@@ -31,7 +29,7 @@ const Product = ({ product }: ProductProps) => {
       <div className="flex gap-10">
         <div className="rounded-2lg flex w-[500px] flex-none items-center justify-center bg-[#F4F4F4] p-6">
           <Image
-            src={`/images/dev/products/${getNumber()}.png`}
+            src={`/images/dev/products/${imageNumber}.png`}
             alt={product.productName[locale] || "Product image"}
             width={500}
             height={500}
